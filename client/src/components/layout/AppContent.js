@@ -1,0 +1,73 @@
+import React, { Component } from "react";
+import classnames from "classnames";
+import { withRouter } from "react-router";
+import PropTypes from "prop-types";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import PrivateRoute from "../../components/controls/PrivateRoute";
+
+import SocketController from "../../components/logic-controls/SocketController";
+
+//import YoutubePlayer from "videojs-youtube";
+
+import Navbar from "../../components/layout/Navbar";
+import Footer from "../../components/layout/Footer";
+import Landing from "../../components/layout/Landing";
+import Register from "../../components/auth/Register";
+import Login from "../../components/auth/Login";
+import Lobby from "../../components/lobby/Lobby";
+import VideoSession from "../../components/video-session/VideoSession";
+// import P2PTest from "../../components/test/P2PTest";
+// import WebRtcConferenceTest from "../../components/test/WebRtcConferenceTest";
+
+import NotFound from "../../components/not-found/NotFound";
+import VisibilityController from "../logic-controls/VisibilityController";
+
+class AppContent extends Component {
+  render() {
+    const isSessionPath = this.props.location.pathname.includes("/session");
+
+    return (
+      <div
+        className={classnames("App", {
+          AppFillScreen: isSessionPath
+        })}
+      >
+        {/* invisible controllers */}
+        <VisibilityController />
+
+        <Navbar isSession={isSessionPath} />
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+        <SocketController>
+          {/* <Route
+            exact
+            path="/testConference"
+            component={WebRtcConferenceTest}
+          />
+          <Route exact path="/testSimplePeer" component={P2PTest} /> */}
+
+          <Switch>
+            <PrivateRoute exact path="/lobby" component={Lobby} />
+            <PrivateRoute
+              exact
+              path="/session/:sessionId"
+              component={VideoSession}
+            />
+          </Switch>
+        </SocketController>
+        <Route exact path="/not-found" component={NotFound} />
+        <Footer isSession={isSessionPath} />
+      </div>
+    );
+  }
+}
+
+AppContent.propTypes = {
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
+};
+
+export default withRouter(AppContent);

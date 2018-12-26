@@ -1,0 +1,18 @@
+#VideoCanvas {
+  /* border: 3px solid red; */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.videocanvas-marker-transient {
+  cursor: url("../../../img/highlighter-solid.svg") 0 25, crosshair;
+}
+
+.videocanvas-marker-none {
+  cursor: default;
+  pointer-events: none;
+}

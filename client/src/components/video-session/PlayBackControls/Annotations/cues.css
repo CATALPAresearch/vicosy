@@ -1,0 +1,45 @@
+.cue {
+  cursor: pointer;
+  position: absolute;
+  top: -18px;
+  transform: scale(1.2) translateX(-40%);
+  transform-origin: 50% 80%;
+}
+
+.presence-cue {
+  cursor: pointer;
+  position: absolute;
+  bottom: -19px;
+  color: rgb(255, 255, 255);
+  transform: scale(1.2) translateX(-40%);
+  transform-origin: 50% 0;
+}
+
+.cue-detailmode {
+  transform: scale(1.5) translateX(-35%);
+  /* color: yellow; */
+}
+
+/* .timeline-overlay {
+  background-color: aqua;
+  height: 5px;
+} */
+
+.section-highlight {
+  position: absolute;
+  top: 5px;
+  height: 4px;
+  /* background-color: rgba(9, 255, 0, 0.753); */
+}
+
+.section-primary {
+  -moz-box-shadow: 0 0 15px 3px #33ff009f;
+  -webkit-box-shadow: 0 0 15px 3px #33ff009f;
+  box-shadow: 0 0 15px 3px #33ff009f;
+}
+
+.section-secondary {
+  -moz-box-shadow: 0 0 8px 3px #ff5a5a98;
+  -webkit-box-shadow: 0 0 8px 3px #ff5a5a98;
+  box-shadow: 0 0 8px 3px #ff5a5a98;
+}

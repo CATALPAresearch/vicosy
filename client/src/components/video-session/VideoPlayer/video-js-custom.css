@@ -1,0 +1,40 @@
+.video-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.video-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-container2 {
+  width: 500px;
+  height: 300px;
+}
+
+.video-js.vjs-playing .vjs-tech {
+  pointer-events: none;
+}
+
+/*.video-container > video {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+@media screen and (max-aspect-ratio: 1920/1080) {
+  .video-container > video {
+    height: 100%;
+  }
+}
+@media screen and (min-aspect-ratio: 1920/1080) {
+  .video-container > video {
+    width: 100%;
+  }
+}*/

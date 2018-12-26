@@ -1,0 +1,25 @@
+.session-user-item {
+  background-color: azure;
+  -moz-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  border: none;
+  padding: 5px;
+  margin: 2px 0 2px 0;
+}
+
+.session-user-item-own {
+  background-color: grey;
+}
+
+.sessionuser-item-info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.viewspace-indicator {
+  color: rgb(24, 24, 24);
+  padding: auto;
+  margin-left: 3px;
+}

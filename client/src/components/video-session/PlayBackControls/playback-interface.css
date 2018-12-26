@@ -1,0 +1,24 @@
+.playback-interface {
+  color: #ffffff;
+  padding: 3px;
+}
+
+.playback-interface > .time-wrapper {
+  min-width: 65px;
+  max-width: 65px;
+}
+
+.playback-interface > .time-wrapper:hover {
+  cursor: none;
+}
+
+.playback-interface > .volume-slider {
+  width: 80px;
+}
+
+.playback-interface > .slider-area {
+  flex-grow: 1;
+  position: relative;
+  margin-left: 20px;
+  margin-right: 25px;
+}

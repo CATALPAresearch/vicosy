@@ -1,0 +1,23 @@
+.annotation-overview {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.annotation-overview-entry {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  /* justify-content: space-between; */
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.annotation-overview-entry > .time-display {
+  font-size: 80%;
+}
+
+.annotation-overview-entry:hover {
+  background-color: rgb(191, 187, 255);
+}

@@ -1,0 +1,202 @@
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser, loginGuest } from "../../actions/authActions";
+import ClientCounter from "../controls/ClientCounter";
+import RoomComponent from "../controls/RoomComponent";
+import classnames from "classnames";
+import { clearError } from "../../actions/errorActions";
+import { withRouter } from "react-router";
+import { LOG } from "../logic-controls/logEvents";
+
+class Navbar extends Component {
+  onLogoutClick(e) {
+    e.preventDefault();
+    this.props.logoutUser();
+  }
+
+  onWarningDismissed(e) {
+    console.log("clearwarning");
+
+    this.props.clearError("warning");
+  }
+
+  onGuestLogin() {
+    this.props.loginGuest();
+    this.props.history.push("/login");
+  }
+
+  onShareSession() {
+    var url = window.location.href;
+    window.logEvents.dispatch(LOG, {
+      class: "success",
+      message: `Send following URL to your friend: ${url}`
+    });
+  }
+
+  render() {
+    const { isAuthenticated, user } = this.props.auth;
+
+    var warningMessage = null;
+    if (isAuthenticated && "warning" in this.props.errors) {
+      warningMessage = (
+        <div
+          className="alert alert-warning alert-dismissible show p-1 pr-4 mt-0 mb-0"
+          role="alert"
+        >
+          {this.props.errors.warning}
+          <button
+            type="button"
+            className="close p-1 mt-0 mb-0 pl-10"
+            aria-label="Close"
+            onClick={this.onWarningDismissed.bind(this)}
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      );
+    }
+
+    var errorMessage = null;
+    if (isAuthenticated && "socket_disconnect" in this.props.errors) {
+      errorMessage = (
+        <span
+          className="alert alert-danger p-1 mt-0 mb-0 mr-2 alpha-pulse"
+          role="alert"
+        >
+          <strong>Disconnected</strong> - trying to reconnect...
+        </span>
+      );
+    }
+
+    const { isSession } = this.props;
+
+    const faqItem = (
+      <li className="nav-item">
+        <a
+          className="nav-link"
+          href="http://h2088653.stratoserver.net/closeuptogether/faq/closeup-faq.html"
+          target="_blank"
+        >
+          FAQ <i className="fa fa-question-circle" />
+        </a>
+      </li>
+    );
+
+    const authLinks = (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/lobby">
+            Lobby <RoomComponent component={ClientCounter} roomId="lobby" />
+          </Link>
+        </li>
+        {/* <li>
+          <Link className="nav-link" to="/testConference">
+            Conference
+          </Link>
+        </li>*/}
+        <li
+          className={classnames("nav-item", {
+            "hidden-nosize": !isSession
+          })}
+        >
+          <span>
+            <button
+              href="#"
+              onClick={this.onShareSession.bind(this)}
+              className="nav-link btn btn-outline-success"
+            >
+              Share Session <i className="fa fa-share-alt-square" />
+            </button>
+          </span>
+        </li>
+        {faqItem}
+        <li className="nav-item">
+          <a
+            href=""
+            onClick={this.onLogoutClick.bind(this)}
+            className="nav-link"
+          >
+            <img
+              className="rounded-circle"
+              src={user.avatar}
+              alt={user.name}
+              style={{ width: "25px", marginRight: "5px" }}
+              title="You must have a Gravatar connected to you email to display an image"
+            />{" "}
+            Logout
+          </a>
+        </li>
+      </ul>
+    );
+
+    const guestLinks = (
+      <ul className="navbar-nav ml-auto">
+        {faqItem}
+        <li className="nav-item">
+          <Link className="nav-link" to="/register">
+            Sign Up
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/login">
+            Login
+          </Link>
+        </li>
+        <li className="nav-item">
+          <button
+            className="btn btn-success ml-2"
+            onClick={this.onGuestLogin.bind(this)}
+          >
+            Try (Guest Login)
+          </button>
+        </li>
+      </ul>
+    );
+
+    return (
+      <nav
+        className={classnames("navbar navbar-expand-sm navbar-dark bg-dark ", {
+          "mb-4": !isSession
+        })}
+      >
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/">
+            CloseUpTogether
+          </Link>
+          {errorMessage}
+          {warningMessage}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#mobile-nav"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div className="collapse navbar-collapse" id="mobile-nav">
+            {/* {isSession ? sessionInfo : null} */}
+            {isAuthenticated ? authLinks : guestLinks}
+          </div>
+        </div>
+      </nav>
+    );
+  }
+}
+
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser, clearError, loginGuest }
+)(withRouter(Navbar));

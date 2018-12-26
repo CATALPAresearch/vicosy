@@ -1,0 +1,33 @@
+#SharedDoc {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
+}
+
+.docOffsetWithCollaborationBar {
+  top: 38px;
+}
+
+.docOffsetWithoutCollaborationBar {
+  top: 0;
+}
+
+#SharedDocContent {
+  position: absolute;
+  background-color: rgba(55, 112, 129, 0.863);
+  right: 20px;
+  left: 20px;
+  bottom: 20px;
+  top: 20px;
+  border-radius: 20px;
+}
+
+#firepad {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 20px;
+  bottom: 20px;
+}

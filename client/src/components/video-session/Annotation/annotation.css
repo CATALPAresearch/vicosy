@@ -1,0 +1,17 @@
+.annotation-content {
+  position: absolute;
+  right: 3px;
+
+  min-width: 100px;
+  min-height: 150px;
+
+  z-index: 15;
+}
+
+.annotationOffsetWithCollaborationBar {
+  top: 78px;
+}
+
+.annotationOffsetWithoutCollaborationBar {
+  top: 40px;
+}

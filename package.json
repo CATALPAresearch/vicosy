@@ -1,0 +1,45 @@
+{
+  "name": "close-up-collab",
+  "version": "1.0.0",
+  "description": "synchronous video learning collaboration",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build -- prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaHermes/close-up-collab.git"
+  },
+  "author": "Markus Hermes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MaHermes/close-up-collab/issues"
+  },
+  "homepage": "https://github.com/MaHermes/close-up-collab#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "color-hash": "^1.0.3",
+    "concurrently": "^3.6.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "gravatar": "^1.6.0",
+    "helmet": "^3.13.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.4",
+    "on-change": "^0.1.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "socket.io": "^2.1.1",
+    "validator": "^10.4.0",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}

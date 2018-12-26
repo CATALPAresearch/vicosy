@@ -1,0 +1,77 @@
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+.group-timeline-handle-image {
+  position: relative;
+  color: #a2ffaa;
+  transform: scale(0.8);
+  left: 1px;
+}
+
+.basic-timeline-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  cursor: auto;
+  border-radius: 50%;
+}
+
+.basic-timeline-handle-disabled {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  opacity: 0.3;
+}
+
+.sync-timeline-handle {
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -48%);
+  background-color: green;
+  border: solid 2px rgb(115, 182, 115);
+}
+
+.async-timeline-handle {
+  transform: translate(-50%, -40%);
+  background-color: red;
+  border: solid 2px rgb(235, 81, 81);
+}
+
+.remote-scrub-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5px;
+  height: 5px;
+  /* background-color: blueviolet; */
+  pointer-events: none;
+}
+
+.remote-handle {
+  position: absolute;
+  left: 0%;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -48%);
+  border-radius: 50%;
+  background-color: green;
+  border: solid 2px rgb(115, 182, 115);
+}
+
+.remote-handle-label {
+  position: absolute;
+  top: -30px;
+  transform: translate(-50%, 0) translate(13px, 0);
+  text-align: center;
+}
+
+.remote-handle-icon {
+  position: absolute;
+  top: 10px;
+  left: 1px;
+  transform: scale(1.2);
+}
+
+.rc-slider-disabled {
+  background: none !important;
+}

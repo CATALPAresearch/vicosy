@@ -1,0 +1,3 @@
+export const PLAY_REQUEST = "PLAY_REQUEST";
+export const PAUSE_REQUEST = "PAUSE_REQUEST";
+export const SEEK_REQUEST = "SEEK_REQUEST";
