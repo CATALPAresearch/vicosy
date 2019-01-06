@@ -17,7 +17,7 @@ export default class SessionList extends Component {
         return (
           <tr key={sessionMeta.roomId}>
             <th scope="row">{sessionMeta.roomName}</th>
-            <td>{sessionMeta.videoUrl}</td>
+            <td className="force-break">{sessionMeta.videoUrl}</td>
             <td>{sessionMeta.sessionType}</td>
             <td>
               <Link
