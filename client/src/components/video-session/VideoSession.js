@@ -42,6 +42,7 @@ import SideBarTabs from "./Sidebar/SideBarTabs";
 import ChildrenRenderer from "../controls/ChildrenRenderer";
 import AnnotationOverview from "./Sidebar/AnnotationOverview/AnnotationOverview";
 import { withLastLocation } from "react-router-last-location";
+import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContainer";
 
 class VideoSession extends Component {
   constructor(props) {
@@ -240,6 +241,7 @@ class VideoSession extends Component {
                   roomId={sessionId}
                   sessionEvents={window.sessionEvents}
                 />
+                <LoadingIndicatorContainer />
               </div>
               <div className="vFlexLayout playback-interface">
                 <PlayBackInterface
