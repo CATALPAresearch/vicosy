@@ -190,8 +190,6 @@ class UserListItemSession extends Component {
       }
     }
 
-    // TODO: user is viewing film/frame ?
-
     const isSync = isOwn
       ? this.props.localState.syncState.sync
       : this.props.rooms.getAtPath(

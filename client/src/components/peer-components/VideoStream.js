@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { getStream, unregisterStream } from "../../stream-model/StreamModel";
-// import {
-//   connectToAllAndStream,
-//   disconnectMyStream
-// } from "../../p2p-handlers/P2PConnectionManager";
 import { STREAM_AVAILABLE } from "../../stream-model/streamEvents";
 import { ownSocketId } from "../../socket-handlers/api";
 import "./StreamPlayer.css";
@@ -32,7 +28,6 @@ class VideoStream extends Component {
 
   componentWillUnmount() {
     window.streamEvents.remove(STREAM_AVAILABLE, this.onStreamAvailable);
-    // disconnectMyStream(this.props.roomId);
     unregisterStream(this.props.roomId, this.props.clientId);
   }
 
@@ -61,20 +56,7 @@ class VideoStream extends Component {
 
   componentDidMount() {
     this.updateGetStream();
-
-    // if (this.props.clientId === ownSocketId()) {
-    //   this.initOwnStream();
-    // }
   }
-
-  // initOwnStream() {
-  //   getUserMedia({ video: true, audio: true }, (err, stream) => {
-  //     if (err) return console.error(err);
-
-  //     registerStream(this.props.roomId, ownSocketId(), stream);
-  //     connectToAllAndStream(this.props.roomId);
-  //   });
-  // }
 
   componentDidUpdate() {
     if (!this.state.mediaAvailable || this.state.streamActive) return;
@@ -105,24 +87,23 @@ class VideoStream extends Component {
   }
 
   render() {
+    const isOwnStream = this.props.clientId === ownSocketId();
+
     const videoContent = (
-      // <div className="roundedMask-1">
       <video
         className="roundedStrong stream-player"
         ref={this.videoRef}
-        width="320"
-        height="240"
+        width={isOwnStream ? "160" : "320"}
+        height={isOwnStream ? "120" : "240"}
         controls
         autoPlay
         playsInline
       >
         Video not supported
       </video>
-      // </div>
     );
 
     const audioContent = (
-      // <div className="roundedMask-1">
       <audio
         className="roundedStrong stream-player"
         ref={this.audioRef}
@@ -134,7 +115,6 @@ class VideoStream extends Component {
       >
         audio not supported
       </audio>
-      // </div>
     );
 
     const videoUnavailableContent = null;
@@ -157,10 +137,6 @@ class VideoStream extends Component {
           break;
       }
     } else targetContent = videoUnavailableContent;
-
-    // var targetContent = this.state.mediaAvailable
-    //   ? videoContent
-    //   : videoUnavailableContent;
 
     return targetContent;
   }
