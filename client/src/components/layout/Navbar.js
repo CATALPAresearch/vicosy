@@ -9,8 +9,15 @@ import classnames from "classnames";
 import { clearError } from "../../actions/errorActions";
 import { withRouter } from "react-router";
 import { LOG } from "../logic-controls/logEvents";
+import "./navbar.css";
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.togglerRef = React.createRef();
+  }
+
   onLogoutClick(e) {
     e.preventDefault();
     this.props.logoutUser();
@@ -102,13 +109,13 @@ class Navbar extends Component {
           })}
         >
           <span>
-            <button
+            <a
               href="#"
               onClick={this.onShareSession.bind(this)}
-              className="nav-link btn btn-outline-success"
+              className="nav-link"
             >
               Share Session <i className="fa fa-share-alt-square" />
-            </button>
+            </a>
           </span>
         </li>
         {faqItem}
@@ -157,29 +164,37 @@ class Navbar extends Component {
 
     return (
       <nav
-        className={classnames("navbar navbar-expand-sm navbar-dark bg-dark ", {
-          "mb-4": !isSession
+        className={classnames("navbar navbar-dark bg-dark ", {
+          "mb-4": !isSession,
+          "navbar-expand-sm": !isSession
         })}
       >
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            CloseUpTogether
-          </Link>
-          {errorMessage}
-          {warningMessage}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
+        {/* <a class="navbar-brand" href="#">Navbar</a> */}
+        <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
+          CloseUpTogether
+        </Link>
+        {errorMessage}
+        {warningMessage}
 
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            {/* {isSession ? sessionInfo : null} */}
-            {isAuthenticated ? authLinks : guestLinks}
-          </div>
+        <button
+          ref={this.togglerRef}
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#RightNavItems"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+
+        <div
+          onClick={() => {
+            if (isSession) this.togglerRef.current.click();
+          }}
+          className="collapse navbar-collapse"
+          id="RightNavItems"
+        >
+          {/* {isSession ? sessionInfo : null} */}
+          {isAuthenticated ? authLinks : guestLinks}
         </div>
       </nav>
     );

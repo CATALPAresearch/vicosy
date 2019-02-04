@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { formatTime } from "../../helpers/formatHelper";
 
 export default class TimeDisplay extends Component {
   render() {
-    const date = new Date(null);
-    date.setSeconds(this.props.seconds); // specify value for SECONDS here
-    const timeString = date.toISOString().substr(11, 8);
-
-    return <span className="time-display no-break">{timeString}</span>;
+    return (
+      <span className="time-display no-break">
+        {formatTime(this.props.seconds)}
+      </span>
+    );
   }
 }
 

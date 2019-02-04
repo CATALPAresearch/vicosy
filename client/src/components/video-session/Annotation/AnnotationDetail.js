@@ -13,6 +13,8 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
 import { SEEK_REQUEST } from "../PlayBackUiEvents";
+import connectUIState from "../../../highOrderComponents/UIStateConsumer";
+import { formatTime } from "../../../helpers/formatHelper";
 
 // Annotation Viewer / Editor
 class AnnotationDetail extends Component {
@@ -24,6 +26,7 @@ class AnnotationDetail extends Component {
     this.state = {
       title: "",
       content: "",
+      type: "annotation",
       visible: false,
       timestamp: 0,
       frameSynced: true,
@@ -47,7 +50,8 @@ class AnnotationDetail extends Component {
 
     window.annotationEvents.dispatch(SET_ANNOTATION, this.state.timestamp, {
       title: this.state.title,
-      text: this.state.content
+      text: this.state.content,
+      type: this.state.type
     });
 
     this.props.deActivateAnnotationEditing();
@@ -122,7 +126,8 @@ class AnnotationDetail extends Component {
       ? props.localState.annotationEditing.playTime
       : -1;
 
-    const isVisible = !!props.localState.annotationEditing;
+    const isVisible =
+      !!props.localState.annotationEditing && props.isVideoVisible;
 
     const currentPlayTime = this.props.playerRef.current.getCurrentTime();
     const frameSynced = timestamp === currentPlayTime;
@@ -155,14 +160,18 @@ class AnnotationDetail extends Component {
 
     // only change text on initialize
     if (isVisible && (!wasVisible || prevTimeStamp != timestamp)) {
-      // only update contents if we are not movin the annotation
+      // only update contents if we are not moving the annotation
       if (!this.preventContentChange) {
         if (availableAnnotationData) {
           newStateData.title = availableAnnotationData.title;
           newStateData.content = availableAnnotationData.text;
+          newStateData.type = availableAnnotationData.type
+            ? availableAnnotationData.type
+            : "annotation";
         } else {
           newStateData.title = "";
           newStateData.content = "";
+          newStateData.type = this.props.settings.annotationType;
           setTimeout(() => {
             this.titleRef.current.focus();
           }, 100);
@@ -184,9 +193,7 @@ class AnnotationDetail extends Component {
     return (
       <div
         className={classnames("annotation-content roundedStrong", {
-          "hidden-nosize": !this.state.visible,
-          annotationOffsetWithCollaborationBar: this.props.useOffset,
-          annotationOffsetWithoutCollaborationBar: !this.props.useOffset
+          "hidden-nosize": !this.state.visible
         })}
       >
         <form className="form-control form-control-lg" onSubmit={this.onSubmit}>
@@ -213,7 +220,7 @@ class AnnotationDetail extends Component {
               <input
                 type="text"
                 className="form-control"
-                value={this.state.timestamp}
+                value={formatTime(this.state.timestamp)}
                 disabled
               />
             </div>
@@ -242,6 +249,11 @@ class AnnotationDetail extends Component {
               placeholder="Annotation contents..."
             />
           </div>
+          {this.state.isNew ? (
+            <p className="text-secondary" style={{ fontSize: "x-small" }}>
+              Tip: Quickly add annotation by sending "@@TITLE" chat command
+            </p>
+          ) : null}
           <button
             onClick={this.onJumpClick.bind(this)}
             type="button"
@@ -255,7 +267,7 @@ class AnnotationDetail extends Component {
           <input
             className="btn btn-primary mb-2 btn-sm"
             type="submit"
-            value="Submit"
+            value={this.state.isNew ? "Create" : "Submit"}
             title="Save this annotation to shared space"
           />
 
@@ -289,7 +301,7 @@ class AnnotationDetail extends Component {
         </form>
         <button
           onClick={this.onCloseClick.bind(this)}
-          className="btn btn-primary btn-sm close-btn"
+          className="btn btn-danger btn-sm close-btn"
         >
           <i className="fa fa-times-circle" />
         </button>
@@ -307,4 +319,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { deActivateAnnotationEditing, activateAnnotationEditing }
-)(AnnotationDetail);
+)(connectUIState(AnnotationDetail));

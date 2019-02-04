@@ -26,6 +26,7 @@ app.use(function(req, res, next) {
   );
   res.header("Access-Control-Allow-Methods", "OPTIONS, POST, GET");
   res.header("Access-Control-Max-Age", 2592000); // 30 days
+
   next();
 });
 
@@ -62,7 +63,23 @@ app.use("/api/users", users);
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"));
+
+  // app.get("/PeerTeachingGuide/*", (req, res) => {
+  //   console.log("get request received Peer Teaching", req.url);
+  //   res.sendFile(
+  //     path.resolve(
+  //       __dirname,
+  //       "client",
+  //       "build",
+  //       "PeerTeachingGuide",
+  //       "Completion.html"
+  //     )
+  //   );
+  // });
+
   app.get("*", (req, res) => {
+    console.log("get request received", req.url);
+
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
@@ -115,7 +132,8 @@ io.use((socket, next) => {
 
     socket.authData = decoded;
     socket.nick = nickName;
-    socket.color = colorHash.hex(socket.id + nickName);
+    // socket.color = colorHash.hex(socket.id + nickName);
+    socket.color = colorHash.hex(nickName);
     return next();
   });
 });

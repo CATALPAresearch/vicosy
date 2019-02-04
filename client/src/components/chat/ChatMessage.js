@@ -6,16 +6,9 @@ import {
   MESSAGE_JOINLEAVE,
   MESSAGE_LOG
 } from "../../shared_constants/systemChatMessageTypes";
-import classnames from "classnames";
-import { SEEK_REQUEST } from "../video-session/PlayBackUiEvents";
-import TimeDisplay from "../controls/TimeDisplay";
+import TimeButton from "../controls/TimeButton";
 
 export default class ChatMessage extends Component {
-  onTimeActionClick(messageData) {
-    console.log("jump to", messageData);
-    window.sessionEvents.dispatch(SEEK_REQUEST, messageData.time);
-  }
-
   render() {
     const { message } = this.props;
 
@@ -24,26 +17,16 @@ export default class ChatMessage extends Component {
 
     switch (message.type) {
       case MESSAGE_SYNCHACTION:
-        // const date = new Date(null);
-        // date.setSeconds(message.message.time); // specify value for SECONDS here
-        // const timeString = date.toISOString().substr(11, 8);
         messageContent = (
           <span className="font-weight-light">
-            <button
-              onClick={this.onTimeActionClick.bind(this, message.message)}
-              type="button"
-              className="btn btn-outline-dark"
-            >
-              <i
-                className={classnames("fa mr-1", {
-                  "fa-play-circle": message.message.mediaAction === "play",
-                  "fa-pause-circle": message.message.mediaAction === "pause"
-                })}
-                style={{ color: "#007bff" }}
-              />
-              <TimeDisplay seconds={message.message.time} />
-              {/* {timeString} */}
-            </button>
+            <TimeButton
+              secs={message.message.time}
+              faIcon={
+                message.message.mediaAction === "play"
+                  ? "fa-play-circle"
+                  : "fa-pause-circle"
+              }
+            />
           </span>
         );
         break;

@@ -13,6 +13,7 @@ import AsyncController from "./PhaseControllers/AsyncController";
 import { connect } from "react-redux";
 import { setSyncState } from "../../actions/localStateActions";
 import DialogController from "./PhaseControllers/DialogController";
+import connectUIState from "../../highOrderComponents/UIStateConsumer";
 
 // component that controls session and speaks with AbstractPlayer and Redux state
 // must be used as a RoomComponent
@@ -167,11 +168,9 @@ class VideoSessionController extends Component {
       <h1>Waiting for Player to be ready...</h1>
     );
 
-    // console.log("PLAYER READY???", this.state);
-
     const targetContent = this.state.playerApiInitialized
       ? contentPlayerApiInitialized
-      : contentPlayerApiNotInitialized;
+      : null;
 
     return <div>{targetContent}</div>;
   }

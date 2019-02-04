@@ -6,13 +6,15 @@ import {
   SET_ANNOTATION,
   SET_ANNOTATION_CURRENT_PLAYTIME,
   REMOVE_ANNOTATION,
-  MOVE_ANNOTATION
+  MOVE_ANNOTATION,
+  FETCH_ANNOTATIONS
 } from "./annotationEvents";
 import { connect } from "react-redux";
 import {
   sendSharedAnnotation,
   ownSocketId,
-  removeSharedAnnotation
+  removeSharedAnnotation,
+  fetchAnnotations
 } from "../../socket-handlers/api";
 import connectUserData from "../../highOrderComponents/OwnUserDataConsumer";
 
@@ -26,6 +28,7 @@ class AnnotationController extends Component {
     );
     this.onAnnotationRemoveRequest = this.onAnnotationRemoveRequest.bind(this);
     this.onAnnotationMoveRequest = this.onAnnotationMoveRequest.bind(this);
+    this.onAnnotationFetchRequest = this.onAnnotationFetchRequest.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +42,10 @@ class AnnotationController extends Component {
       this.onAnnotationCurrentAddRequest
     );
     window.annotationEvents.add(MOVE_ANNOTATION, this.onAnnotationMoveRequest);
+    window.annotationEvents.add(
+      FETCH_ANNOTATIONS,
+      this.onAnnotationFetchRequest
+    );
   }
 
   componentWillUnmount() {
@@ -55,6 +62,14 @@ class AnnotationController extends Component {
       MOVE_ANNOTATION,
       this.onAnnotationMoveRequest
     );
+    window.annotationEvents.remove(
+      FETCH_ANNOTATIONS,
+      this.onAnnotationFetchRequest
+    );
+  }
+
+  onAnnotationFetchRequest() {
+    fetchAnnotations(this.props.roomId);
   }
 
   // todo: move this to backend?
@@ -66,7 +81,9 @@ class AnnotationController extends Component {
       if (!oldMeta) return;
 
       sendSharedAnnotation(this.props.roomId, toPlayTime.toString(), oldMeta);
-      removeSharedAnnotation(this.props.roomId, fromPlayTime.toString());
+      setTimeout(() => {
+        removeSharedAnnotation(this.props.roomId, fromPlayTime.toString());
+      }, 200);
     } catch (e) {
       return;
     }
@@ -78,7 +95,8 @@ class AnnotationController extends Component {
 
   onAnnotationAddRequest(playTime, meta) {
     // add creator & type data
-    meta.type = this.props.settings.annotationType;
+    meta.type = meta.type ? meta.type : this.props.settings.annotationType;
+
     meta.creator = { nick: this.props.ownNick, color: this.props.ownColor };
 
     sendSharedAnnotation(this.props.roomId, playTime.toString(), meta);

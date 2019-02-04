@@ -72,18 +72,9 @@ class Login extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">
-                Sign in to your DevConnector account
+                Sign in to your CloseUpTogether account
               </p>
               <form onSubmit={this.onSubmit}>
-                {/* <ValidatedInput
-                  id="email"
-                  type="email"
-                  errors={errors}
-                  onChange={this.onChange}
-                  valueProvider={this.state}
-                  placeHolder="Email Adress"
-                /> */}
-
                 <TextFieldGroup
                   placeholder="Email Adress"
                   name="email"
@@ -93,17 +84,6 @@ class Login extends Component {
                   error={errors.email}
                 />
 
-                {/* <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control form-control-lg"
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                </div> */}
-
                 <ValidatedInput
                   id="password"
                   type="password"
@@ -112,16 +92,6 @@ class Login extends Component {
                   valueProvider={this.state}
                   placeHolder="Password"
                 />
-                {/* <div className="form-group">
-                  <input
-                    type="password"
-                    className="form-control form-control-lg"
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                </div> */}
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>

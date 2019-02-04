@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { ownSocketId } from "../socket-handlers/api";
 
 const connectShared = ComponentToWrap => {
   const mapStateToProps = state => ({
@@ -14,7 +15,7 @@ const connectShared = ComponentToWrap => {
     };
 
     render() {
-      const { roomId, ownSocketId, ownNick, ownColor } = this.context;
+      const { roomId, ownNick, ownColor } = this.context;
       const sharedRoomData = this.props.rooms.rooms[roomId].state
         .sharedRoomData;
 
@@ -25,7 +26,7 @@ const connectShared = ComponentToWrap => {
           {...this.props}
           sharedRoomData={sharedRoomData}
           roomId={roomId}
-          ownSocketId={ownSocketId}
+          ownSocketId={ownSocketId()}
           ownNick={ownNick}
           ownColor={ownColor}
         />

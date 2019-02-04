@@ -32,6 +32,8 @@ class PhaseProcessorPTPrepareSectionPair extends PhaseProcessor {
         "You are now working async! You can navigate the video without affecting your peer. If you are done click on ready/continue button"
     );
 
+    super.openGuidePath("/PeerTeachingGuide/PrepareSection.html", "simple");
+
     this.setEnabledFeatures([FEATURES.ANNOTATING]);
   }
 

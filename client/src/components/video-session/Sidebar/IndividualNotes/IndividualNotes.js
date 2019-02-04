@@ -21,10 +21,16 @@ class IndividualNotes extends Component {
     // Get Firebase Database reference.
     // var firepadRef = this.getExampleRef();
 
-    // TODO: check what unique doc reference to use
+    // user has same pad for unique video url
+    const userNameHash = this.props.auth.user.name.hashCode();
+
+    const videoUrlHash = this.props.rooms.rooms[
+      this.props.roomId
+    ].state.sharedRoomData.meta.videoUrl.hashCode();
+
     var firepadRef = window.firebase
       .database()
-      .ref(`firepads/${this.props.roomId}/${this.props.auth.user.name}`);
+      .ref(`firepads/${userNameHash}/${videoUrlHash}`);
 
     // Create CodeMirror (with lineWrapping on).
     this.codeMirror = window.CodeMirror(
@@ -91,7 +97,8 @@ class IndividualNotes extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  localState: state.localState
+  localState: state.localState,
+  rooms: state.rooms
 });
 
 IndividualNotes.defaultProps = {

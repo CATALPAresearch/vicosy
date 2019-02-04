@@ -9,7 +9,9 @@ import {
   SET_SYNC_SCRUB_PERC,
   SELECT_SIDEBAR_TAB,
   RESET_LOCAL_STATE,
-  SET_UNSEEN_ACTIVITIES
+  SET_UNSEEN_ACTIVITIES,
+  OPEN_PUBLIC_GUIDE,
+  CLOSE_PUBLIC_GUIDE
 } from "../actions/types";
 import { shareLocalState } from "../socket-handlers/api";
 
@@ -26,7 +28,8 @@ const initialState = {
   }, // local only
   scrubState: { sync: true, perc: -1 }, // remote only my current scrub percent in sync space
   sideBarTab: { activeTab: "activities-tab" }, // local only activities-tab / notes-tab
-  unseenActivities: { count: 0 } // local only
+  unseenActivities: { count: 0 }, // local only
+  guide: { activeUrl: "", isOpen: false, confirmationMode: "simple" } // local & remote (confirmationMode: simple, scriptstep, none)
 };
 
 // threshold that defines when to update the scrub percent value on movement
@@ -44,6 +47,17 @@ export default function(state = initialState, action) {
       var nextSyncState = { ...state.syncState };
       nextSyncState.asyncTimestamp = action.payload;
       return shareAndGetLocalState(state, "syncState", nextSyncState);
+    case OPEN_PUBLIC_GUIDE:
+      var nextGuideState = { ...state.guide };
+      if (action.payload.publicUrl)
+        nextGuideState.activeUrl = action.payload.publicUrl;
+      nextGuideState.confirmationMode = action.payload.confirmationMode;
+      nextGuideState.isOpen = true;
+      return shareAndGetLocalState(state, "guide", nextGuideState);
+    case CLOSE_PUBLIC_GUIDE:
+      var nextGuideState = { ...state.guide };
+      nextGuideState.isOpen = false;
+      return shareAndGetLocalState(state, "guide", nextGuideState);
     case SET_SHARED_DOC_EDITING:
       const nextDocState = { ...state.sharedDocEditing };
       nextDocState.isOpen = action.payload;

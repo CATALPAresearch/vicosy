@@ -17,6 +17,7 @@ export default class ToggleSwitchButton extends Component {
         >
           <span className="mr-1">{this.props.label}</span>{" "}
           <ToggleSwitch checked={this.props.isChecked} readonly={true} />
+          {this.props.extraContent ? this.props.extraContent : null}
         </button>
       </div>
     );
@@ -31,5 +32,6 @@ ToggleSwitchButton.propTypes = {
   isChecked: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
   onToggle: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool.isRequired
+  isDisabled: PropTypes.bool.isRequired,
+  extraContent: PropTypes.object
 };

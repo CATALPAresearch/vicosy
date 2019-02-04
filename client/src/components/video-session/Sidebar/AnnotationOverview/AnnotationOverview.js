@@ -33,7 +33,7 @@ class AnnotationOverview extends Component {
 
     if (!annotationsObj || Object.keys(annotationsObj).length === 0) {
       targetContent = (
-        <p className="text-center text-muted mt-3">No annotations available</p>
+        <p className="text-center text-muted mt-5">No annotations available</p>
       );
     } else {
       targetContent = this.getValidAnnotationContent();

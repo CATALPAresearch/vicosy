@@ -15,9 +15,11 @@ class SessionCreator extends Component {
     this.sessionTypeRef = React.createRef();
 
     this.state = {
-      videourl: process.env.REACT_APP_DEFAULT_VIDEO_URL
-        ? process.env.REACT_APP_DEFAULT_VIDEO_URL
-        : "https://dl.dropboxusercontent.com/s/7bp3igw28l71cjl/Wissenschaftliches%20Arbeiten%2004%20Die%20Methoden.mp4",
+      // videourl: process.env.REACT_APP_DEFAULT_VIDEO_URL
+      //   ? process.env.REACT_APP_DEFAULT_VIDEO_URL
+      //   : "https://www.dropbox.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
+      videourl:
+        "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
       sessionname: "Meine Video Session",
       inputEdited: false
     };

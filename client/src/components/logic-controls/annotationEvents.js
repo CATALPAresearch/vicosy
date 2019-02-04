@@ -5,5 +5,7 @@ export const SET_ANNOTATION_CURRENT_PLAYTIME =
 export const REMOVE_ANNOTATION = "REMOVE_ANNOTATION"; // playtime
 export const MOVE_ANNOTATION = "MOVE_ANNOTATION"; // fromPlayTime, toPlayTime
 
+export const FETCH_ANNOTATIONS = "FETCH_ANNOTATIONS";
+
 // editing requests
 export const ANNOTATION_DETAIL = "ANNOTATION_DETAIL"; // playtime

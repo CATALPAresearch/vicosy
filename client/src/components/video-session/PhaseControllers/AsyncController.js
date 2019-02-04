@@ -1,10 +1,18 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import { setAsyncTime } from "../../../actions/localStateActions";
+import { TIME_UPDATE } from "../AbstractVideoEvents";
 
+const asyncTimeUpdateDelta = 3; // update if last state is x seconds away
 // directly converts user interactions to videoplayer commands
 // saves current play behaviour into shared localState
 class AsyncController extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onVideoTimeUpdate = this.onVideoTimeUpdate.bind(this);
+  }
+
   render() {
     return null;
   }
@@ -30,19 +38,34 @@ class AsyncController extends Component {
   onSeekRequest(targetTime) {
     // TODO: better use seek and check why handle is jumping
     this.props.playerRef.current.pause(targetTime);
-    this.props.setAsyncTime(targetTime);
+    // this.props.setAsyncTime(targetTime);
+  }
+
+  onVideoTimeUpdate() {
+    if (this.props.active) {
+      const lastSetTime = this.props.localState.syncState.asyncTimestamp;
+      const currentTime = this.props.playerRef.current.getCurrentTime();
+      const delta = Math.abs(lastSetTime - currentTime);
+      if (delta < asyncTimeUpdateDelta) return;
+      this.props.setAsyncTime(currentTime);
+    }
   }
 
   componentDidMount() {
     this.props.onRef(this);
+    window.sessionEvents.add(TIME_UPDATE, this.onVideoTimeUpdate);
   }
 
   componentWillUnmount() {
     this.props.onRef(null);
+    if (window.sessionEvents)
+      window.sessionEvents.remove(TIME_UPDATE, this.onVideoTimeUpdate);
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  localState: state.localState
+});
 
 export default connect(
   mapStateToProps,

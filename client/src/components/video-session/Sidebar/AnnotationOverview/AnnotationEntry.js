@@ -7,6 +7,8 @@ import {
   activateAnnotationEditing,
   deActivateAnnotationEditing
 } from "../../../../actions/localStateActions";
+import connectUIState from "../../../../highOrderComponents/UIStateConsumer";
+import TimeButton from "../../../controls/TimeButton";
 
 class AnnotationEntry extends Component {
   constructor() {
@@ -16,7 +18,8 @@ class AnnotationEntry extends Component {
     this.selectEntry = this.selectEntry.bind(this);
   }
 
-  onJumpClick() {
+  onJumpClick(e) {
+    e.stopPropagation();
     const { timeStamp } = this.props;
     window.sessionEvents.dispatch(SEEK_REQUEST, timeStamp);
   }
@@ -40,25 +43,20 @@ class AnnotationEntry extends Component {
     return (
       <li
         onClick={this.selectEntry}
+        title={data.text}
         className={classnames(
           "annotation-overview-entry force-break list-group-item",
           {
-            active: this.isSelected()
+            active: this.isSelected(),
+            "annotation-overview-entry-section":
+              data.type === "annotation-section"
           }
         )}
       >
-        <button
-          onClick={this.onJumpClick}
-          className="btn btn-outline-dark btn-sm"
-        >
-          <TimeDisplay seconds={timeStamp} />{" "}
-        </button>
+        <TimeButton secs={timeStamp} />
         <span className="ml-2 mr-2 force-break">
           {data.title ? data.title : "untitled"}
         </span>
-        {/* <button onClick={this.onJumpClick} className="btn btn-primary btn-sm">
-          <i className="fa fa-search" />
-        </button> */}
       </li>
     );
   }
@@ -71,4 +69,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { activateAnnotationEditing, deActivateAnnotationEditing }
-)(AnnotationEntry);
+)(connectUIState(AnnotationEntry));

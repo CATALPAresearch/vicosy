@@ -9,6 +9,7 @@ import {
 import { setSharedDocEditing } from "../../../actions/localStateActions";
 import { sendSharedRoomData, ownSocketId } from "../../../socket-handlers/api";
 import sessionTypes from "../../../shared_constants/sessionTypes";
+import { PAUSE_REQUEST } from "../PlayBackUiEvents";
 
 const SHARED_DOC_BEHAVIOUR_SYNC = "SHARED_DOC_BEHAVIOUR_SYNC";
 const SHARED_DOC_BEHAVIOUR_ASYNC = "SHARED_DOC_BEHAVIOUR_ASYNC";
@@ -79,6 +80,11 @@ class DialogController extends Component {
 
   onToggleSharedDocRequest() {
     const isOpened = this.props.localState.sharedDocEditing.isOpen;
+
+    // pause video
+    if (!isOpened && window.playerRef && !window.playerRef.current.isPaused())
+      window.sessionEvents.dispatch(PAUSE_REQUEST);
+
     if (this.state.sharedDocBehaviour === SHARED_DOC_BEHAVIOUR_ASYNC) {
       this.props.setSharedDocEditing(!isOpened);
     } else {

@@ -17,6 +17,14 @@ module.exports = class PeerTeachingPresentSection extends PeerTeachingProcessorI
     };
   }
 
+  execute() {
+    super.execute();
+
+    this.sessionProcessor.adjustRoomData("dialogAction", {
+      type: ""
+    });
+  }
+
   getPayload() {
     return this.payload;
   }

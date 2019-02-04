@@ -1,11 +1,21 @@
 #LoadingIndicatorContainer {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 5px;
+  left: 5px;
+  right: 5px;
   pointer-events: none;
   display: flex;
   flex-wrap: wrap;
+  justify-content: left;
+}
+
+#LoadingIndicatorContainerOwn {
+  position: absolute;
+  bottom: 50%;
+  right: 50%;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
 }
 
 .client-loading-indicator {

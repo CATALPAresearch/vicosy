@@ -21,3 +21,10 @@
 .annotation-overview-entry:hover {
   background-color: rgb(191, 187, 255);
 }
+
+.annotation-overview-entry-section {
+  background-color: rgb(250, 223, 106);
+  font-weight: bold;
+  position: relative;
+  /* left: -15px; */
+}

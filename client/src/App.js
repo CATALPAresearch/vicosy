@@ -14,8 +14,9 @@ import AppContent from "./components/layout/AppContent";
 
 import "./App.css";
 
+const isInIFrame = false; //window.location !== window.parent.location;
 // Check for token
-if (localStorage.jwtToken) {
+if (!isInIFrame && localStorage.jwtToken) {
   // Set auth token header auth
   setAuthToken(localStorage.jwtToken);
   // Decode token & get user info & exp
@@ -35,13 +36,17 @@ if (localStorage.jwtToken) {
 
     window.location.href = "/login";
   }
-} else {
+} else if (!isInIFrame) {
   if (window.location.pathname)
     localStorage.setItem("pathAfterLogin", window.location.pathname);
 }
 
 class App extends Component {
   render() {
+    // console.log("iframe", isInIFrame);
+
+    // if (isInIFrame) return null;
+
     return (
       <Provider store={store}>
         <Router>

@@ -93,7 +93,7 @@ module.exports = class SessionProcessorItem {
 
     const rolesReadyValues = this.sessionData.collabScript.phaseData.rolesReady;
 
-    console.log("roles ready?", rolesReadyValues, reqRoles);
+    // console.log("roles ready?", rolesReadyValues, reqRoles);
 
     for (const reqRole in reqRoles) {
       if (!rolesReadyValues[reqRoles[reqRole]]) return false;

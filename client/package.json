@@ -13,6 +13,7 @@
     "react": "^16.4.1",
     "react-contain": "^1.0.1",
     "react-dom": "^16.4.1",
+    "react-iframe": "^1.3.3",
     "react-moment": "^0.7.9",
     "react-plyr": "^2.1.1",
     "react-redux": "^5.0.7",

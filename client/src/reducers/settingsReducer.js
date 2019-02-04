@@ -8,7 +8,7 @@ import {
 const initialState = {
   markerType: "marker-transient",
   annotationType: "annotation",
-  syncSharedDocInSyncSpace: false
+  syncSharedDocInSyncSpace: true
 };
 
 export default function(state = initialState, action) {

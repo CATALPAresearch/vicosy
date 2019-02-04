@@ -12,6 +12,8 @@ export default class PhaseProcessorPTGetTogether extends PhaseProcessor {
         window.location.href
       }`
     );
+
+    super.openGuidePath("/PeerTeachingGuide/GetTogether.html", "none");
   }
 
   componentWillUnmount() {

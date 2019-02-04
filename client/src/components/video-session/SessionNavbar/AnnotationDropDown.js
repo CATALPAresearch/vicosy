@@ -6,6 +6,7 @@ import {
   deActivateAnnotationEditing
 } from "../../../actions/localStateActions";
 import { connect } from "react-redux";
+import { PAUSE_REQUEST } from "../PlayBackUiEvents";
 
 class AnnotationDropDown extends Component {
   constructor(props) {
@@ -23,12 +24,12 @@ class AnnotationDropDown extends Component {
       this.props.deActivateAnnotationEditing();
     } else {
       const playime = this.props.playerRef.current.getCurrentTime();
+      window.sessionEvents.dispatch(PAUSE_REQUEST, playime);
       this.props.activateAnnotationEditing(playime);
     }
   }
 
   onAnnotationTypeChange(type) {
-    // todo: change annotation type setting by action
     this.props.setAnnotationType(type);
   }
 

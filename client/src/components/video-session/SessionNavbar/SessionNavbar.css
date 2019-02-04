@@ -1,3 +1,51 @@
 #SyncButton {
   max-height: 100%;
 }
+
+#MainRessourceTab {
+  width: 400px;
+  margin-top: 0px;
+  height: 38px;
+}
+
+#MainRessourceTab a {
+  height: 38px;
+}
+
+.sync-counter {
+}
+
+.sync-counter.sync {
+  position: relative;
+  margin-left: 15px;
+  margin-right: 6px;
+  top: 1px;
+}
+
+.sync-counter.async {
+  padding-top: 10px;
+
+  min-width: 30px;
+  height: 31px;
+
+  margin-left: 5px;
+}
+
+.sync-switch-ready-noone {
+  background: #28a745;
+  background: -moz-linear-gradient(left, #28a745 1%, #6c757d 37%, #6c757d 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #28a745 1%,
+    #6c757d 37%,
+    #6c757d 100%
+  );
+  background: linear-gradient(to right, #28a745 1%, #6c757d 37%, #6c757d 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28a745', endColorstr='#6c757d',GradientType=1 );
+}
+
+/* #SessionNavbarContent {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+} */

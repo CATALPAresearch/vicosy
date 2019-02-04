@@ -1,7 +1,7 @@
 Object.defineProperty(Object.prototype, "getAdd", {
   value: function getAdd(any) {
     if (!(any in this)) this[any] = {};
-    console.log("PROPERTY", any);
+    // console.log("PROPERTY", any);
     return this[any];
   }
 });

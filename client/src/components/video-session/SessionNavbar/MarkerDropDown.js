@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { setMarkerType } from "../../../actions/settingActions";
 import { LOG_ERROR } from "../../logic-controls/logEvents";
+import connectUIState from "../../../highOrderComponents/UIStateConsumer";
 
 class MarkerDropDown extends Component {
   constructor(props) {
@@ -39,6 +40,8 @@ class MarkerDropDown extends Component {
   }
 
   render() {
+    if (!this.props.isMarkerUsable) return null;
+
     return (
       <div className="btn-group dropleft ml-1">
         <button
@@ -107,10 +110,11 @@ class MarkerDropDown extends Component {
 }
 
 const mapStateToProps = state => ({
-  settings: state.settings
+  settings: state.settings,
+  localState: state.localState
 });
 
 export default connect(
   mapStateToProps,
   { setMarkerType }
-)(MarkerDropDown);
+)(connectUIState(MarkerDropDown));

@@ -39,6 +39,9 @@ export const SET_UNSEEN_ACTIVITIES = "SET_UNSEEN_ACTIVITIES"; // set the amount 
 
 export const RESET_LOCAL_STATE = "RESET_LOCAL_STATE"; // reset all properties to initial state
 
+export const OPEN_PUBLIC_GUIDE = "OPEN_PUBLIC_GUIDE"; // url: string, [simpleConfirmation: bool]
+export const CLOSE_PUBLIC_GUIDE = "CLOSE_PUBLIC_GUIDE"; // url: string
+
 // restrictions
 export const ENABLE_FEATURES = "ENABLE_FEATURES"; // features or empty to enable all
 export const DISABLE_FEATURES = "DISABLE_FEATURES"; // features or empty to disable all

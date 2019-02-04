@@ -5,7 +5,8 @@ import {
   selectSidebarTabNotes,
   selectSidebarTabAnnotations
 } from "../../../actions/localStateActions";
-import ActivityCounter from "../../chat/ActivityCounter";
+// import ActivityCounter from "../../chat/ActivityCounter";
+import "./sidebar-tabs.css";
 
 class SideBarTabs extends Component {
   constructor() {
@@ -21,8 +22,8 @@ class SideBarTabs extends Component {
       {
         id: "activities-tab",
         callback: this.props.selectSidebarTabActivities,
-        name: "Activities",
-        extraContent: <ActivityCounter />
+        name: "Activities"
+        // extraContent: <ActivityCounter />
       },
       {
         id: "notes-tab",
@@ -48,7 +49,7 @@ class SideBarTabs extends Component {
       return (
         <li key={tab.id} className="nav-item">
           <a
-            className={`nav-link${isSelected ? " active" : ""}`}
+            className={`nav-link${isSelected ? " active prevent-pointer" : ""}`}
             id={tab.id}
             data-toggle="tab"
             href="#"
@@ -65,7 +66,11 @@ class SideBarTabs extends Component {
 
     return (
       <div>
-        <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <ul
+          className="nav nav-tabs nav-justified"
+          id="SideBarTabs"
+          role="tablist"
+        >
           {tabsEntries}
         </ul>
       </div>

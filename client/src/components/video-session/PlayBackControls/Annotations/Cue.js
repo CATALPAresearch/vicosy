@@ -16,7 +16,8 @@ class Cue extends Component {
 
   onRightClick(evt) {
     evt.preventDefault();
-    this.toggleSelection(true);
+    // this.toggleSelection(true);
+    window.sessionEvents.dispatch(SEEK_REQUEST, this.props.positionAbs);
   }
 
   toggleSelection(forceJumpTo) {
@@ -44,6 +45,13 @@ class Cue extends Component {
     return this.props.positionAbs === window.playerRef.current.getCurrentTime();
   }
 
+  getAnnotationCSSClass(meta) {
+    if (meta.type !== "annotation-section")
+      return meta.temporaryAdd ? "fa fa-map-marker-alt" : " fa fa-map-marker";
+
+    return "fa fa-map-signs";
+  }
+
   render() {
     const { meta } = this.props;
 
@@ -60,15 +68,14 @@ class Cue extends Component {
         }}
       >
         <i
-          className={classnames("fa", {
-            "fa-map-marker-alt alpha-pulse": meta.temporaryAdd,
-            "fa-map-marker": !meta.temporaryAdd
+          className={classnames(this.getAnnotationCSSClass(meta), {
+            "alpha-pulse": meta.temporaryAdd
           })}
           title={
             meta.temporaryAdd
               ? "New annotation"
               : `By ${meta.creator ? meta.creator.nick : "system"}: ${
-                  meta.text
+                  meta.title
                 }`
           }
         />

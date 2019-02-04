@@ -155,13 +155,13 @@ class Chat extends Component {
               style={{ display: "none" }}
             />
             <input
-              className="form-control form-control-lg mr-sm-2"
+              className="form-control form-control-sm mr-sm-2"
               type="text"
               name="input"
               value={this.state.input}
               onChange={this.onChange}
             />
-            <button type="submit" className="btn btn-info btn-lg">
+            <button type="submit" className="btn btn-secondary btn-sm">
               Send
             </button>
           </span>

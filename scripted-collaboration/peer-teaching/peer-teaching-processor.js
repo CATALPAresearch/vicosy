@@ -5,6 +5,9 @@ const PeerTeachingItemWarmUp = require("./pt-item-warm-up");
 const PeerTeachingPrepareSectionPair = require("./pt-item-prepare-section-pair");
 const PeerTeachingPresentSection = require("./pt-item-present-section");
 const PeerTeachingDeepenUnderStanding = require("./pt-item-deepen-understanding");
+const PeerTeachingReflection = require("./pt-item-reflection");
+const PeerTeachingDiscussion = require("./pt-item-discussion");
+const PeerTeachingCompletion = require("./pt-item-completion");
 
 module.exports = class PeerTeachingProcessor extends SessionProcessor {
   constructor(sessionData, emitSharedRoomData, socketIO) {
@@ -58,7 +61,16 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
     const sectionAnnotationsObj = this.sessionData.getAtPath("annotations", {
       0: { title: "dummy section", text: "" }
     });
-    const sectionTimes = Object.keys(sectionAnnotationsObj);
+    var sectionTimes = Object.keys(sectionAnnotationsObj);
+
+    sectionTimes = sectionTimes.filter(time => {
+      if (
+        sectionAnnotationsObj[time].type &&
+        sectionAnnotationsObj[time].type === "annotation-section"
+      )
+        return true;
+      return false;
+    });
     // sort annotations ascending
     sectionTimes.sort((a, b) => {
       return parseFloat(a) - parseFloat(b);
@@ -103,7 +115,6 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
 
       console.log("Phasesstring added for", startTime);
 
-      // TODO: add phases with section time in the payload!
       this.phaseQueue.push(
         new PeerTeachingPresentSection(
           { startTime, endTime },
@@ -117,8 +128,25 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
           this,
           this.switchRolesAndContinue
         )
+        // new PeerTeachingReflection(
+        //   { startTime, endTime },
+        //   this.sessionData,
+        //   this,
+        //   this.switchRolesAndContinue
+        // ),
+        // new PeerTeachingDiscussion(
+        //   { startTime, endTime },
+        //   this.sessionData,
+        //   this,
+        //   this.switchRolesAndContinue
+        // )
       );
     }
+
+    this.phaseQueue.push(
+      new PeerTeachingReflection(this.sessionData, this, this.processQueue),
+      new PeerTeachingCompletion(this.sessionData, this, this.processQueue)
+    );
 
     this.processQueue();
   }

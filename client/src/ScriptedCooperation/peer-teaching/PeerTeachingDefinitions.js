@@ -4,6 +4,9 @@ import PhaseProcessorPTSeparateSections from "./PhaseProcessorPTSeparateSections
 import PhaseProcessorPTPrepareSectionPair from "./PhaseProcessorPTPrepareSectionPair";
 import PhaseProcessorPTPresentSection from "./PhaseProcessorPTPresentSection";
 import PhaseProcessorPTDeepenUnderstanding from "./PhaseProcessorPTDeepenUnderstanding";
+import PhaseProcessorPTReflection from "./PhaseProcessorPTReflection";
+import PhaseProcessorPTDiscussion from "./PhaseProcessorPTDiscussion";
+import PhaseProcessorPTCompletion from "./PhaseProcessorPTCompletion";
 
 /**
  * Mapping phase id to processor class (react component)
@@ -26,6 +29,9 @@ export const PeerTeachingDefinitions = {
     PHASE_SEPARATE_SECTIONS: PhaseProcessorPTSeparateSections,
     PHASE_PREPARE_SECTION_PAIR: PhaseProcessorPTPrepareSectionPair,
     PHASE_PRESENT_SECTION: PhaseProcessorPTPresentSection,
-    PHASE_DEEPEN_UNDERSTANDING: PhaseProcessorPTDeepenUnderstanding
+    PHASE_DEEPEN_UNDERSTANDING: PhaseProcessorPTDeepenUnderstanding,
+    PHASE_REFLECTION: PhaseProcessorPTReflection,
+    PHASE_DISCUSSION: PhaseProcessorPTDiscussion,
+    PHASE_COMPLETION: PhaseProcessorPTCompletion
   }
 };

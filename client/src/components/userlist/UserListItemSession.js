@@ -153,6 +153,7 @@ class UserListItemSession extends Component {
      * Check users view space. Priority: absent, shared editor, annotation, film/frame
      */
     var usersViewSpaceIcon = "fa-film";
+    var viewSpaceHint = "This user is focussed on the video";
 
     // is user absent?
     const isAppInFocus = isOwn
@@ -164,28 +165,44 @@ class UserListItemSession extends Component {
 
     if (!isAppInFocus) {
       usersViewSpaceIcon = "fa-eye-slash";
+      viewSpaceHint = "The users attention lies outside the app";
     } else {
-      const isViewingSharedDoc = isOwn
-        ? this.props.localState.sharedDocEditing.isOpen
+      const isViewingGuide = isOwn
+        ? this.props.localState.guide.isOpen
         : this.props.rooms.getAtPath(
-            `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.sharedDocEditing.isOpen`,
+            `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.guide.isOpen`,
             false
           );
 
-      // user shared doc ?
-      if (isViewingSharedDoc) {
-        usersViewSpaceIcon = "fa-file-alt";
+      // user looking at guide?
+      if (isViewingGuide) {
+        usersViewSpaceIcon = "fa-info-circle";
+        viewSpaceHint = "The user is reading the guide";
       } else {
-        // user edits annotation ?
-        const isViewingAnnotationEditor = isOwn
-          ? !!this.props.localState.annotationEditing
-          : !!this.props.rooms.getAtPath(
-              `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.annotationEditing`,
+        const isViewingSharedDoc = isOwn
+          ? this.props.localState.sharedDocEditing.isOpen
+          : this.props.rooms.getAtPath(
+              `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.sharedDocEditing.isOpen`,
               false
             );
 
-        if (isViewingAnnotationEditor) {
-          usersViewSpaceIcon = "fa-map-marker";
+        // user shared doc ?
+        if (isViewingSharedDoc) {
+          usersViewSpaceIcon = "fa-file-alt";
+          viewSpaceHint = "The user is viewing the shared document";
+        } else {
+          // user edits annotation ?
+          const isViewingAnnotationEditor = isOwn
+            ? !!this.props.localState.annotationEditing
+            : !!this.props.rooms.getAtPath(
+                `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.annotationEditing`,
+                false
+              );
+
+          if (isViewingAnnotationEditor) {
+            usersViewSpaceIcon = "fa-map-marker";
+            viewSpaceHint = "The user is editing an annotation";
+          }
         }
       }
     }
@@ -256,7 +273,10 @@ class UserListItemSession extends Component {
               clientId={clientId}
               allowRoleIcon={true}
             />
-            <i className={`viewspace-indicator fa ${usersViewSpaceIcon}`} />
+            <i
+              className={`viewspace-indicator fa ${usersViewSpaceIcon}`}
+              title={viewSpaceHint}
+            />
             <TransientAwareness roomData={this.roomData} clientId={clientId} />
             {this.renderPlayBackIcon()}
           </span>

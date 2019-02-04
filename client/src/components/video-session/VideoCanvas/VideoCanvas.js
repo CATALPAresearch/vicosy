@@ -13,6 +13,7 @@ import classnames from "classnames";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
 import { PAUSE_REQUEST } from "../../video-session/PlayBackUiEvents";
 import { FEATURES } from "../../../reducers/featureTypes";
+import connectUIState from "../../../highOrderComponents/UIStateConsumer";
 
 // percent of background stroke shade
 const secondaryColorShade = 0.4;
@@ -62,6 +63,12 @@ class VideoCanvas extends Component {
         ].color;
       nextState.color = userColor;
     }
+
+    if (
+      this.props.isVideoVisible != newProps.isVideoVisible &&
+      newProps.isVideoVisible
+    )
+      this.onResize();
 
     this.setState(nextState);
   }
@@ -225,9 +232,18 @@ class VideoCanvas extends Component {
   // make the canvas fill its parent
   onResize() {
     this.resizeTimer = setTimeout(() => {
-      this.canvasRef.current.width = this.canvasRef.current.parentElement.clientWidth;
-      this.canvasRef.current.height = this.canvasRef.current.parentElement.clientHeight;
-      this.offsetRect = this.canvasRef.current.getBoundingClientRect();
+      const canvas = this.canvasRef.current;
+      const parent = canvas.parentElement;
+
+      if (
+        canvas.width !== parent.clientWidth ||
+        canvas.height !== parent.clientHeight
+      ) {
+        canvas.width = parent.clientWidth;
+        canvas.height = parent.clientHeight;
+      }
+
+      this.offsetRect = canvas.getBoundingClientRect();
     }, 1500);
   }
 
@@ -257,9 +273,10 @@ class VideoCanvas extends Component {
   }
 
   render() {
-    const canvasEnabled = !(
-      FEATURES.MARKERS in this.props.restrictions.disabledFeatures
-    );
+    // TODO: FeatureConsumer
+    const canvasEnabled =
+      this.props.isMarkerActive &&
+      !(FEATURES.MARKERS in this.props.restrictions.disabledFeatures);
 
     return (
       <canvas
@@ -287,4 +304,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   null
-)(VideoCanvas);
+)(connectUIState(VideoCanvas));

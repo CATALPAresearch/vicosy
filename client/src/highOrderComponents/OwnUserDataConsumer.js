@@ -22,6 +22,7 @@ const connectUserData = ComponentToWrap => {
 
       const clientData = sharedRoomData.clients[ownSocketId()];
 
+      if (!clientData) return null;
       // what we do is basically rendering `ComponentToWrap`
       // with an added `sharedRoomData` prop, like a hook
       return (

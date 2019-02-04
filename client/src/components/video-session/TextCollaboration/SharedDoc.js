@@ -42,6 +42,8 @@ class SharedDoc extends Component {
 
     // Get Firebase Database reference.
     // var firepadRef = this.getExampleRef();
+
+    // shared doc is unique for roomId (hashed sessionname + videourl, tbd: change for future purposes)
     var firepadRef = window.firebase
       .database()
       .ref(`firepads/${this.props.roomId}`);
@@ -102,15 +104,14 @@ class SharedDoc extends Component {
         })}
       >
         <div id="SharedDocContent">
-          {/* <h1>Shared Doc</h1> */}
           <div id="firepad" />
 
-          <button
+          {/* <button
             onClick={this.onCloseClick.bind(this)}
             className="close-btn btn btn-info"
           >
             <i className="fa fa-times-circle" />
-          </button>
+          </button> */}
         </div>
       </div>
     );

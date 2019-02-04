@@ -43,6 +43,7 @@ import ChildrenRenderer from "../controls/ChildrenRenderer";
 import AnnotationOverview from "./Sidebar/AnnotationOverview/AnnotationOverview";
 import { withLastLocation } from "react-router-last-location";
 import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContainer";
+import Guide from "./Guide/Guide";
 
 class VideoSession extends Component {
   constructor(props) {
@@ -208,6 +209,7 @@ class VideoSession extends Component {
                 visible={
                   this.props.localState.sideBarTab.activeTab === "notes-tab"
                 }
+                roomId={sessionId}
               />
               <AnnotationOverview
                 visible={
@@ -221,14 +223,11 @@ class VideoSession extends Component {
             {requiresCollaborationBar ? (
               <RoomComponent roomId={sessionId} component={CollaborationBar} />
             ) : null}
-            <SessionNavbar
-              blur={this.props.localState.sharedDocEditing.isOpen}
-              playerRef={this.abstractPlayerRef}
-            />
+            <SessionNavbar playerRef={this.abstractPlayerRef} />
             <div
               id="VideoSection"
               className={classnames("", {
-                blur: this.props.localState.sharedDocEditing.isOpen,
+                "hidden-nosize": this.props.localState.sharedDocEditing.isOpen,
                 videoHeightOffsetWithoutCollaborationBar: !requiresCollaborationBar,
                 videoHeightOffsetWithCollaborationBar: requiresCollaborationBar
               })}
@@ -270,6 +269,7 @@ class VideoSession extends Component {
               ownUserData={this.getOwnUserData()}
               useOffset={requiresCollaborationBar}
             />
+            <Guide roomId={sessionId} />
           </div>
 
           <RoomComponent

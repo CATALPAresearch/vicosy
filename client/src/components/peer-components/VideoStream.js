@@ -93,8 +93,8 @@ class VideoStream extends Component {
       <video
         className="roundedStrong stream-player"
         ref={this.videoRef}
-        width={isOwnStream ? "160" : "320"}
-        height={isOwnStream ? "120" : "240"}
+        width={isOwnStream ? "224" : "224"}
+        height={isOwnStream ? "168" : "168"}
         controls
         autoPlay
         playsInline

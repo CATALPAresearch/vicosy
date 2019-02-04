@@ -8,6 +8,7 @@ import FeatureSetup, {
   MODE_ENABLE_ALL_BUT
 } from "./controlComponents/FeatureSetup";
 import SectionHighlighting from "./controlComponents/SectionHighlighting";
+import GuideController from "./controlComponents/GuideController";
 
 // base class for phase processors
 export default class PhaseProcessor extends Component {
@@ -19,6 +20,8 @@ export default class PhaseProcessor extends Component {
       featureSetupMode: MODE_DISABLE_ALL_BUT,
       features: []
     };
+
+    this.guideControlRef = null;
   }
 
   /**
@@ -38,6 +41,11 @@ export default class PhaseProcessor extends Component {
         message
       });
     }, 800);
+  }
+
+  // modes: simple, scriptready, none
+  openGuidePath(publicUrl, confirmationMode = "simple") {
+    this.guideControlRef.openGuide(publicUrl, confirmationMode);
   }
 
   setContent(rectNode) {
@@ -93,6 +101,7 @@ export default class PhaseProcessor extends Component {
             sessionData={sessionData}
             ownRole={currentRole}
           />
+          <GuideController createRef={el => (this.guideControlRef = el)} />
         </div>
       </div>
     );

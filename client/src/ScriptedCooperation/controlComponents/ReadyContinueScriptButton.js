@@ -33,7 +33,9 @@ class ReadyContinueScriptButton extends Component {
   }
 
   updateState(props) {
-    const { collabScript } = props.sessionData;
+    const { collabScript } = props.sessionData
+      ? props.sessionData
+      : props.rooms.rooms[props.sessionId].state.sharedRoomData;
 
     if (!collabScript.roles) {
       this.setState({
@@ -76,17 +78,23 @@ class ReadyContinueScriptButton extends Component {
     const continueContent = (
       <div className="ml-1">
         {this.state.waitingForOthers ? (
-          <ToggleSwitchButton
-            onToggle={this.onButtonClick}
-            isChecked={this.state.meIsReady}
-            label="Ready"
-          />
+          <div className="hFlexLayout">
+            {this.state.meIsReady ? (
+              <span className="mr-1">Waiting for peer...</span>
+            ) : null}
+            <ToggleSwitchButton
+              onToggle={this.onButtonClick}
+              isChecked={this.state.meIsReady}
+              label="Ready To Finish"
+            />
+          </div>
         ) : (
           <button
             onClick={this.onButtonClick}
             className="btn btn-success btn-sm"
           >
-            Continue
+            Finish Phase
+            <i className="ml-1 fa fa-check-circle" />
           </button>
         )}
       </div>
@@ -96,14 +104,18 @@ class ReadyContinueScriptButton extends Component {
       targetContent = null;
     else if (this.state.meIsRequired) targetContent = continueContent;
     else if (this.state.waitingForOthers)
-      targetContent = <div className="ml-1">Waiting for others</div>;
+      targetContent = (
+        <div className="ml-1">Waiting for peer to continue...</div>
+      );
 
     return targetContent;
   }
 }
 
+// provide session data or room id
 ReadyContinueScriptButton.propTypes = {
-  sessionData: PropTypes.object.isRequired
+  sessionData: PropTypes.object,
+  sessionId: PropTypes.string
 };
 
 const mapStateToProps = state => ({

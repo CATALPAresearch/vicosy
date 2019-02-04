@@ -9,7 +9,9 @@ import {
   SET_SYNC_SCRUB_PERC,
   SELECT_SIDEBAR_TAB,
   RESET_LOCAL_STATE,
-  SET_UNSEEN_ACTIVITIES
+  SET_UNSEEN_ACTIVITIES,
+  OPEN_PUBLIC_GUIDE,
+  CLOSE_PUBLIC_GUIDE
 } from "./types";
 
 export const setSyncScrubPerc = percent => {
@@ -52,7 +54,6 @@ export const setSyncState = sync => {
   };
 };
 
-// true / false
 export const setAsyncTime = timestamp => {
   return {
     type: SET_ASYNC_TIME,
@@ -114,5 +115,24 @@ export const setUnseenActivities = count => {
   return {
     type: SET_UNSEEN_ACTIVITIES,
     payload: count
+  };
+};
+
+// publicUrl: path that points to content in public folder (set "" for no url change),
+// confirmationMode: "simple":closes on confirmation "scriptstep":uses collaboration ready button, "none": no confirmation possible
+export const openPublicGuide = (
+  publicUrl = "",
+  confirmationMode = "simple"
+) => {
+  return {
+    type: OPEN_PUBLIC_GUIDE,
+    payload: { publicUrl, confirmationMode }
+  };
+};
+
+export const closePublicGuide = () => {
+  return {
+    type: CLOSE_PUBLIC_GUIDE,
+    payload: null
   };
 };

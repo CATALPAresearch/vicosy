@@ -5,18 +5,25 @@ import MarkerDropDown from "./MarkerDropDown";
 import AnnotationDropDown from "./AnnotationDropDown";
 import SyncSwitch from "./SyncSwitch";
 import "./SessionNavbar.css";
-import { setSharedDocEditing } from "../../../actions/localStateActions";
 import FeatureRenderer from "../../controls/FeatureRenderer";
 import { FEATURES } from "../../../reducers/featureTypes";
 import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
+import { FETCH_ANNOTATIONS } from "../../logic-controls/annotationEvents";
+import MainRessourceTabs from "./MainRessourceTabs";
 
 class SessionNavbar extends Component {
   constructor(props) {
     super(props);
+
+    this.onFetchAnnotationsClick = this.onFetchAnnotationsClick.bind(this);
   }
 
-  onOpenSharedDocClick() {
-    window.dialogRequestEvents.dispatch(TOGGLE_SHARED_DOC_REQUEST);
+  // onOpenSharedDocClick() {
+  //   window.dialogRequestEvents.dispatch(TOGGLE_SHARED_DOC_REQUEST);
+  // }
+
+  onFetchAnnotationsClick() {
+    window.annotationEvents.dispatch(FETCH_ANNOTATIONS);
   }
 
   render() {
@@ -27,27 +34,10 @@ class SessionNavbar extends Component {
           blur: this.props.blur
         })}
       >
-        <span className="hFlexLayout">
-          <FeatureRenderer feature={FEATURES.SHARED_DOC}>
-            <button
-              onClick={this.onOpenSharedDocClick.bind(this)}
-              className="btn btn-secondary btn-sm mr-1"
-              title=""
-            >
-              Shared Doc <i className="fa fa-file-alt" />
-            </button>
-          </FeatureRenderer>
+        <span id="SessionNavbarContent" className="hFlexLayout">
+          <MainRessourceTabs />
           <SyncSwitch />
         </span>
-
-        <div>
-          <FeatureRenderer feature={FEATURES.ANNOTATING}>
-            <AnnotationDropDown playerRef={this.props.playerRef} />
-          </FeatureRenderer>
-          <FeatureRenderer feature={FEATURES.MARKERS}>
-            <MarkerDropDown />
-          </FeatureRenderer>
-        </div>
       </div>
     );
   }
@@ -60,5 +50,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setSharedDocEditing }
+  null
 )(SessionNavbar);

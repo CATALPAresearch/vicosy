@@ -13,6 +13,8 @@ export default class PhaseProcessorPTWarmUp extends PhaseProcessor {
         "introduce yourself to your peer and click ready if you want to start the script!"
     );
 
+    super.openGuidePath("/PeerTeachingGuide/WarmUp.html", "scriptready");
+
     this.setContent(null);
   }
 

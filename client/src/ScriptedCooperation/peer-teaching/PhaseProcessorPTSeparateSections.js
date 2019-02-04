@@ -46,7 +46,19 @@ export default class PhaseProcessorPTSeparateSections extends PhaseProcessor {
       ) : null
     );
 
-    if (isTutor) this.setEnabledFeatures([FEATURES.ANNOTATING]);
+    if (isTutor) {
+      this.setEnabledFeatures([FEATURES.ANNOTATING]);
+
+      super.openGuidePath(
+        "/PeerTeachingGuide/SeparateSections_Leader.html",
+        "simple"
+      );
+    } else {
+      super.openGuidePath(
+        "/PeerTeachingGuide/SeparateSections_Joiner.html",
+        "simple"
+      );
+    }
   }
 
   componentWillUnmount() {

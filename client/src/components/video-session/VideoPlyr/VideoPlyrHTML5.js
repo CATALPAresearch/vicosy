@@ -4,12 +4,20 @@ import Plyr from "plyr";
 import "plyr/dist/plyr.css";
 import PropTypes from "prop-types";
 import "./video-plyr.css";
+import { setInterval } from "timers";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
+import "../LoadingIndicator/loading-indicator.css";
 
 const REQUIRED_TIMEUPDATE_COUNT_BEFORE_UNSTALLED_TARGETFRAME = 2;
 
+// TODO: cleanup, check if readystate "canplay" = frame is shown
 export default class VideoPlyrHTML5 extends Component {
   constructor(props) {
     super(props);
+
+    // testing for native HTMLMediaElement Loading
+    this.readyStateListener = -1;
+    this.isLoadingInternal = false;
 
     this.playerTest = React.createRef();
 
@@ -27,31 +35,24 @@ export default class VideoPlyrHTML5 extends Component {
       stalled: true,
       lastActionPause: false,
       playerApiInitialized: false,
-      lastTargetTime: -1 // required time to reach
+      lastTargetTime: -1, // required time to reach
+      isLoadingInternal: false
     };
 
     // this.playerRef = React.createRef();
     this.playInternal = this.playInternal.bind(this);
+    this.updateLoadingInternal = this.updateLoadingInternal.bind(this);
   }
 
   playInternal(play) {
     if (this.player.paused && play) {
-      console.log("Req to play");
       this.player.play();
     } else if (!this.player.paused && !play) {
-      console.log("Req to pause");
       this.player.pause();
     }
   }
 
   isReadyToPlay() {
-    console.log(
-      "Stalled? Video, TargetFrame, WrongTime",
-      this.state.stalledByVideo,
-      this.state.stalledByTargetFrame,
-      this.state.stalledByWrongTime
-    );
-
     return !this.state.stalled;
   }
 
@@ -74,7 +75,6 @@ export default class VideoPlyrHTML5 extends Component {
     // this.player.volume = 1;
     this.setStalledTargetFrame(false);
     this.setState({ lastActionPause: false, lastTargetTime: time });
-    // console.log("settime to ", time);
 
     this.player.currentTime = time;
     this.playInternal(true);
@@ -144,7 +144,19 @@ export default class VideoPlyrHTML5 extends Component {
   }
 
   componentWillUnmount() {
+    clearInterval(this.readyStateListener);
     if (this.player) this.player.destroy();
+  }
+
+  updateLoadingInternal() {
+    if (!this.player || !this.player.media) return;
+    const isLoading = this.player.media.readyState < 4; // can play
+
+    if (this.isLoadingInternal !== isLoading) {
+      // this.setState({ isLoadingInternal: isLoading });
+      this.isLoadingInternal = isLoading;
+      this.forceUpdate();
+    }
   }
 
   componentDidMount() {
@@ -158,15 +170,16 @@ export default class VideoPlyrHTML5 extends Component {
     });
 
     this.player.on("ready", event => {
+      clearInterval(this.readyStateListener);
+      this.readyStateListener = setInterval(this.updateLoadingInternal, 500);
+
       this.player.on("loadedmetadata", e => {
         this.setState({ playerApiInitialized: true });
         this.props.onPlayerApiInitialized();
       });
 
-      // const instance = event.detail.plyr;
+      // const instance = event.detail.plyr; this.player.media.readyState
       this.player.on("timeupdate", e => {
-        console.log("begin time update");
-
         if (this.correctionMode) ++this.timeUpdateCountSinceLastCorrectionMode;
 
         if (this.checkPauseMode()) return;
@@ -179,7 +192,6 @@ export default class VideoPlyrHTML5 extends Component {
           const diff = Math.abs(
             this.state.lastTargetTime - this.currentRealTime
           );
-          // console.log("TARGET TIME DIFF", diff);
 
           if (diff < 2) {
             // we reached our target
@@ -194,8 +206,6 @@ export default class VideoPlyrHTML5 extends Component {
 
       // Sent when the media begins to play (either for the first time, after having been paused, or after ending and then restarting).
       this.player.on("playing", e => {
-        console.log("begin play");
-
         if (!this.correctionMode && this.state.lastActionPause) {
           this.playInternal(false);
           return;
@@ -221,41 +231,24 @@ export default class VideoPlyrHTML5 extends Component {
       // );
 
       this.player.on("stalled", e => {
-        console.log("plyr stalled");
-
         this.setStalledVideo(true);
       });
 
       this.player.on("error", e => {
-        console.log("plyr error");
-
         this.setStalledVideo(true);
       });
 
       this.player.on("waiting", e => {
-        console.log("plyr waiting");
-
         this.setStalledVideo(true);
       });
 
       this.player.on("canplay", e => {
-        console.log("plyr canplay");
-
         this.setStalledVideo(false);
-      });
-
-      this.player.on("loadeddata", e => {
-        console.log("loadeddata", e);
       });
     });
   }
 
   checkPauseMode() {
-    console.log(
-      "Check pause mode",
-      this.timeUpdateCountSinceLastCorrectionMode
-    );
-
     if (this.state.lastActionPause) {
       if (
         this.correctionMode &&
@@ -305,13 +298,11 @@ export default class VideoPlyrHTML5 extends Component {
       this.state.stalledByTargetFrame;
 
     if (this.state.stalled === targetStalled) {
-      console.log("SAME stalled", this.state);
       return;
     }
 
     this.setState({ stalled: targetStalled });
     this.props.onReadyToPlayChanged(!targetStalled);
-    console.log("DISPATCH stalled", targetStalled);
   }
 
   render() {
@@ -324,6 +315,12 @@ export default class VideoPlyrHTML5 extends Component {
         >
           <source src={this.props.videoUrl} type="video/mp4" />
         </video>
+
+        {this.isLoadingInternal ? (
+          <div id="LoadingIndicatorContainerOwn">
+            <LoadingIndicator color="#333333" />
+          </div>
+        ) : null}
       </div>
     );
   }

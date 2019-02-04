@@ -1,6 +1,7 @@
 const PeerTeachingProcessorItem = require("./peer-teaching-processor-item");
 
-const Video = require("../../models/Video");
+const VideoDBApi = require("../../models/Video");
+const Video = VideoDBApi.video;
 
 /**
  * Precondition: The peers intoduced themselves and set up appropriate communication
@@ -32,10 +33,13 @@ module.exports = class PeerTeachingItemSeparateSections extends PeerTeachingProc
         for (let i = 0; i < video.annotations.length; i++) {
           const annotation = video.annotations[i];
 
+          if (!annotation.type || annotation.type !== "annotation-section")
+            continue;
           // hint: annotation contains time => delete property?
           this.annotationsBuffer[annotation.time] = {
             title: annotation.title,
-            text: annotation.text
+            text: annotation.text,
+            type: annotation.type
           };
         }
       }
@@ -63,13 +67,13 @@ module.exports = class PeerTeachingItemSeparateSections extends PeerTeachingProc
   onSessionDataChangedInternal() {
     if (super.areAllRolesReady()) {
       this.ignoreSessionDataChanges = true;
-      this.saveCurrentAnnotationsToDatabase();
+      this.saveCurrentSectionAnnotationsToDatabase();
 
       super.complete();
     }
   }
 
-  saveCurrentAnnotationsToDatabase() {
+  saveCurrentSectionAnnotationsToDatabase() {
     if (!this.sessionData.annotations) return;
 
     const annotationKeys = Object.keys(this.sessionData.annotations);
@@ -80,6 +84,10 @@ module.exports = class PeerTeachingItemSeparateSections extends PeerTeachingProc
     for (let i = 0; i < annotationKeys.length; i++) {
       const timeStamp = annotationKeys[i];
       const annotationData = this.sessionData.annotations[timeStamp];
+
+      // if (!annotationData.type || annotationData.type !== "annotation-section")
+      //   continue;
+
       annotationData.time = timeStamp;
       annotationsArray.push(annotationData);
     }

@@ -41,6 +41,7 @@ class CueLine extends Component {
         title: "New Annotation",
         text: "New Annotation",
         temporaryAdd: true,
+        type: this.props.settings.annotationType,
         creator: { nick: this.props.ownNick, color: this.props.ownColor }
       };
       const currentCues = {
@@ -90,7 +91,8 @@ CueLine.propTypes = {
 
 const mapStateToProps = state => ({
   rooms: state.rooms,
-  localState: state.localState
+  localState: state.localState,
+  settings: state.settings
 });
 
 export default connect(

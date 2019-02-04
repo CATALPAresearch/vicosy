@@ -24,6 +24,10 @@ import {
 import RemoteScrubLine from "./RemoteScrubLine";
 import { stat } from "fs";
 import { getRemoteScrubClient } from "../../../helpers/rooms/roomsHelper";
+import FeatureRenderer from "../../controls/FeatureRenderer";
+import AnnotationDropDown from "../SessionNavbar/AnnotationDropDown";
+import MarkerDropDown from "../SessionNavbar/MarkerDropDown";
+import { FEATURES } from "../../../reducers/featureTypes";
 
 const SLIDER_STEPS = 1000;
 
@@ -212,11 +216,15 @@ class PlayBackInterface extends Component {
 
   renderPlayBackButton() {
     const play = !this.state.videoIsPlaying;
+    const isSync = this.props.localState.syncState.sync;
 
     return (
       <button
         type="button"
-        className="btn btn-info"
+        className={classnames("btn", {
+          "btn-success": isSync,
+          "btn-danger": !isSync
+        })}
         onClick={
           play ? this.onPlayClick.bind(this) : this.onStopClick.bind(this)
         }
@@ -226,7 +234,6 @@ class PlayBackInterface extends Component {
             "fa-play-circle": play,
             "fa-pause-circle": !play
           })}
-          style={{ color: "#FFF" }}
         />
       </button>
     );
@@ -307,6 +314,14 @@ class PlayBackInterface extends Component {
               <br />/<TimeDisplay seconds={this.state.videoDuration} />
             </span>
           ) : null}
+        </div>
+        <div>
+          <FeatureRenderer feature={FEATURES.ANNOTATING}>
+            <AnnotationDropDown playerRef={this.props.playerRef} />
+          </FeatureRenderer>
+          <FeatureRenderer feature={FEATURES.MARKERS}>
+            <MarkerDropDown />
+          </FeatureRenderer>
         </div>
       </div>
     );

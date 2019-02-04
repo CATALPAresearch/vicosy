@@ -1,5 +1,6 @@
 const chatMessageTypes = require("../client/src/shared_constants/chatmessage-types");
 const onChange = require("on-change");
+const VideoDBApi = require("../models/Video");
 
 const sessionTypes = require("../client/src/shared_constants/sessionTypes");
 
@@ -59,7 +60,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       return;
     }
 
-    // for sessions requiring server logic we need to be able to listen on data changes
+    // for sessions requiring server logic we need to be able to listen to data changes
     roomsData[roomId] =
       sessionType === sessionTypes.SESSION_DEFAULT
         ? {}
@@ -192,6 +193,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
         delete roomsData[roomId].annotations[playtime];
     }
 
+    VideoDBApi.removeAnnotation(roomsData[roomId].meta.videoUrl, playtime);
+
     emitSharedRoomData(
       socketIO,
       roomId,
@@ -225,6 +228,14 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
         playtime
       );
 
+      VideoDBApi.setAnnotation(
+        roomsData[roomId].meta.videoUrl,
+        playtime,
+        meta.title,
+        meta.text,
+        meta.type
+      );
+
       logToRoom(
         roomId,
         `${clientSocket.nick} SharedAnnotation: ${playtime} => ${JSON.stringify(
@@ -243,6 +254,27 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
   clientSocket.on("draw", (roomId, x0, y0, x1, y1, color) => {
     clientSocket.to(roomId).emit("draw", x0, y0, x1, y1, color);
+  });
+
+  clientSocket.on("fetchAnnotations", roomId => {
+    if (!roomsData[roomId]) return;
+
+    VideoDBApi.getAnnotationsAsMap(
+      roomsData[roomId].meta.videoUrl,
+      annotationMap => {
+        if (!annotationMap) return;
+
+        roomsData[roomId].annotations = annotationMap;
+
+        emitSharedRoomData(
+          socketIO,
+          roomId,
+          "annotations",
+          annotationMap,
+          null
+        );
+      }
+    );
   });
 
   /*

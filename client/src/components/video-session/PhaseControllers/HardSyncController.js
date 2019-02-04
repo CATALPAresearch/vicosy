@@ -13,6 +13,7 @@ import { VISIBILITY_CHANGED } from "../../logic-controls/genericAppEvents";
 import { connect } from "react-redux";
 import { updateRoomTime } from "../../../actions/roomActions";
 
+// TODO: cleanup
 class HardSyncController extends Component {
   constructor(props) {
     super(props);
@@ -286,9 +287,6 @@ class HardSyncController extends Component {
     for (let i = 0; i < clientsArray.length; i++) {
       const clientId = clientsArray[i];
 
-      // ignore myself
-      // if (clientId === ownSocketIdVal) continue;
-
       const clientData = clients[clientId];
 
       // ignore users who work async
@@ -304,7 +302,6 @@ class HardSyncController extends Component {
 
     if (this.player.isPaused() && allClientsReadyToPlay) {
       this.player.playCurrent();
-      // console.log("PLAYYYYY!");
     } else if (!allClientsReadyToPlay && !this.player.isPaused())
       this.player.pauseCurrent();
   }
@@ -314,7 +311,7 @@ class HardSyncController extends Component {
       sender: ownSocketId(),
       mediaAction: mediaAction,
       time: time,
-      hash: Math.random() // TODO: hash of all data?
+      hash: Math.random()
     };
 
     sendSharedRoomData(this.props.roomId, "syncAction", syncAction, false);
@@ -383,7 +380,6 @@ class HardSyncController extends Component {
     return null;
   }
 
-  // TODO: cleanup
   checkForUpdateRequests(sharedRoomData) {
     if (
       sharedRoomData.updateRequest &&
@@ -397,7 +393,6 @@ class HardSyncController extends Component {
           sharedRoomData.updateRequest.requester
         ) == ownSocketId();
       // the oldest valid (!asyncMode) client has to answer the request
-      console.log("should I answer?", needToAnswer);
 
       if (needToAnswer) {
         // repeat last media action
@@ -438,7 +433,6 @@ class HardSyncController extends Component {
     //   return;
     // }
 
-    // since network data will be delayed if minimized we will react on heartbeat
     if (
       !this.props.active ||
       this.player.isScrubbing() ||
@@ -448,9 +442,7 @@ class HardSyncController extends Component {
       return;
     const timeDifference = Math.abs(time - this.player.getCurrentTime());
 
-    console.log("heartbeat time|diff", time, timeDifference);
     if (timeDifference > 0.7) {
-      console.log("fixed time by heartbeat", time, timeDifference);
       this.player.fixTime(time);
     }
   }

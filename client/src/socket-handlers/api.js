@@ -200,6 +200,10 @@ export const sendSharedRoomData = (
   socket.emit("setSharedProperty", roomId, property, value, clientValue);
 };
 
+export const fetchAnnotations = roomId => {
+  socket.emit("fetchAnnotations", roomId);
+};
+
 export const sendSharedAnnotation = (
   roomId,
   playtime,
