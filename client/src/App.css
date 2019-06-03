@@ -250,6 +250,11 @@ footer {
   pointer-events: none;
 }
 
+.grey-out {
+  opacity: 0.5;
+  filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
 .client-name {
   text-shadow: -1px 0 1px white, 0 1px 1px white, 1px 0 1px white,
     0 -1px 1px white;

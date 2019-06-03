@@ -16,8 +16,7 @@ export default class HTMLLoader extends Component {
           top: "0",
           left: "0",
           right: "0",
-          bottom: "0",
-          backgroundColor: "red"
+          bottom: "0"
         }}
       />
       // </div>

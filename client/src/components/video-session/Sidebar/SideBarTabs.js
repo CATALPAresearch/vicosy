@@ -7,6 +7,7 @@ import {
 } from "../../../actions/localStateActions";
 // import ActivityCounter from "../../chat/ActivityCounter";
 import "./sidebar-tabs.css";
+import Interactive from "../../controls/Interactive";
 
 class SideBarTabs extends Component {
   constructor() {
@@ -48,18 +49,25 @@ class SideBarTabs extends Component {
 
       return (
         <li key={tab.id} className="nav-item">
-          <a
-            className={`nav-link${isSelected ? " active prevent-pointer" : ""}`}
-            id={tab.id}
-            data-toggle="tab"
-            href="#"
-            role="tab"
-            aria-controls={tab.id}
-            aria-selected={isSelected ? "true" : "false"}
-            onClick={tab.callback}
+          <Interactive
+            disabled={false}
+            disabledMessage="Zurzeit nicht verfügbar..."
           >
-            {tab.name} {!!tab.extraContent ? tab.extraContent : null}
-          </a>
+            <a
+              className={`nav-link${
+                isSelected ? " active prevent-pointer" : ""
+              }`}
+              id={tab.id}
+              data-toggle="tab"
+              href="#"
+              role="tab"
+              aria-controls={tab.id}
+              aria-selected={isSelected ? "true" : "false"}
+              onClick={tab.callback}
+            >
+              {tab.name} {!!tab.extraContent ? tab.extraContent : null}
+            </a>
+          </Interactive>
         </li>
       );
     });

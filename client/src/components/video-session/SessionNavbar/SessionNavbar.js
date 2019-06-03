@@ -10,6 +10,7 @@ import { FEATURES } from "../../../reducers/featureTypes";
 import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 import { FETCH_ANNOTATIONS } from "../../logic-controls/annotationEvents";
 import MainRessourceTabs from "./MainRessourceTabs";
+import Interactive from "../../controls/Interactive";
 
 class SessionNavbar extends Component {
   constructor(props) {
@@ -36,7 +37,9 @@ class SessionNavbar extends Component {
       >
         <span id="SessionNavbarContent" className="hFlexLayout">
           <MainRessourceTabs />
-          <SyncSwitch />
+          <Interactive disabled={false} disabledMessage="Zurzeit deaktiviert">
+            <SyncSwitch />
+          </Interactive>
         </span>
       </div>
     );

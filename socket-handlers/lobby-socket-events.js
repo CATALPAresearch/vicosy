@@ -164,7 +164,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   );
 
   clientSocket.on("shareLocalState", (roomId, stateKey, stateValue) => {
-    if (!roomsData[roomId] || !(clientSocket.id in roomsData[roomId].clients))
+    if (!roomsData[roomId] || !roomsData[roomId].clients || !(clientSocket.id in roomsData[roomId].clients))
       return;
 
     roomsData[roomId]
