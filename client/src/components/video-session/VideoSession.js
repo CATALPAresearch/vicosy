@@ -50,8 +50,9 @@ class VideoSession extends Component {
     super(props);
 
     // Chrome doesn't allow autoplay for video if the user didn't interact with the document before => special handling
+    // Update: Since FF does have the same behaviour now, Chrome check was removed
     var userReady =
-      navigator.userAgent.indexOf("Chrome") === -1 ||
+      /*navigator.userAgent.indexOf("Chrome") === -1 ||*/
       this.props.lastLocation !== null;
 
     this.abstractPlayerRef = React.createRef();
