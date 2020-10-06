@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import ValidatedInput from "../controls/ValidatedInput";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
+import SelectListGroup from "../controls/SelectListGroup";
 
 class Register extends Component {
   constructor() {
@@ -13,6 +14,7 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
+      role: "",
       errors: {}
     };
 
@@ -45,14 +47,25 @@ class Register extends Component {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
+      role: this.state.role
     };
-
+    alert(this.state.role)
     this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
     const { errors } = this.state;
+    const options = [];
+    options.push({
+      label: "Trainer",
+      value: "trainer"
+    });
+    options.push({
+      label: "Student",
+      value: "student"
+    });
+
 
     return (
       <div className="register">
@@ -61,7 +74,7 @@ class Register extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">
-                Create your CloseUpTogether account
+                Erstelle deinen CloseUpTogether-account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <ValidatedInput
@@ -99,6 +112,16 @@ class Register extends Component {
                   valueProvider={this.state}
                   placeHolder="Confirm Password"
                 />
+                <p className="text-md-left">
+                  Wähle eine Rolle:
+              </p>
+                <SelectListGroup
+                  id="roles"
+                  name="roles"
+                  options={options}
+                  onChange={this.onChange}
+                />
+
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
