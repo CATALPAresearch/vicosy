@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import ValidatedInput from "../controls/ValidatedInput";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
-import SelectListGroup from "../controls/SelectListGroup";
+import SelectListGroup1 from "../controls/SelectListGroup1";
 
 class Register extends Component {
   constructor() {
@@ -14,7 +14,7 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
-      role: "",
+      role: "student",
       errors: {}
     };
 
@@ -36,7 +36,6 @@ class Register extends Component {
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-
     console.log(e.target.value);
   }
 
@@ -53,17 +52,16 @@ class Register extends Component {
     alert(this.state.role)
     this.props.registerUser(newUser, this.props.history);
   }
-
   render() {
     const { errors } = this.state;
     const options = [];
     options.push({
-      label: "Trainer",
-      value: "trainer"
-    });
-    options.push({
       label: "Student",
       value: "student"
+    });
+    options.push({
+      label: "Trainer",
+      value: "trainer"
     });
 
 
@@ -115,11 +113,14 @@ class Register extends Component {
                 <p className="text-md-left">
                   Wähle eine Rolle:
               </p>
-                <SelectListGroup
-                  id="roles"
-                  name="roles"
+                <SelectListGroup1
+                  id="role"
+                  name="role"
                   options={options}
+                  errors={errors}
                   onChange={this.onChange}
+                  role={this.state.role}
+                  valueProvider={this.state}
                 />
 
 
