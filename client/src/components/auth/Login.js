@@ -44,7 +44,9 @@ class Login extends Component {
     if (pathAfterLogin && pathAfterLogin.includes("/session")) {
       this.props.history.push(pathAfterLogin);
       localStorage.removeItem("pathAfterLogin");
-    } else this.props.history.push("/lobby");
+    } else {
+      this.props.history.push("/lobby");
+    }
   }
 
   onSubmit(e) {

@@ -25,7 +25,7 @@ router.get("/test", (req, res) => {
 // @access  Public
 router.post("/register", (req, res) => {
   console.log("error");
-const { errors, isValid } = validateRegisterInput(req.body);
+  const { errors, isValid } = validateRegisterInput(req.body);
 
   // check validation
   if (!isValid) {
@@ -48,7 +48,8 @@ const { errors, isValid } = validateRegisterInput(req.body);
         name: req.body.name,
         email: req.body.email,
         avatar, // ES6 = avatar: avatar = avatar
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -93,7 +94,7 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // user matched
-        const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create jwt payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar, role: user.role }; // Create jwt payload
         // sign token
         jwt.sign(
           payload,
