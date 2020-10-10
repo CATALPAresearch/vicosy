@@ -8,7 +8,7 @@ import UserListItemDefault from "../userlist/UserListItemDefault";
 import "./TrainerLobby.css";
 import Logger from "../logic-controls/Logger";
 
-export default class Lobby extends Component {
+export default class TrainerLobby extends Component {
   render() {
     return (
       <div className="container mt-4">

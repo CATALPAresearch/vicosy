@@ -16,6 +16,7 @@ import Landing from "../../components/layout/Landing";
 import Register from "../../components/auth/Register";
 import Login from "../../components/auth/Login";
 import Lobby from "../../components/lobby/Lobby";
+import TrainerLobby from "../../components/trainer/TrainerLobby";
 import VideoSession from "../../components/video-session/VideoSession";
 // import P2PTest from "../../components/test/P2PTest";
 // import WebRtcConferenceTest from "../../components/test/WebRtcConferenceTest";
@@ -55,6 +56,7 @@ class AppContent extends Component {
               path="/session/:sessionId"
               component={VideoSession}
             />
+            <PrivateRoute exact path="/trainerlobby" component={TrainerLobby} />
           </Switch>
         </SocketController>
         <Route exact path="/not-found" component={NotFound} />
