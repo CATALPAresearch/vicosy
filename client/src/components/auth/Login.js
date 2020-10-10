@@ -24,13 +24,13 @@ class Login extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.onAuthenticated();
+      this.onAuthenticated(this.props.auth.user.role);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.onAuthenticated();
+      this.onAuthenticated(nextProps.auth.user.role);
     }
 
     if (nextProps.errors) {
@@ -38,14 +38,26 @@ class Login extends Component {
     }
   }
 
-  onAuthenticated() {
+  onAuthenticated(role) {
     const pathAfterLogin = localStorage.getItem("pathAfterLogin");
     console.log("path after login", pathAfterLogin);
     if (pathAfterLogin && pathAfterLogin.includes("/session")) {
       this.props.history.push(pathAfterLogin);
       localStorage.removeItem("pathAfterLogin");
     } else {
-      this.props.history.push("/lobby");
+      switch (role) {
+        case "trainer":
+          this.props.history.push("/trainerlobby");
+          break;
+        case "student":
+          this.props.history.push("/lobby");
+          break;
+        default:
+          this.props.history.push("/lobby");
+          break;
+
+      }
+
     }
   }
 
