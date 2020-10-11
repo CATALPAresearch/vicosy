@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Chat from "../chat/Chat";
 import RoomComponent from "../controls/RoomComponent";
-import SessionCreator from "../video-session/SessionCreation/SessionCreator";
+import SessionCreatorTrainer from "../video-session/SessionCreationTrainer/SessionCreatorTrainer";
 import SessionList from "../video-session/SessionList";
 import UserList from "../userlist/UserList";
 import UserListItemDefault from "../userlist/UserListItemDefault";
@@ -15,16 +15,7 @@ export default class TrainerLobby extends Component {
         <Logger roomId="trainerlobby" />
         <h1>Trainerlobby</h1>
         <RoomComponent roomId="trainerlobby" component={SessionList} />
-        <SessionCreator />
-
-        <div className="lobby-chat">
-          <RoomComponent roomId="trainerlobby" component={Chat} />
-          <RoomComponent
-            roomId="trainerlobby"
-            component={UserList}
-            userListItemComponent={UserListItemDefault}
-          />
-        </div>
+        <SessionCreatorTrainer />  
       </div>
     );
   }

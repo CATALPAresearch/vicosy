@@ -1,4 +1,4 @@
-.lobby-chat {
+.trainerlobby {
   height: 400px;
   display: flex;
   overflow: auto;
@@ -7,7 +7,7 @@
   align-items: stretch;
 }
 
-.lobby-chat > .userlist-main {
+.trainerlobby > .userlist-main {
   /* border: 3px solid red; */
 
   padding-top: 5px;
