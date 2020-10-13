@@ -16,6 +16,14 @@ export default class TrainerLobby extends Component {
         <h1>Trainerlobby</h1>
         <RoomComponent roomId="trainerlobby" component={SessionList} />
         <SessionCreatorTrainer />  
+        <div className="lobby-chat">
+          <RoomComponent roomId="trainerlobby" component={Chat} />
+          <RoomComponent
+            roomId="trainerlobby"
+            component={UserList}
+            userListItemComponent={UserListItemDefault}
+          />
+        </div>
       </div>
     );
   }

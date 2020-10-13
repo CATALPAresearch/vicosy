@@ -38,15 +38,14 @@ class SessionCreatorTrainer extends Component {
 
     try {
       const ownNick =
-        props.rooms.trainerlobby.state.sharedRoomData.clients[ownSocketId()]
+        props.rooms.rooms.trainerlobby.state.sharedRoomData.clients[ownSocketId()]
           .nick;
       this.setState({ sessionname: ownNick + "'s Video Session" });
-    } catch (e) {}
+    } catch (e) { }
   }
 
   onSubmit(e) {
     e.preventDefault();
-
     const { videourl, sessionname } = this.state;
     if (videourl && sessionname)
       createSession(sessionname, videourl, this.sessionTypeRef.current.value);

@@ -47,7 +47,7 @@ class Login extends Component {
     } else {
       switch (role) {
         case "trainer":
-          this.props.history.push("/trainer-lobby");
+          this.props.history.push("/trainerlobby");
           break;
         case "student":
           this.props.history.push("/lobby");
