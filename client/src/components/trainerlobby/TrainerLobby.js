@@ -5,6 +5,7 @@ import TrainerSessionCreator from "../video-session/TrainerSessionCreation/Train
 import TrainerSessionList from "../video-session/TrainerSessionList";
 import UserList from "../userlist/UserList";
 import UserListItemDefault from "../userlist/UserListItemDefault";
+import { Link } from "react-router-dom";
 import "./TrainerLobby.css";
 import Logger from "../logic-controls/Logger";
 
@@ -15,6 +16,9 @@ export default class TrainerLobby extends Component {
         <Logger roomId="trainerlobby" />
         <h1>Trainerlobby</h1>
         {<RoomComponent roomId="trainerlobby" component={TrainerSessionList} />}
+        <Link to="/newtrainersession" className="btn btn-lg btn-light">
+          Neue Session
+        </Link>
         {/*<TrainerSessionCreator />*/}
         {
           /*
