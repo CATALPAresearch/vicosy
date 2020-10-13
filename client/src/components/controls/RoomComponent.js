@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 class RoomComponent extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       roomAvailable: false,
       roomData: null
@@ -15,6 +14,7 @@ class RoomComponent extends Component {
 
   componentDidMount() {
     this.updateRoomState(this.props);
+    console.log("Raumtyp: " + this.props.roomId);
   }
 
   componentWillReceiveProps(newProps) {

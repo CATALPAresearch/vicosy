@@ -519,6 +519,7 @@ function allowJoinRoom(roomId) {
   // check if room has to exist in order to allow join
   if (
     roomId === "lobby" ||
+    roomId === "trainerlobby" ||
     roomId === "WebRtcTestRoom" ||
     roomId === "WebRtcTestRoomWrapper"
   )

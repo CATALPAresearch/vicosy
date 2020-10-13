@@ -15,7 +15,6 @@ import { JOIN_ROOM, LEAVE_ROOM } from "./socketEvents";
 class SocketController extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       loggedInRooms: {},
       socketConnected: false,
@@ -84,7 +83,20 @@ class SocketController extends Component {
 
   onSocketConnected() {
     console.log("SocketController", "connected");
-    this.props.loginRoom("lobby");
+    // für den Trainerraum müsste hier trainerlobby stehen
+    console.log(this.props.auth.user.role);
+    switch (this.props.auth.user.role) {
+      case "TRAINER":
+        this.props.loginRoom("trainerlobby");
+        break;
+      case "STUDENT":
+        this.props.loginRoom("lobby");
+        break;
+      default:
+        this.props.loginRoom("lobby");
+        break;
+    }
+
 
     // restore logged in rooms
     // currently disabled since rooms will connect themselves

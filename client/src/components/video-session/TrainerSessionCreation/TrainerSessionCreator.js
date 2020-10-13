@@ -42,11 +42,13 @@ class SessionCreatorTrainer extends Component {
           .nick;
       this.setState({ sessionname: ownNick + "'s Video Session" });
     } catch (e) { }
+    
   }
 
   onSubmit(e) {
     e.preventDefault();
     const { videourl, sessionname } = this.state;
+    
     if (videourl && sessionname)
       createSession(sessionname, videourl, this.sessionTypeRef.current.value);
     else {
@@ -54,6 +56,7 @@ class SessionCreatorTrainer extends Component {
         message: `Enter valid session name and video url (currently only youtube supported)`
       });
     }
+    
   }
 
   onClearUrl() {

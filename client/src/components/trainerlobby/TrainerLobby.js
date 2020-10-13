@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Chat from "../chat/Chat";
 import RoomComponent from "../controls/RoomComponent";
-import SessionCreatorTrainer from "../video-session/SessionCreationTrainer/SessionCreatorTrainer";
-import SessionList from "../video-session/SessionList";
+import TrainerSessionCreator from "../video-session/TrainerSessionCreation/TrainerSessionCreator";
+import TrainerSessionList from "../video-session/TrainerSessionList";
 import UserList from "../userlist/UserList";
 import UserListItemDefault from "../userlist/UserListItemDefault";
 import "./TrainerLobby.css";
@@ -14,8 +14,10 @@ export default class TrainerLobby extends Component {
       <div className="container mt-4">
         <Logger roomId="trainerlobby" />
         <h1>Trainerlobby</h1>
-        <RoomComponent roomId="trainerlobby" component={SessionList} />
-        <SessionCreatorTrainer />  
+        {<RoomComponent roomId="trainerlobby" component={TrainerSessionList} />}
+        {/*<TrainerSessionCreator />*/}
+        {
+          /*
         <div className="lobby-chat">
           <RoomComponent roomId="trainerlobby" component={Chat} />
           <RoomComponent
@@ -24,6 +26,8 @@ export default class TrainerLobby extends Component {
             userListItemComponent={UserListItemDefault}
           />
         </div>
+        */
+        }
       </div>
     );
   }

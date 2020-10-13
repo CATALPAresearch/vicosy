@@ -45,3 +45,7 @@ export const CLOSE_PUBLIC_GUIDE = "CLOSE_PUBLIC_GUIDE"; // url: string
 // restrictions
 export const ENABLE_FEATURES = "ENABLE_FEATURES"; // features or empty to enable all
 export const DISABLE_FEATURES = "DISABLE_FEATURES"; // features or empty to disable all
+
+// roles
+export const TRAINER = "TRAINER"; 
+export const STUDENT = "STUDENT";

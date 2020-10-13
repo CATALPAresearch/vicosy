@@ -46,10 +46,13 @@ class Login extends Component {
       localStorage.removeItem("pathAfterLogin");
     } else {
       switch (role) {
+        case "TRAINER":
+          this.props.history.push("/trainerlobby");
+          break;
         case "trainer":
           this.props.history.push("/trainerlobby");
           break;
-        case "student":
+        case "STUDENT":
           this.props.history.push("/lobby");
           break;
         default:

@@ -14,7 +14,7 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
-      role: "student",
+      role: "STUDENT",
       errors: {}
     };
 
@@ -56,11 +56,11 @@ class Register extends Component {
     const options = [];
     options.push({
       label: "Student",
-      value: "student"
+      value: "STUDENT"
     });
     options.push({
       label: "Trainer",
-      value: "trainer"
+      value: "TRAINER"
     });
 
 
