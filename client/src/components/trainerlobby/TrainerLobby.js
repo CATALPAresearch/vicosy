@@ -16,7 +16,7 @@ export default class TrainerLobby extends Component {
         <Logger roomId="trainerlobby" />
         <h1>Trainerlobby</h1>
         {<RoomComponent roomId="trainerlobby" component={TrainerSessionList} />}
-        <Link to="/newtrainersession" className="btn btn-lg btn-light">
+        <Link to="/newtrainersession" className="btn btn-lg btn-info mr-2">
           Neue Session
         </Link>
         {/*<TrainerSessionCreator />*/}
