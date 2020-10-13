@@ -7,6 +7,9 @@ import {
   SESSION_DEFAULT,
   SESSION_PEER_TEACHING
 } from "../../../shared_constants/sessionTypes";
+import CheckBox from "../../controls/CheckBox";
+import SelectListGroup1 from "../../controls/SelectListGroup1";
+import SelectListGroup from "../../controls/SelectListGroup";
 
 class SessionCreatorTrainer extends Component {
   constructor(props) {
@@ -71,6 +74,16 @@ class SessionCreatorTrainer extends Component {
 
   render() {
     const scriptsEnabled = this.props.auth.user.name !== "Guest";
+    const options = [];
+    options.push({
+      label: "Ja",
+      value: "true"
+    });
+    options.push({
+      label: "Nein",
+      value: "false"
+    });
+
 
     return (
       <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
@@ -150,6 +163,15 @@ class SessionCreatorTrainer extends Component {
                 </h3>
               </div>
               <div class="col-6 col-sm-8">
+                {/*
+                <SelectListGroup1 id="rolphase0"
+                  name="phase0"
+                  options={options}
+                  errors={errors}
+                  onChange={this.onChange}
+                  role={this.state.role}
+                  valueProvider={this.state}
+                />*/}
               </div>
               <div class="w-100"></div>
               <div class="col-6 col-sm-3">

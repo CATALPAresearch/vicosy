@@ -44,7 +44,7 @@ export default class SelectListGroup1 extends Component {
 }
 SelectListGroup1.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOf(['STUDENT', 'TRAINER']).isRequired,
+  value: PropTypes.string.isRequired,
   errors: PropTypes.string,
   info: PropTypes.string,
   onChange: PropTypes.func.isRequired,
