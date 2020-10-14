@@ -2,16 +2,17 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 import { createSession, ownSocketId } from "../../../socket-handlers/api";
 import "./TrainerSessionCreator.css";
+import PropTypes from "prop-types";
 import { LOG_ERROR } from "../../logic-controls/logEvents";
 import {
   SESSION_DEFAULT,
   SESSION_PEER_TEACHING
 } from "../../../shared_constants/sessionTypes";
-import CheckBox from "../../controls/CheckBox";
 import SelectListGroup1 from "../../controls/SelectListGroup1";
-import SelectListGroup from "../../controls/SelectListGroup";
+import InputGroup from "../../controls/InputGroup";
+import InputGroupWithButton from "../../controls/InputGroupWithButton";
 
-class SessionCreatorTrainer extends Component {
+class TrainerSessionCreator extends Component {
   constructor(props) {
     super(props);
 
@@ -25,8 +26,10 @@ class SessionCreatorTrainer extends Component {
       videourl:
         "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
       sessionname: "Meine Video Session",
-      inputEdited: false
+      inputEdited: false,
+      errors: {}
     };
+    this.onChange=this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -72,8 +75,13 @@ class SessionCreatorTrainer extends Component {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
   }
 
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   render() {
     const scriptsEnabled = this.props.auth.user.name !== "Guest";
+    const { errors } = this.state;
     const options = [];
     options.push({
       label: "Ja",
@@ -84,16 +92,15 @@ class SessionCreatorTrainer extends Component {
       value: "false"
     });
 
-
     return (
       <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
         <h1>Scripteinstellungen</h1>
         <div class="row">
           <div class="col-sm-9 border bg-light">
             <div class="row">
-              <div class="col-6 col-sm-3"><h3 htmlFor="sessionname">
+              <div class="col-6 col-sm-3"><h4 htmlFor="sessionname">
                 Session name
-          </h3></div>
+          </h4></div>
               <div class="col-6 col-sm-8">
                 <input
                   id="sessionname"
@@ -106,9 +113,9 @@ class SessionCreatorTrainer extends Component {
               </div>
               <div class="w-100"></div>
               <div class="col-6 col-sm-3">
-                <h3 htmlFor="videourl">
+                <h4 htmlFor="videourl">
                   Url Input
-                </h3>
+                </h4>
               </div>
               <div class="col-6 col-sm-8">
                 <input
@@ -130,9 +137,9 @@ class SessionCreatorTrainer extends Component {
 
               <div class="w-100"></div>
 
-              <div class="col-6 col-sm-3"><h3 htmlFor="sessionname">
+              <div class="col-6 col-sm-3"><h4 htmlFor="sessionname">
                 Sessiontyp
-            </h3>
+            </h4>
               </div>
               <div class="col-6 col-sm-8">
                 <select ref={this.sessionTypeRef} className="form-control mr-sm-2">
@@ -158,42 +165,57 @@ class SessionCreatorTrainer extends Component {
               <div class="w-100"></div>
 
               <div class="col-6 col-sm-3">
-                <h3 htmlFor="phase0">
+                <h4 htmlFor="phase0">
                   Vorstellungsphase erwünscht
-                </h3>
+                </h4>
               </div>
               <div class="col-6 col-sm-8">
-                {/*
-                <SelectListGroup1 id="rolphase0"
+                <InputGroupWithButton
                   name="phase0"
-                  options={options}
+                  id="phase0"
+                  errors={errors}
+                  onChange={this.onChange}
+                  placeholder="Gib hier den Arbeitsauftag ein!"
+                  role={this.state.role}
+                  valueProvider={this.state}
+                  disabled={true}
+
+                />
+              </div>
+              <div class="w-100"></div>
+
+
+              <div class="col-6 col-sm-3">
+                <h4 htmlFor="phase5">
+                  Arbeitsauftrag Vertiefung
+                </h4>
+              </div>
+              <div class="col-6 col-sm-8">
+                <InputGroupWithButton
+                  name="phase5"
+                  id="phase5"
+                  placeholder="Gib hier den Arbeitsauftag ein!"
                   errors={errors}
                   onChange={this.onChange}
                   role={this.state.role}
                   valueProvider={this.state}
-                />*/}
+                  disabled={true}
+
+                />
               </div>
               <div class="w-100"></div>
               <div class="col-6 col-sm-3">
-                <h3 htmlFor="phase5">
-                  Vertiefungsphase erwünscht
-                </h3>
-              </div>
-              <div class="col-6 col-sm-8">
-              </div>
-              <div class="w-100"></div>
-              <div class="col-6 col-sm-3">
-                <h3 htmlFor="gruppengroesse">
+                <h4 htmlFor="gruppengroesse">
                   Gruppengröße
-                </h3>
+                </h4>
               </div>
               <div class="col-6 col-sm-8">
               </div>
               <div class="w-100"></div>
               <div class="col-6 col-sm-3">
-                <h3 htmlFor="gruppengroesse">
+                <h4 htmlFor="gruppengroesse">
                   Gruppenmix
-                </h3>
+                </h4>
               </div>
               <div class="col-6 col-sm-8">
               </div>
@@ -227,10 +249,18 @@ class SessionCreatorTrainer extends Component {
 
 const mapStateToProps = state => ({
   rooms: state.rooms,
-  auth: state.auth
+  auth: state.auth,
+  errors: state.errors
 });
+
+
+TrainerSessionCreator.propTypes = {
+  errors: PropTypes.object.isRequired
+};
+
+
 
 export default connect(
   mapStateToProps,
   null
-)(SessionCreatorTrainer);
+)(TrainerSessionCreator);

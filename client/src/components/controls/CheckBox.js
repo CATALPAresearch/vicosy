@@ -10,6 +10,7 @@ export default class CheckBox extends Component {
         id={this.props.name}
         checked={this.props.checked}
         readOnly={this.props.readonly}
+        onChange={this.props.onChange}
       />
 
     );

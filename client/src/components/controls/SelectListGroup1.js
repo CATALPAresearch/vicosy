@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export default class SelectListGroup1 extends Component {
   render() {
 
-   
+
     function optionSelected(v1, v2) {
       if (v1 == v2)
         return "true";

@@ -3,3 +3,14 @@
     padding-top: 10px;
     padding-bottom: 10px;
     }
+
+
+
+.form-group  {
+    width:100px;
+    font-size: small;
+     }   
+
+ .form-group > select > option {
+    font-size: small;
+    }
