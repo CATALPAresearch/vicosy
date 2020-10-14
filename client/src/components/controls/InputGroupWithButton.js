@@ -7,11 +7,14 @@ class InputGroupWithButton extends Component {
   constructor(props) {
     super(props);
     this.state = { disabled: true };
+    this.value = "";
     this.changeDisabled = this.changeDisabled.bind(this);
   }
 
   changeDisabled() {
     this.setState({ disabled: !this.state.disabled });
+    if (!this.state.disabled)
+      this.setState({ value: "" });
   }
   render() {
     const name = this.props.name;
@@ -37,7 +40,7 @@ class InputGroupWithButton extends Component {
           })}
           placeholder={placeholder}
           name={name}
-          value={value}
+          value={this.state.value}
           onChange={onChange}
           disabled={this.state.disabled}
         />
