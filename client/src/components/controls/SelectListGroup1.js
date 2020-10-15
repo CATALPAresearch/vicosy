@@ -18,7 +18,7 @@ export default class SelectListGroup1 extends Component {
     const onChangeCallBack = this.props.onChange;
     const valueProvider = this.props.valueProvider;
     const selectOptions = this.props.options.map(option => (
-      <option key={option.label} value={option.value} selected={valueProvider[id] == option.value}
+      <option key={option.label} value={option.value} defaultValue={valueProvider[id] == option.value}
       >
         {option.label}
       </option>
@@ -44,9 +44,10 @@ export default class SelectListGroup1 extends Component {
 }
 SelectListGroup1.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   errors: PropTypes.string,
   info: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired
 };
+

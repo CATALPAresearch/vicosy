@@ -27,9 +27,16 @@ class TrainerSessionCreator extends Component {
         "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
       sessionname: "Meine Video Session",
       inputEdited: false,
-      errors: {}
+      groupSize: "",
+      groupMix: "",
+      themes: "",
+      errors: {},
+      phase0: false,
+      phase5: false,
+      sessionType: ""
+
     };
-    this.onChange=this.onChange.bind(this);
+    this.onChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +60,7 @@ class TrainerSessionCreator extends Component {
   }
 
   onSubmit(e) {
+    console.log(this.state);
     e.preventDefault();
     const { videourl, sessionname } = this.state;
 
@@ -73,6 +81,7 @@ class TrainerSessionCreator extends Component {
 
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
+    console.log(e.target.value);
   }
 
   onChange(e) {
@@ -82,26 +91,43 @@ class TrainerSessionCreator extends Component {
   render() {
     const scriptsEnabled = this.props.auth.user.name !== "Guest";
     const { errors } = this.state;
-    const options = [];
-    options.push({
-      label: "Ja",
-      value: "true"
+    const groupSize = [];
+    const groupMix = [];
+    groupSize.push({
+      label: "2",
+      value: "2"
     });
-    options.push({
-      label: "Nein",
-      value: "false"
+    groupSize.push({
+      label: "3",
+      value: "3"
+    });
+    groupSize.push({
+      label: "4",
+      value: "4"
+    });
+    groupMix.push({
+      label: "Heterogen",
+      value: "heterogen"
+    });
+    groupMix.push({
+      label: "Homogen",
+      value: "homogen"
+    });
+    groupMix.push({
+      label: "Zufällig",
+      value: "shuffle"
     });
 
     return (
       <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
         <h1>Scripteinstellungen</h1>
-        <div class="row">
-          <div class="col-sm-9 border bg-light">
-            <div class="row">
-              <div class="col-6 col-sm-3"><h4 htmlFor="sessionname">
+        <div className="row">
+          <div className="col-sm-9 border bg-light">
+            <div className="row">
+              <div className="col-6 col-sm-3"><h4 htmlFor="sessionname">
                 Session name
           </h4></div>
-              <div class="col-6 col-sm-8">
+              <div className="col-6 col-sm-8">
                 <input
                   id="sessionname"
                   value={this.state.sessionname}
@@ -111,13 +137,13 @@ class TrainerSessionCreator extends Component {
                   onChange={this.handleChange.bind(this)}
                 />
               </div>
-              <div class="w-100"></div>
-              <div class="col-6 col-sm-3">
+              <div className="w-100"></div>
+              <div className="col-6 col-sm-3">
                 <h4 htmlFor="videourl">
                   Url Input
                 </h4>
               </div>
-              <div class="col-6 col-sm-8">
+              <div className="col-6 col-sm-8">
                 <input
                   ref={this.urlInput}
                   id="videourl"
@@ -135,13 +161,13 @@ class TrainerSessionCreator extends Component {
                 />
               </div>
 
-              <div class="w-100"></div>
+              <div className="w-100"></div>
 
-              <div class="col-6 col-sm-3"><h4 htmlFor="sessionname">
+              <div className="col-6 col-sm-3"><h4 htmlFor="sessionname">
                 Sessiontyp
             </h4>
               </div>
-              <div class="col-6 col-sm-8">
+              <div className="col-6 col-sm-8">
                 <select ref={this.sessionTypeRef} className="form-control mr-sm-2">
                   <option
                     value={SESSION_PEER_TEACHING}
@@ -162,62 +188,92 @@ class TrainerSessionCreator extends Component {
             </option>
                 </select>
               </div>
-              <div class="w-100"></div>
+              <div className="w-100"></div>
 
-              <div class="col-6 col-sm-3">
+              <div className="col-6 col-sm-3">
                 <h4 htmlFor="phase0">
                   Vorstellungsphase erwünscht
                 </h4>
               </div>
-              <div class="col-6 col-sm-8">
+              <div className="col-6 col-sm-8">
                 <InputGroupWithButton
                   name="phase0"
                   id="phase0"
                   errors={errors}
-                  onChange={this.onChange}
+                  onChange={this.handleChange.bind(this)}
                   placeholder="Gib hier den Arbeitsauftag ein!"
-                  role={this.state.role}
-                  valueProvider={this.state}
                   disabled={true}
 
                 />
               </div>
-              <div class="w-100"></div>
+              <div className="w-100"></div>
 
 
-              <div class="col-6 col-sm-3">
+              <div className="col-6 col-sm-3">
                 <h4 htmlFor="phase5">
                   Arbeitsauftrag Vertiefung
                 </h4>
               </div>
-              <div class="col-6 col-sm-8">
+              <div className="col-6 col-sm-8">
                 <InputGroupWithButton
                   name="phase5"
                   id="phase5"
                   placeholder="Gib hier den Arbeitsauftag ein!"
                   errors={errors}
-                  onChange={this.onChange}
-                  role={this.state.role}
-                  valueProvider={this.state}
+                  onChange={this.handleChange.bind(this)}
                   disabled={true}
 
                 />
               </div>
-              <div class="w-100"></div>
-              <div class="col-6 col-sm-3">
+              <div className="w-100"></div>
+              <div className="col-6 col-sm-3">
                 <h4 htmlFor="gruppengroesse">
                   Gruppengröße
                 </h4>
               </div>
-              <div class="col-6 col-sm-8">
+              <div className="col-6 col-sm-8">
+                <SelectListGroup1
+                  id="groupSize"
+                  name="groupSize"
+                  options={groupSize}
+                  errors={errors}
+                  onChange={this.handleChange.bind(this)}
+                  role={this.state.role}
+                  valueProvider={this.state}
+                />
               </div>
-              <div class="w-100"></div>
-              <div class="col-6 col-sm-3">
+              <div className="w-100"></div>
+              <div className="col-6 col-sm-3">
                 <h4 htmlFor="gruppengroesse">
                   Gruppenmix
                 </h4>
               </div>
-              <div class="col-6 col-sm-8">
+              <div className="col-6 col-sm-8">
+                <SelectListGroup1
+                  id="groupMix"
+                  name="groupMix"
+                  options={groupMix}
+                  errors={errors}
+                  onChange={this.handleChange.bind(this)}
+                  valueProvider={this.state}
+                />
+              </div>
+              <div className="w-100"></div>
+              <div className="col-6 col-sm-3">
+                <h4 htmlFor="themes" title="Lerner werden gefragt, wieviel sie auf einer Skala von 1-10 zum Thema wissen">
+                  Themen
+                </h4>
+              </div>
+              <div className="col-6 col-sm-8">
+                <input
+                  name="themes"
+                  id="themes"
+                  placeholder="Hier Themen des Videos zur Ermittlung des Vorwissens eingeben."
+                  errors={errors}
+                  className="form-control form-control-lg mr-sm-2"
+                  onChange={this.handleChange.bind(this)}
+                  value={this.state.themes}
+                />
               </div>
             </div>
 
@@ -236,7 +292,7 @@ class TrainerSessionCreator extends Component {
 
 
           </div>
-          <div class="col-sm-3 border bg-light">
+          <div className="col-sm-3 border bg-light">
 
           </div>
         </div>
