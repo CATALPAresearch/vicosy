@@ -10,10 +10,10 @@ export default class InputGroupWithButton extends Component {
       disabled: true,
     };
     this.changeDisabled = this.changeDisabled.bind(this);
+
   }
 
   changeDisabled() {
-    
     this.setState({ disabled: !this.state.disabled });
     if (!this.state.disabled)
       this.setState({ value: "" });
@@ -21,7 +21,10 @@ export default class InputGroupWithButton extends Component {
   render() {
     const name = this.props.name;
     const placeholder = this.props.placeholder;
+    const callback = this.props.onChange;
     const error = this.props.error;
+    const idCheckbox = this.props.idCheckbox;
+    const idTextfield = this.props.idTextfield;
     const icon = this.props.icon;
     const value = this.props.value;
     const type = this.props.type;
@@ -31,19 +34,19 @@ export default class InputGroupWithButton extends Component {
       <div className="input-group mb-3">
         <div className="input-group-prepend">
           <div className="input-group-text">
-            <input type="checkbox" aria-label="Checkbox for following text input"
-              onChange={this.changeDisabled}
+            <input name={this.idCheckbox} id={this.idCheckbox} type="checkbox" aria-label="Checkbox for following text input"
+              onChange={() => {this.changeDisabled(), callback }}
             />
           </div>
         </div>
-        <input
+        <input id={this.idTextfield}
           className={classnames("form-control form-control-lg", {
             "is-invalid": error
           })}
           placeholder={placeholder}
           name={name}
           value={value}
-          onChange={this.props.onChange}
+          onChange={callback}
           disabled={this.state.disabled}
 
         />

@@ -33,6 +33,8 @@ class TrainerSessionCreator extends Component {
       errors: {},
       phase0: false,
       phase5: false,
+      phase0Assignment: "",
+      phase5Assignment: "",
       sessionType: ""
 
     };
@@ -198,7 +200,8 @@ class TrainerSessionCreator extends Component {
               <div className="col-6 col-sm-8">
                 <InputGroupWithButton
                   name="phase0"
-                  id="phase0"
+                  idCheckbox="phase0"
+                  idTextfield="phase0Assignment"
                   errors={errors}
                   onChange={this.handleChange.bind(this)}
                   placeholder="Gib hier den Arbeitsauftag ein!"
@@ -217,7 +220,8 @@ class TrainerSessionCreator extends Component {
               <div className="col-6 col-sm-8">
                 <InputGroupWithButton
                   name="phase5"
-                  id="phase5"
+                  idCheckbox="phase0"
+                  idTextfield="phase0Assignment"
                   placeholder="Gib hier den Arbeitsauftag ein!"
                   errors={errors}
                   onChange={this.handleChange.bind(this)}
