@@ -35,7 +35,7 @@ export default class InputGroupWithButton extends Component {
         <div className="input-group-prepend">
           <div className="input-group-text">
             <input name={this.idCheckbox} id={this.idCheckbox} type="checkbox" aria-label="Checkbox for following text input"
-              onChange={() => {this.changeDisabled(), callback }}
+              onChange={(e) => {this.changeDisabled(), callback(e) }}
             />
           </div>
         </div>
