@@ -11,6 +11,7 @@ import {
 import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
+import { HETEROGEN } from "../../../actions/types";
 
 class TrainerSessionCreator extends Component {
   constructor(props) {
@@ -27,12 +28,12 @@ class TrainerSessionCreator extends Component {
         "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
       sessionname: "Meine Video Session",
       inputEdited: false,
-      groupSize: "",
-      groupMix: "",
+      groupSize: 2,
+      groupMix: HETEROGEN,
       themes: "",
       errors: {},
-      phase0: false,
-      phase5: false,
+      isPhase0: false,
+      isPhase5: false,
       phase0Assignment: "",
       phase5Assignment: "",
       sessionType: ""
@@ -84,7 +85,7 @@ class TrainerSessionCreator extends Component {
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
     console.log(e.target.value);
-  }
+}
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -109,15 +110,15 @@ class TrainerSessionCreator extends Component {
     });
     groupMix.push({
       label: "Heterogen",
-      value: "heterogen"
+      value: "HETEROGEN"
     });
     groupMix.push({
       label: "Homogen",
-      value: "homogen"
+      value: "HOMOGEN"
     });
     groupMix.push({
       label: "Zufällig",
-      value: "shuffle"
+      value: "SHUFFLE"
     });
 
     return (
@@ -193,16 +194,17 @@ class TrainerSessionCreator extends Component {
               <div className="w-100"></div>
 
               <div className="col-6 col-sm-3">
-                <h4 htmlFor="phase0">
+                <h4 htmlFor="isPhase0">
                   Vorstellungsphase erwünscht
                 </h4>
               </div>
               <div className="col-6 col-sm-8">
                 <InputGroupWithButton
-                  name="phase0"
-                  idCheckbox="phase0"
+                  name="isPhase0"
+                  idCheckbox="isPhase0"
                   idTextfield="phase0Assignment"
                   errors={errors}
+                  value={this.state.phase0Assignment}
                   onChange={this.handleChange.bind(this)}
                   placeholder="Gib hier den Arbeitsauftag ein!"
                   disabled={true}
@@ -213,15 +215,16 @@ class TrainerSessionCreator extends Component {
 
 
               <div className="col-6 col-sm-3">
-                <h4 htmlFor="phase5">
+                <h4 htmlFor="isPhase5">
                   Arbeitsauftrag Vertiefung
                 </h4>
               </div>
               <div className="col-6 col-sm-8">
                 <InputGroupWithButton
-                  name="phase5"
-                  idCheckbox="phase0"
-                  idTextfield="phase0Assignment"
+                  name="isPhase5"
+                  idCheckbox="isPhase5"
+                  idTextfield="phase5Assignment"
+                  value={this.state.phase5Assignment}
                   placeholder="Gib hier den Arbeitsauftag ein!"
                   errors={errors}
                   onChange={this.handleChange.bind(this)}

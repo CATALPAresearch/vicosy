@@ -179,6 +179,11 @@ const createSession = (sessionName, videoUrl, sessionType) => {
   socket.emit("createSession", sessionName, videoUrl, sessionType);
 };
 
+const createTrainerSession = (sessionName, videoUrl, sessionType) => {
+  socket.emit("createSession", sessionName, videoUrl, sessionType);
+};
+
+
 // param: time
 const subscribeToHeartBeat = cb => {
   socket.on("heartBeat", cb);

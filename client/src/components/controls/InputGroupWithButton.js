@@ -8,25 +8,32 @@ export default class InputGroupWithButton extends Component {
     super(props);
     this.state = {
       disabled: true,
+      value: ""
     };
+
     this.changeDisabled = this.changeDisabled.bind(this);
 
   }
 
   changeDisabled() {
     this.setState({ disabled: !this.state.disabled });
-    if (!this.state.disabled)
-      this.setState({ value: "" });
+    if (!this.state.disabled) {
+      this.setState({ value: '' })
+    }
+  }
+  updateMessage = (message) => {
+    this.setState(() => ({
+      value: message
+    }));
   }
   render() {
     const name = this.props.name;
     const placeholder = this.props.placeholder;
-    const callback = this.props.onChange;
+    const onChangeCallBack = this.props.onChange;
     const error = this.props.error;
     const idCheckbox = this.props.idCheckbox;
     const idTextfield = this.props.idTextfield;
     const icon = this.props.icon;
-    const value = this.props.value;
     const type = this.props.type;
 
 
@@ -34,21 +41,20 @@ export default class InputGroupWithButton extends Component {
       <div className="input-group mb-3">
         <div className="input-group-prepend">
           <div className="input-group-text">
-            <input name={this.idCheckbox} id={this.idCheckbox} type="checkbox" aria-label="Checkbox for following text input"
-              onChange={(e) => {this.changeDisabled(), callback(e) }}
+            <input name={idCheckbox} id={idCheckbox} type="checkbox" aria-label="Checkbox for following text input"
+              onChange={(e) => { this.changeDisabled(), onChangeCallBack(e) }}
             />
           </div>
         </div>
-        <input id={this.idTextfield}
+        <input id={idTextfield}
           className={classnames("form-control form-control-lg", {
             "is-invalid": error
           })}
           placeholder={placeholder}
           name={name}
-          value={value}
-          onChange={callback}
+          value={this.state.value}
+          onChange={(e) => { this.updateMessage(e.target.value), onChangeCallBack(e) }}
           disabled={this.state.disabled}
-
         />
         {error && <div className="invalid-feedback">{error}</div>}
       </div>
@@ -77,6 +83,7 @@ InputGroupWithButton.defaultProps = {
 const mapStateToProps = state => ({
   value: state.value
 });
+
 
 export default connect(
   mapStateToProps

@@ -49,3 +49,9 @@ export const DISABLE_FEATURES = "DISABLE_FEATURES"; // features or empty to disa
 // roles
 export const TRAINER = "TRAINER"; 
 export const STUDENT = "STUDENT";
+
+// group mix
+
+export const HOMOGEN = "HOMOGEN"; 
+export const HETEROGEN = "HETEROGEN";
+export const SHUFFLE = "SHUFFLE"
