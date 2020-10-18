@@ -6,11 +6,6 @@
 
 
 
-.form-group  {
+#groupSize, #groupMix {
     width:150px;
-    font-size: small;
-     }   
-
- .form-group > select > option {
-    font-size: small;
-    }
+   }   

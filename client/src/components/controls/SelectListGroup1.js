@@ -31,6 +31,7 @@ export default class SelectListGroup1 extends Component {
             "is-invalid": errors[id]
           })}
           name={id}
+          id={id}
           onChange={onChangeCallBack}
         >
           {selectOptions}
