@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import { createSession, ownSocketId } from "../../../socket-handlers/api";
+import { createTrainerSession, ownSocketId } from "../../../socket-handlers/api";
 import "./TrainerSessionCreator.css";
 import PropTypes from "prop-types";
 import { LOG_ERROR } from "../../logic-controls/logEvents";
@@ -36,7 +36,7 @@ class TrainerSessionCreator extends Component {
       isPhase5: false,
       phase0Assignment: "",
       phase5Assignment: "",
-      sessionType: ""
+      sessionType: SESSION_PEER_TEACHING
 
     };
     this.onChange = this.handleChange.bind(this);
@@ -63,18 +63,17 @@ class TrainerSessionCreator extends Component {
   }
 
   onSubmit(e) {
-    console.log(this.state);
     e.preventDefault();
-    const { videourl, sessionname } = this.state;
+    console.log(this.state);
 
+    const { videourl, sessionname, sessionType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
     if (videourl && sessionname)
-      createSession(sessionname, videourl, this.sessionTypeRef.current.value);
+      createTrainerSession(sessionname, videourl, this.sessionTypeRef.current.value);
     else {
       window.logEvents.dispatch(LOG_ERROR, {
         message: `Enter valid session name and video url (currently only youtube supported)`
       });
     }
-
   }
 
   onClearUrl() {
@@ -84,8 +83,13 @@ class TrainerSessionCreator extends Component {
 
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
-    console.log(e.target.value);
-}
+  }
+
+  handleCheckboxChange(e) {
+    if (!e.target.checked)
+      this.setState({ [e.target.name]: "", inputEdited: true })
+    this.setState({ [e.target.id]: e.target.checked, inputEdited: true })
+  }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -170,8 +174,11 @@ class TrainerSessionCreator extends Component {
                 Sessiontyp
             </h4>
               </div>
+
               <div className="col-6 col-sm-8">
-                <select ref={this.sessionTypeRef} className="form-control mr-sm-2">
+                <select id="sessionType" type="select" ref={this.sessionTypeRef} className="form-control mr-sm-2"
+                  onChange={this.handleChange.bind(this)}
+                >
                   <option
                     value={SESSION_PEER_TEACHING}
                     title={
@@ -206,6 +213,7 @@ class TrainerSessionCreator extends Component {
                   errors={errors}
                   value={this.state.phase0Assignment}
                   onChange={this.handleChange.bind(this)}
+                  onCheckboxChange={this.handleCheckboxChange.bind(this)}
                   placeholder="Gib hier den Arbeitsauftag ein!"
                   disabled={true}
 
@@ -228,6 +236,7 @@ class TrainerSessionCreator extends Component {
                   placeholder="Gib hier den Arbeitsauftag ein!"
                   errors={errors}
                   onChange={this.handleChange.bind(this)}
+                  onCheckboxChange={this.handleCheckboxChange.bind(this)}
                   disabled={true}
 
                 />

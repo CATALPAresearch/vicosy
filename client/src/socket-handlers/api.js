@@ -11,9 +11,8 @@ const getHost = (path, token, params = "") => {
   if (window.location.hostname !== "localhost" && window.location.port)
     port = window.location.port;
 
-  return `${window.location.protocol}//${
-    window.location.hostname
-  }:${port}${path}${token ? `?token=${token}` : ""}${params}`;
+  return `${window.location.protocol}//${window.location.hostname
+    }:${port}${path}${token ? `?token=${token}` : ""}${params}`;
 };
 
 const connectToP2PSignaler = connectCb => {
@@ -286,5 +285,6 @@ export {
   subscribeToHeartBeat,
   unSubscribeHeartBeat,
   connectToP2PSignaler,
-  connectToP2PChannel
+  connectToP2PChannel,
+  createTrainerSession
 };
