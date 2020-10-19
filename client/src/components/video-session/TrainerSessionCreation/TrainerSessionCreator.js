@@ -80,11 +80,11 @@ class TrainerSessionCreator extends Component {
     this.setState({ videourl: "" });
     this.urlInput.current.focus();
   }
-
+//Änderungen werden im State gespeichert 
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
   }
-
+//Unsetting der Checkbox wird das Assignment mitgelöscht, das läuft über das name Attribut
   handleCheckboxChange(e) {
     if (!e.target.checked)
       this.setState({ [e.target.name]: "", inputEdited: true })
