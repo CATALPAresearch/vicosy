@@ -23,7 +23,7 @@ import VideoSession from "../../components/video-session/VideoSession";
 
 import NotFound from "../../components/not-found/NotFound";
 import VisibilityController from "../logic-controls/VisibilityController";
-import TrainerSessionCreator from "../video-session/TrainerSessionCreation/TrainerSessionCreator";
+import TrainerScriptCreator from "../script-options/TrainerScriptCreation/TrainerScriptCreator";
 
 class AppContent extends Component {
   render() {
@@ -58,7 +58,7 @@ class AppContent extends Component {
               component={VideoSession}
             />
             <PrivateRoute exact path="/trainerlobby" component={TrainerLobby} />
-            <PrivateRoute exact path="/newtrainersession" component={TrainerSessionCreator} />
+            <PrivateRoute exact path="/newtrainerscript" component={TrainerScriptCreator} />
             
           </Switch>
         </SocketController>

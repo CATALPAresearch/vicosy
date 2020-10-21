@@ -1,7 +1,7 @@
-import { connect } from "react-redux";
+import { connect, useStore } from "react-redux";
 import React, { Component } from "react";
 import { createTrainerSession, ownSocketId } from "../../../socket-handlers/api";
-import "./TrainerSessionCreator.css";
+import "./TrainerScriptCreator.css";
 import PropTypes from "prop-types";
 import { LOG_ERROR } from "../../logic-controls/logEvents";
 import {
@@ -11,14 +11,15 @@ import {
 import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
-import { HETEROGEN } from "../../../actions/types";
+import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
+import store from "../../../store";
 
-class TrainerSessionCreator extends Component {
+class TrainerScriptCreator extends Component {
   constructor(props) {
     super(props);
 
     this.urlInput = React.createRef();
-    this.sessionTypeRef = React.createRef();
+    this.scriptTypeRef = React.createRef();
 
     this.state = {
       // videourl: process.env.REACT_APP_DEFAULT_VIDEO_URL
@@ -26,7 +27,7 @@ class TrainerSessionCreator extends Component {
       //   : "https://www.dropbox.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
       videourl:
         "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
-      sessionname: "Meine Video Session",
+      scriptName: "Meine Video Session",
       inputEdited: false,
       groupSize: 2,
       groupMix: HETEROGEN,
@@ -36,28 +37,29 @@ class TrainerSessionCreator extends Component {
       isPhase5: false,
       phase0Assignment: "",
       phase5Assignment: "",
-      sessionType: SESSION_PEER_TEACHING
+      scriptType: SESSION_PEER_TEACHING,
+      userId: store.getState()
 
     };
     this.onChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.sessionNameUpdate(this.props);
+    this.scriptNameUpdate(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.sessionNameUpdate(nextProps);
+    this.scriptNameUpdate(nextProps);
   }
 
-  sessionNameUpdate(props) {
+  scriptNameUpdate(props) {
     if (this.inputEdited) return;
 
     try {
       const ownNick =
         props.rooms.rooms.trainerlobby.state.sharedRoomData.clients[ownSocketId()]
           .nick;
-      this.setState({ sessionname: ownNick + "'s Video Session" });
+      this.setState({ scriptName: ownNick + "'s Video Session" });
     } catch (e) { }
 
   }
@@ -66,25 +68,31 @@ class TrainerSessionCreator extends Component {
     e.preventDefault();
     console.log(this.state);
 
-    const { videourl, sessionname, sessionType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
-    if (videourl && sessionname)
-      createTrainerSession(sessionname, videourl, this.sessionTypeRef.current.value);
-    else {
+    const { userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
+    if (videourl && scriptName && themes && scriptType) {
+      console.log("Platyhalter");
+      //newScript(this.state);
+    } else {
       window.logEvents.dispatch(LOG_ERROR, {
-        message: `Enter valid session name and video url (currently only youtube supported)`
-      });
+        message: `Enter valid script name and video url (currently only youtube supported)`
+      }
+
+      );
+
     }
+
+
   }
 
   onClearUrl() {
     this.setState({ videourl: "" });
     this.urlInput.current.focus();
   }
-//Änderungen werden im State gespeichert 
+  //Änderungen werden im State gespeichert 
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
   }
-//Unsetting der Checkbox wird das Assignment mitgelöscht, das läuft über das name Attribut
+  //Unsetting der Checkbox wird das Assignment mitgelöscht, das läuft über das name Attribut
   handleCheckboxChange(e) {
     if (!e.target.checked)
       this.setState({ [e.target.name]: "", inputEdited: true })
@@ -96,6 +104,7 @@ class TrainerSessionCreator extends Component {
   }
 
   render() {
+    const userId = store.getState();
     const scriptsEnabled = this.props.auth.user.name !== "Guest";
     const { errors } = this.state;
     const groupSize = [];
@@ -131,13 +140,13 @@ class TrainerSessionCreator extends Component {
         <div className="row">
           <div className="col-sm-9 border bg-light">
             <div className="row">
-              <div className="col-6 col-sm-3"><h4 htmlFor="sessionname">
+              <div className="col-6 col-sm-3"><h4 htmlFor="scriptName">
                 Session name
           </h4></div>
               <div className="col-6 col-sm-8">
                 <input
-                  id="sessionname"
-                  value={this.state.sessionname}
+                  id="scriptName"
+                  value={this.state.scriptName}
                   type="text"
                   className="form-control form-control-lg mr-sm-2"
                   placeholder="Session Name"
@@ -170,13 +179,13 @@ class TrainerSessionCreator extends Component {
 
               <div className="w-100"></div>
 
-              <div className="col-6 col-sm-3"><h4 htmlFor="sessionname">
+              <div className="col-6 col-sm-3"><h4 htmlFor="scriptName">
                 Sessiontyp
             </h4>
               </div>
 
               <div className="col-6 col-sm-8">
-                <select id="sessionType" type="select" ref={this.sessionTypeRef} className="form-control mr-sm-2"
+                <select id="scriptType" type="select" ref={this.scriptTypeRef} className="form-control mr-sm-2"
                   onChange={this.handleChange.bind(this)}
                 >
                   <option
@@ -326,7 +335,7 @@ const mapStateToProps = state => ({
 });
 
 
-TrainerSessionCreator.propTypes = {
+TrainerScriptCreator.propTypes = {
   errors: PropTypes.object.isRequired
 };
 
@@ -335,4 +344,4 @@ TrainerSessionCreator.propTypes = {
 export default connect(
   mapStateToProps,
   null
-)(TrainerSessionCreator);
+)(TrainerScriptCreator);
