@@ -9,19 +9,19 @@ const GroupSchema = new Schema({
 
 // Create Schema
 const ScriptSchema = new Schema({
-    scriptName: {
-        type: String,
-        required: true
-    },
     userId: {
         type: String,
         required: true
     },
-    name: {
+    scriptName: {
         type: String,
         required: true
     },
     videourl: {
+        type: String,
+        required: true
+    },
+    scripturl: {
         type: String,
         required: true
     },
@@ -65,7 +65,11 @@ const ScriptSchema = new Schema({
     groups: {
         type: [GroupSchema],
         require: false
-    }
+    }, 
+    status: {
+        type: String,
+        required: true
+    },
 }
 );
 

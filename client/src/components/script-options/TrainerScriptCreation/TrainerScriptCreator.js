@@ -12,6 +12,7 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
+import { newScript } from "../../../actions/scriptActions"
 import store from "../../../store";
 
 class TrainerScriptCreator extends Component {
@@ -71,7 +72,7 @@ class TrainerScriptCreator extends Component {
     const { userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
     if (videourl && scriptName && themes && scriptType) {
       console.log("Platyhalter");
-      //newScript(this.state);
+      newScript(this.state);
     } else {
       window.logEvents.dispatch(LOG_ERROR, {
         message: `Enter valid script name and video url (currently only youtube supported)`
@@ -343,5 +344,6 @@ TrainerScriptCreator.propTypes = {
 
 export default connect(
   mapStateToProps,
-  null
+  newScript,
+    null
 )(TrainerScriptCreator);
