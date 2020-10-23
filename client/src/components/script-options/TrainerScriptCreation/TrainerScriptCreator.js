@@ -12,7 +12,7 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
-import { newScript } from "../../../actions/scriptActions"
+import { newScript } from "../../../actions/scriptActions";
 import store from "../../../store";
 
 class TrainerScriptCreator extends Component {
@@ -68,11 +68,10 @@ class TrainerScriptCreator extends Component {
   onSubmit(e) {
     e.preventDefault();
     console.log(this.state);
-
     const { userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
     if (videourl && scriptName && themes && scriptType) {
-      console.log("Platyhalter");
-      newScript(this.state);
+      this.props.newScript("Hallo");
+      //newScript(this.state);
     } else {
       window.logEvents.dispatch(LOG_ERROR, {
         message: `Enter valid script name and video url (currently only youtube supported)`
@@ -337,13 +336,13 @@ const mapStateToProps = state => ({
 
 
 TrainerScriptCreator.propTypes = {
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  newScript: PropTypes.func.isRequired
 };
-
 
 
 export default connect(
   mapStateToProps,
   newScript,
-    null
+  null
 )(TrainerScriptCreator);

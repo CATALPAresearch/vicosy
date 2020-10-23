@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 const gravatar = require("gravatar");
@@ -27,9 +26,9 @@ router.get("/test", (req, res) => {
 // @access  Public
 
 router.post("/newscript", (req, res) => {
-    console.log("error");
+    
     const { errors, isValid } = validateScriptInput(req.body);
-
+//    console.log(isValid);
     // check validation
     if (!isValid) {
         return res.status(400).json(errors);

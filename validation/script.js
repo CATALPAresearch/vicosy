@@ -31,11 +31,11 @@ module.exports = function validateScriptInput(data) {
     errors.videourl = "videourl field is required";
   }
   if (Validator.isEmpty(data.groupMix)) {
-    errors.groupMix = "Name field is required";
+    errors.groupMix = "groupMix field is required";
   }
 
   if (Validator.isEmpty(data.groupSize)) {
-    errors.groupSize = "Name field is required";
+    errors.groupSize = "groupSize field is required";
   }
 
   if (Validator.isEmpty(data.isPhase0)) {
@@ -50,21 +50,20 @@ module.exports = function validateScriptInput(data) {
     errors.isPhase0 = "phase5 field is required";
   }
 
-  if (Validator.isInt(data.isPhase0)) {
+  if (!Validator.isInt(data.isPhase0)) {
     errors.isPhase0 = "phase5 must be an integer";
   }
 
 
 
   if (Validator.isEmpty(data.themes)) {
-    errors.themes = "Tthemes field is required";
+    errors.themes = "Themes field is required";
   }
   
   
-  if (Validator.isInt(data.groupSize)) {
+  if (!Validator.isInt(data.groupSize)) {
     errors.groupSize = "GroupSize ist not an integer";
   }
-
 
 
   return {
