@@ -3,19 +3,16 @@ import { GET_ERRORS } from "./types";
 import jwt_decode from "jwt-decode";
 
 // Store Script User
-export const newScript = (scriptData) => dispatch => {
+export const createScript = scriptData => dispatch => {
   axios
     .post("api/script/newscript", scriptData)
-    .then(res => {
-      console.log("Rücklauf vom Backend");
-      history.push("/trainerlobby");
-      console.log(res);
-    }).catch(err => {
-      console.log(err.response.data);
+    .then(res => console.log("Rücklauf vom Backend")).catch(err => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       });
     });
 };
+
+
 

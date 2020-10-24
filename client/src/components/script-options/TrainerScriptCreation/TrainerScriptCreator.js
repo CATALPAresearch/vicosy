@@ -12,7 +12,8 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
-import { newScript } from "../../../actions/scriptActions";
+import { createScript } from "../../../actions/scriptActions";
+
 import store from "../../../store";
 
 class TrainerScriptCreator extends Component {
@@ -68,9 +69,22 @@ class TrainerScriptCreator extends Component {
   onSubmit(e) {
     e.preventDefault();
     console.log(this.state);
+
+    const newScript = {
+      userId: this.state.userId,
+      scriptName: this.state.scriptName,
+      scriptType: this.state.scriptType,
+      groupSize: this.state.groupSize,
+      groupMix: this.state.groupMix,
+      themes: this.state.themes,
+      isPhase0: this.state.isPhase0,
+      isPhase5: this.state.isPhase5,
+      phase0Assignment: this.state.phase0Assignment,
+      phase5Assignment: this.state.phase5Assignment
+    };
     const { userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
     if (videourl && scriptName && themes && scriptType) {
-      this.props.newScript("Hallo");
+      this.props.createScript(newScript);
       //newScript(this.state);
     } else {
       window.logEvents.dispatch(LOG_ERROR, {
@@ -331,18 +345,33 @@ class TrainerScriptCreator extends Component {
 const mapStateToProps = state => ({
   rooms: state.rooms,
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  var: state
 });
 
 
 TrainerScriptCreator.propTypes = {
-  errors: PropTypes.object.isRequired,
-  newScript: PropTypes.func.isRequired
+  errors: PropTypes.object.isRequired
 };
 
 
 export default connect(
   mapStateToProps,
-  newScript,
+  { createScript },
   null
 )(TrainerScriptCreator);
+
+
+// auth state into props => this.props.auth
+// map prop var to reducer
+/*
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(Register));
+*/
