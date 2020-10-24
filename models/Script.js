@@ -9,6 +9,7 @@ const GroupSchema = new Schema({
 
 // Create Schema
 const ScriptSchema = new Schema({
+
     userId: {
         type: String,
         required: true
@@ -68,7 +69,7 @@ const ScriptSchema = new Schema({
     }, 
     status: {
         type: String,
-        required: true
+        required: false
     },
 }
 );

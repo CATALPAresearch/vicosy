@@ -19,7 +19,6 @@ import store from "../../../store";
 class TrainerScriptCreator extends Component {
   constructor(props) {
     super(props);
-
     this.urlInput = React.createRef();
     this.scriptTypeRef = React.createRef();
 
@@ -68,14 +67,13 @@ class TrainerScriptCreator extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
-
     const newScript = {
-      userId: this.state.userId,
+      userId: this.state.userId.auth.user.id,
       scriptName: this.state.scriptName,
       scriptType: this.state.scriptType,
       groupSize: this.state.groupSize,
       groupMix: this.state.groupMix,
+      videourl: this.state.videourl,
       themes: this.state.themes,
       isPhase0: this.state.isPhase0,
       isPhase5: this.state.isPhase5,

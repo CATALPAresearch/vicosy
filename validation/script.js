@@ -3,6 +3,7 @@ const isEmpty = require("./is-empty");
 
 module.exports = function validateScriptInput(data) {
   let errors = {};
+  console.log(data);
 
   data.scriptName = !isEmpty(data.scriptName) ? data.scriptName : "";
   data.userId = !isEmpty(data.userId) ? data.userId : "";
@@ -34,23 +35,23 @@ module.exports = function validateScriptInput(data) {
     errors.groupMix = "groupMix field is required";
   }
 
-  if (Validator.isEmpty(data.groupSize)) {
+  if (Validator.isEmpty(data.groupSize.toString())) {
     errors.groupSize = "groupSize field is required";
   }
 
-  if (Validator.isEmpty(data.isPhase0)) {
+  if (Validator.isEmpty(data.isPhase0.toString())) {
     errors.isPhase0 = "phase0 field is required";
   }
 
-  if (Validator.isInt(data.isPhase0)) {
+  if (Validator.isInt(data.isPhase0.toString())) {
     errors.isPhase0 = "phase0 must be an integer";
   }
 
-  if (Validator.isEmpty(data.isPhase0)) {
+  if (Validator.isEmpty(data.isPhase5.toString())) {
     errors.isPhase0 = "phase5 field is required";
   }
 
-  if (!Validator.isInt(data.isPhase0)) {
+  if (Validator.isInt(data.isPhase5.toString())) {
     errors.isPhase0 = "phase5 must be an integer";
   }
 
@@ -61,7 +62,7 @@ module.exports = function validateScriptInput(data) {
   }
   
   
-  if (!Validator.isInt(data.groupSize)) {
+  if (!Validator.isInt(data.groupSize.toString())) {
     errors.groupSize = "GroupSize ist not an integer";
   }
 

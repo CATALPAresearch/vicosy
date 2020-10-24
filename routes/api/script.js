@@ -26,15 +26,16 @@ router.get("/test", (req, res) => {
 // @access  Public
 
 router.post("/newscript", (req, res) => {
-    
+
     const { errors, isValid } = validateScriptInput(req.body);
-//    console.log(isValid);
+
     // check validation
     if (!isValid) {
         return res.status(400).json(errors);
     }
 
     const newScript = new Script({
+        _id:(req.body.scriptName + req.body.userId, req.body.videourl).hashCode(),
         scriptName: req.body.scriptName,
         userId: req.body.userId,
         videourl: req.body.videourl,
