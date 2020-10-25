@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 
 export default class SelectListGroup1 extends Component {
   render() {
-
-
     function optionSelected(v1, v2) {
       if (v1 == v2)
         return "true";
@@ -13,7 +11,7 @@ export default class SelectListGroup1 extends Component {
         return "false";
     }
     const id = this.props.id;
-    const errors = this.props.errors;
+    const error = this.props.error;
     const info = this.props.info;
     const onChangeCallBack = this.props.onChange;
     const valueProvider = this.props.valueProvider;
@@ -28,7 +26,7 @@ export default class SelectListGroup1 extends Component {
       <div className="form-group">
         <select
           className={classnames("form-control form-control-lg", {
-            "is-invalid": errors[id]
+            "is-invalid": error
           })}
           name={id}
           id={id}
@@ -37,7 +35,7 @@ export default class SelectListGroup1 extends Component {
           {selectOptions}
         </select>
         {info && <small className="form-text text-muted">{info}</small>}
-        {errors[id] && <div className="invalid-feedback">{errors[id]}</div>}
+        {error && <div className="invalid-feedback">{error}</div>}
       </div>
     );
   };

@@ -6,6 +6,7 @@ module.exports = function validateScriptInput(data) {
   console.log(data);
 
   data.scriptName = !isEmpty(data.scriptName) ? data.scriptName : "";
+  data.scriptType = !isEmpty(data.scriptType) ? data.scriptType : "";
   data.userId = !isEmpty(data.userId) ? data.userId : "";
   data.videourl = !isEmpty(data.videourl) ? data.videourl : "";
   data.groupMix = !isEmpty(data.groupMix) ? data.groupMix : "";
@@ -16,12 +17,17 @@ module.exports = function validateScriptInput(data) {
   data.phase0Assignment = !isEmpty(data.phase0Assignment) ? data.phase0Assignment : "";
   data.phase5Assignment = !isEmpty(data.phase5Assignment) ? data.phase5Assignment : "";
     
+
   if (Validator.isEmpty(data.scriptName)) {
     errors.scriptName = "Name field is required";
   }
 
+ 
   if (!Validator.isLength(data.scriptName, { min: 2, max: 30 })) {
     errors.scriptName = "Name must be between 2 and 30 characters";
+  }
+  if (Validator.isEmpty(data.scriptType)) {
+    errors.scriptType = "Scripttype field is required";
   }
 
   if (Validator.isEmpty(data.userId)) {

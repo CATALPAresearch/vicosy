@@ -67,6 +67,7 @@ class TrainerScriptCreator extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    
     const newScript = {
       userId: this.state.userId.auth.user.id,
       scriptName: this.state.scriptName,
@@ -273,7 +274,7 @@ class TrainerScriptCreator extends Component {
                   id="groupSize"
                   name="groupSize"
                   options={groupSize}
-                  errors={errors}
+                  error={errors.selectList}
                   onChange={this.handleChange.bind(this)}
                   role={this.state.role}
                   valueProvider={this.state}
@@ -290,7 +291,7 @@ class TrainerScriptCreator extends Component {
                   id="groupMix"
                   name="groupMix"
                   options={groupMix}
-                  errors={errors}
+                  error={errors.selectList}
                   onChange={this.handleChange.bind(this)}
                   valueProvider={this.state}
                 />

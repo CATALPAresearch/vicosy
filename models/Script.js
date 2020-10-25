@@ -10,6 +10,11 @@ const GroupSchema = new Schema({
 // Create Schema
 const ScriptSchema = new Schema({
 
+    _id: {
+        type: String,
+        required: true
+    },
+
     userId: {
         type: String,
         required: true
@@ -22,11 +27,7 @@ const ScriptSchema = new Schema({
         type: String,
         required: true
     },
-    scripturl: {
-        type: String,
-        required: true
-    },
-    sessionType:
+    scriptType:
     {
         type: String,
         required: true
@@ -66,7 +67,7 @@ const ScriptSchema = new Schema({
     groups: {
         type: [GroupSchema],
         require: false
-    }, 
+    },
     status: {
         type: String,
         required: false
