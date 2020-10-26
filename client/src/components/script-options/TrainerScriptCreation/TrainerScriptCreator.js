@@ -68,8 +68,9 @@ class TrainerScriptCreator extends Component {
   }
 
   setScript(script) {
+    console.log(script);
 
-  this.setState({
+    this.setState({
       _id: script._id,
       scriptName: script.scriptName,
       scriptType: script.scriptType,
@@ -83,7 +84,6 @@ class TrainerScriptCreator extends Component {
       phase5Assignment: script.phase5Assignment
     });
 
-    console.log("Script state set");
   }
 
   onSubmit(e) {
@@ -106,11 +106,11 @@ class TrainerScriptCreator extends Component {
     const { _id, userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
     if (videourl && scriptName && themes && scriptType) {
       if (!this.state._id) {
-        console.log("neues Script");
+        console.log("new Script");
         this.props.createScript(newScript, this.setScript);
       }
       else {
-        console.log("altes Script");
+        console.log("update Script");
         this.props.updateScript(newScript, this.setScript);
       }
     } else {
@@ -350,7 +350,7 @@ class TrainerScriptCreator extends Component {
             <input
               type="submit"
               className="btn btn-info btn-lg"
-              value="Create Session"
+              value="Save Script"
             />
 
           </div>

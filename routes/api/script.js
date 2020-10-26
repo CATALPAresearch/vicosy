@@ -94,7 +94,7 @@ router.post("/updatescript", (req, res) => {
     });
     thisScript.updateOne({ _id: req.body._id }, newScript).then(script => {
         console.log("Script updated");
-        res.json(script);
+        res.json(newScript);
     })
         .catch(errors => {
             console.log(errors);
