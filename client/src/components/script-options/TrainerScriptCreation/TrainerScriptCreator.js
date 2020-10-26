@@ -12,7 +12,7 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
-import { createScript } from "../../../actions/scriptActions";
+import { createScript, updateScript } from "../../../actions/scriptActions";
 
 import store from "../../../store";
 
@@ -26,6 +26,7 @@ class TrainerScriptCreator extends Component {
       // videourl: process.env.REACT_APP_DEFAULT_VIDEO_URL
       //   ? process.env.REACT_APP_DEFAULT_VIDEO_URL
       //   : "https://www.dropbox.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
+      _id: "",
       videourl:
         "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
       scriptName: "Meine Video Session",
@@ -43,6 +44,7 @@ class TrainerScriptCreator extends Component {
 
     };
     this.onChange = this.handleChange.bind(this);
+    this.setScript = this.setScript.bind(this);
   }
 
   componentDidMount() {
@@ -65,10 +67,29 @@ class TrainerScriptCreator extends Component {
 
   }
 
+  setScript(script) {
+
+  this.setState({
+      _id: script._id,
+      scriptName: script.scriptName,
+      scriptType: script.scriptType,
+      groupSize: script.groupSize,
+      groupMix: script.groupMix,
+      videourl: script.videourl,
+      themes: script.themes,
+      isPhase0: script.isPhase0,
+      isPhase5: script.isPhase5,
+      phase0Assignment: script.phase0Assignment,
+      phase5Assignment: script.phase5Assignment
+    });
+
+    console.log("Script state set");
+  }
+
   onSubmit(e) {
     e.preventDefault();
-    
     const newScript = {
+      _id: this.state._id,
       userId: this.state.userId.auth.user.id,
       scriptName: this.state.scriptName,
       scriptType: this.state.scriptType,
@@ -81,10 +102,17 @@ class TrainerScriptCreator extends Component {
       phase0Assignment: this.state.phase0Assignment,
       phase5Assignment: this.state.phase5Assignment
     };
-    const { userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
+
+    const { _id, userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
     if (videourl && scriptName && themes && scriptType) {
-      this.props.createScript(newScript);
-      //newScript(this.state);
+      if (!this.state._id) {
+        console.log("neues Script");
+        this.props.createScript(newScript, this.setScript);
+      }
+      else {
+        console.log("altes Script");
+        this.props.updateScript(newScript, this.setScript);
+      }
     } else {
       window.logEvents.dispatch(LOG_ERROR, {
         message: `Enter valid script name and video url (currently only youtube supported)`
@@ -150,6 +178,9 @@ class TrainerScriptCreator extends Component {
     return (
       <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
         <h1>Scripteinstellungen</h1>
+        {/*         <div className="alert alert-danger hide" role="alert">
+        </div> */}
+
         <div className="row">
           <div className="col-sm-9 border bg-light">
             <div className="row">
@@ -274,7 +305,7 @@ class TrainerScriptCreator extends Component {
                   id="groupSize"
                   name="groupSize"
                   options={groupSize}
-                  error={errors.selectList}
+                  errors={errors}
                   onChange={this.handleChange.bind(this)}
                   role={this.state.role}
                   valueProvider={this.state}
@@ -291,7 +322,7 @@ class TrainerScriptCreator extends Component {
                   id="groupMix"
                   name="groupMix"
                   options={groupMix}
-                  error={errors.selectList}
+                  errors={errors}
                   onChange={this.handleChange.bind(this)}
                   valueProvider={this.state}
                 />
@@ -316,18 +347,11 @@ class TrainerScriptCreator extends Component {
             </div>
 
 
-
-
-
-
-
             <input
               type="submit"
               className="btn btn-info btn-lg"
               value="Create Session"
             />
-
-
 
           </div>
           <div className="col-sm-3 border bg-light">
@@ -356,21 +380,7 @@ TrainerScriptCreator.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { createScript },
+  { createScript, updateScript },
   null
 )(TrainerScriptCreator);
 
-
-// auth state into props => this.props.auth
-// map prop var to reducer
-/*
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(withRouter(Register));
-*/

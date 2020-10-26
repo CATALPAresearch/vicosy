@@ -11,7 +11,7 @@ export default class SelectListGroup1 extends Component {
         return "false";
     }
     const id = this.props.id;
-    const error = this.props.error;
+    const errors = this.props.errors;
     const info = this.props.info;
     const onChangeCallBack = this.props.onChange;
     const valueProvider = this.props.valueProvider;
@@ -26,7 +26,7 @@ export default class SelectListGroup1 extends Component {
       <div className="form-group">
         <select
           className={classnames("form-control form-control-lg", {
-            "is-invalid": error
+            "is-invalid": errors[id]
           })}
           name={id}
           id={id}
@@ -35,7 +35,7 @@ export default class SelectListGroup1 extends Component {
           {selectOptions}
         </select>
         {info && <small className="form-text text-muted">{info}</small>}
-        {error && <div className="invalid-feedback">{error}</div>}
+        {errors[id] && <div className="invalid-feedback">{errors[id]}</div>}
       </div>
     );
   };
@@ -44,7 +44,7 @@ export default class SelectListGroup1 extends Component {
 SelectListGroup1.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
-  errors: PropTypes.string,
+  errors: PropTypes.object,
   info: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired
