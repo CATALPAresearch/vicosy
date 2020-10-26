@@ -13,8 +13,9 @@ import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
 import { createScript, updateScript } from "../../../actions/scriptActions";
-
 import store from "../../../store";
+import Members from "../Members";
+import {showLink, hideLink} from "../Members";
 
 class TrainerScriptCreator extends Component {
   constructor(props) {
@@ -83,6 +84,7 @@ class TrainerScriptCreator extends Component {
       phase0Assignment: script.phase0Assignment,
       phase5Assignment: script.phase5Assignment
     });
+    showLink();
 
   }
 
@@ -355,7 +357,7 @@ class TrainerScriptCreator extends Component {
 
           </div>
           <div className="col-sm-3 border bg-light">
-
+            <Members/>
           </div>
         </div>
 
