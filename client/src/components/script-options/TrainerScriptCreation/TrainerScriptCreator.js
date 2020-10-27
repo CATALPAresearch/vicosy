@@ -13,9 +13,10 @@ import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
 import { createScript, updateScript } from "../../../actions/scriptActions";
+import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "../Members";
-import {showLink, hideLink} from "../Members";
+
 
 class TrainerScriptCreator extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class TrainerScriptCreator extends Component {
       // videourl: process.env.REACT_APP_DEFAULT_VIDEO_URL
       //   ? process.env.REACT_APP_DEFAULT_VIDEO_URL
       //   : "https://www.dropbox.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
+      showSavemessage: false,
       _id: "",
       videourl:
         "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
@@ -54,6 +56,19 @@ class TrainerScriptCreator extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.scriptNameUpdate(nextProps);
+  }
+
+  scriptHasId() {
+    if (isEmpty(this.state._id))
+      return false;
+    else
+      return true;
+  }
+  showSaveMessageDelay() {
+    this.setState({ showSaveMessage: true })
+    setTimeout(() => this.setState({ showSaveMessage: false }), 2000);
+
+
   }
 
   scriptNameUpdate(props) {
@@ -84,11 +99,12 @@ class TrainerScriptCreator extends Component {
       phase0Assignment: script.phase0Assignment,
       phase5Assignment: script.phase5Assignment
     });
-    showLink();
 
+    this.showSaveMessageDelay();
   }
 
   onSubmit(e) {
+    console.log(this.props.auth);
     e.preventDefault();
     const newScript = {
       _id: this.state._id,
@@ -352,13 +368,22 @@ class TrainerScriptCreator extends Component {
             <input
               type="submit"
               className="btn btn-info btn-lg"
-              value="Save Script"
+              value="Speichere Script"
             />
-
+            {
+              this.state.showSaveMessage ?
+                <div className="alert alert-success" role="alert">Script gespeichert</div> : null
+            }
           </div>
           <div className="col-sm-3 border bg-light">
-            <Members/>
+            {
+              this.scriptHasId() ?
+                <Members
+                  _id={this.state._id}
+                /> : null
+            }
           </div>
+
         </div>
 
 

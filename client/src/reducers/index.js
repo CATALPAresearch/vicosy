@@ -12,5 +12,6 @@ export default combineReducers({
   rooms: roomsReducer, // data by rooms I'm part of
   settings: settingsReducer, // feature states manipulated by me => todo: move to localStateReducer
   localState: localStateReducer, // my own session data that is shared in current session (will become remoteState in shared data for others)
-  restrictions: restrictionReducer // features access state
+  restrictions: restrictionReducer, // features access state
+  
 });

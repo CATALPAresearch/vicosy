@@ -47,11 +47,12 @@ export const ENABLE_FEATURES = "ENABLE_FEATURES"; // features or empty to enable
 export const DISABLE_FEATURES = "DISABLE_FEATURES"; // features or empty to disable all
 
 // roles
-export const TRAINER = "TRAINER"; 
+export const TRAINER = "TRAINER";
 export const STUDENT = "STUDENT";
 
 // group mix
 
-export const HOMOGEN = "HOMOGEN"; 
+export const HOMOGEN = "HOMOGEN";
 export const HETEROGEN = "HETEROGEN";
 export const SHUFFLE = "SHUFFLE"
+

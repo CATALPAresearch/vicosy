@@ -9,12 +9,11 @@ export default class Members extends Component {
         this.scriptTypeRef = React.createRef();
 
         this.state = {
-            showUrl: false,
             _id: this.props._id
         }
     }
 
-     showLink = () => {
+    showLink = () => {
         this.setState({
             showUrl: true
         })
@@ -37,14 +36,14 @@ export default class Members extends Component {
         return (
             <span>
                 {
-                    this.state.showUrl ?
-                        <a
-                            href="#"
-                            onClick={this.onShareSession.bind(this)}
-                            className="nav-link"
-                        >
-                            Teilnehmer einladen<i className="fa fa-share-alt-square" />
-                        </a> : null
+
+                    <a
+                        href="#"
+                        onClick={this.onShareSession.bind(this)}
+                        className="nav-link"
+                    >
+                        Teilnehmer einladen<i className="fa fa-share-alt-square" />
+                    </a>
                 }
             </span>
 

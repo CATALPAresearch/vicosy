@@ -1,6 +1,7 @@
 import axios from "axios";
 import { GET_ERRORS } from "./types";
 
+
 //create Script and store it in db
 export const createScript = (scriptData, setScript) => dispatch => {
   axios
