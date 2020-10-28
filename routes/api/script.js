@@ -30,15 +30,16 @@ router.get("/test", (req, res) => {
 router.post("/getscriptbyid", (req, res) => {
     console.log("Trying to get Script by Id");
 
-    Script.findById(req.body._id).then(thisscript => {
-        console.log(thisscript);
-        if (thisscript) {
+    Script.findById(req.body._id).then(script => {
+
+        if (script) {
             res.json({
-                script: thisscript
+                script
             });
 
 
         } else {
+            console.log("error");
             let errors = {};
             errors.script = "Script does not exist anymore";
             errors.warning = "Script does not exist anymore";

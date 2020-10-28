@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS } from "./types";
+import { GET_ERRORS, SET_ACT_SCRIPT } from "./types";
 
 
 //create Script and store it in db
@@ -32,16 +32,21 @@ export const updateScript = (scriptData, setScript) => dispatch => {
 };
 
 //get Script by Id 
-export const getScriptById = (scriptId, setScript) => dispatch => {
+export const getScriptById = (scriptId) => dispatch => {
   let script = { _id: scriptId }
   axios
     .post("../api/script/getscriptbyid", script)
     .then(res => {
-      setScript(res.data);
+      console.log(res.data);
+            dispatch({
+        type: SET_ACT_SCRIPT,
+        payload: res.data.script
+      });
     }).catch(err => {
+      console.log(err);
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.data
       });
     });
 }

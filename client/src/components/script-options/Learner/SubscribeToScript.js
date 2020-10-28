@@ -17,21 +17,13 @@ class SubscribeToScript extends Component {
       script: {}
     };
     this.props.getScriptById(
-      this.props.match.params.scriptId, this.setScript)
-    this.setScript = this.setScript.bind(this);
-  }
-
-  componentDidMount() {
-
-  }
-  setScript(fetchedscript) {
-    //this.setState({ script: fetchedscript.script })
-    console.log(fetchedscript);
-  }
+      this.props.match.params.scriptId)
+ }
+  
   render() {
     return (
       <div className="container mt-4" >
-        {this.state.script.scriptName}
+        {this.props.script.scriptName}
       </div>
     );
   }
@@ -42,6 +34,7 @@ const mapStateToProps = state => ({
   rooms: state.rooms,
   auth: state.auth,
   errors: state.errors,
+  script: state.script,
   var: state
 });
 
@@ -50,4 +43,3 @@ export default connect(
   { getScriptById },
   null
 )(SubscribeToScript);
-

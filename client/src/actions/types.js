@@ -54,5 +54,8 @@ export const STUDENT = "STUDENT";
 
 export const HOMOGEN = "HOMOGEN";
 export const HETEROGEN = "HETEROGEN";
-export const SHUFFLE = "SHUFFLE"
+export const SHUFFLE = "SHUFFLE";
+
+//Scriot
+export const SET_ACT_SCRIPT="export const";
 
