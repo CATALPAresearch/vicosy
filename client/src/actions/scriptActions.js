@@ -38,7 +38,7 @@ export const getScriptById = (scriptId) => dispatch => {
     .post("../api/script/getscriptbyid", script)
     .then(res => {
       console.log(res.data);
-            dispatch({
+      dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data.script
       });
@@ -49,4 +49,8 @@ export const getScriptById = (scriptId) => dispatch => {
         payload: err.data
       });
     });
+}
+
+export const subScribeToScript = (userId, expLevel) => dispatch => {
+
 }

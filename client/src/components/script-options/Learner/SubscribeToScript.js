@@ -27,6 +27,9 @@ class SubscribeToScript extends Component {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
   }
 
+  onSubmit(e) {
+    this.props.subScribeToScript(this.props.auth.user.id, this.state.expLevel);
+  }
   render() {
     const expLevel = [];
     expLevel.push({
@@ -41,25 +44,27 @@ class SubscribeToScript extends Component {
 
     return (
       <div className="container mt-4" >
-        <h2>Anmeldung für das Script: {this.props.script.scriptName} </h2>
+        <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
+          <h2>Anmeldung für das Script: {this.props.script.scriptName} </h2>
         Bevor du dich für das Script anmelden kannst, noch eine Frage. Auf einer Skala von 1-10, wie gut schätzt du deine Kenntnisse zu folgendem Thema ein, wobei 1 für sehr gering und 10 für überragend steht.: <br>
-        </br> <br></br>
-        <h5>{this.props.script.themes}</h5>
-        <br></br>
-        <SelectListGroup1
-          id="expLevel"
-          name="expLevel"
-          options={expLevel}
-          errors={this.props.errors}
-          onChange={this.handleChange.bind(this)}
-          valueProvider={this.state}
-        />
+          </br> <br></br>
+          <h5>{this.props.script.themes}</h5>
+          <br></br>
+          <SelectListGroup1
+            id="expLevel"
+            name="expLevel"
+            options={expLevel}
+            errors={this.props.errors}
+            onChange={this.handleChange.bind(this)}
+            valueProvider={this.state}
+          />
 
-        <input
-          type="submit"
-          className="btn btn-info btn-lg"
-          value="Einschreiben"
-        />
+          <input
+            type="submit"
+            className="btn btn-info btn-lg"
+            value="Einschreiben"
+          />
+        </form>
       </div>
     );
   }
