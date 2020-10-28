@@ -23,6 +23,34 @@ router.get("/test", (req, res) => {
     res.json({ msg: "Script works" });
 });
 
+
+// @route   POST api/script/getscriptbyid
+// @desc    Get Script by Id
+// @access  Public
+router.post("/getscriptbyid", (req, res) => {
+    console.log("Trying to get Script by Id");
+
+    Script.findById(req.body._id).then(thisscript => {
+        console.log(thisscript);
+        if (thisscript) {
+            res.json({
+                script: thisscript
+            });
+
+
+        } else {
+            let errors = {};
+            errors.script = "Script does not exist anymore";
+            errors.warning = "Script does not exist anymore";
+            return res.status(400).json(errors);
+        }
+    }
+    )
+});
+
+
+
+
 // @route   POST api/script/newscript
 // @desc    Save new script
 // @access  Public

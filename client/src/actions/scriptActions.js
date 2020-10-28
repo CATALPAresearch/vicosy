@@ -22,7 +22,7 @@ export const updateScript = (scriptData, setScript) => dispatch => {
   axios
     .post("api/script/updatescript", scriptData)
     .then(res => {
-      setScript(res.data);
+      setScript(res.data.script);
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
@@ -31,5 +31,17 @@ export const updateScript = (scriptData, setScript) => dispatch => {
     });
 };
 
-
-
+//get Script by Id 
+export const getScriptById = (scriptId, setScript) => dispatch => {
+  let script = { _id: scriptId }
+  axios
+    .post("../api/script/getscriptbyid", script)
+    .then(res => {
+      setScript(res.data);
+    }).catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+}

@@ -5,14 +5,11 @@ import { LOG } from "../logic-controls/logEvents";
 export default class Members extends Component {
     constructor(props) {
         super(props);
-        this.urlInput = React.createRef();
-        this.scriptTypeRef = React.createRef();
+        this._id = props._id;
+        this.state =
+            { url: "" }
 
-        this.state = {
-            _id: this.props._id
-        }
     }
-
     showLink = () => {
         this.setState({
             showUrl: true
@@ -26,29 +23,21 @@ export default class Members extends Component {
     }
 
     onShareSession() {
-        var url = window.location.href + this.state._id;
-        window.logEvents.dispatch(LOG, {
-            class: "success",
-            message: `Send following URL to your friend: ${url}`
-        });
+        this.props.showUrl();
     }
     render() {
         return (
-            <span>
-                {
+            <div>
+                <a
+                    href="#"
+                    onClick={this.onShareSession.bind(this)}
+                    className="nav-link"
+                >
+                    Teilnehmer einladen<i className="fa fa-share-alt-square" />
+                </a>
+                <p>{this.state.url}</p>
 
-                    <a
-                        href="#"
-                        onClick={this.onShareSession.bind(this)}
-                        className="nav-link"
-                    >
-                        Teilnehmer einladen<i className="fa fa-share-alt-square" />
-                    </a>
-                }
-            </span>
-
-
-
+            </div>
         );
 
     }

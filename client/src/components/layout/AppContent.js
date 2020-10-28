@@ -59,9 +59,9 @@ class AppContent extends Component {
               component={VideoSession}
             />
             <PrivateRoute exact path="/trainerlobby" component={TrainerLobby} />
-            <PrivateRoute exact path="/newtrainerscript" component={TrainerScriptCreator} />
-            <PrivateRoute exact path="/subcribeToScript" component={SubscribeToScript} />
-                        
+            <PrivateRoute exact path="/newtrainerscript/" component={TrainerScriptCreator} />
+            <PrivateRoute exact path="/subcribeToScript/:scriptId" component={SubscribeToScript} />
+
           </Switch>
         </SocketController>
         <Route exact path="/not-found" component={NotFound} />
@@ -70,6 +70,8 @@ class AppContent extends Component {
     );
   }
 }
+
+
 
 AppContent.propTypes = {
   match: PropTypes.object.isRequired,

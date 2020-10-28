@@ -43,7 +43,9 @@ class TrainerScriptCreator extends Component {
       phase0Assignment: "",
       phase5Assignment: "",
       scriptType: SESSION_PEER_TEACHING,
-      userId: store.getState()
+      userId: store.getState(),
+      showUrl: false,
+      scriptUrl: ""
 
     };
     this.onChange = this.handleChange.bind(this);
@@ -84,7 +86,6 @@ class TrainerScriptCreator extends Component {
   }
 
   setScript(script) {
-    console.log(script);
 
     this.setState({
       _id: script._id,
@@ -99,12 +100,10 @@ class TrainerScriptCreator extends Component {
       phase0Assignment: script.phase0Assignment,
       phase5Assignment: script.phase5Assignment
     });
-
     this.showSaveMessageDelay();
   }
 
   onSubmit(e) {
-    console.log(this.props.auth);
     e.preventDefault();
     const newScript = {
       _id: this.state._id,
@@ -161,6 +160,10 @@ class TrainerScriptCreator extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+  showUrl() {
+    this.setState({ scriptUrl: window.location.href.substr(0, window.location.href.length - 17) + "subcribeToScript/" + this.state._id });
+    this.setState({ showUrl: true });
+  }
 
   render() {
     const userId = store.getState();
@@ -194,11 +197,20 @@ class TrainerScriptCreator extends Component {
     });
 
     return (
+
       <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
         <h1>Scripteinstellungen</h1>
         {/*         <div className="alert alert-danger hide" role="alert">
         </div> */}
+        {this.state.showUrl ?
+          <div className="alert alert-primary" role="alert">
+            Schicke die URL Teilnehmern für das Script: <br></br>
+            <a href={this.state.scriptUrl}>
+              {this.state.scriptUrl}<br></br>
+            </a>
 
+          </div> : null
+        }
         <div className="row">
           <div className="col-sm-9 border bg-light">
             <div className="row">
@@ -380,6 +392,7 @@ class TrainerScriptCreator extends Component {
               this.scriptHasId() ?
                 <Members
                   _id={this.state._id}
+                  showUrl={this.showUrl.bind(this)}
                 /> : null
             }
           </div>
