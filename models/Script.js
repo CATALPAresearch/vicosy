@@ -1,10 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const GroupSchema = new Schema({
-    groupMembers: [String],
-    required: false
+//Members
+const MemberSchema = new Schema({
+    expLevel: {
+        type: Number,
+        require: false
+    }
+})
 
+//Groups
+const GroupSchema = new Schema({
+    groupMembers: [MemberSchema],
+    required: false
 })
 
 // Create Schema
@@ -56,7 +64,7 @@ const ScriptSchema = new Schema({
         required: false
     },
     participants: {
-        type: [String],
+        type: [MemberSchema],
         required: false
     },
     groups: {
