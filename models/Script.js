@@ -78,4 +78,4 @@ const ScriptSchema = new Schema({
 }
 );
 
-module.exports = User = mongoose.model("script", ScriptSchema);
+module.exports = Script = mongoose.model("script", ScriptSchema);

@@ -57,5 +57,7 @@ export const HETEROGEN = "HETEROGEN";
 export const SHUFFLE = "SHUFFLE";
 
 //Scriot
-export const SET_ACT_SCRIPT="export const";
+export const SET_ACT_SCRIPT = "SET_ACT_SCRIPT";
 
+//iTutor
+export const SET_WARNING = "SET_WARNING";

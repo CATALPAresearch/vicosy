@@ -163,40 +163,49 @@ class Navbar extends Component {
     );
 
     return (
-      <nav
-        className={classnames("navbar navbar-dark bg-dark ", {
-          "mb-4": !isSession,
-          "navbar-expand-sm": !isSession
-        })}
-      >
-        {/* <a class="navbar-brand" href="#">Navbar</a> */}
-        <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
-          CloseUpTogether
+      <div>
+        <nav
+          className={classnames("navbar navbar-dark bg-dark ", {
+            "mb-4": !isSession,
+            "navbar-expand-sm": !isSession
+          })}
+        >
+          {/* <a class="navbar-brand" href="#">Navbar</a> */}
+          <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
+            CloseUpTogether
         </Link>
-        {errorMessage}
-        {warningMessage}
+          {errorMessage}
+          {warningMessage}
 
-        <button
-          ref={this.togglerRef}
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#RightNavItems"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
+          <button
+            ref={this.togglerRef}
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#RightNavItems"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
 
-        <div
-          onClick={() => {
-            if (isSession) this.togglerRef.current.click();
-          }}
-          className="collapse navbar-collapse"
-          id="RightNavItems"
-        >
-          {/* {isSession ? sessionInfo : null} */}
-          {isAuthenticated ? authLinks : guestLinks}
-        </div>
-      </nav>
+          <div
+            onClick={() => {
+              if (isSession) this.togglerRef.current.click();
+            }}
+            className="collapse navbar-collapse"
+            id="RightNavItems"
+          >
+            {/* {isSession ? sessionInfo : null} */}
+            {isAuthenticated ? authLinks : guestLinks}
+
+          </div>
+
+        </nav>
+        { this.props.iTutor.warningMessage ?
+          <div className="alert alert-warning">
+            <strong>Warning!</strong> {this.props.iTutor.warningMessage}
+          </div> : null
+        }
+      </div>
     );
   }
 }
@@ -208,7 +217,8 @@ Navbar.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  iTutor: state.iTutor
 });
 
 export default connect(

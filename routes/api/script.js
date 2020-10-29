@@ -8,6 +8,7 @@ const passport = require("passport");
 
 // load input validation
 const validateScriptInput = require("../../validation/script");
+const validateSuscribeInput = require("../../validation/subscribeToScript");
 const isEmpty = require("../../validation/is-empty");
 
 
@@ -28,18 +29,19 @@ router.get("/test", (req, res) => {
 // @desc    Get Script by Id
 // @access  Public
 router.post("/getscriptbyid", (req, res) => {
-    console.log("Trying to get Script by Id");
 
+    console.log(res.body);
     Script.findById(req.body._id).then(script => {
 
         if (script) {
+            console.log("Return Script by Id");
             res.json({
                 script
             });
 
 
         } else {
-            console.log("error");
+            console.log("error getting Script by Id");
             let errors = {};
             errors.script = "Script does not exist anymore";
             errors.warning = "Script does not exist anymore";
@@ -52,12 +54,105 @@ router.post("/getscriptbyid", (req, res) => {
 
 
 
+
+// @route   POST api/script/subscribetoscript
+// @desc    Subcrube Learner to Script
+// @access  Public
+
+router.post("/subscribetoscript", (req, res) => {
+    console.log("add member");
+
+    let member = {
+        _id: req.body.userId,
+        expLevel: req.body.expLevel
+    };
+    //let script = { _id: req.body.scriptId };
+
+
+    const { errors, isValid } = validateSuscribeInput(req.body);
+    // check validation
+    if (!isValid) {
+        console.log(errors);
+        return res.status(400).json(errors);
+
+    }
+    else {
+        Script.findById(req.body.scriptId).then(script => {
+            console.log(script);
+            if (!script) {
+                //pruefen ob schon drin
+                errors.alert = "Script does not exist";
+                return res.status(404).json(errors);
+            }
+            else {
+                let ismember = false;
+                script.participants.forEach(element => {
+                    console.log(element);
+                    if (element._id == member._id)
+                        ismember = true;
+                })
+                if (ismember) { //pruefen ob schon drin
+                    errors.warning = "User schon eingeschrieben";
+                    return res.status(404).json(errors);
+                }
+                else {
+                    script.participants.push(member);
+                    script.save().then(script => {
+                        /*
+                                        script.updateOne({ _id: script._id }, { $push: { participants: member } }).then(script => {
+                        */
+                        console.log("Script updated");
+                        res.json(script);
+                    }
+                    )
+                        .catch(errors => {
+                            console.log(errors);
+                            return res.status(400).json(errors);
+                        });
+                }
+            }
+            /*
+           if (!user) {
+                
+            }
+            */
+
+        })
+    }
+    /*
+    console.log("Eishockey");
+    User.findOne({}).then(user => {
+        // check for user
+        if (!user) {
+            errors.email = "User not found";
+            return res.status(404).json(errors);
+        }
+    }
+    */
+
+
+    /*
+        newScript.save()
+            .then(script => {
+                console.log("Script saved");
+                res.json(script);
+            })
+            .catch(errors => {
+                console.log(errors);
+                return res.status(400).json(errors)
+            });
+    
+    */
+});
+
+
 // @route   POST api/script/newscript
 // @desc    Save new script
 // @access  Public
 
 router.post("/newscript", (req, res) => {
-
+    console.log("hier");
+    console.log(req.body);
     const { errors, isValid } = validateScriptInput(req.body);
     // check validation
     if (!isValid) {
@@ -82,6 +177,7 @@ router.post("/newscript", (req, res) => {
     newScript.save()
         .then(script => {
             console.log("Script saved");
+            console.log(script);
             res.json(script);
         })
         .catch(errors => {

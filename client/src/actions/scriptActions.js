@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, SET_ACT_SCRIPT } from "./types";
+import { GET_ERRORS, SET_ACT_SCRIPT, SET_WARNING } from "./types";
 
 
 //create Script and store it in db
@@ -37,20 +37,34 @@ export const getScriptById = (scriptId) => dispatch => {
   axios
     .post("../api/script/getscriptbyid", script)
     .then(res => {
-      console.log(res.data);
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data.script
       });
     }).catch(err => {
-      console.log(err);
       dispatch({
         type: GET_ERRORS,
-        payload: err.data
+        payload: err.response.data
       });
     });
 }
 
-export const subScribeToScript = (userId, expLevel) => dispatch => {
+export const subScribeToScript = (userId, expLevel, scriptId) => dispatch => {
+  let options =
+  {
+    userId: userId,
+    expLevel: expLevel,
+    scriptId: scriptId
+  }
+  axios
+    .post("../api/script/subscribetoscript", options)
+    .then(res => {
+      console.log("user saved");
+    }).catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
 
 }
