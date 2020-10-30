@@ -110,6 +110,37 @@ export const unregisterFrom = (event, callback) => {
 };
 
 /**
+ * 
+ * SCRIPT 
+ *  
+ */
+const subscribeTrainerToScript = (cb, usersCb) => {
+  socket.on("lobbyUpdate", update => cb(update));
+  socket.on("lobbyUsers", users => usersCb(users));
+  socket.emit("subscribeToLobby");
+};
+
+const unsubscribeTrainerToScript = (cb, usersCb) => {
+  socket.on("lobbyUpdate", update => cb(update));
+  socket.on("lobbyUsers", users => usersCb(users));
+  socket.emit("subscribeToLobby");
+};
+
+const subscribeLearnerToScript = (cb, usersCb) => {
+  socket.on("lobbyUpdate", update => cb(update));
+  socket.on("lobbyUsers", users => usersCb(users));
+  socket.emit("subscribeToLobby");
+};
+
+const unsubscribeLearnerToScript = (cb, usersCb) => {
+  socket.on("lobbyUpdate", update => cb(update));
+  socket.on("lobbyUsers", users => usersCb(users));
+  socket.emit("subscribeToLobby");
+};
+
+
+
+/**
  * LOBBY
  */
 

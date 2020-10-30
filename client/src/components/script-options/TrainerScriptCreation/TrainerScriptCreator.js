@@ -161,7 +161,7 @@ class TrainerScriptCreator extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   showUrl() {
-    this.setState({ scriptUrl: window.location.href.substr(0, window.location.href.length - 17) + "subcribeToScript/" + this.state._id });
+    this.setState({ scriptUrl: window.location.href.substr(0, window.location.href.length - 16).replace("#", "") + "subcribeToScript/" + this.state._id });
     this.setState({ showUrl: true });
   }
 
@@ -387,7 +387,9 @@ class TrainerScriptCreator extends Component {
                 <div className="alert alert-success" role="alert">Script gespeichert</div> : null
             }
           </div>
+
           <div className="col-sm-3 border bg-light">
+            <h1>Teilnehmer</h1>
             {
               this.scriptHasId() ?
                 <Members
@@ -395,6 +397,7 @@ class TrainerScriptCreator extends Component {
                   showUrl={this.showUrl.bind(this)}
                 /> : null
             }
+           
           </div>
 
         </div>
