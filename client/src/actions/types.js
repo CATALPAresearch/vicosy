@@ -56,8 +56,10 @@ export const HOMOGEN = "HOMOGEN";
 export const HETEROGEN = "HETEROGEN";
 export const SHUFFLE = "SHUFFLE";
 
-//Scriot
+//Script
 export const SET_ACT_SCRIPT = "SET_ACT_SCRIPT";
+export const UPDATE_SCRIPT_PROP = "UPDATE_SCRIPT_PROP";
+export const SET_SCRIPT_MEMBERS = "SET_SCRIPT_MEMBERS";
 
 //iTutor
 export const SET_WARNING = "SET_WARNING";

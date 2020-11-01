@@ -520,6 +520,7 @@ function allowJoinRoom(roomId) {
   if (
     roomId === "lobby" ||
     roomId === "trainerlobby" ||
+    roomId.includes("memberlist") ||
     roomId === "WebRtcTestRoom" ||
     roomId === "WebRtcTestRoomWrapper"
   )

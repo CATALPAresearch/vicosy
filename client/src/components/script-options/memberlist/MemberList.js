@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import RoomComponent from "../../controls/RoomComponent";
 import ClientCounter from "../../controls/ClientCounter";
+import { getScriptMembers } from "../../../actions/scriptActions"
 
 export default class MemberList extends Component {
   render() {
     const { roomAvailable, roomData } = this.props.roomState;
+    console.log(roomData);
     var clients = null;
     var MemberListItem = this.props.memberListItemComponent;
-
+    console.log(roomData);
+    getScriptMembers(this.props.script_id);
     if (roomAvailable && roomData.state.sharedRoomData) {
       var clientIdArray = Object.keys(roomData.state.sharedRoomData.clients);
       clients = clientIdArray.map(clientId => {
@@ -23,8 +26,6 @@ export default class MemberList extends Component {
 
     return (
       <div className="userlist-main bg-dark pt-1">
-        asdfasf
-        <h1>Komponente geht</h1>
         {/* <p className="h6 text-light ml-2 bg-dark">
           Users{" "}
           <RoomComponent
@@ -40,3 +41,12 @@ export default class MemberList extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  rooms: state.rooms,
+  auth: state.auth,
+  script: state.script,
+  errors: state.errors,
+  var: state
+});
+

@@ -87,7 +87,7 @@ class SocketController extends Component {
     console.log(this.props.auth.user.role);
     switch (this.props.auth.user.role) {
       case "TRAINER":
-        this.props.loginRoom("trainerlobby");
+        this.props.loginRoom("memberlist");
         break;
       case "STUDENT":
         this.props.loginRoom("lobby");
@@ -96,6 +96,8 @@ class SocketController extends Component {
         this.props.loginRoom("lobby");
         break;
     }
+
+    
 
 
     // restore logged in rooms

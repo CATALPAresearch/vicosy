@@ -22,8 +22,8 @@ class RoomComponent extends Component {
   }
 
   updateRoomState(props) {
+    console.log(props.rooms.rooms);
     const targetRoomId = props.roomId;
-
     if (targetRoomId in props.rooms.rooms) {
       this.setState({
         roomAvailable: true,

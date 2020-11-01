@@ -1,5 +1,6 @@
 import { SET_ACT_SCRIPT } from "../actions/types";
-import { HOMOGEN, HETEROGEN, SHUFFLE } from "../actions/types";
+import React, { Component } from "react";
+import { HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP } from "../actions/types";
 import {
     SESSION_DEFAULT,
     SESSION_PEER_TEACHING
@@ -31,7 +32,6 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case SET_ACT_SCRIPT:
             //const isAuth = !isEmpty(action.payload);
-            console.log(action.payload);
             return {
                 ...state,
                 _id: action.payload._id,
@@ -48,8 +48,89 @@ export default function (state = initialState, action) {
                 userId: action.payload.userId,
                 participants: action.payload.participants
             };
+        case UPDATE_SCRIPT_PROP:
+
+            switch (Object.keys(action.payload)[0]) {
+                case "_id":
+                    return {
+                        ...state,
+                        _id: action.payload._id
+
+                    }
+                case "videourl":
+                    return {
+                        ...state,
+                        videourl: action.payload.videourl
+                    }
+                case "scriptName":
+                    return {
+                        ...state,
+                        scriptName: action.payload.scriptName
+                    }
+                case "groupSize":
+                    return {
+                        ...state,
+                        groupSize: action.payload.groupSize
+                    }
+                case "groupMix":
+                    return {
+                        ...state,
+                        groupMix: action.payload.groupMix
+                    }
+                case "themes":
+                    return {
+                        ...state,
+                        themes: action.payload.themes
+                    }
+                case "isPhase0":
+                    return {
+                        ...state,
+                        isPhase0: action.payload.isPhase0
+                    }
+                case "isPhase5":
+                    return {
+                        ...state,
+                        isPhase5: action.payload.isPhase5
+                    }
+                case "phase0Assignment":
+                    return {
+                        ...state,
+                        phase0Assignment: action.payload.phase0Assignment
+                    }
+                case "phase5Assignment":
+                    return {
+                        ...state,
+                        phase5Assignment: action.payload.phase5Assignment
+                    }
+                case "scriptType":
+                    return {
+                        ...state,
+                        scriptType: action.payload.scriptType
+                    }
+                case "userId":
+                    return {
+                        ...state,
+                        userId: action.payload.userId
+                    }
+                case "participants":
+                    return {
+                        ...state,
+                        participants: action.payload.participants
+                    }
+
+
+
+
+            }
+
+        /*return {
+            ...state,
+            
+        }*/
 
         default:
             return state;
     }
 }
+
+

@@ -1,13 +1,41 @@
 import axios from "axios";
-import { GET_ERRORS, SET_ACT_SCRIPT, SET_WARNING } from "./types";
+import { scriptMembers} from "../socket-handlers/api";
+import { GET_ERRORS, UPDATE_SCRIPT_PROP, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS } from "./types";
 
+
+//mitglieder werden gehot
+export const getScriptMembers = (script_id) => dispatch => {
+  scriptMembers(
+    script_id,
+    update => {
+      dispatch({
+        type: SET_SCRIPT_MEMBERS,
+        payload: update
+      });
+    }
+  );
+}
+
+
+//update prop in Store 
+export const updateScriptProp = (prop) => dispatch => {
+  dispatch({
+    type: UPDATE_SCRIPT_PROP,
+    payload: prop
+  });
+
+}
 
 //create Script and store it in db
 export const createScript = (scriptData, setScript) => dispatch => {
   axios
     .post("api/script/newscript", scriptData)
     .then(res => {
-      setScript(res.data);
+      console.log(res);
+      dispatch({
+        type: SET_ACT_SCRIPT,
+        payload: res.data
+      });
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,

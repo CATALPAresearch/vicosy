@@ -114,202 +114,186 @@ export const unregisterFrom = (event, callback) => {
  * SCRIPT 
  *  
  */
-const subscribeTrainerToScript = (cb, usersCb) => {
-  socket.on("lobbyUpdate", update => cb(update));
-  socket.on("lobbyUsers", users => usersCb(users));
-  socket.emit("subscribeToLobby");
-};
+//connects to script member and updates when member subscribes to script
 
-const unsubscribeTrainerToScript = (cb, usersCb) => {
-  socket.on("lobbyUpdate", update => cb(update));
-  socket.on("lobbyUsers", users => usersCb(users));
-  socket.emit("subscribeToLobby");
-};
-
-const subscribeLearnerToScript = (cb, usersCb) => {
-  socket.on("lobbyUpdate", update => cb(update));
-  socket.on("lobbyUsers", users => usersCb(users));
-  socket.emit("subscribeToLobby");
-};
-
-const unsubscribeLearnerToScript = (cb, usersCb) => {
-  socket.on("lobbyUpdate", update => cb(update));
-  socket.on("lobbyUsers", users => usersCb(users));
-  socket.emit("subscribeToLobby");
+export const scriptMembers = (scriptId, users) => {
+  console.log("hallo");
 };
 
 
 
-/**
- * LOBBY
- */
 
-const subscribeToLobby = (cb, usersCb) => {
-  socket.on("lobbyUpdate", update => cb(update));
-  socket.on("lobbyUsers", users => usersCb(users));
-  socket.emit("subscribeToLobby");
-};
 
-const unsubscribeFromLobby = () => {
-  if (isConnected()) {
-    socket.off("lobbyUpdate");
-    socket.emit("unsubscribeFromLobby");
-  }
-};
+  /**
+   * LOBBY
+   */
 
-/**
- * ROOMS
- */
+  const subscribeToLobby = (cb, usersCb) => {
+    socket.on("lobbyUpdate", update => cb(update));
+    socket.on("lobbyUsers", users => usersCb(users));
+    socket.emit("subscribeToLobby");
+  };
 
-const subscribeToRoom = (roomId, cb, usersCb, errorCb) => {
-  unregisterRoomEvents(roomId);
+  const unsubscribeFromLobby = () => {
+    if (isConnected()) {
+      socket.off("lobbyUpdate");
+      socket.emit("unsubscribeFromLobby");
+    }
+  };
 
-  // if (!isConnected()) return; // this will prevent joining a session
+  /**
+   * ROOMS
+   */
 
-  console.log("Subscribe to room", roomId);
-  socket.on("roomUpdate_" + roomId, update => {
-    socket.off("roomReject_" + roomId); // success
+  const subscribeToRoom = (roomId, cb, usersCb, errorCb) => {
+    unregisterRoomEvents(roomId);
 
-    cb(update);
-  });
-  socket.on("roomUsers_" + roomId, users => usersCb(users));
+    // if (!isConnected()) return; // this will prevent joining a session
 
-  socket.on("roomReject_" + roomId, error => {
+    console.log("Subscribe to room", roomId);
+    socket.on("roomUpdate_" + roomId, update => {
+      socket.off("roomReject_" + roomId); // success
+
+      cb(update);
+    });
+    socket.on("roomUsers_" + roomId, users => usersCb(users));
+
+    socket.on("roomReject_" + roomId, error => {
+      socket.off("roomUpdate_" + roomId);
+      socket.off("roomUsers_" + roomId);
+
+      console.log("ROOM REJECT", roomId);
+
+      errorCb(error);
+    });
+
+    if (roomId.indexOf("_stream") !== -1) socket.emit("joinStreamRoom", roomId);
+    else socket.emit("subscribeToRoom", roomId);
+  };
+
+  const unsubscribeFromRoom = roomId => {
+    console.log("unsubscribe to room", roomId);
+    unregisterRoomEvents(roomId);
+    if (isConnected()) {
+      socket.emit("unsubscribeFromRoom", roomId);
+    }
+  };
+
+  const unregisterRoomEvents = roomId => {
     socket.off("roomUpdate_" + roomId);
     socket.off("roomUsers_" + roomId);
+    socket.off("roomReject");
+  };
 
-    console.log("ROOM REJECT", roomId);
+  /**
+   * SESSIONS
+   */
 
-    errorCb(error);
-  });
+  const createSession = (sessionName, videoUrl, sessionType) => {
+    socket.emit("createSession", sessionName, videoUrl, sessionType);
+  };
 
-  if (roomId.indexOf("_stream") !== -1) socket.emit("joinStreamRoom", roomId);
-  else socket.emit("subscribeToRoom", roomId);
-};
+  // param: time
+  const subscribeToHeartBeat = cb => {
+    socket.on("heartBeat", cb);
+  };
 
-const unsubscribeFromRoom = roomId => {
-  console.log("unsubscribe to room", roomId);
-  unregisterRoomEvents(roomId);
-  if (isConnected()) {
-    socket.emit("unsubscribeFromRoom", roomId);
-  }
-};
+  const unSubscribeHeartBeat = () => {
+    socket.off("heartBeat");
+  };
 
-const unregisterRoomEvents = roomId => {
-  socket.off("roomUpdate_" + roomId);
-  socket.off("roomUsers_" + roomId);
-  socket.off("roomReject");
-};
+  // Send shared data => will result in room update
+  // will be persistent while room session on server
+  // client value: stored under clients id
+  export const sendSharedRoomData = (
+    roomId,
+    property,
+    value,
+    clientValue = false
+  ) => {
+    socket.emit("setSharedProperty", roomId, property, value, clientValue);
+  };
 
-/**
- * SESSIONS
- */
+  export const fetchAnnotations = roomId => {
+    socket.emit("fetchAnnotations", roomId);
+  };
 
-const createSession = (sessionName, videoUrl, sessionType) => {
-  socket.emit("createSession", sessionName, videoUrl, sessionType);
-};
+  export const sendSharedAnnotation = (
+    roomId,
+    playtime,
+    meta,
+    clientValue = false
+  ) => {
+    socket.emit("setSharedAnnotation", roomId, playtime, meta, clientValue);
+  };
 
-// param: time
-const subscribeToHeartBeat = cb => {
-  socket.on("heartBeat", cb);
-};
+  export const removeSharedAnnotation = (
+    roomId,
+    playtime,
+    clientValue = false
+  ) => {
+    socket.emit("removeSharedAnnotation", roomId, playtime, clientValue);
+  };
 
-const unSubscribeHeartBeat = () => {
-  socket.off("heartBeat");
-};
+  export const shareLocalState = (roomId, stateKey, stateValue) => {
+    socket.emit("shareLocalState", roomId, stateKey, stateValue);
+  };
 
-// Send shared data => will result in room update
-// will be persistent while room session on server
-// client value: stored under clients id
-export const sendSharedRoomData = (
-  roomId,
-  property,
-  value,
-  clientValue = false
-) => {
-  socket.emit("setSharedProperty", roomId, property, value, clientValue);
-};
+  export const broadcastHeartBeat = (roomId, time) => {
+    socket.emit("broadcastHeartBeat", roomId, time);
+  };
 
-export const fetchAnnotations = roomId => {
-  socket.emit("fetchAnnotations", roomId);
-};
+  // Send shared data => will result in room update
+  // transient, not saved on server
+  // client value: stored under clients id
+  export const shareTransientAwareness = (roomId, property, value, ignoreMe) => {
+    socket.emit("shareTransientAwareness", roomId, property, value, ignoreMe);
+  };
 
-export const sendSharedAnnotation = (
-  roomId,
-  playtime,
-  meta,
-  clientValue = false
-) => {
-  socket.emit("setSharedAnnotation", roomId, playtime, meta, clientValue);
-};
+  export const sendChatMessage = (roomId, message, receiver = -1) => {
+    socket.emit("chatMessage", roomId, message, receiver);
+  };
 
-export const removeSharedAnnotation = (
-  roomId,
-  playtime,
-  clientValue = false
-) => {
-  socket.emit("removeSharedAnnotation", roomId, playtime, clientValue);
-};
+  export const sendPeerSignalMessage = (roomId, message, receiver) => {
+    socket.emit("peerSignalMessage", roomId, message, receiver);
+  };
 
-export const shareLocalState = (roomId, stateKey, stateValue) => {
-  socket.emit("shareLocalState", roomId, stateKey, stateValue);
-};
+  export const sendDraw = (roomId, x0, y0, x1, y1, color) => {
+    socket.emit("draw", roomId, x0, y0, x1, y1, color);
+  };
 
-export const broadcastHeartBeat = (roomId, time) => {
-  socket.emit("broadcastHeartBeat", roomId, time);
-};
+  export const sendGenericRoomMessage = (roomId, message) => {
+    socket.emit("genericRoomMessage", roomId, message);
+  };
 
-// Send shared data => will result in room update
-// transient, not saved on server
-// client value: stored under clients id
-export const shareTransientAwareness = (roomId, property, value, ignoreMe) => {
-  socket.emit("shareTransientAwareness", roomId, property, value, ignoreMe);
-};
+  // todo: extract role on server side
+  export const sendRoleReadyState = ready => {
+    sendScriptProcessorMessage("readyState", !!ready);
+  };
 
-export const sendChatMessage = (roomId, message, receiver = -1) => {
-  socket.emit("chatMessage", roomId, message, receiver);
-};
+  export const sendScriptProcessorMessage = (type, data = null) => {
+    socket.emit("scriptMessage", { type: type, value: data });
+  };
 
-export const sendPeerSignalMessage = (roomId, message, receiver) => {
-  socket.emit("peerSignalMessage", roomId, message, receiver);
-};
+  // export const joinStreamRoom = sessionRoomId => {
+  //   socket.emit("joinStreamRoom", sessionRoomId);
+  // };
 
-export const sendDraw = (roomId, x0, y0, x1, y1, color) => {
-  socket.emit("draw", roomId, x0, y0, x1, y1, color);
-};
+  const isConnected = () => {
+    return socket && socket.connected;
+  };
 
-export const sendGenericRoomMessage = (roomId, message) => {
-  socket.emit("genericRoomMessage", roomId, message);
-};
-
-// todo: extract role on server side
-export const sendRoleReadyState = ready => {
-  sendScriptProcessorMessage("readyState", !!ready);
-};
-
-export const sendScriptProcessorMessage = (type, data = null) => {
-  socket.emit("scriptMessage", { type: type, value: data });
-};
-
-// export const joinStreamRoom = sessionRoomId => {
-//   socket.emit("joinStreamRoom", sessionRoomId);
-// };
-
-const isConnected = () => {
-  return socket && socket.connected;
-};
-
-export {
-  subscribeToTimer,
-  subscribeToLobby,
-  unsubscribeFromLobby,
-  subscribeToRoom,
-  unsubscribeFromRoom,
-  connectSocket,
-  disconnectSocket,
-  createSession,
-  subscribeToHeartBeat,
-  unSubscribeHeartBeat,
-  connectToP2PSignaler,
-  connectToP2PChannel
-};
+  export {
+    subscribeToTimer,
+    subscribeToLobby,
+    unsubscribeFromLobby,
+    subscribeToRoom,
+    unsubscribeFromRoom,
+    connectSocket,
+    disconnectSocket,
+    createSession,
+    subscribeToHeartBeat,
+    unSubscribeHeartBeat,
+    connectToP2PSignaler,
+    connectToP2PChannel
+  };

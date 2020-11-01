@@ -12,7 +12,7 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
-import { createScript, updateScript } from "../../../actions/scriptActions";
+import { updateScriptProp, createScript, updateScript } from "../../../actions/scriptActions";
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "../Members";
@@ -50,6 +50,8 @@ class TrainerScriptCreator extends Component {
     };
     this.onChange = this.handleChange.bind(this);
     this.setScript = this.setScript.bind(this);
+    this.props.updateScriptProp({ userId: this.props.auth.user.id })
+
   }
 
   componentDidMount() {
@@ -61,7 +63,7 @@ class TrainerScriptCreator extends Component {
   }
 
   scriptHasId() {
-    if (isEmpty(this.state._id))
+    if (isEmpty(this.props.script._id))
       return false;
     else
       return true;
@@ -106,25 +108,25 @@ class TrainerScriptCreator extends Component {
   onSubmit(e) {
     e.preventDefault();
     const newScript = {
-      _id: this.state._id,
-      userId: this.state.userId.auth.user.id,
-      scriptName: this.state.scriptName,
-      scriptType: this.state.scriptType,
-      groupSize: this.state.groupSize,
-      groupMix: this.state.groupMix,
-      videourl: this.state.videourl,
-      themes: this.state.themes,
-      isPhase0: this.state.isPhase0,
-      isPhase5: this.state.isPhase5,
-      phase0Assignment: this.state.phase0Assignment,
-      phase5Assignment: this.state.phase5Assignment
+      _id: this.props.script._id,
+      userId: this.props.auth.user.id,
+      scriptName: this.props.script.scriptName,
+      scriptType: this.props.script.scriptType,
+      groupSize: this.props.script.groupSize,
+      groupMix: this.props.script.groupMix,
+      videourl: this.props.script.videourl,
+      themes: this.props.script.themes,
+      isPhase0: this.props.script.isPhase0,
+      isPhase5: this.props.script.isPhase5,
+      phase0Assignment: this.props.script.phase0Assignment,
+      phase5Assignment: this.props.script.phase5Assignment
     };
 
-    const { _id, userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.state;
+    const { _id, userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.props.script;
     if (videourl && scriptName && themes && scriptType) {
       if (!this.state._id) {
         console.log("new Script");
-        this.props.createScript(newScript, this.setScript);
+        this.props.createScript(newScript);
       }
       else {
         console.log("update Script");
@@ -148,17 +150,17 @@ class TrainerScriptCreator extends Component {
   }
   //Änderungen werden im State gespeichert 
   handleChange(e) {
-    this.setState({ [e.target.id]: e.target.value, inputEdited: true });
+    this.props.updateScriptProp({ [e.target.id]: e.target.value, inputEdited: true });
   }
   //Unsetting der Checkbox wird das Assignment mitgelöscht, das läuft über das name Attribut
   handleCheckboxChange(e) {
     if (!e.target.checked)
-      this.setState({ [e.target.name]: "", inputEdited: true })
-    this.setState({ [e.target.id]: e.target.checked, inputEdited: true })
+      this.props.updateScriptProp({ [e.target.name]: "", inputEdited: true })
+    this.props.updateScriptProp({ [e.target.id]: e.target.checked, inputEdited: true })
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.props.updateScriptProp({ [e.target.name]: e.target.value });
   }
   showUrl() {
     this.setState({ scriptUrl: window.location.href.substr(0, window.location.href.length - 16).replace("#", "") + "subcribeToScript/" + this.state._id });
@@ -205,8 +207,8 @@ class TrainerScriptCreator extends Component {
         {this.state.showUrl ?
           <div className="alert alert-primary" role="alert">
             Schicke die URL Teilnehmern für das Script: <br></br>
-            <a href={this.state.scriptUrl}>
-              {this.state.scriptUrl}<br></br>
+            <a href={this.props.scriptUrl}>
+              {this.props.script.scriptUrl}<br></br>
             </a>
 
           </div> : null
@@ -220,7 +222,7 @@ class TrainerScriptCreator extends Component {
               <div className="col-6 col-sm-8">
                 <input
                   id="scriptName"
-                  value={this.state.scriptName}
+                  value={this.props.script.scriptName}
                   type="text"
                   className="form-control form-control-lg mr-sm-2"
                   placeholder="Session Name"
@@ -235,9 +237,9 @@ class TrainerScriptCreator extends Component {
               </div>
               <div className="col-6 col-sm-8">
                 <input
-                  ref={this.urlInput}
+                  ref={this.props.script.urlInput}
                   id="videourl"
-                  value={this.state.videourl}
+                  value={this.props.script.videourl}
                   type="text"
                   className="form-control form-control-lg mr-sm-2"
                   placeholder="Video URL"
@@ -294,7 +296,7 @@ class TrainerScriptCreator extends Component {
                   idCheckbox="isPhase0"
                   idTextfield="phase0Assignment"
                   errors={errors}
-                  value={this.state.phase0Assignment}
+                  value={this.props.script.phase0Assignment}
                   onChange={this.handleChange.bind(this)}
                   onCheckboxChange={this.handleCheckboxChange.bind(this)}
                   placeholder="Gib hier den Arbeitsauftag ein!"
@@ -315,7 +317,7 @@ class TrainerScriptCreator extends Component {
                   name="isPhase5"
                   idCheckbox="isPhase5"
                   idTextfield="phase5Assignment"
-                  value={this.state.phase5Assignment}
+                  value={this.props.script.phase5Assignment}
                   placeholder="Gib hier den Arbeitsauftag ein!"
                   errors={errors}
                   onChange={this.handleChange.bind(this)}
@@ -338,7 +340,7 @@ class TrainerScriptCreator extends Component {
                   errors={errors}
                   onChange={this.handleChange.bind(this)}
                   role={this.state.role}
-                  valueProvider={this.state}
+                  valueProvider={this.props.script}
                 />
               </div>
               <div className="w-100"></div>
@@ -354,7 +356,7 @@ class TrainerScriptCreator extends Component {
                   options={groupMix}
                   errors={errors}
                   onChange={this.handleChange.bind(this)}
-                  valueProvider={this.state}
+                  valueProvider={this.props.script}
                 />
               </div>
               <div className="w-100"></div>
@@ -371,7 +373,7 @@ class TrainerScriptCreator extends Component {
                   errors={errors}
                   className="form-control form-control-lg mr-sm-2"
                   onChange={this.handleChange.bind(this)}
-                  value={this.state.themes}
+                  value={this.props.script.themes}
                 />
               </div>
             </div>
@@ -391,13 +393,14 @@ class TrainerScriptCreator extends Component {
           <div className="col-sm-3 border bg-light">
             <h1>Teilnehmer</h1>
             {
+
               this.scriptHasId() ?
                 <Members
-                  _id={this.state._id}
+                  _id={this.props.script._id}
                   showUrl={this.showUrl.bind(this)}
                 /> : null
             }
-           
+
           </div>
 
         </div>
@@ -411,6 +414,7 @@ class TrainerScriptCreator extends Component {
 const mapStateToProps = state => ({
   rooms: state.rooms,
   auth: state.auth,
+  script: state.script,
   errors: state.errors,
   var: state
 });
@@ -423,7 +427,7 @@ TrainerScriptCreator.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { createScript, updateScript },
+  { createScript, updateScript, updateScriptProp },
   null
 )(TrainerScriptCreator);
 
