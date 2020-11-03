@@ -106,6 +106,7 @@ class TrainerScriptCreator extends Component {
   }
 
   onSubmit(e) {
+    
     e.preventDefault();
     const newScript = {
       _id: this.props.script._id,
@@ -127,10 +128,10 @@ class TrainerScriptCreator extends Component {
       if (!this.state._id) {
         console.log("new Script");
         this.props.createScript(newScript);
-      }
+        }
       else {
         console.log("update Script");
-        this.props.updateScript(newScript, this.setScript);
+        this.props.updateScript(newScript);
       }
     } else {
       window.logEvents.dispatch(LOG_ERROR, {
@@ -163,7 +164,7 @@ class TrainerScriptCreator extends Component {
     this.props.updateScriptProp({ [e.target.name]: e.target.value });
   }
   showUrl() {
-    this.setState({ scriptUrl: window.location.href.substr(0, window.location.href.length - 16).replace("#", "") + "subcribeToScript/" + this.state._id });
+    this.setState({ scriptUrl: window.location.href.substr(0, window.location.href.length - 17).replace("#", "") + "subcribeToScript/" + this.props.script._id });
     this.setState({ showUrl: true });
   }
 
@@ -207,8 +208,8 @@ class TrainerScriptCreator extends Component {
         {this.state.showUrl ?
           <div className="alert alert-primary" role="alert">
             Schicke die URL Teilnehmern für das Script: <br></br>
-            <a href={this.props.scriptUrl}>
-              {this.props.script.scriptUrl}<br></br>
+            <a href={this.state.scriptUrl}>
+              {this.state.scriptUrl}<br></br>
             </a>
 
           </div> : null

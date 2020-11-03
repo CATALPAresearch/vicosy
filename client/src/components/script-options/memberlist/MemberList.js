@@ -2,27 +2,34 @@ import React, { Component } from "react";
 import RoomComponent from "../../controls/RoomComponent";
 import ClientCounter from "../../controls/ClientCounter";
 import { getScriptMembers } from "../../../actions/scriptActions"
+import { connect, useStore } from "react-redux";
 
-export default class MemberList extends Component {
+export class MemberList extends Component {
   render() {
     const { roomAvailable, roomData } = this.props.roomState;
-    console.log(roomData);
     var clients = null;
     var MemberListItem = this.props.memberListItemComponent;
-    console.log(roomData);
-    getScriptMembers(this.props.script_id);
-    if (roomAvailable && roomData.state.sharedRoomData) {
-      var clientIdArray = Object.keys(roomData.state.sharedRoomData.clients);
-      clients = clientIdArray.map(clientId => {
+    this.props.getScriptMembers(this.props.script._id);
+console.log(this.props.script);
+    if (roomAvailable) {
+      var clientIdArray = this.props.script.participants;
+      console.log(this.props.script.participants);
+      clients = clientIdArray.map(client => {
+        console.log(client._id);
+        
         return (
           <MemberListItem
-            key={clientId}
-            clientId={clientId}
+            key={client._id}
+            clientId={client._id}
+            name={client.name}
+            email={client.email}
             roomData={roomData}
           />
         );
       });
+    
     }
+
 
     return (
       <div className="userlist-main bg-dark pt-1">
@@ -50,3 +57,9 @@ const mapStateToProps = state => ({
   var: state
 });
 
+
+export default connect(
+  mapStateToProps,
+  { getScriptMembers },
+  null
+)(MemberList);

@@ -4,6 +4,7 @@ import RoomComponent from "./../controls/RoomComponent";
 import Logger from "./../logic-controls/Logger";
 import MemberList from "./memberlist/MemberList";
 import MemberListItemDefault from "./memberlist/MemberListItemDefault";
+import { getScriptMembers } from "../../actions/scriptActions"
 
 // requires a parent with non static (e.g. relative position)
 export default class Members extends Component {
@@ -42,7 +43,6 @@ export default class Members extends Component {
                 <p>{this.state.url}</p>
 
                 <Logger roomId="memberlist" />
-
                 <RoomComponent
                     roomId="memberlist"
                     component={MemberList}

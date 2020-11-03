@@ -8,24 +8,13 @@ export default class MemberListItemDefault extends Component {
   render() {
     const clientId = this.props.clientId;
 
-    const roomData = this.props.roomData;
-    // const client = roomData.state.sharedRoomData.clients[clientId];
-
-    const isOwn = ownSocketId() === clientId;
-
     return (
-      <li
-        key={clientId}
+      <li value={clientId}
+   
         className={classnames(
-          "list-group-item user-list-item d-flex align-items-center",
-          {
-            "list-group-item-secondary": isOwn
-          }
-        )}
+          "list-group-item user-list-item d-flex align-items-center")}
       >
-        
-        <ClientName roomData={roomData} clientId={clientId} />
-        <TransientAwareness roomData={roomData} clientId={clientId} />
+        {this.props.name ? this.props.name :this.props.email}
       </li>
     );
   }

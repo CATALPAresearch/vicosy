@@ -1,15 +1,16 @@
 import axios from "axios";
-import { scriptMembers} from "../socket-handlers/api";
+import { scriptMembers, subscribeToScriptSocket } from "../socket-handlers/api";
 import { GET_ERRORS, UPDATE_SCRIPT_PROP, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS } from "./types";
 
 
-//mitglieder werden gehot
+//mitglieder werden geholt
 export const getScriptMembers = (script_id) => dispatch => {
   scriptMembers(
     script_id,
     update => {
+      console.log(update);
       dispatch({
-        type: SET_SCRIPT_MEMBERS,
+        type: SET_ACT_SCRIPT,
         payload: update
       });
     }
@@ -31,7 +32,7 @@ export const createScript = (scriptData, setScript) => dispatch => {
   axios
     .post("api/script/newscript", scriptData)
     .then(res => {
-      console.log(res);
+      //console.log(res);
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data
@@ -87,7 +88,7 @@ export const subScribeToScript = (userId, expLevel, scriptId) => dispatch => {
   axios
     .post("../api/script/subscribetoscript", options)
     .then(res => {
-      console.log("user saved");
+      subscribeToScriptSocket(res.data._id);
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
