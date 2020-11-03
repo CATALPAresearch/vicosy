@@ -14,7 +14,7 @@ const isEmpty = require("../../validation/is-empty");
 
 // load script model
 const Script = require("../../models/Script");
-
+const User = require("../../models/User");
 
 // @route GET api/script/test
 // @desc Test script route
@@ -52,6 +52,89 @@ router.post("/getscriptbyid", (req, res) => {
 });
 
 
+// @route   POST api/script/getscriptbyidmemberinfo
+// @desc    Get Script by Id with memberdetails
+// @access  Public
+router.post("/getscriptbyidmemberinfo", (req, res) => {
+    
+    Script.findById(req.body._id).then(script => {
+        if (script) {
+            console.log("Return Script by Id");
+
+            var memberlist = [];
+
+            var result = new Object;
+
+            function rek(i, callback) {
+                if (i < script.participants.length - 1) {
+                    User.findById(script.participants[i]).then(user => {
+                        member = {
+                            _id: user._id,
+                            name: user.name,
+                            email: user.email,
+                            expLevel: script.participants[i].expLevel
+                        };
+                        memberlist.push(member);
+                        rek(i + 1, callback);
+
+                    });
+                }
+                else {
+                    User.findById(script.participants[i]).then(user => {
+                        member = {
+                            _id: user._id,
+                            name: user.name,
+                            email: user.email,
+                            expLevel: script.participants[i].expLevel
+                        };
+                        memberlist.push(member);
+                        callback();
+                    })
+                }
+            }
+            
+            if (script.participants.length > 0)
+                rek(0, () => {
+                    result = {
+                        _id: script._id,
+                        videourl: script.videourl,
+                        scriptName: script.scriptName,
+                        groupSize: script.groupSize,
+                        groupMix: script.groupMix,
+                        themes: script.themes,
+                        isPhase0: script.isPhase0,
+                        isPhase5: script.isPhase5,
+                        phase0Assignment: script.phase0Assignment,
+                        phase5Assignment: script.phase5Assignment,
+                        scriptType: script.scriptType,
+                        userId: script.userId,
+
+                    }
+                    result.participants = memberlist;
+
+                    console.log("tach");
+                    console.log(result);
+                    res.json({
+                        result
+                    });
+
+
+                }
+
+                );
+            else res.json({
+                script
+            });
+        } else {
+            console.log("error getting Script by Id");
+            let errors = {};
+            errors.script = "Script does not exist anymore";
+            errors.warning = "Script does not exist anymore";
+            return res.status(400).json(errors);
+        }
+    }
+    )
+});
 
 
 
@@ -229,4 +312,9 @@ router.post("/updatescript", (req, res) => {
 
 
 });
+
+
+
+
+
 module.exports = router;

@@ -12,7 +12,7 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
-import { updateScriptProp, createScript, updateScript } from "../../../actions/scriptActions";
+import { updateScriptProp, createScript, updateScript,  getScriptByIdMemberDetails } from "../../../actions/scriptActions";
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "../Members";
@@ -52,6 +52,8 @@ class TrainerScriptCreator extends Component {
     this.setScript = this.setScript.bind(this);
     this.props.updateScriptProp({ userId: this.props.auth.user.id })
 
+    //gets Script if ID in URL-Params
+    this.setScript();
   }
 
   componentDidMount() {
@@ -87,22 +89,11 @@ class TrainerScriptCreator extends Component {
 
   }
 
-  setScript(script) {
+  setScript() {
 
-    this.setState({
-      _id: script._id,
-      scriptName: script.scriptName,
-      scriptType: script.scriptType,
-      groupSize: script.groupSize,
-      groupMix: script.groupMix,
-      videourl: script.videourl,
-      themes: script.themes,
-      isPhase0: script.isPhase0,
-      isPhase5: script.isPhase5,
-      phase0Assignment: script.phase0Assignment,
-      phase5Assignment: script.phase5Assignment
-    });
-    this.showSaveMessageDelay();
+    if (this.props.location.search) {
+      this.props.getScriptByIdMemberDetails(this.props.location.search.replace('?', ''));
+    }
   }
 
   onSubmit(e) {
@@ -127,7 +118,10 @@ class TrainerScriptCreator extends Component {
     if (videourl && scriptName && themes && scriptType) {
       if (!this.state._id) {
         console.log("new Script");
-        this.props.createScript(newScript);
+        this.props.createScript(newScript, script => this.props.history.push({
+          search: '?' + script._id
+        }));
+
       }
       else {
         console.log("update Script");
@@ -164,11 +158,19 @@ class TrainerScriptCreator extends Component {
     this.props.updateScriptProp({ [e.target.name]: e.target.value });
   }
   showUrl() {
+    let urlprocessed = "";
     let url = window.location.href.replace(window.location.pathname, "")
     if (url.charAt(url.length - 1) == "#")
       url = url.substring(0, url.length - 1);
+    if (url.includes("?")) {
+      let parts = url.split("?");
 
-    this.setState({ scriptUrl: url + "/subcribeToScript/" + this.props.script._id });
+      urlprocessed = parts[0];
+
+    }
+    else urlprocessed = url;
+
+    this.setState({ scriptUrl: urlprocessed + "/subcribeToScript/" + this.props.script._id });
     this.setState({ showUrl: true });
   }
 
@@ -432,7 +434,7 @@ TrainerScriptCreator.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { createScript, updateScript, updateScriptProp },
+  { createScript, updateScript, updateScriptProp, getScriptByIdMemberDetails},
   null
 )(TrainerScriptCreator);
 

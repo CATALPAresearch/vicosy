@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const UsersDBApi = require("./User");
 
 //Members
 const MemberSchema = new Schema({
@@ -79,3 +80,4 @@ const ScriptSchema = new Schema({
 );
 
 module.exports = Script = mongoose.model("script", ScriptSchema);
+
