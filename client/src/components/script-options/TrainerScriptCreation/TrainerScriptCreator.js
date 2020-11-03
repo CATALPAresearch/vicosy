@@ -106,7 +106,7 @@ class TrainerScriptCreator extends Component {
   }
 
   onSubmit(e) {
-    
+
     e.preventDefault();
     const newScript = {
       _id: this.props.script._id,
@@ -128,7 +128,7 @@ class TrainerScriptCreator extends Component {
       if (!this.state._id) {
         console.log("new Script");
         this.props.createScript(newScript);
-        }
+      }
       else {
         console.log("update Script");
         this.props.updateScript(newScript);
@@ -164,7 +164,11 @@ class TrainerScriptCreator extends Component {
     this.props.updateScriptProp({ [e.target.name]: e.target.value });
   }
   showUrl() {
-    this.setState({ scriptUrl: window.location.href.substr(0, window.location.href.length - 17).replace("#", "") + "subcribeToScript/" + this.props.script._id });
+    let url = window.location.href.replace(window.location.pathname, "")
+    if (url.charAt(url.length - 1) == "#")
+      url = url.substring(0, url.length - 1);
+
+    this.setState({ scriptUrl: url + "/subcribeToScript/" + this.props.script._id });
     this.setState({ showUrl: true });
   }
 
