@@ -12,7 +12,7 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
-import { updateScriptProp, createScript, updateScript,  getScriptByIdMemberDetails } from "../../../actions/scriptActions";
+import { updateScriptProp, createScript, updateScript,  getScriptById } from "../../../actions/scriptActions";
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "../Members";
@@ -51,10 +51,9 @@ class TrainerScriptCreator extends Component {
     this.onChange = this.handleChange.bind(this);
     this.setScript = this.setScript.bind(this);
     this.props.updateScriptProp({ userId: this.props.auth.user.id })
-
     //gets Script if ID in URL-Params
     this.setScript();
-  }
+      }
 
   componentDidMount() {
     this.scriptNameUpdate(this.props);
@@ -92,7 +91,7 @@ class TrainerScriptCreator extends Component {
   setScript() {
 
     if (this.props.location.search) {
-      this.props.getScriptByIdMemberDetails(this.props.location.search.replace('?', ''));
+      this.props.getScriptById(this.props.location.search.replace('?', ''));
     }
   }
 
@@ -434,7 +433,7 @@ TrainerScriptCreator.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { createScript, updateScript, updateScriptProp, getScriptByIdMemberDetails},
+  { createScript, updateScript, updateScriptProp, getScriptById},
   null
 )(TrainerScriptCreator);
 

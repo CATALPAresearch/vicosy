@@ -7,6 +7,10 @@ const MemberSchema = new Schema({
     expLevel: {
         type: Number,
         require: false
+    }, 
+    name: {
+        type: String,
+        required: false
     }
 })
 

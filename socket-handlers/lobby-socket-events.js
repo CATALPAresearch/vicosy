@@ -40,6 +40,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   clientSocket.on("subscribeToScriptSocket", scriptId => {
 
     ScriptDBApi.findById(scriptId).then(script => {
+      /*
       var memberlist = [];
 
       var res = new Object;;
@@ -96,8 +97,11 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
           console.log(res);
 
           clientSocket.to('memberlist').emit("returnScriptMembers", res);
+         
         }
         );
+         */
+      clientSocket.emit("returnScriptMembers", script);
     }).catch(
       errors => {
         clientSocket.emit("returnScriptMembers", errors);

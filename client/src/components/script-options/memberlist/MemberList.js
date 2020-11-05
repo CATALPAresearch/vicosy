@@ -9,25 +9,21 @@ export class MemberList extends Component {
     const { roomAvailable, roomData } = this.props.roomState;
     var clients = null;
     var MemberListItem = this.props.memberListItemComponent;
-    this.props.getScriptMembers(this.props.script._id);
-console.log(this.props.script);
+    this.props.getScriptMembers(this.props.script._id, this.props.auth.user.id);
     if (roomAvailable) {
       var clientIdArray = this.props.script.participants;
-      console.log(this.props.script.participants);
       clients = clientIdArray.map(client => {
-        console.log(client._id);
-        
+
         return (
           <MemberListItem
             key={client._id}
             clientId={client._id}
             name={client.name}
-            email={client.email}
             roomData={roomData}
           />
         );
       });
-    
+
     }
 
 

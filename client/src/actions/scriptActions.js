@@ -5,9 +5,9 @@ import { GET_ERRORS, UPDATE_SCRIPT_PROP, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT
 
 
 //mitglieder werden geholt
-export const getScriptMembers = (script_id) => dispatch => {
+export const getScriptMembers = (script_id, user_id) => dispatch => {
   scriptMembers(
-    script_id,
+    script_id, user_id,
     update => {
       console.log(update);
       dispatch({
@@ -16,6 +16,22 @@ export const getScriptMembers = (script_id) => dispatch => {
       });
     }
   );
+}
+
+//Scripts eines User werden geholt
+export const getScriptsByUserId = (user_id, callback) => dispatch => {
+  let value = { userId: user_id };
+    axios
+    .post("api/script/getscriptsbyuserid", value)
+    .then(res => {
+      callback(res.data.scripts);
+    }).catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+
 }
 
 
@@ -67,6 +83,7 @@ export const getScriptById = (scriptId) => dispatch => {
   axios
     .post("../api/script/getscriptbyid", script)
     .then(res => {
+      console.log(res);
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data.script
@@ -79,30 +96,12 @@ export const getScriptById = (scriptId) => dispatch => {
     });
 }
 
-//get Script by Id 
-export const getScriptByIdMemberDetails = (scriptId) => dispatch => {
-  let script = { _id: scriptId }
-    axios
-    .post("../api/script/getscriptbyidmemberinfo", script)
-    .then(res => {
-      console.log(res);
-      dispatch({
-        type: SET_ACT_SCRIPT,
-        payload: res.data.result
-      });
-    }).catch(err => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      });
-    });
-}
 
-
-export const subScribeToScript = (userId, expLevel, scriptId) => dispatch => {
+export const subScribeToScript = (userId, name, expLevel, scriptId) => dispatch => {
   let options =
   {
     userId: userId,
+    name: name,
     expLevel: expLevel,
     scriptId: scriptId
   }
