@@ -60,6 +60,7 @@ export const SHUFFLE = "SHUFFLE";
 export const SET_ACT_SCRIPT = "SET_ACT_SCRIPT";
 export const UPDATE_SCRIPT_PROP = "UPDATE_SCRIPT_PROP";
 export const SET_SCRIPT_MEMBERS = "SET_SCRIPT_MEMBERS";
+export const GET_SCRIPTS ="GET_SCRIPTS";
 
 //iTutor
 export const SET_WARNING = "SET_WARNING";

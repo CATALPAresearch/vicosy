@@ -1,6 +1,6 @@
 import { SET_ACT_SCRIPT } from "../actions/types";
 import React, { Component } from "react";
-import { HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP } from "../actions/types";
+import { HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS } from "../actions/types";
 import {
     SESSION_DEFAULT,
     SESSION_PEER_TEACHING
@@ -48,6 +48,14 @@ export default function (state = initialState, action) {
                 userId: action.payload.userId,
                 participants: action.payload.participants
             };
+        case GET_SCRIPTS: {
+            return {
+                ...state,
+                scripts: action.payload
+            }
+
+        }
+
         case UPDATE_SCRIPT_PROP:
 
             switch (Object.keys(action.payload)[0]) {
