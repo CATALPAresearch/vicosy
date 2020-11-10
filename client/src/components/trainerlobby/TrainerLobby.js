@@ -20,7 +20,7 @@ class TrainerLobby extends Component {
     this.props.getScriptsByUserId(this.props.auth.user.id);
     //to delete all scripts
     // this.props.deleteAllScripts(this.props.auth.user.id);
-    //  this.onClick = this.handleCLick.bind(this);
+  //  this.onClick = this.handleCLick.bind(this);
 
   }
   setListElements(newscripts) {
@@ -31,14 +31,14 @@ class TrainerLobby extends Component {
 
   handleCLick(e) {
     const { id, value } = e.target;
-    this.props.history.push("/newtrainerscript/?" + value);
+    this.props.history.push("/newtrainerscript/?"+value);
   }
 
-  deleteScript(e) {
+deleteScript(e) {
     const { id, value } = e.target;
     this.props.deleteScript(value);
     this.props.getScriptsByUserId(this.props.auth.user.id);
-
+    
   }
 
 
@@ -46,11 +46,12 @@ class TrainerLobby extends Component {
 
     var participants = null;
     //this.setListElements.bind(this)
-    // this.props.getScriptsByUserId(this.props.auth.user.id);
+   // this.props.getScriptsByUserId(this.props.auth.user.id);
     // console.log(this.props.script.scripts);
     if (this.props.script.scripts) {
       var scriptsArray = Object.keys(this.props.script.scripts);
       participants = this.props.script.scripts.map(script => {
+        console.log(script.expLevel);
         return <ScriptListElement
           id={script._id}
           key={script._id}

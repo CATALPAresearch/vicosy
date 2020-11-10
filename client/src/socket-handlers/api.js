@@ -117,17 +117,15 @@ export const unregisterFrom = (event, callback) => {
 //connects to script member and updates when member subscribes to script
 
 export const scriptMembers = (scriptId, user_id, callback) =>
+
   socket.on("returnScriptMembers", datum => {
-    console.log(user_id); console.log("fff");
-    console.log(datum.userId);
     if (datum.userId === user_id) callback(datum);
   });
 
 
 
-
-
 export const subscribeToScriptSocket = (scriptId) => {
+  
   socket.emit("subscribeToScriptSocket", scriptId);
   //socket.on("returnScriptMembers", update => users(update));
   // socket.on("testnachricht", data => console.log(data))

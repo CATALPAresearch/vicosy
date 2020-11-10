@@ -6,21 +6,21 @@ import { connect, useStore } from "react-redux";
 
 export class MemberList extends Component {
   render() {
-    const { roomAvailable, roomData } = this.props.roomState;
+       const { roomAvailable, roomData } = this.props.roomState;
     var clients = null;
     var MemberListItem = this.props.memberListItemComponent;
     this.props.getScriptMembers(this.props.script._id, this.props.auth.user.id);
     if (roomAvailable) {
       var clientIdArray = this.props.script.participants;
       clients = clientIdArray.map(client => {
-
         return (
           <MemberListItem
             key={client._id}
             clientId={client._id}
+            expLevel={client.expLevel}
             name={client.name}
             roomData={roomData}
-          />
+                      />
         );
       });
 

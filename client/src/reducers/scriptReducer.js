@@ -1,6 +1,6 @@
 import { SET_ACT_SCRIPT } from "../actions/types";
 import React, { Component } from "react";
-import { HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS } from "../actions/types";
+import { HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT } from "../actions/types";
 import {
     SESSION_DEFAULT,
     SESSION_PEER_TEACHING
@@ -30,6 +30,29 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case CLEAR_SCRIPT:
+            {
+                return {
+                    ...state,
+                    _id: "",
+                    videourl:
+                        "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
+                    scriptName: "Das Script",
+                    groupSize: 2,
+                    groupMix: HETEROGEN,
+                    themes: "",
+                    errors: {},
+                    isPhase0: false,
+                    isPhase5: false,
+                    phase0Assignment: "",
+                    phase5Assignment: "",
+                    scriptType: SESSION_PEER_TEACHING,
+                    userId: "",
+                    showUrl: false,
+                    scriptUrl: "",
+                    participants: {}
+                }
+            }
         case SET_ACT_SCRIPT:
             //const isAuth = !isEmpty(action.payload);
             return {

@@ -40,71 +40,10 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   clientSocket.on("subscribeToScriptSocket", scriptId => {
 
     ScriptDBApi.findById(scriptId).then(script => {
-      /*
-      var memberlist = [];
-
-      var res = new Object;;
-      function rek(i, callback) {
-        if (i < script.participants.length - 1) {
-          UsersDBApi.findById(script.participants[i]).then(user => {
-            member = {
-              _id: user._id,
-              name: user.name,
-              email: user.email,
-              expLevel: script.participants[i].expLevel
-            };
-            memberlist.push(member);
-            rek(i + 1, callback);
-
-          });
-        }
-        else {
-          UsersDBApi.findById(script.participants[i]).then(user => {
-            member = {
-              _id: user._id,
-              name: user.name,
-              email: user.email,
-              expLevel: script.participants[i].expLevel
-            };
-            memberlist.push(member);
-            callback();
-          })
-        }
-      }
-
-      if (script.participants.length == 0)
-        clientSocket.emit("returnScriptMembers", errors);
-      else
-        rek(0, () => {
-          res = {
-            _id: script._id,
-            videourl: script.videourl,
-            scriptName: script.scriptName,
-            groupSize: script.groupSize,
-            groupMix: script.groupMix,
-            themes: script.themes,
-            isPhase0: script.isPhase0,
-            isPhase5: script.isPhase5,
-            phase0Assignment: script.phase0Assignment,
-            phase5Assignment: script.phase5Assignment,
-            scriptType: script.scriptType,
-            userId: script.userId,
-
-          }
-          res.participants = memberlist;
-
-          console.log("hier");
-          console.log(res);
-
-          clientSocket.to('memberlist').emit("returnScriptMembers", res);
-         
-        }
-        );
-         */
-      clientSocket.emit("returnScriptMembers", script);
+      clientSocket.to("memberlist").emit("returnScriptMembers", script);
     }).catch(
       errors => {
-        clientSocket.emit("returnScriptMembers", errors);
+        clientSocket.to("memberlist").emit("returnScriptMembers", errors);
       });
   });
 

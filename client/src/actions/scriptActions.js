@@ -1,7 +1,7 @@
 import axios from "axios";
 import { set } from "mongoose";
 import { scriptMembers, subscribeToScriptSocket } from "../socket-handlers/api";
-import { GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS } from "./types";
+import { GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT } from "./types";
 
 
 //mitglieder werden geholt
@@ -21,17 +21,17 @@ export const getScriptMembers = (script_id, user_id) => dispatch => {
 //Scripts eines User werden geholt
 export const getScriptsByUserId = (user_id, callback) => dispatch => {
   let value = { userId: user_id };
-    axios
+  axios
     .post("api/script/getscriptsbyuserid", value)
-    .then(res => { 
+    .then(res => {
       dispatch({
         type: GET_SCRIPTS,
         payload: res.data.scripts
       });
-     }).catch(err => {
+    }).catch(err => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response
       });
     });
 
@@ -58,6 +58,40 @@ export const createScript = (scriptData, setScript) => dispatch => {
         payload: res.data
       });
     }).catch(err => {
+      console.log(err)
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+
+
+
+//delete Scripts from a user
+export const deleteAllScripts = _id => dispatch => {
+  axios
+    .post("api/script/deleteallscripts", { _id: _id })
+    .then(res => {
+    }).catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+//delete script
+export const deleteScript = _id => dispatch => {
+  axios
+    .post("api/script/deletescript", { _id: _id })
+    .then(res => {
+      dispatch({
+        type: CLEAR_SCRIPT,
+        payload: res.response
+      })
+    }).catch(err => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -71,7 +105,7 @@ export const updateScript = scriptData => dispatch => {
   axios
     .post("api/script/updatescript", scriptData)
     .then(res => {
-      console.log (res.data.script);
+      console.log(res.data.script);
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
@@ -101,6 +135,7 @@ export const getScriptById = (scriptId) => dispatch => {
 
 
 export const subScribeToScript = (userId, name, expLevel, scriptId) => dispatch => {
+
   let options =
   {
     userId: userId,

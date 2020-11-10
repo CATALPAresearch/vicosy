@@ -24,13 +24,40 @@ router.get("/test", (req, res) => {
     res.json({ msg: "Script works" });
 });
 
+// @route GET api/script/deleteallscripts
+// @desc deletes all Scripts for User
+// @access Public
+
+router.post("/deleteallscripts", (req, res) => {
+    Script.deleteMany({ userId: req.body._id }, (result, error) => { });
+    res.json({ msg: "Alle Scripts gelöscht" });
+});
+
+
+// @route GET api/script/deletescript
+// @desc deletes one Script
+// @access Public
+
+router.post("/deletescript", (req, res) => {
+    Script.deleteOne({ _id: req.body._id }).then(script =>
+        {console.log("hier bin ich");
+        res.json({ msg: "Script gelöscht", _id: req.body._id })
+    }
+    ).catch(errors => {
+        return res.status(400).json(errors);
+    }
+    )
+
+});
+
+
 
 // @route   POST api/script/getscriptbyid
 // @desc    Get Script by Id
 // @access  Public
 router.post("/getscriptbyid", (req, res) => {
 
-    
+
     Script.findById(req.body._id).then(script => {
 
         if (script) {
@@ -58,11 +85,11 @@ router.post("/getscriptbyid", (req, res) => {
 // @desc    Get Scripts with the same user Id
 // @access  Public
 router.post("/getscriptsbyuserid", (req, res) => {
-  
+
     console.log(req.body);
 
     //let id = { userIdd: req.body._id };
-      Script.find(req.body).then(scripts => {
+    Script.find(req.body).then(scripts => {
 
         if (scripts) {
             console.log("Return Scripts by Id");
@@ -78,8 +105,12 @@ router.post("/getscriptsbyuserid", (req, res) => {
             return res.status(400).json(errors);
         }
     }
+    ).catch(errors => {
+        console.log(errors);
+        return res.status(400).json(errors);
+    }
     )
-    
+
 });
 
 
@@ -152,8 +183,6 @@ router.post("/subscribetoscript", (req, res) => {
 // @access  Public
 
 router.post("/newscript", (req, res) => {
-    console.log("hier");
-    console.log(req.body);
     const { errors, isValid } = validateScriptInput(req.body);
     // check validation
     if (!isValid) {

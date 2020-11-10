@@ -32,7 +32,7 @@ class TrainerScriptCreator extends Component {
       _id: "",
       videourl:
         "https://dl.dropboxusercontent.com/s/qiz6f29vv0241f2/Euro_360.mp4?dl=0",
-      scriptName: "Meine Video Session",
+      scriptName: "Mein Videoscript",
       inputEdited: false,
       groupSize: 2,
       groupMix: HETEROGEN,
@@ -83,7 +83,7 @@ class TrainerScriptCreator extends Component {
       const ownNick =
         props.rooms.rooms.trainerlobby.state.sharedRoomData.clients[ownSocketId()]
           .nick;
-      this.setState({ scriptName: ownNick + "'s Video Session" });
+      this.setState({ scriptName: ownNick + "'s Video Script" });
     } catch (e) { }
 
   }
@@ -114,7 +114,7 @@ class TrainerScriptCreator extends Component {
     };
 
     const { _id, userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.props.script;
-    if (videourl && scriptName && themes && scriptType) {
+    if (/*videourl && scriptName && themes && scriptType*/true) {
       if (!this.state._id) {
         console.log("new Script");
         this.props.createScript(newScript, script => this.props.history.push({
@@ -183,6 +183,7 @@ class TrainerScriptCreator extends Component {
       label: "2",
       value: "2"
     });
+    /*
     groupSize.push({
       label: "3",
       value: "3"
@@ -191,6 +192,7 @@ class TrainerScriptCreator extends Component {
       label: "4",
       value: "4"
     });
+    */
     groupMix.push({
       label: "Heterogen",
       value: "HETEROGEN"
@@ -223,7 +225,7 @@ class TrainerScriptCreator extends Component {
           <div className="col-sm-9 border bg-light">
             <div className="row">
               <div className="col-6 col-sm-3"><h4 htmlFor="scriptName">
-                Session name
+                Script name
           </h4></div>
               <div className="col-6 col-sm-8">
                 <input
@@ -231,7 +233,7 @@ class TrainerScriptCreator extends Component {
                   value={this.props.script.scriptName}
                   type="text"
                   className="form-control form-control-lg mr-sm-2"
-                  placeholder="Session Name"
+                  placeholder="Script Name"
                   onChange={this.handleChange.bind(this)}
                 />
               </div>
@@ -262,7 +264,7 @@ class TrainerScriptCreator extends Component {
               <div className="w-100"></div>
 
               <div className="col-6 col-sm-3"><h4 htmlFor="scriptName">
-                Sessiontyp
+                Scripttyp
             </h4>
               </div>
 
@@ -395,6 +397,8 @@ class TrainerScriptCreator extends Component {
                 <div className="alert alert-success" role="alert">Script gespeichert</div> : null
             }
           </div>
+
+          
 
           <div className="col-sm-3 border bg-light">
             <h1>Teilnehmer</h1>

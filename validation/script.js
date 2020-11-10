@@ -64,7 +64,7 @@ module.exports = function validateScriptInput(data) {
 
 
   if (Validator.isEmpty(data.themes)) {
-    errors.themes = "Themes field is required";
+    errors.warning = "Themes field is required";
   }
   
   

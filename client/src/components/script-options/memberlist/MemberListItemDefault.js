@@ -14,7 +14,7 @@ export default class MemberListItemDefault extends Component {
         className={classnames(
           "list-group-item user-list-item d-flex align-items-center")}
       >
-        {this.props.name ? this.props.name :this.props._id}
+        {this.props.name ? this.props.name :this.props._id} ({this.props.expLevel})
       </li>
     );
   }
