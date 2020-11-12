@@ -1,6 +1,6 @@
 import { SET_ACT_SCRIPT } from "../actions/types";
 import React, { Component } from "react";
-import { HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT } from "../actions/types";
+import { HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
 import {
     SESSION_DEFAULT,
     SESSION_PEER_TEACHING
@@ -24,12 +24,19 @@ const initialState = {
     userId: "",
     showUrl: false,
     scriptUrl: "",
-    participants: {}
+    participants: {},
+    groups: [[]]
 
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case SET_GROUPS: {
+            return {
+                ...state,
+                groups: action.payload
+            }
+        }
         case CLEAR_SCRIPT:
             {
                 return {
@@ -50,7 +57,8 @@ export default function (state = initialState, action) {
                     userId: "",
                     showUrl: false,
                     scriptUrl: "",
-                    participants: {}
+                    participants: {},
+                    groups: [[]]
                 }
             }
         case SET_ACT_SCRIPT:
@@ -69,7 +77,8 @@ export default function (state = initialState, action) {
                 phase5Assignment: action.payload.phase5Assignment,
                 scriptType: action.payload.scriptType,
                 userId: action.payload.userId,
-                participants: action.payload.participants
+                participants: action.payload.participants,
+                groups: action.payload.groups
             };
         case GET_SCRIPTS: {
             return {

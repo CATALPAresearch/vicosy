@@ -12,10 +12,11 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
-import { updateScriptProp, createScript, updateScript,  getScriptById } from "../../../actions/scriptActions";
+import { updateScriptProp, createScript, updateScript, getScriptById, mixGroups, deleteAllScripts } from "../../../actions/scriptActions";
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "../Members";
+import Groups from "../Groups";
 
 
 class TrainerScriptCreator extends Component {
@@ -53,7 +54,8 @@ class TrainerScriptCreator extends Component {
     this.props.updateScriptProp({ userId: this.props.auth.user.id })
     //gets Script if ID in URL-Params
     this.setScript();
-      }
+
+  }
 
   componentDidMount() {
     this.scriptNameUpdate(this.props);
@@ -92,6 +94,11 @@ class TrainerScriptCreator extends Component {
 
     if (this.props.location.search) {
       this.props.getScriptById(this.props.location.search.replace('?', ''));
+
+
+    }
+    else {
+      this.props.deleteAllScripts();
     }
   }
 
@@ -110,7 +117,8 @@ class TrainerScriptCreator extends Component {
       isPhase0: this.props.script.isPhase0,
       isPhase5: this.props.script.isPhase5,
       phase0Assignment: this.props.script.phase0Assignment,
-      phase5Assignment: this.props.script.phase5Assignment
+      phase5Assignment: this.props.script.phase5Assignment,
+      groups: this.props.script.groups
     };
 
     const { _id, userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.props.script;
@@ -138,6 +146,11 @@ class TrainerScriptCreator extends Component {
 
   }
 
+  showGroups() {
+    if (this.props.script.groups && this.props.script.groups.length > 0)
+      return true;
+    else return false;
+  }
   onClearUrl() {
     this.setState({ videourl: "" });
     this.urlInput.current.focus();
@@ -152,7 +165,10 @@ class TrainerScriptCreator extends Component {
       this.props.updateScriptProp({ [e.target.name]: "", inputEdited: true })
     this.props.updateScriptProp({ [e.target.id]: e.target.checked, inputEdited: true })
   }
+  onClickMix(e) {
+    this.props.mixGroups(SHUFFLE, this.props.script.participants, 3);
 
+  }
   onChange(e) {
     this.props.updateScriptProp({ [e.target.name]: e.target.value });
   }
@@ -174,7 +190,7 @@ class TrainerScriptCreator extends Component {
   }
 
   render() {
-    const userId = store.getState();
+    
     const scriptsEnabled = this.props.auth.user.name !== "Guest";
     const { errors } = this.state;
     const groupSize = [];
@@ -183,7 +199,7 @@ class TrainerScriptCreator extends Component {
       label: "2",
       value: "2"
     });
-    /*
+
     groupSize.push({
       label: "3",
       value: "3"
@@ -192,7 +208,7 @@ class TrainerScriptCreator extends Component {
       label: "4",
       value: "4"
     });
-    */
+
     groupMix.push({
       label: "Heterogen",
       value: "HETEROGEN"
@@ -398,7 +414,7 @@ class TrainerScriptCreator extends Component {
             }
           </div>
 
-          
+
 
           <div className="col-sm-3 border bg-light">
             <h1>Teilnehmer</h1>
@@ -410,6 +426,23 @@ class TrainerScriptCreator extends Component {
                   showUrl={this.showUrl.bind(this)}
                 /> : null
             }
+
+            <input
+              type="button"
+              className="btn btn-info btn-lg"
+              value="Gruppieren"
+              onClick={this.onClickMix.bind(this)}
+            />
+
+            {
+
+              this.showGroups() ?
+                <Groups
+                  _id={this.props.script._id}
+                /> : null
+            }
+
+
 
           </div>
 
@@ -437,7 +470,7 @@ TrainerScriptCreator.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { createScript, updateScript, updateScriptProp, getScriptById},
+  { createScript, updateScript, updateScriptProp, getScriptById, mixGroups, deleteAllScripts },
   null
 )(TrainerScriptCreator);
 

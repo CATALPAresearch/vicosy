@@ -4,7 +4,7 @@ import RoomComponent from "../controls/RoomComponent";
 import TrainerScriptCreator from "../script-options/TrainerScriptCreation/TrainerScriptCreator";
 import TrainerSessionList from "../video-session/TrainerSessionList";
 import ScriptListElement from "./ScriptListElement";
-import { getScriptsByUserId, deleteAllScripts, deleteScript } from "../../actions/scriptActions"
+import { getScriptsByUserId, deleteAllScripts, deleteScript, clearScript } from "../../actions/scriptActions"
 import { Link } from "react-router-dom";
 import "./TrainerLobby.css";
 import Logger from "../logic-controls/Logger";
@@ -16,11 +16,13 @@ class TrainerLobby extends Component {
     this.state = {
       scripts: Object,
     }
+    this.props.clearScript();
+ 
     //this.setListElements.bind(this)
     this.props.getScriptsByUserId(this.props.auth.user.id);
     //to delete all scripts
     // this.props.deleteAllScripts(this.props.auth.user.id);
-  //  this.onClick = this.handleCLick.bind(this);
+    //  this.onClick = this.handleCLick.bind(this);
 
   }
   setListElements(newscripts) {
@@ -31,14 +33,14 @@ class TrainerLobby extends Component {
 
   handleCLick(e) {
     const { id, value } = e.target;
-    this.props.history.push("/newtrainerscript/?"+value);
+    this.props.history.push("/newtrainerscript/?" + value);
   }
 
-deleteScript(e) {
+  deleteScript(e) {
     const { id, value } = e.target;
     this.props.deleteScript(value);
     this.props.getScriptsByUserId(this.props.auth.user.id);
-    
+
   }
 
 
@@ -46,7 +48,7 @@ deleteScript(e) {
 
     var participants = null;
     //this.setListElements.bind(this)
-   // this.props.getScriptsByUserId(this.props.auth.user.id);
+    // this.props.getScriptsByUserId(this.props.auth.user.id);
     // console.log(this.props.script.scripts);
     if (this.props.script.scripts) {
       var scriptsArray = Object.keys(this.props.script.scripts);
@@ -101,6 +103,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getScriptsByUserId, deleteAllScripts, deleteScript },
+  { getScriptsByUserId, deleteAllScripts, deleteScript, clearScript },
   null
 )(TrainerLobby);

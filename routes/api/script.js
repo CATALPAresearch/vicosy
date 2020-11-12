@@ -39,8 +39,8 @@ router.post("/deleteallscripts", (req, res) => {
 // @access Public
 
 router.post("/deletescript", (req, res) => {
-    Script.deleteOne({ _id: req.body._id }).then(script =>
-        {console.log("hier bin ich");
+    Script.deleteOne({ _id: req.body._id }).then(script => {
+        console.log("hier bin ich");
         res.json({ msg: "Script gelöscht", _id: req.body._id })
     }
     ).catch(errors => {
@@ -75,7 +75,11 @@ router.post("/getscriptbyid", (req, res) => {
             return res.status(400).json(errors);
         }
     }
-    )
+    ).catch(errors => {
+        return res.status(400).json(errors);
+
+
+    })
 });
 
 
@@ -203,6 +207,7 @@ router.post("/newscript", (req, res) => {
         isPhase5: req.body.isPhase5,
         phase0Assignment: req.body.phase0Assignment,
         phase5Assignment: req.body.phase5Assignment,
+        groups: req.body.groups
     });
     newScript.save()
         .then(script => {
