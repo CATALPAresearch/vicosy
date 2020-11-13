@@ -189,16 +189,17 @@ router.post("/subscribetoscript", (req, res) => {
 router.post("/newscript", (req, res) => {
     const { errors, isValid } = validateScriptInput(req.body);
     // check validation
+    console.log("script in backend not validated");
     if (!isValid) {
         return res.status(400).json(errors);
     }
+    console.log(req.body);
 
 
     const newScript = new Script({
         scriptName: req.body.scriptName,
         userId: req.body.userId,
         videourl: req.body.videourl,
-        sessionType: req.body.sessionType,
         groupSize: req.body.groupSize,
         groupMix: req.body.groupMix,
         themes: req.body.themes,
@@ -207,8 +208,8 @@ router.post("/newscript", (req, res) => {
         isPhase5: req.body.isPhase5,
         phase0Assignment: req.body.phase0Assignment,
         phase5Assignment: req.body.phase5Assignment,
-        groups: req.body.groups
     });
+
     newScript.save()
         .then(script => {
             console.log("Script saved");
@@ -224,25 +225,23 @@ router.post("/newscript", (req, res) => {
 });
 
 
-// @route   POST api/script/updatecript
+// @route   POST api/script/updatescript
 // @desc    update script
 // @access  Public
-
 router.post("/updatescript", (req, res) => {
+    console.log("update script");
 
     const { errors, isValid } = validateScriptInput(req.body);
     // check validation
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    thisScript = new Script();
 
     const newScript = ({
         _id: req.body._id,
         scriptName: req.body.scriptName,
         userId: req.body.userId,
         videourl: req.body.videourl,
-        sessionType: req.body.sessionType,
         groupSize: req.body.groupSize,
         groupMix: req.body.groupMix,
         themes: req.body.themes,
@@ -251,10 +250,22 @@ router.post("/updatescript", (req, res) => {
         isPhase5: req.body.isPhase5,
         phase0Assignment: req.body.phase0Assignment,
         phase5Assignment: req.body.phase5Assignment,
+
     });
-    thisScript.updateOne({ _id: req.body._id }, newScript).then(script => {
+    
+        if (!isEmpty(req.body.groups))
+            newScript.groups = req.body.groups;
+        if (!isEmpty(req.body.participants))
+            newScript.participants = req.body.participants;
+        console.log(newScript);
+    
+    //  thisScript.replaceOne({ _id:req.body._id }, newScript);
+
+    Script.findOneAndUpdate({ _id: req.body._id }, newScript).then(script => {
         console.log("Script updated");
-        res.json(newScript);
+        console.log(newScript);
+        console.log(script);
+        res.json(script);
     })
         .catch(errors => {
             console.log(errors);

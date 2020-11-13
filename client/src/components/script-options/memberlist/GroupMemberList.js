@@ -7,19 +7,22 @@ import MemberListItem from "./MemberListItemDefault";
 
 export class GroupMemberList extends Component {
   render() {
-    var group = this.props.group;
 
-    var members = group.map(member => {
-      return (
-        <MemberListItem
-          key={member._id+"group"}
-          clientId={member._id}
-          expLevel={member.expLevel}
-          name={member.name}
-        />
-      );
+    var group = Object.values(this.props.group);
+    if (group[1]) {
+      { console.log(group) }
+          var members = group[1].map(member => {
+        return (
+          <MemberListItem
+            key={member._id + "group"}
+            clientId={member._id}
+            expLevel={member.expLevel}
+            name={member.name}
+          />
+        );
+      }
+      )
     }
-    )
     return (
       <div className="userlist-main bg-dark pt-1">
         <div className="userlist-wrapper">

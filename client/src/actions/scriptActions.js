@@ -111,10 +111,14 @@ export const clearScript = () => dispatch => {
 
 //update Script and store it in db
 export const updateScript = scriptData => dispatch => {
+
   axios
-    .post("api/script/updatescript", scriptData)
+    .post("/api/script/updatescript", scriptData)
     .then(res => {
-      console.log(res.data.script);
+      dispatch({
+        type: SET_ACT_SCRIPT,
+        payload: res.data
+      });
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
@@ -153,18 +157,20 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
       switch (method) {
         case SHUFFLE: {
           let groupNr = 0;
-          var group = [];
+          var group = { _id: "", groupMembers: [] };
+          //var groupMembers=[];
           while (Array.isArray(memberArray) && memberArray.length > 0) {
             let memberPosition = getRandomInt(0, memberArray.length);
-            if ((group.length >= (groupSize - 1))) {
+            if ((group.groupMembers.length >= (groupSize - 1))) {
               groups.push(group);
-              group = [];
+              group = { _id: "", groupMembers: [] };
+              //group = [];
             }
-            group.push(memberArray[memberPosition])
+            group.groupMembers.push(memberArray[memberPosition])
             memberArray.splice(memberPosition, 1);
 
           }
-          if (group.length > 0) groups.push(group);
+          if (group.groupMembers.length > 0) groups.push(group);
           dispatch({
             type: SET_GROUPS,
             payload: groups

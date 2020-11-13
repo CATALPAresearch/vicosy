@@ -118,19 +118,25 @@ class TrainerScriptCreator extends Component {
       isPhase5: this.props.script.isPhase5,
       phase0Assignment: this.props.script.phase0Assignment,
       phase5Assignment: this.props.script.phase5Assignment,
-      groups: this.props.script.groups
+
     };
 
     const { _id, userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.props.script;
     if (/*videourl && scriptName && themes && scriptType*/true) {
-      if (!this.state._id) {
+      if (!this.props.script._id) {
         console.log("new Script");
+
+
         this.props.createScript(newScript, script => this.props.history.push({
           search: '?' + script._id
         }));
 
       }
       else {
+        if (!isEmpty(this.props.script.participants))
+          newScript.participants = this.props.script.participants;
+        if (!isEmpty(this.props.script.groups))
+          newScript.groups = this.props.script.groups
         console.log("update Script");
         this.props.updateScript(newScript);
       }
@@ -190,8 +196,7 @@ class TrainerScriptCreator extends Component {
   }
 
   render() {
-    
-    const scriptsEnabled = this.props.auth.user.name !== "Guest";
+   const scriptsEnabled = this.props.auth.user.name !== "Guest";
     const { errors } = this.state;
     const groupSize = [];
     const groupMix = [];
@@ -433,13 +438,14 @@ class TrainerScriptCreator extends Component {
               value="Gruppieren"
               onClick={this.onClickMix.bind(this)}
             />
-
+            {console.log(this.props.script.groups)}
             {
 
               this.showGroups() ?
                 <Groups
                   _id={this.props.script._id}
                 /> : null
+
             }
 
 
