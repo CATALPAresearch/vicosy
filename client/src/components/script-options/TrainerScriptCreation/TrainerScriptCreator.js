@@ -172,7 +172,7 @@ class TrainerScriptCreator extends Component {
     this.props.updateScriptProp({ [e.target.id]: e.target.checked, inputEdited: true })
   }
   onClickMix(e) {
-    this.props.mixGroups(SHUFFLE, this.props.script.participants, 3);
+    this.props.mixGroups(this.props.script.groupMix, this.props.script.participants, this.props.script.groupSize);
 
   }
   onChange(e) {

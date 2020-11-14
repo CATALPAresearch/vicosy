@@ -161,7 +161,7 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
           //var groupMembers=[];
           while (Array.isArray(memberArray) && memberArray.length > 0) {
             let memberPosition = getRandomInt(0, memberArray.length);
-            if ((group.groupMembers.length >= (groupSize - 1))) {
+            if ((group.groupMembers.length >= (groupSize))) {
               groups.push(group);
               group = { _id: "", groupMembers: [] };
               //group = [];
@@ -176,12 +176,111 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
             payload: groups
           });
         }
+          break;
+        case HOMOGEN: {
+          var expLevels = [];
+          var groups = [];
 
-        case HETEROGEN: {
+          var sizeOk = true;
 
+          for (var i = 0; i < members.length; i++)
+            expLevels.push(members[i].expLevel);
+
+          // var groupNumber = Math.round(members.length / groupSize);
+
+          var groupNumber;
+          if ((members.length / groupSize) > Math.round(members.length / groupSize))
+            groupNumber = Math.round(members.length / groupSize) + 1;
+          else
+            groupNumber = Math.round(members.length / groupSize);
+          console.log(groupNumber);
+
+
+          group();
+
+          function group() {
+            console.log("groupcall");
+            groups = [];
+
+            for (var i = 0; i < groupNumber; i++)
+              groups[i] = { _id: "", groupMembers: [] };
+
+
+            var res = skmeans(expLevels, groupNumber);
+
+            for (var i = 0; i < members.length; i++) {
+              groups[res.idxs[i]].groupMembers.push(members[i]);
+            }
+            sizeOk = true;
+            for (var i = 0; i < groups.length; i++) {
+              if (groups[i].groupMembers.length > groupSize)
+                sizeOk = false;
+
+            }
+            if (!sizeOk)
+              group();
+
+          }
+
+
+          dispatch({
+            type: SET_GROUPS,
+            payload: groups
+          });
 
         }
-        case SHUFFLE: {
+          break;
+        case HETEROGEN: {
+          var expLevels = [];
+          var groups = [];
+
+          var sizeOk = true;
+
+          for (var i = 0; i < members.length; i++)
+            expLevels.push(members[i].expLevel);
+
+          // var groupNumber = Math.round(members.length / groupSize);
+
+          var groupNumber;
+          if ((members.length / groupSize) > Math.round(members.length / groupSize))
+            groupNumber = Math.round(members.length / groupSize) + 1;
+          else
+            groupNumber = Math.round(members.length / groupSize);
+          console.log(groupNumber);
+
+
+          group();
+
+          function group() {
+            console.log("groupcall");
+            groups = [];
+
+            for (var i = 0; i < groupNumber; i++)
+              groups[i] = { _id: "", groupMembers: [] };
+
+console.log(groupNumber);
+            var res = skmeans(expLevels, groupNumber, null, null, (x1, x2) => 1/Math.abs((x1 - x2)));
+console.log(res);
+            for (var i = 0; i < members.length; i++) {
+              groups[res.idxs[i]].groupMembers.push(members[i]);
+            }
+            sizeOk = true;
+            for (var i = 0; i < groups.length; i++) {
+              if (groups[i].groupMembers.length > groupSize)
+                sizeOk = false;
+
+            }
+            /*
+            if (!sizeOk)
+              group();
+*/
+          }
+
+
+          dispatch({
+            type: SET_GROUPS,
+            payload: groups
+          });
 
         }
       }
