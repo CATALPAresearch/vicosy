@@ -2,7 +2,8 @@ import axios from "axios";
 import { set } from "mongoose";
 import { scriptMembers, subscribeToScriptSocket } from "../socket-handlers/api";
 import { GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
-const skmeans = require("../../node_modules/skmeans")
+const skmeans = require("../../node_modules/skmeans");
+
 
 //mitglieder werden geholt
 export const getScriptMembers = (script_id, user_id) => dispatch => {
@@ -193,36 +194,63 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
             groupNumber = Math.round(members.length / groupSize) + 1;
           else
             groupNumber = Math.round(members.length / groupSize);
-          console.log(groupNumber);
 
+/*
+          for (let i = 0; i < groupNumber; i++)
+            groups[i] = { _id: "", groupMembers: [] };
 
-          group();
+          members.sort((a, b) => {
+            if (a.expLevel < b.expLevel)
+              return -1;
+            if (a.expLevel > b.expLevel)
+              return 1;
+            return 0;
 
-          function group() {
-            console.log("groupcall");
-            groups = [];
+          })
 
-            for (var i = 0; i < groupNumber; i++)
-              groups[i] = { _id: "", groupMembers: [] };
+          //initarray
+          var i = 0;
+          var groupNr = 0;
 
+          for (var i = 0; i < members.length; i++) {
+            if (groups[groupNr].groupMembers.length >= groupSize)
+              groupNr++;
+            groups[groupNr].groupMembers.push(members[i]);
 
-            var res = skmeans(expLevels, groupNumber);
-
-            for (var i = 0; i < members.length; i++) {
-              groups[res.idxs[i]].groupMembers.push(members[i]);
-            }
-            sizeOk = true;
-            for (var i = 0; i < groups.length; i++) {
-              if (groups[i].groupMembers.length > groupSize)
-                sizeOk = false;
-
-            }
-            if (!sizeOk)
-              group();
 
           }
 
+          console.log(groups);
+*/
 
+          
+                    group();
+          
+                    function group() {
+                      console.log("groupcall");
+                      groups = [];
+          
+                      for (var i = 0; i < groupNumber; i++)
+                        groups[i] = { _id: "", groupMembers: [] };
+          
+          
+                      var res = skmeans(expLevels, groupNumber);
+          
+                      for (var i = 0; i < members.length; i++) {
+                        groups[res.idxs[i]].groupMembers.push(members[i]);
+                      }
+                      sizeOk = true;
+                      for (var i = 0; i < groups.length; i++) {
+                        if (groups[i].groupMembers.length > groupSize)
+                          sizeOk = false;
+          
+                      }
+                      if (!sizeOk)
+                        group();
+          
+                    }
+          
+          
           dispatch({
             type: SET_GROUPS,
             payload: groups
@@ -231,52 +259,43 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
         }
           break;
         case HETEROGEN: {
-          var expLevels = [];
-          var groups = [];
-
-          var sizeOk = true;
-
-          for (var i = 0; i < members.length; i++)
-            expLevels.push(members[i].expLevel);
-
-          // var groupNumber = Math.round(members.length / groupSize);
 
           var groupNumber;
+          var groups = [];
+
+
           if ((members.length / groupSize) > Math.round(members.length / groupSize))
             groupNumber = Math.round(members.length / groupSize) + 1;
           else
             groupNumber = Math.round(members.length / groupSize);
-          console.log(groupNumber);
 
 
-          group();
 
-          function group() {
-            console.log("groupcall");
-            groups = [];
+          for (let i = 0; i < groupNumber; i++)
+            groups[i] = { _id: "", groupMembers: [] };
 
-            for (var i = 0; i < groupNumber; i++)
-              groups[i] = { _id: "", groupMembers: [] };
+          members.sort((a, b) => {
+            if (a.expLevel < b.expLevel)
+              return -1;
+            if (a.expLevel > b.expLevel)
+              return 1;
+            return 0;
 
-console.log(groupNumber);
-            var res = skmeans(expLevels, groupNumber, null, null, (x1, x2) => 1/Math.abs((x1 - x2)));
-console.log(res);
-            for (var i = 0; i < members.length; i++) {
-              groups[res.idxs[i]].groupMembers.push(members[i]);
-            }
-            sizeOk = true;
-            for (var i = 0; i < groups.length; i++) {
-              if (groups[i].groupMembers.length > groupSize)
-                sizeOk = false;
+          })
 
-            }
-            /*
-            if (!sizeOk)
-              group();
-*/
+          //initarray
+          var i = 0;
+          var groupNr = 0;
+
+          for (var i = 0; i < members.length; i++) {
+            if (groupNr >= groupNumber)
+              groupNr = 0
+            groups[groupNr].groupMembers.push(members[i]);
+            groupNr++;
+
           }
 
-
+          console.log(groups);
           dispatch({
             type: SET_GROUPS,
             payload: groups
@@ -298,7 +317,7 @@ console.log(res);
 
 
 
-//get Script by Id 
+//get Script by Id
 export const getScriptById = (scriptId) => dispatch => {
   let script = { _id: scriptId }
   axios
