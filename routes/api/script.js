@@ -92,7 +92,7 @@ router.post("/getscriptsbyuserid", (req, res) => {
 
     console.log(req.body);
 
-    //let id = { userIdd: req.body._id };
+    //let id = { userId: req.body._id };
     Script.find(req.body).then(scripts => {
 
         if (scripts) {
@@ -235,8 +235,8 @@ router.post("/updatescript", (req, res) => {
     // check validation
     if (!isValid) {
         return res.status(400).json(errors);
-    }
-
+    } console.log("so sieht das scripot aus");
+    console.log(req.body);
     const newScript = ({
         _id: req.body._id,
         scriptName: req.body.scriptName,
@@ -252,13 +252,20 @@ router.post("/updatescript", (req, res) => {
         phase5Assignment: req.body.phase5Assignment,
 
     });
-    
-        if (!isEmpty(req.body.groups))
-            newScript.groups = req.body.groups;
-        if (!isEmpty(req.body.participants))
-            newScript.participants = req.body.participants;
-        console.log(newScript);
-    
+
+    if (!isEmpty(req.body.groups)) {
+        var newGroups = [];
+        {
+            for (var i = 0; i < req.body.groups.length; i++)
+                newGroups.push({ groupMembers: req.body.groups[i].groupMembers });
+        }
+        newScript.groups = newGroups;
+        console.log("groupupdate");
+    }
+    if (!isEmpty(req.body.participants))
+        newScript.participants = req.body.participants;
+    console.log(newScript);
+
     //  thisScript.replaceOne({ _id:req.body._id }, newScript);
 
     Script.findOneAndUpdate({ _id: req.body._id }, newScript).then(script => {
