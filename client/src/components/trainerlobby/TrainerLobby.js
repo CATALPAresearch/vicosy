@@ -15,9 +15,11 @@ class TrainerLobby extends Component {
     super(props);
     this.state = {
       scripts: Object,
+      scriptToDelete: ""
+
     }
     this.props.clearScript();
- 
+
     //this.setListElements.bind(this)
     this.props.getScriptsByUserId(this.props.auth.user.id);
     //to delete all scripts
@@ -37,15 +39,17 @@ class TrainerLobby extends Component {
   }
 
   deleteScript(e) {
-    const { id, value } = e.target;
-    this.props.deleteScript(value);
+    console.log(e);
+    this.props.deleteScript(this.state.scriptToDelete);
     this.props.getScriptsByUserId(this.props.auth.user.id);
 
   }
 
+  passId(e) {
+    this.setState({ scriptToDelete: e })
+  }
 
   render() {
-
     var participants = null;
     //this.setListElements.bind(this)
     // this.props.getScriptsByUserId(this.props.auth.user.id);
@@ -53,7 +57,6 @@ class TrainerLobby extends Component {
     if (this.props.script.scripts) {
       var scriptsArray = Object.keys(this.props.script.scripts);
       participants = this.props.script.scripts.map(script => {
-        console.log(script.expLevel);
         return <ScriptListElement
           id={script._id}
           key={script._id}
@@ -61,6 +64,7 @@ class TrainerLobby extends Component {
           videorul={script.videourl}
           editScript={this.handleCLick.bind(this)}
           deleteScript={this.deleteScript.bind(this)}
+          passId={this.passId.bind(this)}
 
         />
       })
@@ -87,7 +91,28 @@ class TrainerLobby extends Component {
         </div>
 
 
+        <br></br>
 
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Achtung!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Script wirklich löschen?
+      </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onClick={this.deleteScript.bind(this)} data-dismiss="modal">Script löschen</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     );
