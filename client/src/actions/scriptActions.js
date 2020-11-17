@@ -116,10 +116,12 @@ export const updateScript = scriptData => dispatch => {
   axios
     .post("/api/script/updatescript", scriptData)
     .then(res => {
+      console.log(res);
+      /*
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data
-      });
+      });*/
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,

@@ -63,6 +63,7 @@ export default function (state = initialState, action) {
             }
         case SET_ACT_SCRIPT:
             //const isAuth = !isEmpty(action.payload);
+            console.log(action.payload);
             return {
                 ...state,
                 _id: action.payload._id,

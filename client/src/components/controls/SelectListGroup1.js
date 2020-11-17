@@ -4,19 +4,14 @@ import PropTypes from "prop-types";
 
 export default class SelectListGroup1 extends Component {
   render() {
-    function optionSelected(v1, v2) {
-      if (v1 == v2)
-        return "true";
-      else
-        return "false";
-    }
+    console.log(this.props);
     const id = this.props.id;
     const errors = this.props.errors;
     const info = this.props.info;
     const onChangeCallBack = this.props.onChange;
     const valueProvider = this.props.valueProvider;
     const selectOptions = this.props.options.map(option => (
-      <option key={option.label} value={option.value} defaultValue={valueProvider[id] == option.value}
+      <option key={option.label} value={option.value} selected={valueProvider[id] == option.value ? true : false}
       >
         {option.label}
       </option>

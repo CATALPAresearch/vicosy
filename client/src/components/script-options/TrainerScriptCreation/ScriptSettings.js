@@ -17,10 +17,9 @@ import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "../Members";
 import Groups from "../Groups";
-import ScriptSettings from "./ScriptSettings";
 
 
-class TrainerScriptCreator extends Component {
+class ScriptSettings extends Component {
   constructor(props) {
     super(props);
     this.urlInput = React.createRef();
@@ -81,7 +80,7 @@ class TrainerScriptCreator extends Component {
   }
 
   setScript() {
-
+/*
     if (this.props.location.search) {
       this.props.getScriptById(this.props.location.search.replace('?', ''));
 
@@ -90,7 +89,8 @@ class TrainerScriptCreator extends Component {
     else {
       this.props.deleteAllScripts();
     }
-  }
+*/  
+}
 
   onSubmit(e) {
 
@@ -182,7 +182,6 @@ class TrainerScriptCreator extends Component {
   }
 
   render() {
-   
    const scriptsEnabled = this.props.auth.user.name !== "Guest";
     const { errors } = this.state;
     const groupSize = [];
@@ -216,9 +215,7 @@ class TrainerScriptCreator extends Component {
 
     return (
 
-      
       <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
-        
         <h1>Scripteinstellungen</h1>
         {/*         <div className="alert alert-danger hide" role="alert">
         </div> */}
@@ -390,39 +387,11 @@ class TrainerScriptCreator extends Component {
                   value={this.props.script.themes}
                 />
               </div>
-            </div>
-
-
-            <input
-              type="submit"
-              className="btn btn-info btn-lg"
-              value="Speichere Script"
-            />
-            {
-              this.state.showSaveMessage ?
-                <div className="alert alert-success" role="alert">Script gespeichert</div> : null
-            }
+            </div>     
           </div>
-
-
-
-          <div className="col-sm-3 border bg-light">
-            <h1>Teilnehmer</h1>
-            {
-
-              this.scriptHasId() ?
-                <Members
-                  _id={this.props.script._id}
-                  showUrl={this.showUrl.bind(this)}
-                /> : null
-            }
-
-           
-          </div>
-
         </div>
 
-        <ScriptSettings></ScriptSettings>
+
       </form>
     );
   }
@@ -437,14 +406,11 @@ const mapStateToProps = state => ({
 });
 
 
-TrainerScriptCreator.propTypes = {
-  errors: PropTypes.object.isRequired
-};
 
 
 export default connect(
   mapStateToProps,
-  { createScript, updateScript, updateScriptProp, getScriptById, mixGroups, deleteAllScripts },
+  { updateScriptProp, getScriptById},
   null
-)(TrainerScriptCreator);
+)(ScriptSettings);
 

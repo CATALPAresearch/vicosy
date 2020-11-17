@@ -235,8 +235,7 @@ router.post("/updatescript", (req, res) => {
     // check validation
     if (!isValid) {
         return res.status(400).json(errors);
-    } console.log("so sieht das scripot aus");
-    console.log(req.body);
+    }
     const newScript = ({
         _id: req.body._id,
         scriptName: req.body.scriptName,
@@ -251,8 +250,9 @@ router.post("/updatescript", (req, res) => {
         phase0Assignment: req.body.phase0Assignment,
         phase5Assignment: req.body.phase5Assignment,
 
-    });
 
+    });
+    console.log(newScript.themes);
     if (!isEmpty(req.body.groups)) {
         var newGroups = [];
         {
@@ -264,13 +264,11 @@ router.post("/updatescript", (req, res) => {
     }
     if (!isEmpty(req.body.participants))
         newScript.participants = req.body.participants;
-    console.log(newScript);
 
     //  thisScript.replaceOne({ _id:req.body._id }, newScript);
 
-    Script.findOneAndUpdate({ _id: req.body._id }, newScript).then(script => {
+    Script.findOneAndUpdate({ _id: req.body._id}, newScript).then(script => {
         console.log("Script updated");
-        console.log(newScript);
         console.log(script);
         res.json(script);
     })
