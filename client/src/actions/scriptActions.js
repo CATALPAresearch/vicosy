@@ -23,7 +23,7 @@ export const getScriptMembers = (script_id, user_id) => dispatch => {
 export const getScriptsByUserId = (user_id, callback) => dispatch => {
   let value = { userId: user_id };
   axios
-    .post("api/script/getscriptsbyuserid", value)
+    .post("/api/script/getscriptsbyuserid", value)
     .then(res => {
       dispatch({
         type: GET_SCRIPTS,
@@ -50,9 +50,10 @@ export const updateScriptProp = (prop) => dispatch => {
 
 //create Script and store it in db
 export const createScript = (scriptData, setScript) => dispatch => {
+  console.log("create Script");
   console.log(scriptData);
   axios
-    .post("api/script/newscript", scriptData)
+    .post("/api/script/newscript", scriptData)
     .then(res => {
       setScript(res.data);
       dispatch({
@@ -74,7 +75,7 @@ export const createScript = (scriptData, setScript) => dispatch => {
 //delete Scripts from a user
 export const deleteAllScripts = _id => dispatch => {
   axios
-    .post("api/script/deleteallscripts", { _id: _id })
+    .post("/api/script/deleteallscripts", { _id: _id })
     .then(res => {
     }).catch(err => {
       dispatch({
@@ -87,7 +88,7 @@ export const deleteAllScripts = _id => dispatch => {
 //delete script
 export const deleteScript = _id => dispatch => {
   axios
-    .post("api/script/deletescript", { _id: _id })
+    .post("/api/script/deletescript", { _id: _id })
     .then(res => {
       dispatch({
         type: CLEAR_SCRIPT,
@@ -323,7 +324,7 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 export const getScriptById = (scriptId) => dispatch => {
   let script = { _id: scriptId }
   axios
-    .post("../api/script/getscriptbyid", script)
+    .post("/api/script/getscriptbyid", script)
     .then(res => {
       dispatch({
         type: SET_ACT_SCRIPT,
@@ -348,7 +349,7 @@ export const subScribeToScript = (userId, name, expLevel, scriptId) => dispatch 
     scriptId: scriptId
   }
   axios
-    .post("../api/script/subscribetoscript", options)
+    .post("/api/script/subscribetoscript", options)
     .then(res => {
       subscribeToScriptSocket(res.data._id);
     }).catch(err => {

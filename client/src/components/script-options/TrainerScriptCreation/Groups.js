@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { LOG } from "../logic-controls/logEvents";
-import RoomComponent from "../controls/RoomComponent";
-import Logger from "../logic-controls/Logger";
-import GroupMemberList from "./memberlist/GroupMemberList";
-import MemberListItemDefault from "./memberlist/MemberListItemDefault";
-import { getScriptMembers } from "../../actions/scriptActions"
+import { LOG } from "../../logic-controls/logEvents";
+import RoomComponent from "../../controls/RoomComponent";
+import Logger from "../../logic-controls/Logger";
+import GroupMemberList from "../memberlist/GroupMemberList";
+import MemberListItemDefault from "../memberlist/MemberListItemDefault";
+import { getScriptMembers } from "../../../actions/scriptActions"
 import { connect, useStore } from "react-redux";
 
 // requires a parent with non static (e.g. relative position)
@@ -35,27 +35,27 @@ export class Groups extends Component {
         var lists;
         var groups = Object.values(this.props.script.groups);
         console.log(groups);
+        if (groups) {
+            lists = groups.map(group => {
+                return (
+                    <GroupMemberList
+                        group={group}
+                    />
+                );
+            });
 
-        lists = groups.map(group => {
+
             return (
-                <GroupMemberList
-                    group={group}
-                />
+                <div>
+                    {lists}
+
+                </div>
             );
-        });
 
-
-        return (
-            <div>
-                {lists}
-
-            </div>
-        );
-
+        }
     }
+
 }
-
-
 const mapStateToProps = state => ({
     rooms: state.rooms,
     script: state.script,

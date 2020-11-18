@@ -12,17 +12,19 @@ export class MemberList extends Component {
     this.props.getScriptMembers(this.props.script._id, this.props.auth.user.id);
     if (roomAvailable) {
       var clientIdArray = this.props.script.participants;
-      clients = clientIdArray.map(client => {
-        return (
-          <MemberListItem
-            key={client._id}
-            clientId={client._id}
-            expLevel={client.expLevel}
-            name={client.name}
-            roomData={roomData}
-          />
-        );
-      });
+      if (clients)
+        clients = clientIdArray.map(client => {
+
+          return (
+            <MemberListItem
+              key={client._id}
+              clientId={client._id}
+              expLevel={client.expLevel}
+              name={client.name}
+              roomData={roomData}
+            />
+          );
+        });
 
     }
 

@@ -6,7 +6,7 @@ import Logger from "../../logic-controls/Logger";
 import MemberList from "../memberlist/MemberList";
 import MemberListItemDefault from "../memberlist/MemberListItemDefault";
 import { getScriptMembers, updateScript, getScriptById, mixGroups } from "../../../actions/scriptActions"
-import Groups from "../Groups";
+import Groups from "./Groups";
 
 // requires a parent with non static (e.g. relative position)
 export class Members extends Component {
