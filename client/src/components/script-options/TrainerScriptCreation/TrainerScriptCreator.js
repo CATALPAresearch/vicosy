@@ -35,7 +35,6 @@ class TrainerScriptCreator extends Component {
       errors: {},
       scriptType: SESSION_PEER_TEACHING,
       userId: store.getState(),
-      showUrl: false,
       scriptUrl: "",
       settings: true,
       settingsClassname: "nav-link active",
@@ -44,6 +43,7 @@ class TrainerScriptCreator extends Component {
     };
     this.onChange = this.handleChange.bind(this);
     this.setScript = this.setScript.bind(this);
+    this.changeToGroups = this.changeToGroups.bind(this);
     this.props.updateScriptProp({ userId: this.props.auth.user.id })
     //gets Script if ID in URL-Params
     this.setScript();
@@ -94,6 +94,11 @@ class TrainerScriptCreator extends Component {
       this.props.deleteAllScripts();
     }
   }
+  changeToGroups() {
+
+    this.setState({ settings: false });
+  };
+
 
   onSubmit(e) {
 
@@ -118,11 +123,11 @@ class TrainerScriptCreator extends Component {
     if (/*videourl && scriptName && themes && scriptType*/true) {
       if (!this.props.script._id) {
         console.log("new Script");
-
+        this.setState({ showSaveMessage: true });
 
         this.props.createScript(newScript, script => this.props.history.push({
           search: '?' + script._id
-        }));
+        }), this.changeToGroups);
 
       }
       else {
@@ -167,34 +172,19 @@ class TrainerScriptCreator extends Component {
   onChange(e) {
     this.props.updateScriptProp({ [e.target.name]: e.target.value });
   }
-  showUrl() {
-    let urlprocessed = "";
-    let url = window.location.href.replace(window.location.pathname, "")
-    if (url.charAt(url.length - 1) == "#")
-      url = url.substring(0, url.length - 1);
-    if (url.includes("?")) {
-      let parts = url.split("?");
 
-      urlprocessed = parts[0];
-
-    }
-    else urlprocessed = url;
-
-    this.setState({ scriptUrl: urlprocessed + "/subcribeToScript/" + this.props.script._id });
-    this.setState({ showUrl: true });
-  }
 
   setSettings() {
     this.setState({ settings: true });
-    this.setState({settingsClassname: "nav-link active"})
-    this.setState({groupClassname: "nav-link"})
+    this.setState({ settingsClassname: "nav-link active" })
+    this.setState({ groupClassname: "nav-link" })
   }
 
   unsetSettings() {
-       this.setState({ settings: false });
-       
-    this.setState({settingsClassname: "nav-link"})
-    this.setState({groupClassname: "nav-link active"})
+    this.setState({ settings: false });
+
+    this.setState({ settingsClassname: "nav-link" })
+    this.setState({ groupClassname: "nav-link active" })
   }
   render() {
 
@@ -205,7 +195,7 @@ class TrainerScriptCreator extends Component {
 
       <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
         <ul className="nav nav-tabs">
-          <li class="nav-item">
+          <li className="nav-item">
             <a className={this.state.settingsClassname} onClick={this.setSettings.bind(this)}><h4>Scripteinstellungen</h4></a>
           </li>
           <li className="nav-item">
@@ -216,21 +206,36 @@ class TrainerScriptCreator extends Component {
         {this.state.settings ?
           <ScriptSettings></ScriptSettings> : <Members
             _id={this.props.script._id}
-            showUrl={this.showUrl.bind(this)}
           />
         }
-        <input
-          type="submit"
-          className="btn btn-info btn-lg"
-          value="Speichere Script"
-        />
-        {
-          this.state.showSaveMessage ?
-            <div className="alert alert-success" role="alert">Script gespeichert</div> : null
-        }
+
+        <div className="row">
+          <div className="col">
+            <input
+              type="submit"
+              className="btn btn-info btn-lg"
+              value="Speichere Script"
+            />
+            {
+              this.state.showSaveMessage ?
+                <div className="alert alert-success" role="alert">Script gespeichert</div> : null
+            }
+          </div>
+          {
+            this.props.script._id ?
+              <div className="col">
+                <br></br>
+                <button
+                  type="submit"
+                  className="btn btn-info btn-lg"
+                >
+                  Starte Script
+                </button>
 
 
-
+              </div> : null
+          }
+        </div>
       </form>
 
     );

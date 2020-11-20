@@ -49,7 +49,7 @@ export const updateScriptProp = (prop) => dispatch => {
 }
 
 //create Script and store it in db
-export const createScript = (scriptData, setScript) => dispatch => {
+export const createScript = (scriptData, setScript, changeToGroups) => dispatch => {
   console.log("create Script");
   console.log(scriptData);
   axios
@@ -60,6 +60,7 @@ export const createScript = (scriptData, setScript) => dispatch => {
         type: SET_ACT_SCRIPT,
         payload: res.data
       });
+      changeToGroups();
     }).catch(err => {
       console.log(err)
       dispatch({
@@ -198,62 +199,62 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
           else
             groupNumber = Math.round(members.length / groupSize);
 
-/*
-          for (let i = 0; i < groupNumber; i++)
-            groups[i] = { _id: "", groupMembers: [] };
-
-          members.sort((a, b) => {
-            if (a.expLevel < b.expLevel)
-              return -1;
-            if (a.expLevel > b.expLevel)
-              return 1;
-            return 0;
-
-          })
-
-          //initarray
-          var i = 0;
-          var groupNr = 0;
-
-          for (var i = 0; i < members.length; i++) {
-            if (groups[groupNr].groupMembers.length >= groupSize)
-              groupNr++;
-            groups[groupNr].groupMembers.push(members[i]);
-
-
-          }
-
-          console.log(groups);
-*/
-
+          /*
+                    for (let i = 0; i < groupNumber; i++)
+                      groups[i] = { _id: "", groupMembers: [] };
           
-                    group();
+                    members.sort((a, b) => {
+                      if (a.expLevel < b.expLevel)
+                        return -1;
+                      if (a.expLevel > b.expLevel)
+                        return 1;
+                      return 0;
           
-                    function group() {
-                      console.log("groupcall");
-                      groups = [];
+                    })
           
-                      for (var i = 0; i < groupNumber; i++)
-                        groups[i] = { _id: "", groupMembers: [] };
+                    //initarray
+                    var i = 0;
+                    var groupNr = 0;
           
+                    for (var i = 0; i < members.length; i++) {
+                      if (groups[groupNr].groupMembers.length >= groupSize)
+                        groupNr++;
+                      groups[groupNr].groupMembers.push(members[i]);
           
-                      var res = skmeans(expLevels, groupNumber);
-          
-                      for (var i = 0; i < members.length; i++) {
-                        groups[res.idxs[i]].groupMembers.push(members[i]);
-                      }
-                      sizeOk = true;
-                      for (var i = 0; i < groups.length; i++) {
-                        if (groups[i].groupMembers.length > groupSize)
-                          sizeOk = false;
-          
-                      }
-                      if (!sizeOk)
-                        group();
           
                     }
           
-          
+                    console.log(groups);
+          */
+
+
+          group();
+
+          function group() {
+            console.log("groupcall");
+            groups = [];
+
+            for (var i = 0; i < groupNumber; i++)
+              groups[i] = { _id: "", groupMembers: [] };
+
+
+            var res = skmeans(expLevels, groupNumber);
+
+            for (var i = 0; i < members.length; i++) {
+              groups[res.idxs[i]].groupMembers.push(members[i]);
+            }
+            sizeOk = true;
+            for (var i = 0; i < groups.length; i++) {
+              if (groups[i].groupMembers.length > groupSize)
+                sizeOk = false;
+
+            }
+            if (!sizeOk)
+              group();
+
+          }
+
+
           dispatch({
             type: SET_GROUPS,
             payload: groups

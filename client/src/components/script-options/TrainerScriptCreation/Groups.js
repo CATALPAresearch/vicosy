@@ -34,12 +34,12 @@ export class Groups extends Component {
     render() {
         var lists;
         var groups = Object.values(this.props.script.groups);
-        console.log(groups);
         if (groups) {
-            lists = groups.map(group => {
+            lists = groups.map((group, i) => {
                 return (
                     <GroupMemberList
                         group={group}
+                        key={i}
                     />
                 );
             });
