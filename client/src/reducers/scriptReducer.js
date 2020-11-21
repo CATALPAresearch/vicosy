@@ -1,6 +1,6 @@
 import { SET_ACT_SCRIPT } from "../actions/types";
 import React, { Component } from "react";
-import { HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
+import {DELETE_MEMBER_FROM_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
 import {
     SESSION_DEFAULT,
     SESSION_PEER_TEACHING
@@ -31,6 +31,12 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case DELETE_MEMBER_FROM_SCRIPT: {
+           return {
+                ...state,
+                scripts: action.payload
+            }
+        }
         case SET_GROUPS: {
             return {
                 ...state,

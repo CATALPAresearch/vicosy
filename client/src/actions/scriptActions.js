@@ -1,7 +1,7 @@
 import axios from "axios";
 import { set } from "mongoose";
 import { scriptMembers, subscribeToScriptSocket } from "../socket-handlers/api";
-import { GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
+import { DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
 
 
@@ -44,6 +44,33 @@ export const updateScriptProp = (prop) => dispatch => {
   dispatch({
     type: UPDATE_SCRIPT_PROP,
     payload: prop
+  });
+
+}
+
+
+// delete Member in Script 
+export const deleteMemberFromScript = (member_id, script) => dispatch => {
+  console.log(script);
+
+  for (var i = 0; i < script.participants.length; i++) {
+    if (script.participants[i].id == member_id)
+      script.participants.splice(i, 1);
+
+  }
+  if (script.groups)
+    for (let group of script.groups) {
+      for (var i = 0; i < group.groupMembers.length; i++) {
+        if (group.groupMembers[i].id == member_id)
+          group.groupMembers.splice(i, 1);
+
+      }
+
+    }
+
+  dispatch({
+    type: DELETE_MEMBER_FROM_SCRIPT,
+    payload: script
   });
 
 }

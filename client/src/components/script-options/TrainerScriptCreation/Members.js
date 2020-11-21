@@ -4,7 +4,7 @@ import { LOG } from "../../logic-controls/logEvents";
 import RoomComponent from "../../controls/RoomComponent";
 import Logger from "../../logic-controls/Logger";
 import MemberList from "../memberlist/MemberList";
-import MemberListItemDefault from "../memberlist/MemberListItemDefault";
+import MemberListItemDeletable from "../memberlist/MemberListItemDeletable";
 import { getScriptMembers, updateScript, getScriptById, mixGroups } from "../../../actions/scriptActions"
 import Groups from "./Groups";
 var QRCode = require('qrcode')
@@ -115,7 +115,7 @@ export class Members extends Component {
                     <RoomComponent
                         roomId="memberlist"
                         component={MemberList}
-                        memberListItemComponent={MemberListItemDefault}
+                        memberListItemComponent={MemberListItemDeletable}
                     />
                 </div>
                 <div className="col border bg-light">
