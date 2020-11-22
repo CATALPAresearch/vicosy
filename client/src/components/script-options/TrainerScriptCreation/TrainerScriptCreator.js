@@ -192,6 +192,7 @@ class TrainerScriptCreator extends Component {
 
     const scriptsEnabled = this.props.auth.user.name !== "Guest";
     const { errors } = this.state;
+
     return (
 
 

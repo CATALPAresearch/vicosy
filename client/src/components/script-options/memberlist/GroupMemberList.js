@@ -3,7 +3,7 @@ import RoomComponent from "../../controls/RoomComponent";
 import ClientCounter from "../../controls/ClientCounter";
 import { getScriptMembers } from "../../../actions/scriptActions"
 import { connect, useStore } from "react-redux";
-import MemberListItem from "./MemberListItemDeletable";
+import MemberListItem from "./MemberListItemDefault";
 
 export class GroupMemberList extends Component {
 

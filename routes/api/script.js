@@ -264,6 +264,7 @@ router.post("/updatescript", (req, res) => {
         scriptType: req.body.scriptType,
         isPhase0: req.body.isPhase0,
         isPhase5: req.body.isPhase5,
+        started: req.body.started,
         phase0Assignment: req.body.phase0Assignment,
         phase5Assignment: req.body.phase5Assignment,
 

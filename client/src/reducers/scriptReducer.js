@@ -24,6 +24,7 @@ const initialState = {
     userId: "",
     showUrl: false,
     scriptUrl: "",
+    started:false,
     participants: {},
     groups: [[]]
 
@@ -64,7 +65,8 @@ export default function (state = initialState, action) {
                     showUrl: false,
                     scriptUrl: "",
                     participants: {},
-                    groups: [[]]
+                    groups: [[]],
+                    started: false
                 }
             }
         case SET_ACT_SCRIPT:

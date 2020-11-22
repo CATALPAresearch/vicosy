@@ -238,6 +238,7 @@ class ScriptSettings extends Component {
                                     value={this.props.script.scriptName}
                                     type="text"
                                     className="form-control form-control-lg mr-sm-2"
+                                    readOnly={this.props.script.started}
                                     placeholder="Script Name"
                                     onChange={this.handleChange.bind(this)}
                                 />
@@ -256,6 +257,7 @@ class ScriptSettings extends Component {
                                     type="text"
                                     className="form-control form-control-lg mr-sm-2"
                                     placeholder="Video URL"
+                                    readOnly={this.props.script.started}
                                     onChange={this.handleChange.bind(this)}
                                 />
 
