@@ -30,21 +30,15 @@ export class MemberList extends Component {
       }
     }
 
-      return (
+    return (
+      this.props.script.participants.length > 0 ?
         <div className="userlist-main bg-dark pt-1">
-          {/* <p className="h6 text-light ml-2 bg-dark">
-          Users{" "}
-          <RoomComponent
-            component={ClientCounter}
-            roomId={this.props.roomId}
-            badgeClass="badge badge-secondary"
-          />
-        </p> */}
           <div className="userlist-wrapper">
             <ul className="list-group text-dark ml-2 mr-2 mb-2">{clients}</ul>
           </div>
-        </div>
-      );
+        </div> : null
+
+    );
   }
 }
 
