@@ -7,7 +7,7 @@ const MemberSchema = new Schema({
     expLevel: {
         type: Number,
         require: false
-    }, 
+    },
     name: {
         type: String,
         required: false
@@ -75,6 +75,10 @@ const ScriptSchema = new Schema({
     groups: {
         type: [GroupSchema],
         require: false
+    },
+    started: {
+        type: Boolean,
+        default: false
     },
     status: {
         type: String,

@@ -48,6 +48,24 @@ export const updateScriptProp = (prop) => dispatch => {
 
 }
 
+export const startScript = (script_id) => dispatch => {
+  axios
+    .post("/api/script/startscript", { _id: script_id })
+    .then(res => {
+      console.log(res);
+      dispatch({
+        type: SET_ACT_SCRIPT,
+        payload: res.data
+      });
+    }).catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+
+}
+
 
 // delete Member in Script 
 export const deleteMemberFromScript = (member_id, script) => dispatch => {

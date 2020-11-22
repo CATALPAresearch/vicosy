@@ -85,7 +85,8 @@ export default function (state = initialState, action) {
                 scriptType: action.payload.scriptType,
                 userId: action.payload.userId,
                 participants: action.payload.participants,
-                groups: action.payload.groups
+                groups: action.payload.groups, 
+                startet: action.payload.started
             };
         case GET_SCRIPTS: {
             return {

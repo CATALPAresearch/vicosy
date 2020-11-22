@@ -51,6 +51,23 @@ router.post("/deletescript", (req, res) => {
 });
 
 
+// @route   POST api/script/startscript
+// @desc    start Script
+// @access  Public
+router.post("/startscript", (req, res) =>{
+console.log(req.body);
+    Script.findOneAndUpdate({ _id: req.body._id}, {started: true}, {useFindAndModify: true}).then(script => {
+        console.log("Script started");
+        console.log(script);
+        res.json(script);
+    })
+        .catch(errors => {
+            console.log(errors);
+            return res.status(400).json(errors);
+        });
+
+
+})
 
 // @route   POST api/script/getscriptbyid
 // @desc    Get Script by Id

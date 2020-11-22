@@ -12,7 +12,7 @@ import SelectListGroup1 from "../../controls/SelectListGroup1";
 import InputGroup from "../../controls/InputGroup";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
-import { updateScriptProp, createScript, updateScript, getScriptById, mixGroups, deleteAllScripts } from "../../../actions/scriptActions";
+import { updateScriptProp, createScript, updateScript, getScriptById, mixGroups, deleteAllScripts, startScript } from "../../../actions/scriptActions";
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "./Members";
@@ -99,7 +99,9 @@ class TrainerScriptCreator extends Component {
     this.setState({ settings: false });
   };
 
-
+  startScript() {
+    this.props.startScript(this.props.script._id);
+  }
   onSubmit(e) {
 
     e.preventDefault();
@@ -193,7 +195,7 @@ class TrainerScriptCreator extends Component {
     return (
 
 
-      <form onSubmit={this.onSubmit.bind(this)} className="mb-2">
+      <div className="mb-2">
         <ul className="nav nav-tabs">
           <li className="nav-item">
             <a className={this.state.settingsClassname} onClick={this.setSettings.bind(this)}><h4>Scripteinstellungen</h4></a>
@@ -211,11 +213,14 @@ class TrainerScriptCreator extends Component {
 
         <div className="row">
           <div className="col">
-            <input
+            <br></br>
+            <button
               type="submit"
               className="btn btn-info btn-lg"
-              value="Speichere Script"
-            />
+              onClick={this.onSubmit.bind(this)}
+            >
+              Speichere Script
+            </button>
             {
               this.state.showSaveMessage ?
                 <div className="alert alert-success" role="alert">Script gespeichert</div> : null
@@ -228,6 +233,7 @@ class TrainerScriptCreator extends Component {
                 <button
                   type="submit"
                   className="btn btn-info btn-lg"
+                  onClick={this.startScript.bind(this)}
                 >
                   Starte Script
                 </button>
@@ -236,7 +242,7 @@ class TrainerScriptCreator extends Component {
               </div> : null
           }
         </div>
-      </form>
+      </div >
 
     );
   }
@@ -258,7 +264,7 @@ TrainerScriptCreator.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { createScript, updateScript, updateScriptProp, getScriptById, mixGroups, deleteAllScripts },
+  { startScript, createScript, updateScript, updateScriptProp, getScriptById, mixGroups, deleteAllScripts },
   null
 )(TrainerScriptCreator);
 
