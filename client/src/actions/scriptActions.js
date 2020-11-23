@@ -4,8 +4,25 @@ import { scriptMembers, subscribeToScriptSocket } from "../socket-handlers/api";
 import { DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
 
+//gets Scripts where user is member
+export const getMyScripts = (user_id) => dispatch => {
+  let value = { userId: user_id };
+  axios
+    .post("/api/script/getmyscripts", value)
+    .then(res => {
+      dispatch({
+        type: GET_SCRIPTS,
+        payload: res.data.scripts
+      });
+    }).catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response
+      });
+    });
 
-//mitglieder werden geholt
+}
+//get members in a scripts
 export const getScriptMembers = (script_id, user_id) => dispatch => {
   scriptMembers(
     script_id, user_id,
