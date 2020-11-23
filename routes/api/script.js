@@ -137,7 +137,7 @@ router.post("/getscriptsbyuserid", (req, res) => {
 
 
 // @route   POST api/script/subscribetoscript
-// @desc    Subcribe Learner to Script
+// @desc    Subcribe Student to Script
 // @access  Public
 
 router.post("/subscribetoscript", (req, res) => {
@@ -307,7 +307,7 @@ router.post("/updatescript", (req, res) => {
 });
 
 // @route   POST api/script/subscribetoscript
-// @desc    Subcrube Learner to Script
+// @desc    Subcrube Student to Script
 // @access  Public
 
 router.post("/subscribetoscript", (req, res) => {

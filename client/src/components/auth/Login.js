@@ -53,7 +53,7 @@ class Login extends Component {
           this.props.history.push("/trainerlobby");
           break;
         case "STUDENT":
-          this.props.history.push("/learnerlobby");
+          this.props.history.push("/studentlobby");
           break;
         default:
           this.props.history.push("/lobby");

@@ -16,7 +16,7 @@ import Landing from "../../components/layout/Landing";
 import Register from "../../components/auth/Register";
 import Login from "../../components/auth/Login";
 import Lobby from "../../components/lobby/Lobby";
-import LearnerLobby from "../../components/learnerlobby/LearnerLobby";
+import StudentLobby from "../../components/studentlobby/StudentLobby";
 import TrainerLobby from "../trainerlobby/TrainerLobby";
 import VideoSession from "../../components/video-session/VideoSession";
 // import P2PTest from "../../components/test/P2PTest";
@@ -25,7 +25,7 @@ import VideoSession from "../../components/video-session/VideoSession";
 import NotFound from "../../components/not-found/NotFound";
 import VisibilityController from "../logic-controls/VisibilityController";
 import TrainerScriptCreator from "../script-options/TrainerScriptCreation/TrainerScriptCreator";
-import SubscribeToScript from "../script-options/Learner/SubscribeToScript"
+import SubscribeToScript from "../script-options/Student/SubscribeToScript"
 
 class AppContent extends Component {
   render() {
@@ -54,7 +54,7 @@ class AppContent extends Component {
 
           <Switch>
             <PrivateRoute exact path="/lobby" component={Lobby} />
-            <PrivateRoute exact path="/learnerlobby" component={LearnerLobby} />
+            <PrivateRoute exact path="/studentlobby" component={StudentLobby} />
 
 
             <PrivateRoute

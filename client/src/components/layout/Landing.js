@@ -8,14 +8,14 @@ class Landing extends Component {
     if (this.props.auth.isAuthenticated) {
       switch (
       this.props.auth.user.role) {
-        case "LEARNER":
-          this.props.history.push("/learnerlobby");
+        case "STUDENT":
+          this.props.history.push("/studentlobby");
           break;
         case "TRAINER":
           this.props.history.push("/trainerlobby");
           break;
         default:
-          this.props.history.push("/learnerlobby");
+          this.props.history.push("/studentlobby");
 
       }
     }

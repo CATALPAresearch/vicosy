@@ -5,22 +5,22 @@ import SessionCreator from "../video-session/SessionCreation/SessionCreator";
 import SessionList from "../video-session/SessionList";
 import UserList from "../userlist/UserList";
 import UserListItemDefault from "../userlist/UserListItemDefault";
-import "./LearnerLobby.css";
+import "./StudentLobby.css";
 import Logger from "../logic-controls/Logger";
 
-export default class LearnerLobby extends Component {
+export default class StudentLobby extends Component {
   render() {
     return (
       <div className="container mt-4">
         <Logger roomId="learnerlobby" />
         <h1>Lernerlobby</h1>
-        <RoomComponent roomId="learnerlobby" component={SessionList} />
+        <RoomComponent roomId="studentlobby" component={SessionList} />
         <SessionCreator />
 
         <div className="lobby-chat">
-          <RoomComponent roomId="learnerlobby" component={Chat} />
+          <RoomComponent roomId="studentlobby" component={Chat} />
           <RoomComponent
-            roomId="learnerlobby"
+            roomId="studentlobby"
             component={UserList}
             userListItemComponent={UserListItemDefault}
           />
