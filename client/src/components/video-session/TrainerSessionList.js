@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect, useStore } from "react-redux";
+import { getMyScripts } from "../../actions/scriptActions";
 
-export default class TrainerSessionList extends Component {
+export class TrainerSessionList extends Component {
+  constructor(props) {
+    super(props);
+    this.props.getMyScripts(this.props.auth.user.id);
+  }
+
   render() {
     const { roomAvailable, roomData } = this.props.roomState;
     var sessionsToRender = null;
@@ -53,3 +60,13 @@ export default class TrainerSessionList extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  script: state.script,
+});
+
+export default connect(
+  mapStateToProps,{ getMyScripts},
+  null
+)(TrainerSessionList);

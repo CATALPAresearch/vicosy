@@ -53,7 +53,7 @@ class AppContent extends Component {
           <Route exact path="/testSimplePeer" component={P2PTest} /> */}
 
           <Switch>
-            <PrivateRoute exact path="/lobby" component={Lobby} />
+          { /* <PrivateRoute exact path="/lobby" component={Lobby} /> */}
             <PrivateRoute exact path="/studentlobby" component={StudentLobby} />
 
 

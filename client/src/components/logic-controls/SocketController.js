@@ -90,10 +90,10 @@ class SocketController extends Component {
         this.props.loginRoom("memberlist");
         break;
       case "STUDENT":
-        this.props.loginRoom("lobby");
+        this.props.loginRoom("studentlobby");
         break;
       default:
-        this.props.loginRoom("lobby");
+        this.props.loginRoom("studentlobby");
         break;
     }
 

@@ -43,20 +43,18 @@ class Login extends Component {
     console.log("path after login", pathAfterLogin);
     if (pathAfterLogin && pathAfterLogin.includes("/session")) {
       this.props.history.push(pathAfterLogin);
-      localStorage.removeItem("pathAfterLogin");
+      localStorage.removeItem("pathAfterLogin");      
     } else {
+      console.log(role);
       switch (role) {
         case "TRAINER":
-          this.props.history.push("/trainerlobby");
-          break;
-        case "trainer":
           this.props.history.push("/trainerlobby");
           break;
         case "STUDENT":
           this.props.history.push("/studentlobby");
           break;
         default:
-          this.props.history.push("/lobby");
+          this.props.history.push("/studentlobby");
           break;
 
       }

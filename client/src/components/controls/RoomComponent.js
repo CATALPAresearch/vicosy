@@ -14,7 +14,7 @@ class RoomComponent extends Component {
 
   componentDidMount() {
     this.updateRoomState(this.props);
-    console.log("Raumtyp: " + this.props.roomId);
+    
   }
 
   componentWillReceiveProps(newProps) {

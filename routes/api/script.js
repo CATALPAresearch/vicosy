@@ -69,6 +69,15 @@ router.post("/startscript", (req, res) => {
 
 })
 
+// @route   POST api/script/getmyscripts
+// @desc    Gets scripts where user is member
+// @access  Public
+router.post("/getmyscripts", (req, res) => {
+    console.log("halllllllo");
+    console.log(req);
+})
+
+
 // @route   POST api/script/getscriptbyid
 // @desc    Get Script by Id
 // @access  Public
