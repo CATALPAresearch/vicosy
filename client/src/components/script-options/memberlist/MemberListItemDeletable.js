@@ -28,9 +28,10 @@ export class MemberListItemDefault extends Component {
           "list-group-item user-list-item d-flex justify-content-between")}
       >
         {this.props.name ? this.props.name : this.props._id} ({this.props.expLevel})
-
-        <FontAwesomeIcon className="float-right" value={clientId} icon={faMinusCircle} onClick={e => { this.deleteUser(clientId) }} />
-
+        {!this.props.script.started ?
+          <FontAwesomeIcon className="float-right" value={clientId} icon={faMinusCircle} onClick={e => { this.deleteUser(clientId) }} />
+          : null
+        }
       </li>
     );
   }
@@ -44,7 +45,7 @@ const mapStateToProps = state => ({
 
 
 export default connect(
-  mapStateToProps, {deleteMemberFromScript},
+  mapStateToProps, { deleteMemberFromScript },
   null
 )(MemberListItemDefault);
 

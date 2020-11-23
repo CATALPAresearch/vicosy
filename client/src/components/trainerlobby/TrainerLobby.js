@@ -65,6 +65,7 @@ class TrainerLobby extends Component {
           editScript={this.handleCLick.bind(this)}
           deleteScript={this.deleteScript.bind(this)}
           passId={this.passId.bind(this)}
+          started={script.started}
 
         />
       })
@@ -94,12 +95,12 @@ class TrainerLobby extends Component {
         <br></br>
 
 
-        <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">Achtung!</h5>
-                <button type="button" class="Abbrechen" data-dismiss="modal" aria-label="Close">
+                <button type="button" className="Abbrechen" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>

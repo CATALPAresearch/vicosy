@@ -6,7 +6,18 @@ import { connect } from "react-redux";
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/lobby");
+      switch (
+      this.props.auth.user.role) {
+        case "LEARNER":
+          this.props.history.push("/learnerlobby");
+          break;
+        case "TRAINER":
+          this.props.history.push("/trainerlobby");
+          break;
+        default:
+          this.props.history.push("/learnerlobby");
+
+      }
     }
   }
 

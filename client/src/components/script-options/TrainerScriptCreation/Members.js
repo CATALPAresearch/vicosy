@@ -82,33 +82,11 @@ export class Members extends Component {
             <div className="row">
                 <div className="col border bg-light">
                     <h4>Teilnehmer</h4>
-                    <br></br>
-                    <button type="button" onClick={this.generateQrCode.bind(this)} className="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal">
-                        Einladen
-                    </button>
+                   {!this.props.script.started ?
+                        <input type="button" onClick={this.generateQrCode.bind(this)} className="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal" value="Einladen"/>
 
+                     : null}
 
-                    <div className="modal" id="exampleModal" tabIndex="-1" role="dialog">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Verschicke den Link an alle Teilnehmer</h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    {this.state.scriptUrl ?
-                                        <a href={this.state.scriptUrl}>{this.state.scriptUrl}</a> : null
-                                    }
-                                    <canvas ref={this.myRef} ></canvas>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Ok</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
                     <Logger roomId="memberlist" />
@@ -121,7 +99,7 @@ export class Members extends Component {
                 <div className="col border bg-light">
                     <h4>Gruppen</h4>
                     {
-                        this.props.script.participants.length >= this.props.script.groupSize ?
+                        (this.props.script.participants.length >= this.props.script.groupSize) && !this.props.script.started ?
                             <input
                                 type="button"
                                 className="btn btn-info btn-lg"
@@ -139,6 +117,27 @@ export class Members extends Component {
 
                     }
 
+                </div>
+                <div className="modal" id="exampleModal" tabIndex="-1" role="dialog">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Verschicke den Link an alle Teilnehmer</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                {this.state.scriptUrl ?
+                                    <a href={this.state.scriptUrl}>{this.state.scriptUrl}</a> : null
+                                }
+                                <canvas ref={this.myRef} ></canvas>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Ok</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

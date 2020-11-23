@@ -9,6 +9,7 @@ export default class SelectListGroup1 extends Component {
     const errors = this.props.errors;
     const info = this.props.info;
     const onChangeCallBack = this.props.onChange;
+    const readOnly=this.props.readOnly;
     const valueProvider = this.props.valueProvider;
     const selectOptions = this.props.options.map(option => (
       <option key={option.label} value={option.value} selected={valueProvider[id] == option.value ? true : false}
@@ -26,6 +27,7 @@ export default class SelectListGroup1 extends Component {
           name={id}
           id={id}
           onChange={onChangeCallBack}
+          disabled={readOnly}
         >
           {selectOptions}
         </select>

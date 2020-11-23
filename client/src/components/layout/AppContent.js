@@ -16,6 +16,7 @@ import Landing from "../../components/layout/Landing";
 import Register from "../../components/auth/Register";
 import Login from "../../components/auth/Login";
 import Lobby from "../../components/lobby/Lobby";
+import LearnerLobby from "../../components/learnerlobby/LearnerLobby";
 import TrainerLobby from "../trainerlobby/TrainerLobby";
 import VideoSession from "../../components/video-session/VideoSession";
 // import P2PTest from "../../components/test/P2PTest";
@@ -53,6 +54,9 @@ class AppContent extends Component {
 
           <Switch>
             <PrivateRoute exact path="/lobby" component={Lobby} />
+            <PrivateRoute exact path="/learnerlobby" component={LearnerLobby} />
+
+
             <PrivateRoute
               exact
               path="/session/:sessionId"

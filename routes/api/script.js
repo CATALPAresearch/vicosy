@@ -54,11 +54,11 @@ router.post("/deletescript", (req, res) => {
 // @route   POST api/script/startscript
 // @desc    start Script
 // @access  Public
-router.post("/startscript", (req, res) =>{
-console.log(req.body);
-    Script.findOneAndUpdate({ _id: req.body._id}, {started: true}, {useFindAndModify: true}).then(script => {
+router.post("/startscript", (req, res) => {
+    console.log(req.body);
+    Script.findOneAndUpdate({ _id: req.body._id }, { started: true }, { useFindAndModify: false }).then(script => {
         console.log("Script started");
-        console.log(script);
+        script.started = true;
         res.json(script);
     })
         .catch(errors => {
@@ -178,19 +178,26 @@ router.post("/subscribetoscript", (req, res) => {
                     return res.status(404).json(errors);
                 }
                 else {
-                    script.participants.push(member);
-                    script.save().then(script => {
-                        /*
-                                        script.updateOne({ _id: script._id }, { $push: { participants: member } }).then(script => {
-                        */
-                        console.log("Script updated");
-                        res.json(script);
+                    if (script.started == true) {
+                        errors.warning = "Script ist schon gestartet, Einschreiben nicht mehr möglich";
+                        return res.status(404).json(errors);
                     }
-                    )
-                        .catch(errors => {
-                            console.log(errors);
-                            return res.status(400).json(errors);
-                        });
+                    else {
+                        script.participants.push(member);
+                        script.save().then(script => {
+                            /*
+                                            script.updateOne({ _id: script._id }, { $push: { participants: member } }).then(script => {
+                            */
+                            console.log("Script updated");
+                            res.json(script);
+
+                        }
+                        )
+                            .catch(errors => {
+                                console.log(errors);
+                                return res.status(400).json(errors);
+                            });
+                    }
                 }
             }
 
@@ -285,7 +292,7 @@ router.post("/updatescript", (req, res) => {
 
     //  thisScript.replaceOne({ _id:req.body._id }, newScript);
 
-    Script.findOneAndUpdate({ _id: req.body._id}, newScript).then(script => {
+    Script.findOneAndUpdate({ _id: req.body._id }, newScript).then(script => {
         console.log("Script updated");
         console.log(script);
         res.json(script);

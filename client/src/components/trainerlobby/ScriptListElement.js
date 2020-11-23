@@ -17,6 +17,7 @@ export default class TrainerLobby extends Component {
         const deleteScript = this.props.deleteScript;
         const id = this.props.id;
         const passId = this.props.passId;
+        const started =this.props.started;
         return (
             <div className="list-group-item list-group-item-action">
                 <div className="d-flex justify-content-start">
@@ -26,8 +27,8 @@ export default class TrainerLobby extends Component {
                     {/*
                 <FontAwesomeIcon icon={faEdit}/>
                 <FontAwesomeIcon icon={faTrashAlt}/> */}
-                    <button className="btn" value={id} onClick={edit}>Edit</button>
-                    <button className="btn" data-toggle="modal" data-target="#exampleModal" value={id} onClick={e => passId(e.target.value)}>Delete</button>
+                    <button className="btn" value={id} onClick={edit}>{started?"ansehen":"bearbeiten"}</button>
+                    <button className="btn" data-toggle="modal" data-target="#exampleModal" value={id} onClick={e => passId(e.target.value)}>Löschen</button>
 
                 </div>
 

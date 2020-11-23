@@ -230,6 +230,15 @@ class ScriptSettings extends Component {
                     <div className="col-sm-12 border bg-light">
                         <div className="row">
                             <div className="col-6 col-sm-3"><h4 htmlFor="scriptName">
+                                Scriptstatus
+          </h4></div>
+                            <div className="col-6 col-sm-8">
+                                <h4>
+                                    {!this.props.script._id ? "Neues Script" :
+                                        this.props.script.started ? "Script gestartet" : "Script bearbeiten und Mitglieder einladen" }
+                                </h4>
+                            </div>
+                            <div className="col-6 col-sm-3"><h4 htmlFor="scriptName">
                                 Script name
           </h4></div>
                             <div className="col-6 col-sm-8">
@@ -273,6 +282,7 @@ class ScriptSettings extends Component {
                             <div className="col-6 col-sm-8">
                                 <select id="scriptType" type="select" ref={this.scriptTypeRef} className="form-control mr-sm-2"
                                     onChange={this.handleChange.bind(this)}
+                                    readOnly={this.props.script.started}
                                 >
                                     <option
                                         value={SESSION_PEER_TEACHING}
@@ -312,6 +322,7 @@ class ScriptSettings extends Component {
                                     onCheckboxChange={this.handleCheckboxChange.bind(this)}
                                     placeholder="Gib hier den Arbeitsauftag ein!"
                                     disabled={!this.props.script.isPhase0}
+                                    readOnly={this.props.script.started}
 
                                 />
                             </div>
@@ -334,6 +345,7 @@ class ScriptSettings extends Component {
                                     onChange={this.handleChange.bind(this)}
                                     onCheckboxChange={this.handleCheckboxChange.bind(this)}
                                     disabled={!this.props.script.isPhase5}
+                                    readOnly={this.props.script.started}
 
                                 />
                             </div>
@@ -352,6 +364,7 @@ class ScriptSettings extends Component {
                                     onChange={this.handleChange.bind(this)}
                                     role={this.state.role}
                                     valueProvider={this.props.script}
+                                    readOnly={this.props.script.started}
                                 />
                             </div>
                             <div className="w-100"></div>
@@ -368,6 +381,7 @@ class ScriptSettings extends Component {
                                     errors={errors}
                                     onChange={this.handleChange.bind(this)}
                                     valueProvider={this.props.script}
+                                    readOnly={this.props.script.started}
                                 />
                             </div>
                             <div className="w-100"></div>
@@ -385,6 +399,7 @@ class ScriptSettings extends Component {
                                     className="form-control form-control-lg mr-sm-2"
                                     onChange={this.handleChange.bind(this)}
                                     value={this.props.script.themes}
+                                    readOnly={this.props.script.started}
                                 />
                             </div>
                         </div>

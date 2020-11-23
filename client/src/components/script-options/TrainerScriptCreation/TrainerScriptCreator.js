@@ -192,7 +192,6 @@ class TrainerScriptCreator extends Component {
 
     const scriptsEnabled = this.props.auth.user.name !== "Guest";
     const { errors } = this.state;
-
     return (
 
 
@@ -215,20 +214,22 @@ class TrainerScriptCreator extends Component {
         <div className="row">
           <div className="col">
             <br></br>
-            <button
-              type="submit"
-              className="btn btn-info btn-lg"
-              onClick={this.onSubmit.bind(this)}
-            >
-              Speichere Script
-            </button>
+            {!this.props.script.started ?
+              <button
+                type="submit"
+                className="btn btn-info btn-lg"
+                onClick={this.onSubmit.bind(this)}
+              >
+                Speichere Script
+            </button> : null
+            }
             {
               this.state.showSaveMessage ?
                 <div className="alert alert-success" role="alert">Script gespeichert</div> : null
             }
           </div>
           {
-            this.props.script._id ?
+            this.props.script._id && !this.props.script.started ?
               <div className="col">
                 <br></br>
                 <button
