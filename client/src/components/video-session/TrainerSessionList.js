@@ -7,10 +7,12 @@ export class TrainerSessionList extends Component {
   constructor(props) {
     super(props);
     this.props.getMyScripts(this.props.auth.user.id);
+
   }
 
   render() {
     const { roomAvailable, roomData } = this.props.roomState;
+    console.log(this.props.script.scripts);
     var sessionsToRender = null;
     if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
       const { sessions } = roomData.state.sharedRoomData;

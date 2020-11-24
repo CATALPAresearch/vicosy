@@ -73,8 +73,28 @@ router.post("/startscript", (req, res) => {
 // @desc    Gets scripts where user is member
 // @access  Public
 router.post("/getmyscripts", (req, res) => {
-    console.log("halllllllo");
-    console.log(req);
+    let userId = req.body.userId;
+    Script.find({ "participants._id": userId, started: true }).then(scripts => {
+        if (scripts) {
+            console.log("Return Scripts by Id");
+            res.json({
+                scripts
+            });
+
+
+        } else {
+            console.log("error getting Scripts by Id");
+            let errors = {};
+            errors.warning = "No Scripts available";
+            return res.status(400).json(errors);
+        }
+    }
+    ).catch(errors => {
+        console.log(errors);
+        return res.status(400).json(errors);
+    }
+    )
+
 })
 
 
