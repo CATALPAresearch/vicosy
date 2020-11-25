@@ -134,6 +134,58 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     if (processor) processor.initialize();
   });
 
+/*
+   * TRAINERSESSION CREATION
+   * */
+
+  clientSocket.on("createTrainerSession", (groupId, roomName, videoUrl, sessionType) => {
+    const roomId = groupId;
+
+    if (roomId in roomsData) {
+      console.log("ERROR: Session already available", roomId);
+      return;
+    }
+
+    // for sessions requiring server logic we need to be able to listen to data changes
+    roomsData[roomId] =
+      sessionType === sessionTypes.SESSION_DEFAULT
+        ? {}
+        : createWatchableSessionRoom(roomId);
+    const meta = {
+      roomName: roomName,
+      roomId: roomId,
+      creator: { id: clientSocket.id, nick: clientSocket.nick },
+      videoUrl: videoUrl,
+      sessionType: sessionType,
+      clientCount: 0
+    };
+    roomsData[roomId].isSession = true;
+    roomsData[roomId].meta = meta;
+
+    Object.assign(
+      roomsData
+        .getAdd("lobby")
+        .getAdd("sessions")
+        .getAdd(roomId),
+      meta
+    );
+
+    // creates collaboration script processor if required
+    const processor = tryCreateSessionProcessor(
+      meta,
+      roomsData[roomId],
+      emitSharedRoomData,
+      socketIO
+    );
+
+    if (processor) roomProcessors[roomId] = processor;
+
+    emitSharedRoomData(socketIO, "lobby", "sessions", meta, null, roomId);
+    logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
+
+    if (processor) processor.initialize();
+  });
+
   /**
    * STREAM ROOMS
    */

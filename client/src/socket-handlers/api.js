@@ -206,6 +206,10 @@ const createSession = (sessionName, videoUrl, sessionType) => {
   socket.emit("createSession", sessionName, videoUrl, sessionType);
 };
 
+export const createTrainerSession = (sessionName, videoUrl, sessionType, groupId) => {
+  socket.emit("createTrainerSession", sessionName, videoUrl, sessionType);
+};
+
 // param: time
 const subscribeToHeartBeat = cb => {
   socket.on("heartBeat", cb);

@@ -100,7 +100,7 @@ class TrainerScriptCreator extends Component {
   };
 
   startScript() {
-    this.props.startScript(this.props.script._id);
+    this.props.startScript(this.props.script);
   }
   onSubmit(e) {
 
