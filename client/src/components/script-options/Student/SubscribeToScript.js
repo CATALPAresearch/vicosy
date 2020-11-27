@@ -21,6 +21,9 @@ class SubscribeToScript extends Component {
     };
     this.props.getScriptById(
       this.props.match.params.scriptId)
+    if (!this.props.auth.isAuthenticated)
+      this.props.history.push("/login/" + this.props.match.params.scriptId);
+
   }
 
   handleChange(e) {
@@ -32,7 +35,8 @@ class SubscribeToScript extends Component {
   }
   onSubmit(e) {
 
-    this.props.subScribeToScript(this.props.auth.user.id, this.props.auth.user.name, this.state.expLevel, this.props.script._id, this.props.auth.user.role, this.toStudentLobby);
+    this.props.subScribeToScript(this.props.auth.user.id, this.props.auth.user.name, this.state.expLevel, this.props.script._id, this.props.auth.user.role, this.toStudentLobby.bind(this));
+
   }
   render() {
     const expLevel = [];

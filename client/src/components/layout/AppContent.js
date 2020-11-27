@@ -43,6 +43,7 @@ class AppContent extends Component {
         <Navbar isSession={isSessionPath} />
         <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/login/:scriptId" component={Login} />
         <Route exact path="/login" component={Login} />
         <SocketController>
           {/* <Route
@@ -64,7 +65,7 @@ class AppContent extends Component {
             />
             <PrivateRoute exact path="/trainerlobby" component={TrainerLobby} />
             <PrivateRoute exact path="/newtrainerscript/" component={TrainerScriptCreator} />
-            <PrivateRoute exact path="/subcribeToScript/:scriptId" component={SubscribeToScript} />
+            <Route exact path="/subcribeToScript/:scriptId" component={SubscribeToScript} />
 
           </Switch>
         </SocketController>

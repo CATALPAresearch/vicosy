@@ -51,7 +51,7 @@ class TrainerLobby extends Component {
 
   render() {
     var participants = null;
-    //this.setListElements.bind(this)
+       //this.setListElements.bind(this)
     // this.props.getScriptsByUserId(this.props.auth.user.id);
     // console.log(this.props.script.scripts);
     if (this.props.script.scripts) {

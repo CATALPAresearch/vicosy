@@ -30,3 +30,4 @@ module.exports = function validatePostInput(data) {
     isValid: isEmpty(errors)
   };
 };
+
