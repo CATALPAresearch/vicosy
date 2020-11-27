@@ -71,6 +71,7 @@ class TrainerScriptCreator extends Component {
 
   }
 
+
   scriptNameUpdate(props) {
     if (this.inputEdited) return;
 
@@ -97,10 +98,33 @@ class TrainerScriptCreator extends Component {
   changeToGroups() {
 
     this.setState({ settings: false });
+    this.unsetSettings();
   };
 
   startScript() {
     this.props.startScript(this.props.script);
+  }
+
+  scriptStartable() {
+    if (this.props.script.participants.length < this.props.script.groupSize)
+      return false;
+    else {
+      if (!this.props.script.groups)
+        return false;
+      else {
+        let groupMembers = 0;
+        for (let group of this.props.script.groups)
+          groupMembers += group.length;
+        if (groupMembers < this.props.script.participants.length)
+          return false;
+        else return true;
+      }
+
+
+
+
+    }
+
   }
   onSubmit(e) {
 
@@ -139,6 +163,7 @@ class TrainerScriptCreator extends Component {
           newScript.groups = this.props.script.groups
         console.log("update Script");
         this.props.updateScript(newScript);
+
       }
     } else {
       window.logEvents.dispatch(LOG_ERROR, {
@@ -232,14 +257,15 @@ class TrainerScriptCreator extends Component {
             this.props.script._id && !this.props.script.started ?
               <div className="col">
                 <br></br>
-                <button
-                  type="submit"
-                  className="btn btn-info btn-lg"
-                  onClick={this.startScript.bind(this)}
-                >
-                  Starte Script
-                </button>
-
+                {this.scriptStartable() ?
+                  <button
+                    type="submit"
+                    className="btn btn-info btn-lg"
+                    onClick={this.startScript.bind(this)}
+                  >
+                    Starte Script
+                </button> : null
+                }
 
               </div> : null
           }
