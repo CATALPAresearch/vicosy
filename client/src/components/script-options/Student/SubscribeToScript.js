@@ -27,8 +27,12 @@ class SubscribeToScript extends Component {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
   }
 
+  toStudentLobby() {
+    this.props.history.push("/studentlobby");
+  }
   onSubmit(e) {
-    this.props.subScribeToScript(this.props.auth.user.id, this.props.auth.user.name, this.state.expLevel, this.props.script._id, this.props.auth.user.role);
+
+    this.props.subScribeToScript(this.props.auth.user.id, this.props.auth.user.name, this.state.expLevel, this.props.script._id, this.props.auth.user.role, this.toStudentLobby);
   }
   render() {
     const expLevel = [];

@@ -403,7 +403,7 @@ export const getScriptById = (scriptId) => dispatch => {
 }
 
 
-export const subScribeToScript = (userId, name, expLevel, scriptId, role) => dispatch => {
+export const subScribeToScript = (userId, name, expLevel, scriptId, role, callback) => dispatch => {
 
   let options =
   {
@@ -417,6 +417,7 @@ export const subScribeToScript = (userId, name, expLevel, scriptId, role) => dis
     .post("/api/script/subscribetoscript", options)
     .then(res => {
       subscribeToScriptSocket(res.data._id);
+      callback();
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
