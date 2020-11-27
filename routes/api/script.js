@@ -170,7 +170,7 @@ router.post("/getscriptsbyuserid", (req, res) => {
 
 router.post("/subscribetoscript", (req, res) => {
     console.log("add member");
-
+    console.log(req.body);
     let member = {
         _id: req.body.userId,
         expLevel: req.body.expLevel,
@@ -190,42 +190,48 @@ router.post("/subscribetoscript", (req, res) => {
         Script.findById(req.body.scriptId).then(script => {
             console.log(script);
             if (!script) {
-                //pruefen ob schon drin
+
                 errors.alert = "Script does not exist";
                 return res.status(404).json(errors);
             }
             else {
+                //pruefen ob schon drin
                 let ismember = false;
                 script.participants.forEach(element => {
                     console.log(element);
                     if (element._id == member._id)
                         ismember = true;
                 })
-                if (ismember) { //pruefen ob schon drin
+                if (ismember) {
                     errors.warning = "User schon eingeschrieben";
                     return res.status(404).json(errors);
                 }
                 else {
-                    if (script.started == true) {
-                        errors.warning = "Script ist schon gestartet, Einschreiben nicht mehr möglich";
+                    if (req.body.role == "TRAINER") {
+                        errors.warning = "Trainer darf nicht an Script teilnehmen";
                         return res.status(404).json(errors);
                     }
-                    else {
-                        script.participants.push(member);
-                        script.save().then(script => {
-                            /*
-                                            script.updateOne({ _id: script._id }, { $push: { participants: member } }).then(script => {
-                            */
-                            console.log("Script updated");
-                            res.json(script);
-
+                    else
+                        if (script.started == true) {
+                            errors.warning = "Script ist schon gestartet, Einschreiben nicht mehr möglich";
+                            return res.status(404).json(errors);
                         }
-                        )
-                            .catch(errors => {
-                                console.log(errors);
-                                return res.status(400).json(errors);
-                            });
-                    }
+                        else {
+                            script.participants.push(member);
+                            script.save().then(script => {
+                                /*
+                                                script.updateOne({ _id: script._id }, { $push: { participants: member } }).then(script => {
+                                */
+                                console.log("Script updated");
+                                res.json(script);
+
+                            }
+                            )
+                                .catch(errors => {
+                                    console.log(errors);
+                                    return res.status(400).json(errors);
+                                });
+                        }
                 }
             }
 

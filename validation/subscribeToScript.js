@@ -21,6 +21,10 @@ module.exports = function validatePostInput(data) {
   if (Validator.isEmpty(data.expLevel)) {
     errors.warning = "Deine Vorkenntnisse müssen angegeben werden.";
   }
+  if (data.role=="TRAINER") {
+    errors.warning = "Trainer darf nicht an Script mitmachen.";
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)

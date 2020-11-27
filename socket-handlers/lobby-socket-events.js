@@ -140,7 +140,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
   clientSocket.on("createTrainerSession", (roomName, videoUrl, sessionType, groupId) => {
     console.log(groupId);
-    
+    console.log("hallo");
     const roomId = groupId;
 console.log("starte Session");
     if (roomId in roomsData) {

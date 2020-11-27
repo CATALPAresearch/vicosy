@@ -28,7 +28,7 @@ class SubscribeToScript extends Component {
   }
 
   onSubmit(e) {
-    this.props.subScribeToScript(this.props.auth.user.id, this.props.auth.user.name, this.state.expLevel, this.props.script._id);
+    this.props.subScribeToScript(this.props.auth.user.id, this.props.auth.user.name, this.state.expLevel, this.props.script._id, this.props.auth.user.role);
   }
   render() {
     const expLevel = [];

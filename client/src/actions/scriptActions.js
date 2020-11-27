@@ -71,7 +71,7 @@ export const startScript = (script) => dispatch => {
     .then(res => {
       if (script.groups)
         for (var group of script.groups) {
-          createTrainerSession(script.scriptName, script.videourl, script.scriptType, group._Id)
+          createTrainerSession(script.scriptName, script.videourl, script.scriptType, group._id)
         }
       dispatch({
         type: SET_ACT_SCRIPT,
@@ -403,14 +403,15 @@ export const getScriptById = (scriptId) => dispatch => {
 }
 
 
-export const subScribeToScript = (userId, name, expLevel, scriptId) => dispatch => {
+export const subScribeToScript = (userId, name, expLevel, scriptId, role) => dispatch => {
 
   let options =
   {
     userId: userId,
     name: name,
     expLevel: expLevel,
-    scriptId: scriptId
+    scriptId: scriptId, 
+    role: role
   }
   axios
     .post("/api/script/subscribetoscript", options)
