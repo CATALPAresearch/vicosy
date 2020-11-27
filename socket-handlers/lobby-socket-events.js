@@ -138,13 +138,16 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
    * TRAINERSESSION CREATION
    * */
 
-  clientSocket.on("createTrainerSession", (groupId, roomName, videoUrl, sessionType) => {
+  clientSocket.on("createTrainerSession", (roomName, videoUrl, sessionType, groupId) => {
+    console.log(groupId);
+    
     const roomId = groupId;
-
+console.log("starte Session");
     if (roomId in roomsData) {
       console.log("ERROR: Session already available", roomId);
       return;
     }
+   
 
     // for sessions requiring server logic we need to be able to listen to data changes
     roomsData[roomId] =
@@ -164,7 +167,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
     Object.assign(
       roomsData
-        .getAdd("lobby")
+        .getAdd("studentlobby")
         .getAdd("sessions")
         .getAdd(roomId),
       meta
@@ -180,7 +183,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
     if (processor) roomProcessors[roomId] = processor;
 
-    emitSharedRoomData(socketIO, "lobby", "sessions", meta, null, roomId);
+    emitSharedRoomData(socketIO, "studentlobby", "sessions", meta, null, roomId);
     logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
 
     if (processor) processor.initialize();
@@ -612,6 +615,7 @@ function allowJoinRoom(roomId) {
     roomId === "WebRtcTestRoomWrapper"
   )
     return true;
+    
 
   return roomsData.hasOwnProperty(roomId);
 }

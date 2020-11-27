@@ -16,9 +16,9 @@ export class TrainerSessionList extends Component {
     if (!this.props.script.scripts) return null;
     else
       scriptsToRender = this.props.script.scripts.map(script => {
+
         var myGroup = null;
         for (var group of script.groups)
-
           if (group.groupMembers.some(member => member._id === this.props.auth.user.id)) {
             myGroup = group;
           } else {
@@ -29,8 +29,8 @@ export class TrainerSessionList extends Component {
             <th scope="row">{script.scriptName}</th>
             <td className="force-break">{script.videourl}</td>
             <td className="force-break">
-            {myGroup.groupMembers.map(member=>  {return <p>{member.name}</p>})}
-            
+              {myGroup.groupMembers.map(member => { return <p key={member._id}>{member.name}</p> })}
+
             </td>
             <td>{script.scriptType}</td>
             <td>
@@ -39,7 +39,7 @@ export class TrainerSessionList extends Component {
                 className="btn btn-success"
               >
                 join
-          <span className="badge ml-2 badge-light">
+                <span className="badge ml-2 badge-light">
                   {script.clientCount}
                 </span>
               </Link>

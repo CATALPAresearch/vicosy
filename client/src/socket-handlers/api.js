@@ -207,7 +207,7 @@ const createSession = (sessionName, videoUrl, sessionType) => {
 };
 
 export const createTrainerSession = (sessionName, videoUrl, sessionType, groupId) => {
-  socket.emit("createTrainerSession", sessionName, videoUrl, sessionType);
+  socket.emit("createTrainerSession", sessionName, videoUrl, sessionType, groupId);
 };
 
 // param: time

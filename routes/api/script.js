@@ -56,9 +56,8 @@ router.post("/deletescript", (req, res) => {
 // @access  Public
 router.post("/startscript", (req, res) => {
     console.log(req.body);
-    Script.findOneAndUpdate({ _id: req.body._id }, { started: true }, { useFindAndModify: false }).then(script => {
+    Script.findOneAndUpdate({ _id: req.body._id }, { started: true }, { new: true }).then(script => {
         console.log("Script started");
-        script.started = true;
         res.json(script);
     })
         .catch(errors => {
@@ -321,7 +320,7 @@ router.post("/updatescript", (req, res) => {
 
     //  thisScript.replaceOne({ _id:req.body._id }, newScript);
 
-    Script.findOneAndUpdate({ _id: req.body._id }, newScript).then(script => {
+    Script.findOneAndUpdate({ _id: req.body._id }, newScript, { new: true }).then(script => {
         console.log("Script updated");
         console.log(script);
         res.json(script);

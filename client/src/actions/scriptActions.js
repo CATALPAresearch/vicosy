@@ -70,8 +70,9 @@ export const startScript = (script) => dispatch => {
     .post("/api/script/startscript", { _id: script._id })
     .then(res => {
       if (script.groups)
-        for (var group of script.groups)
+        for (var group of script.groups) {
           createTrainerSession(script.scriptName, script.videourl, script.scriptType, group._Id)
+        }
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data
@@ -182,12 +183,10 @@ export const updateScript = scriptData => dispatch => {
   axios
     .post("/api/script/updatescript", scriptData)
     .then(res => {
-      console.log(res);
-      /*
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data
-      });*/
+      });
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
