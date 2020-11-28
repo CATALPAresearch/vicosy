@@ -15,11 +15,12 @@ const keys = require("./config/keys");
 const winston = require("./winston-setup");
 require("./client/src/utils/extensionMethods");
 const ColorHash = require("color-hash");
+const Script = require("./models/Script");
 var colorHash = new ColorHash({ saturation: 0.5 });
 
 const isSecure = !!keys.ssl_cert;
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -50,6 +51,20 @@ mongoose
   .catch(err => {
     console.log(err);
   });
+
+//create Script rooms
+
+Script.find({ started: true }).then(scripts => {
+  console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");  
+  for (var script of scripts) {
+    console.log(script.scriptName);
+    for (var group of script.groups)
+      socket.emit("createTrainerSession", script.sessionName, script.videourl, script.scriptType, group._id);
+  }
+}).catch(errors => {
+  console.log(errors);
+});
+
 
 // Passport middleware
 app.use(passport.initialize());
@@ -97,7 +112,7 @@ if (isSecure) {
     pfx: pfxContent
   };
 
-  server = https.createServer(options, app).listen(port, function() {
+  server = https.createServer(options, app).listen(port, function () {
     winston.info(`SSL secured server listening on port ${port}`);
   });
 } else {
@@ -118,7 +133,7 @@ io.use((socket, next) => {
   console.log("token", token);
   if (!token) return next(new Error("authentication error"));
 
-  jwt.verify(token, keys.secretOrKey, function(err, decoded) {
+  jwt.verify(token, keys.secretOrKey, function (err, decoded) {
     if (err) {
       // TODO: let client know?
       console.log("authentication error", err);
@@ -162,7 +177,7 @@ io.of("/p2p").on("connection", socket => {
 
   var initiatorChannel = "";
 
-  socket.on("new-channel", function(data) {
+  socket.on("new-channel", function (data) {
     const unavailable = !channels[data.channel];
     if (unavailable) {
       initiatorChannel = data.channel;
@@ -173,12 +188,12 @@ io.of("/p2p").on("connection", socket => {
     if (unavailable) onNewNamespace(data.channel);
   });
 
-  socket.on("presence", function(channel) {
+  socket.on("presence", function (channel) {
     var isChannelPresent = !!channels[channel];
     socket.emit("presence", isChannelPresent);
   });
 
-  socket.on("disconnect", function(channel) {
+  socket.on("disconnect", function (channel) {
     if (initiatorChannel) {
       delete channels[initiatorChannel];
     }
@@ -190,7 +205,7 @@ function onNewNamespace(channel) {
 
   const channelNamespace = io
     .of("/p2p/" + channel)
-    .on("connection", function(socket) {
+    .on("connection", function (socket) {
       socket.emit("connect", true);
       console.log(
         "someone connected to channel",
@@ -208,11 +223,11 @@ function onNewNamespace(channel) {
       if (clients.length > 1)
         channelNamespace.emit("both-connected", channelNamespace.mediaConfig);
 
-      socket.on("message", function(data) {
+      socket.on("message", function (data) {
         socket.broadcast.emit("message", data.data);
       });
 
-      socket.on("disconnect", function() {
+      socket.on("disconnect", function () {
         // todo: overwork user left broadcast
         // socket.broadcast.emit("user-left", username);
 

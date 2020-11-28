@@ -71,7 +71,7 @@ export const startScript = (script) => dispatch => {
     .then(res => {
       if (script.groups)
         for (var group of script.groups) {
-          createTrainerSession(script.scriptName, script.videourl, script.scriptType, group._id)
+          createTrainerSession(script.scriptName, script.videourl, script.scriptType, group._id);
         }
       dispatch({
         type: SET_ACT_SCRIPT,
