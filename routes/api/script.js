@@ -165,7 +165,7 @@ router.post("/getscriptsbyuserid", (req, res) => {
 
 
 // @route   POST api/script/subscribetoscript
-// @desc    Subcribe Student to Script
+// @desc    Subscribe Student to Script
 // @access  Public
 
 router.post("/subscribetoscript", (req, res) => {
@@ -323,6 +323,8 @@ router.post("/updatescript", (req, res) => {
     }
     if (!isEmpty(req.body.participants))
         newScript.participants = req.body.participants;
+    else
+        newScript.participants = [];
 
     //  thisScript.replaceOne({ _id:req.body._id }, newScript);
 

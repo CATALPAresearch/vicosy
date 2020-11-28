@@ -177,7 +177,7 @@ class ScriptSettings extends Component {
         }
         else urlprocessed = url;
 
-        this.setState({ scriptUrl: urlprocessed + "/subcribeToScript/" + this.props.script._id });
+        this.setState({ scriptUrl: urlprocessed + "/subscribeToScript/" + this.props.script._id });
         this.setState({ showUrl: true });
     }
 

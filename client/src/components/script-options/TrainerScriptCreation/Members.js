@@ -40,7 +40,7 @@ export class Members extends Component {
         }
         else urlprocessed = url;
 
-        this.setState({ scriptUrl: urlprocessed + "/subcribeToScript/" + this.props.script._id });
+        this.setState({ scriptUrl: urlprocessed + "/subscribeToScript/" + this.props.script._id });
         this.setState({ showUrl: true });
 
     }
@@ -99,13 +99,14 @@ export class Members extends Component {
                 <div className="col border bg-light">
                     <h4>Gruppen</h4>
                     {
-                        (this.props.script.participants.length >= this.props.script.groupSize) && !this.props.script.started ?
+                        this.props.script.participants ?
+                        ((this.props.script.participants.length >= this.props.script.groupSize) && !this.props.script.started) ?   
                             <input
                                 type="button"
                                 className="btn btn-info btn-lg"
                                 value="Gruppieren"
                                 onClick={this.onClickMix.bind(this)}
-                            /> : null
+                            /> : null:null
                     }
 
                     {

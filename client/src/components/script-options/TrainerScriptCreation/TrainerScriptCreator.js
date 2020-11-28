@@ -106,24 +106,27 @@ class TrainerScriptCreator extends Component {
   }
 
   scriptStartable() {
-    if (this.props.script.participants.length < this.props.script.groupSize)
+    if (!this.props.script.participants)
       return false;
-    else {
-      if (!this.props.script.groups)
+    else
+      if (this.props.script.participants.length < this.props.script.groupSize)
         return false;
       else {
-        let groupMembers = 0;
-        for (let group of this.props.script.groups)
-          groupMembers += group.length;
-        if (groupMembers < this.props.script.participants.length)
+        if (!this.props.script.groups)
           return false;
-        else return true;
+        else {
+          let groupMembers = 0;
+          for (let group of this.props.script.groups)
+            groupMembers += group.groupMembers.length;
+          if (groupMembers < this.props.script.participants.length)
+            return false;
+          else return true;
+        }
+
+
+
+
       }
-
-
-
-
-    }
 
   }
   onSubmit(e) {

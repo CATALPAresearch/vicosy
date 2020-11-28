@@ -22,7 +22,7 @@ class SubscribeToScript extends Component {
     this.props.getScriptById(
       this.props.match.params.scriptId)
     if (!this.props.auth.isAuthenticated)
-      this.props.history.push("/login/" + this.props.match.params.scriptId);
+      this.props.history.push("/login?" + this.props.match.params.scriptId);
 
   }
 

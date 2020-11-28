@@ -17,7 +17,8 @@ const MemberSchema = new Schema({
 //Groups
 const GroupSchema = new Schema({
     groupMembers: [MemberSchema],
-    required: false
+    required: false,
+    status: String
 })
 
 // Create Schema
@@ -74,7 +75,7 @@ const ScriptSchema = new Schema({
     },
     groups: {
         type: [GroupSchema],
-        require: false
+        require: false,
     },
     started: {
         type: Boolean,

@@ -65,7 +65,7 @@ class AppContent extends Component {
             />
             <PrivateRoute exact path="/trainerlobby" component={TrainerLobby} />
             <PrivateRoute exact path="/newtrainerscript/" component={TrainerScriptCreator} />
-            <Route exact path="/subcribeToScript/:scriptId" component={SubscribeToScript} />
+            <Route exact path="/subscribeToScript/:scriptId" component={SubscribeToScript} />
 
           </Switch>
         </SocketController>
