@@ -19,6 +19,26 @@ const roomProcessors = {}; // room id => processor
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
+  
+
+
+/*
+  var started = false;
+  if (!started)
+    ScriptDBApi.find({ started: true }).then(scripts => {
+      for (var script of scripts) {
+        for (var group of script.groups) {
+          createTrainerSession(String(script.scriptName), String(script.videourl), String(script.scriptType), String(group._id));
+        }
+
+      }
+      started = true;
+    }).catch(errors => {
+      console.log(errors);
+    });
+*/
+
+
 
   /**
    * SCRIPT
@@ -35,6 +55,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     });
   
   */
+
+
+
 
 
   clientSocket.on("subscribeToScriptSocket", scriptId => {
@@ -88,6 +111,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
   clientSocket.on("createSession", (roomName, videoUrl, sessionType) => {
     const roomId = (roomName + videoUrl).hashCode();
+    console.log("create Session");
 
     if (roomId in roomsData) {
       console.log("ERROR: Session already available", roomId);
@@ -134,21 +158,18 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     if (processor) processor.initialize();
   });
 
-/*
-   * TRAINERSESSION CREATION
-   * */
+  /*
+     * TRAINERSESSION CREATION
+     * */
 
-  clientSocket.on("createTrainerSession", (roomName, videoUrl, sessionType, groupId) => {
-    console.log(groupId);
-    console.log("asfdddddddddddddddddmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
-    console.log("hallo");
+  function createTrainerSession(roomName, videoUrl, sessionType, groupId) {
     const roomId = groupId;
-console.log("starte Session");
+    console.log("starte Session");
     if (roomId in roomsData) {
       console.log("ERROR: Session already available", roomId);
       return;
     }
-   
+
 
     // for sessions requiring server logic we need to be able to listen to data changes
     roomsData[roomId] =
@@ -188,6 +209,62 @@ console.log("starte Session");
     logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
 
     if (processor) processor.initialize();
+
+  }
+
+  clientSocket.on("createTrainerSession", (roomName, videoUrl, sessionType, groupId) => {
+    createTrainerSession(roomName, videoUrl, sessionType, groupId);
+    /*
+    console.log(groupId);
+    console.log("asfdddddddddddddddddmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    console.log("hallo");
+    const roomId = groupId;
+    console.log("starte Session");
+    if (roomId in roomsData) {
+      console.log("ERROR: Session already available", roomId);
+      return;
+    }
+
+
+    // for sessions requiring server logic we need to be able to listen to data changes
+    roomsData[roomId] =
+      sessionType === sessionTypes.SESSION_DEFAULT
+        ? {}
+        : createWatchableSessionRoom(roomId);
+    const meta = {
+      roomName: roomName,
+      roomId: roomId,
+      creator: { id: clientSocket.id, nick: clientSocket.nick },
+      videoUrl: videoUrl,
+      sessionType: sessionType,
+      clientCount: 0
+    };
+    roomsData[roomId].isSession = true;
+    roomsData[roomId].meta = meta;
+
+    Object.assign(
+      roomsData
+        .getAdd("studentlobby")
+        .getAdd("sessions")
+        .getAdd(roomId),
+      meta
+    );
+
+    // creates collaboration script processor if required
+    const processor = tryCreateSessionProcessor(
+      meta,
+      roomsData[roomId],
+      emitSharedRoomData,
+      socketIO
+    );
+
+    if (processor) roomProcessors[roomId] = processor;
+
+    emitSharedRoomData(socketIO, "studentlobby", "sessions", meta, null, roomId);
+    logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
+
+    if (processor) processor.initialize();
+    */
   });
 
   /**
@@ -616,7 +693,7 @@ function allowJoinRoom(roomId) {
     roomId === "WebRtcTestRoomWrapper"
   )
     return true;
-    
+
 
   return roomsData.hasOwnProperty(roomId);
 }

@@ -47,7 +47,7 @@ class TrainerScriptCreator extends Component {
     this.props.updateScriptProp({ userId: this.props.auth.user.id })
     //gets Script if ID in URL-Params
     this.setScript();
-
+    
   }
 
   componentDidMount() {

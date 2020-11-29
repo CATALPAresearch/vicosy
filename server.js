@@ -16,6 +16,7 @@ const winston = require("./winston-setup");
 require("./client/src/utils/extensionMethods");
 const ColorHash = require("color-hash");
 const Script = require("./models/Script");
+
 var colorHash = new ColorHash({ saturation: 0.5 });
 
 const isSecure = !!keys.ssl_cert;
@@ -47,23 +48,14 @@ mongoose
   )
   .then(result => {
     console.log("MongoDB connected");
+    //create Script rooms
+
+
   })
   .catch(err => {
     console.log(err);
   });
 
-//create Script rooms
-
-Script.find({ started: true }).then(scripts => {
-  console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");  
-  for (var script of scripts) {
-    console.log(script.scriptName);
-    for (var group of script.groups)
-      socket.emit("createTrainerSession", script.sessionName, script.videourl, script.scriptType, group._id);
-  }
-}).catch(errors => {
-  console.log(errors);
-});
 
 
 // Passport middleware
@@ -126,6 +118,9 @@ const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
 io.origins("*:*");
 
 const handleSocketEvents = require("./socket-handlers/lobby-socket-events");
+const createTrainerSession = require("./socket-handlers/lobby-socket-events");
+
+
 
 // auth
 io.use((socket, next) => {
@@ -167,7 +162,32 @@ io.on("connection", clientSocket => {
   });
 
   handleSocketEvents(clientSocket, io);
+
+
+
 });
+
+
+//init sessions
+var sessionsInitiated = false;
+if (!sessionsInitiated)
+  Script.find({ started: true }).then(scripts => {
+    for (var script of scripts) {
+      console.log(script._id);
+      for (var group of script.groups) {
+        console.log(group._id)
+        handleSocketEvents(socket, io).createTrainerSession(String(script.scriptName), String(script.videourl), String(script.scriptType), String(group._id));
+      }
+
+    }
+    sessionsInitiated = true;
+  }).catch(errors => {
+    console.log(errors);
+  });
+
+
+
+
 
 // p2p signaling
 var channels = {};
@@ -242,3 +262,5 @@ function onNewNamespace(channel) {
       });
     });
 }
+
+
