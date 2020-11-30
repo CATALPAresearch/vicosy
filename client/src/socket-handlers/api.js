@@ -98,6 +98,11 @@ export const ownSocketId = () => {
   return socket.id;
 };
 
+
+export const notifyMembers = (script) => {
+  socket.emit("notifyMembers", script);
+}
+
 /**
  * Generic Events (lightweight, eventually not part of redux state, e.g. draw)
  */
@@ -125,12 +130,17 @@ export const scriptMembers = (scriptId, user_id, callback) =>
 
 
 export const subscribeToScriptSocket = (scriptId) => {
-  
+
   socket.emit("subscribeToScriptSocket", scriptId);
   //socket.on("returnScriptMembers", update => users(update));
   // socket.on("testnachricht", data => console.log(data))
 
 };
+
+export const getNewScripts = (userId, callback) => {
+  socket.on("newScript" + member._id, script => callback);
+}
+
 
 
 

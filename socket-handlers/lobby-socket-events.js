@@ -19,24 +19,24 @@ const roomProcessors = {}; // room id => processor
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
+
+
+
+  /*
+    var started = false;
+    if (!started)
+      ScriptDBApi.find({ started: true }).then(scripts => {
+        for (var script of scripts) {
+          for (var group of script.groups) {
+            createTrainerSession(String(script.scriptName), String(script.videourl), String(script.scriptType), String(group._id));
+          }
   
-
-
-/*
-  var started = false;
-  if (!started)
-    ScriptDBApi.find({ started: true }).then(scripts => {
-      for (var script of scripts) {
-        for (var group of script.groups) {
-          createTrainerSession(String(script.scriptName), String(script.videourl), String(script.scriptType), String(group._id));
         }
-
-      }
-      started = true;
-    }).catch(errors => {
-      console.log(errors);
-    });
-*/
+        started = true;
+      }).catch(errors => {
+        console.log(errors);
+      });
+  */
 
 
 
@@ -56,8 +56,30 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   
   */
 
+  clientSocket.on("notifyMembers", script => {
 
 
+    if (script.groups)
+      for (var group of script.groups) {
+        createTrainerSession(script.scriptName, script.videourl, script.scriptType, group);
+      }
+
+    var myGroup = {};
+    if (script.participants)
+      for (var member of script.participants) {
+
+        for (var group of script.groups)
+          for(var gmember of group.groupMembers)
+          if (gmember._id== member._id ) {
+            myGroup = group;
+         }
+         clientSocket.emit("newScript"+member._id, myGroup);
+
+      }
+    
+    }
+
+  )
 
 
   clientSocket.on("subscribeToScriptSocket", scriptId => {
@@ -162,8 +184,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
      * TRAINERSESSION CREATION
      * */
 
-  function createTrainerSession(roomName, videoUrl, sessionType, groupId) {
-    const roomId = groupId;
+  function createTrainerSession(roomName, videoUrl, sessionType, group) {
+    const roomId = group._id;
     console.log("starte Session");
     if (roomId in roomsData) {
       console.log("ERROR: Session already available", roomId);
@@ -182,7 +204,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       creator: { id: clientSocket.id, nick: clientSocket.nick },
       videoUrl: videoUrl,
       sessionType: sessionType,
-      clientCount: 0
+      clientCount: 0,
+      groupMembers: group.groupMembers
+
     };
     roomsData[roomId].isSession = true;
     roomsData[roomId].meta = meta;
@@ -224,8 +248,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       console.log("ERROR: Session already available", roomId);
       return;
     }
-
-
+  
+  
     // for sessions requiring server logic we need to be able to listen to data changes
     roomsData[roomId] =
       sessionType === sessionTypes.SESSION_DEFAULT
@@ -241,7 +265,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     };
     roomsData[roomId].isSession = true;
     roomsData[roomId].meta = meta;
-
+  
     Object.assign(
       roomsData
         .getAdd("studentlobby")
@@ -249,7 +273,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
         .getAdd(roomId),
       meta
     );
-
+  
     // creates collaboration script processor if required
     const processor = tryCreateSessionProcessor(
       meta,
@@ -257,12 +281,12 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       emitSharedRoomData,
       socketIO
     );
-
+  
     if (processor) roomProcessors[roomId] = processor;
-
+  
     emitSharedRoomData(socketIO, "studentlobby", "sessions", meta, null, roomId);
     logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
-
+  
     if (processor) processor.initialize();
     */
   });

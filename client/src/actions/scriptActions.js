@@ -1,6 +1,7 @@
 import axios from "axios";
 import { set } from "mongoose";
-import { scriptMembers, subscribeToScriptSocket, createTrainerSession } from "../socket-handlers/api";
+// import { notify } from "../../../routes/api/users";
+import { scriptMembers, notifyMembers, subscribeToScriptSocket, createTrainerSession } from "../socket-handlers/api";
 import { DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
 
@@ -69,10 +70,13 @@ export const startScript = (script) => dispatch => {
   axios
     .post("/api/script/startscript", { _id: script._id })
     .then(res => {
+      notifyMembers(res.data);
+      /*
       if (script.groups)
         for (var group of script.groups) {
           createTrainerSession(script.scriptName, script.videourl, script.scriptType, group._id);
         }
+        */
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data
@@ -410,7 +414,7 @@ export const subScribeToScript = (userId, name, expLevel, scriptId, role, callba
     userId: userId,
     name: name,
     expLevel: expLevel,
-    scriptId: scriptId, 
+    scriptId: scriptId,
     role: role
   }
   axios
