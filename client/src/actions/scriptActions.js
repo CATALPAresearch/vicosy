@@ -1,9 +1,21 @@
 import axios from "axios";
 import { set } from "mongoose";
 // import { notify } from "../../../routes/api/users";
-import { scriptMembers, notifyMembers, subscribeToScriptSocket, createTrainerSession } from "../socket-handlers/api";
-import { DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
+import { getSessions, scriptMembers, notifyMembers, subscribeToScriptSocket, createTrainerSession } from "../socket-handlers/api";
+import { DELETE_MEMBER_FROM_SCRIPT, GET_SESSIONS, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
+
+//
+export const getMyScriptsBySocket = (user_id, scripts) => dispatch => {
+  getSessions(user_id, (script) => {
+    console.log(script);
+    scripts.push(script);
+    dispatch({ type: GET_SCRIPTS, payload: scripts }
+    );
+
+  });
+}
+
 
 //gets Scripts where user is member
 export const getMyScripts = (user_id) => dispatch => {
@@ -11,10 +23,12 @@ export const getMyScripts = (user_id) => dispatch => {
   axios
     .post("/api/script/getmyscripts", value)
     .then(res => {
+      getMyScriptsBySocket(user_id, res.data.scripts);
       dispatch({
         type: GET_SCRIPTS,
         payload: res.data.scripts
       });
+
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
@@ -365,8 +379,6 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
             groupNr++;
 
           }
-
-          console.log(groups);
           dispatch({
             type: SET_GROUPS,
             payload: groups
