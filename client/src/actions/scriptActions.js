@@ -7,9 +7,10 @@ const skmeans = require("../../node_modules/skmeans");
 
 //
 export const getMyScriptsBySocket = (user_id, scripts) => dispatch => {
+
   getSessions(user_id, (script) => {
-    console.log(script);
     scripts.push(script);
+
     dispatch({ type: GET_SCRIPTS, payload: scripts }
     );
 
@@ -18,17 +19,16 @@ export const getMyScriptsBySocket = (user_id, scripts) => dispatch => {
 
 
 //gets Scripts where user is member
-export const getMyScripts = (user_id) => dispatch => {
+export const getMyScripts = (user_id, callback) => dispatch => {
   let value = { userId: user_id };
   axios
     .post("/api/script/getmyscripts", value)
     .then(res => {
-      getMyScriptsBySocket(user_id, res.data.scripts);
       dispatch({
         type: GET_SCRIPTS,
         payload: res.data.scripts
       });
-
+      callback();
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
@@ -42,7 +42,6 @@ export const getScriptMembers = (script_id, user_id) => dispatch => {
   scriptMembers(
     script_id, user_id,
     update => {
-      console.log(update);
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: update

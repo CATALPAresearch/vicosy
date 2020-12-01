@@ -56,6 +56,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   
   */
 
+
+  
+
   clientSocket.on("notifyMembers", script => {
 
 
@@ -69,15 +72,16 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       for (var member of script.participants) {
 
         for (var group of script.groups)
-          for(var gmember of group.groupMembers)
-          if (gmember._id== member._id ) {
-            myGroup = group;
-         }
-         clientSocket.emit("newScript"+member._id, myGroup);
+          for (var gmember of group.groupMembers)
+            if (gmember._id == member._id) {
+              myGroup = group;
+            }
+        console.log(member._id, "wird informiert!");
+        clientSocket.to("studentlobby").emit("newScript" + member._id, script);
 
       }
-    
-    }
+
+  }
 
   )
 

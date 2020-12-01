@@ -1,6 +1,6 @@
 import { SET_ACT_SCRIPT } from "../actions/types";
 import React, { Component } from "react";
-import {DELETE_MEMBER_FROM_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
+import { GET_SESSIONS, DELETE_MEMBER_FROM_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
 import {
     SESSION_DEFAULT,
     SESSION_PEER_TEACHING
@@ -24,16 +24,26 @@ const initialState = {
     userId: "",
     showUrl: false,
     scriptUrl: "",
-    started:false,
+    started: false,
     participants: {},
-    groups: [[]]
+    groups: [[]],
+    sessions:[]
 
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case GET_SESSIONS: {
+            console.log(action.payload);
+            return {
+                ...state,
+                sessions: action.payload
+            }
+
+        }
+
         case DELETE_MEMBER_FROM_SCRIPT: {
-           return {
+            return {
                 ...state,
                 scripts: action.payload
             }
@@ -87,7 +97,7 @@ export default function (state = initialState, action) {
                 scriptType: action.payload.scriptType,
                 userId: action.payload.userId,
                 participants: action.payload.participants,
-                groups: action.payload.groups, 
+                groups: action.payload.groups,
                 started: action.payload.started
             };
         case GET_SCRIPTS: {

@@ -1,18 +1,25 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect, useStore } from "react-redux";
-import { getMyScripts } from "../../actions/scriptActions";
+import { getMyScripts, getMyScriptsBySocket } from "../../actions/scriptActions";
 
 export class TrainerSessionList extends Component {
   constructor(props) {
     super(props);
-    this.props.getMyScripts(this.props.auth.user.id);
+    this.props.getMyScripts(this.props.auth.user.id, this.callback.bind(this));
+    
+    
+ 
 
   }
 
+
+  callback() {
+this.props.getMyScriptsBySocket (this.props.auth.user.id, this.props.script.scripts);
+}
+
   render() {
-    
-    
+
     const { roomAvailable, roomData } = this.props.roomState;
     var sessionsToRender = null;
     console.log(this.props.roomState);
@@ -131,6 +138,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { getMyScripts },
+  mapStateToProps, { getMyScripts, getMyScriptsBySocket },
   null
 )(TrainerSessionList);

@@ -169,7 +169,7 @@ io.on("connection", clientSocket => {
 
 
 //init sessions
-/*
+
 var sessionsInitiated = false;
 if (!sessionsInitiated)
   Script.find({ started: true }).then(scripts => {
@@ -186,7 +186,7 @@ if (!sessionsInitiated)
     console.log(errors);
   });
 
-*/
+
 
 
 

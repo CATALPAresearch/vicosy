@@ -5,11 +5,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const socket = require("socket.io");
 
 // load input validation
 const validateScriptInput = require("../../validation/script");
 const validateSuscribeInput = require("../../validation/subscribeToScript");
 const isEmpty = require("../../validation/is-empty");
+//import {createTrainerSession} from "./../../socket-handlers/lobby-socket-events";
 
 
 // load script model
@@ -59,6 +61,7 @@ router.post("/startscript", (req, res) => {
     Script.findOneAndUpdate({ _id: req.body._id }, { started: true }, { new: true }).then(script => {
         console.log("Script started");
         res.json(script);
+
     })
         .catch(errors => {
             console.log(errors);
@@ -75,6 +78,12 @@ router.post("/getmyscripts", (req, res) => {
     let userId = req.body.userId;
     Script.find({ "participants._id": userId, started: true }).then(scripts => {
         if (scripts) {
+
+            /*for (script of scripts) {
+                
+                createTrainerSession(roomName, script.videoUrl, script.sessionType, script.group);
+
+            }*/
             console.log("Return Scripts by Id");
             res.json({
                 scripts

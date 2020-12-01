@@ -64,6 +64,7 @@ export const GET_SCRIPTS ="GET_SCRIPTS";
 export const CLEAR_SCRIPT ="CLEAR_SCRIPT";
 export const SET_GROUPS="SET_GROUPS";
 export const DELETE_MEMBER_FROM_SCRIPT ="DELETE_MEMBER_FROM_SCRIPT";
+export const GET_SESSIONS="GET_SESSIONS";
 
 //iTutor
 export const SET_WARNING = "SET_WARNING";

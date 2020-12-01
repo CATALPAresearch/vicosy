@@ -1,3 +1,4 @@
+import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import openSocket from "socket.io-client";
 import { PEER_SIGNAL_MESSAGE } from "../p2p-handlers/p2pEvents";
 var socket = null;
@@ -99,9 +100,7 @@ export const ownSocketId = () => {
 };
 
 
-export const notifyMembers = (script) => {
-  socket.emit("notifyMembers", script);
-}
+
 
 /**
  * Generic Events (lightweight, eventually not part of redux state, e.g. draw)
@@ -121,12 +120,26 @@ export const unregisterFrom = (event, callback) => {
  */
 //connects to script member and updates when member subscribes to script
 
+
+
 export const scriptMembers = (scriptId, user_id, callback) =>
 
   socket.on("returnScriptMembers", datum => {
     if (datum.userId === user_id) callback(datum);
   });
 
+
+export const getSessions = (user_id, callback) => {
+  socket.on("newScript" + user_id, script => {
+    console.log("nachricht angebkommen");
+    callback(script);
+  })
+ }
+
+//notifies members of a script
+export const notifyMembers = (script) => {
+  socket.emit("notifyMembers", script);
+}
 
 
 export const subscribeToScriptSocket = (scriptId) => {
@@ -138,7 +151,7 @@ export const subscribeToScriptSocket = (scriptId) => {
 };
 
 export const getNewScripts = (userId, callback) => {
-  socket.on("newScript" + member._id, script => callback);
+  socket.on("newScript" + userId, script => callback);
 }
 
 
@@ -324,3 +337,4 @@ export {
   connectToP2PSignaler,
   connectToP2PChannel
 };
+
