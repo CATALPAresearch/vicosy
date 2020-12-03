@@ -89,6 +89,8 @@ const disconnectSocket = () => {
   }
 };
 
+
+
 const subscribeToTimer = (interval, cb) => {
   socket.on("timer", timestamp => cb(null, timestamp));
   socket.emit("subscribeToTimer", interval);
@@ -229,8 +231,8 @@ const createSession = (sessionName, videoUrl, sessionType) => {
   socket.emit("createSession", sessionName, videoUrl, sessionType);
 };
 
-export const createTrainerSession = (sessionName, videoUrl, sessionType, groupId) => {
-  socket.emit("createTrainerSession", sessionName, videoUrl, sessionType, groupId);
+export const createTrainerSession = (scriptId, sessionName, videoUrl, sessionType, groupId) => {
+  socket.emit("createTrainerSession", scriptId, sessionName, videoUrl, sessionType, groupId);
 };
 
 // param: time

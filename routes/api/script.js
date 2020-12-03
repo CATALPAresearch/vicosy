@@ -11,7 +11,7 @@ const socket = require("socket.io");
 const validateScriptInput = require("../../validation/script");
 const validateSuscribeInput = require("../../validation/subscribeToScript");
 const isEmpty = require("../../validation/is-empty");
-//import {createTrainerSession} from "./../../socket-handlers/lobby-socket-events";
+//import {deleteTrainerSession} from "./../../socket-handlers/lobby-socket-events";
 
 
 // load script model

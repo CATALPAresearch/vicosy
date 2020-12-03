@@ -37,7 +37,7 @@ export const getMyScripts = (user_id, callback) => dispatch => {
     });
 
 }
-//get members in a scripts
+//get members in a script
 export const getScriptMembers = (script_id, user_id) => dispatch => {
   scriptMembers(
     script_id, user_id,
@@ -50,7 +50,7 @@ export const getScriptMembers = (script_id, user_id) => dispatch => {
   );
 }
 
-//Scripts eines User werden geholt
+//get Script of one User
 export const getScriptsByUserId = (user_id, callback) => dispatch => {
   let value = { userId: user_id };
   axios
@@ -79,6 +79,7 @@ export const updateScriptProp = (prop) => dispatch => {
 
 }
 
+//Trainer starts script
 export const startScript = (script) => dispatch => {
   axios
     .post("/api/script/startscript", { _id: script._id })
@@ -173,9 +174,10 @@ export const deleteScript = _id => dispatch => {
   axios
     .post("/api/script/deletescript", { _id: _id })
     .then(res => {
+
       dispatch({
         type: CLEAR_SCRIPT,
-        payload: res.response
+        payload: res.data._id
       })
     }).catch(err => {
       dispatch({
@@ -401,7 +403,7 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
 //get Script by Id
 export const getScriptById = (scriptId) => dispatch => {
-  let script = { _id: scriptId }
+  let script = { _id: scriptId };
   axios
     .post("/api/script/getscriptbyid", script)
     .then(res => {

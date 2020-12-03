@@ -1,22 +1,26 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect, useStore } from "react-redux";
-import { getMyScripts, getMyScriptsBySocket } from "../../actions/scriptActions";
+import { getMyScripts, getScriptById, getMyScriptsBySocket } from "../../actions/scriptActions";
+import { SET_SCRIPT_MEMBERS } from "../../actions/types";
 
 export class TrainerSessionList extends Component {
   constructor(props) {
     super(props);
     this.props.getMyScripts(this.props.auth.user.id, this.callback.bind(this));
-    
-    
- 
+
+
+
+
+  }
+  setScript(scriptId) {
+    this.props.getScriptById(scriptId);
 
   }
 
-
   callback() {
-this.props.getMyScriptsBySocket (this.props.auth.user.id, this.props.script.scripts);
-}
+    this.props.getMyScriptsBySocket(this.props.auth.user.id, this.props.script.scripts);
+  }
 
   render() {
 
@@ -66,7 +70,9 @@ this.props.getMyScriptsBySocket (this.props.auth.user.id, this.props.script.scri
             <td>
               <Link
                 to={`/session/${group._id}`}
+                scriptid={script._id}
                 className="btn btn-success"
+                onClick={(e)=>this.setScript(script._id)}
               >
                 join
                 <span className="badge ml-2 badge-light">
@@ -138,6 +144,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { getMyScripts, getMyScriptsBySocket },
+  mapStateToProps, { getMyScripts, getMyScriptsBySocket, getScriptById },
   null
 )(TrainerSessionList);
