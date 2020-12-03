@@ -118,7 +118,6 @@ const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
 io.origins("*:*");
 
 const handleSocketEvents = require("./socket-handlers/lobby-socket-events");
-const createTrainerSession = require("./socket-handlers/lobby-socket-events");
 
 
 
@@ -151,6 +150,7 @@ io.use((socket, next) => {
   });
 });
 
+var sessionsInitialized = false;
 io.on("connection", clientSocket => {
   console.log("made socket connection");
 
@@ -161,33 +161,32 @@ io.on("connection", clientSocket => {
     }, interval);
   });
 
-  handleSocketEvents(clientSocket, io);
+  // handleSocketEvents(clientSocket, io);
+
+  const obj = new handleSocketEvents(clientSocket, io);
+  if (!sessionsInitialized)
+    obj.initSessions(()=>{sessionsInitialized=true;});
+  //init sessions
+
+
+
 
 
 
 });
 
 
-//init sessions
-
-var sessionsInitiated = false;
-if (!sessionsInitiated)
-  Script.find({ started: true }).then(scripts => {
-    for (var script of scripts) {
-      console.log(script._id);
-      for (var group of script.groups) {
-        console.log(group._id)
-        handleSocketEvents(socket, io).createTrainerSession(String(script.scriptName), String(script.videourl), String(script.scriptType), String(group._id));
-      }
-
-    }
-    sessionsInitiated = true;
-  }).catch(errors => {
-    console.log(errors);
-  });
-
-
-
+//initializing sessions
+// server-side
+/*
+io.use((socket, next) => {
+  const obj = new handleSocketEvents(socket, io);
+  obj.initSessions();
+  const err = new Error("not authorized");
+  err.data = { content: "Please retry later" }; // additional details
+  next(err);
+});
+*/
 
 
 // p2p signaling

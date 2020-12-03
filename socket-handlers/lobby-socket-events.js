@@ -18,6 +18,25 @@ const roomsData = { lobby: {} };
 const roomProcessors = {}; // room id => processor
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
+  //init sessions
+
+  this.initSessions = function (callback) {
+
+    ScriptDBApi.find({ started: true }).then(scripts => {
+      for (var script of scripts) {
+        for (var group of script.groups) {
+          console.log("Session: ", group._id, " initiating!");
+          createTrainerSession(String(script.scriptName), String(script.videourl), String(script.scriptType), group);
+          //clientSocket.emit("notifyMembers", script);
+        }
+
+      }
+
+    }).catch(errors => {
+      console.log(errors);
+    });
+
+  }
 
 
 
@@ -57,11 +76,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   */
 
 
-  
+
 
   clientSocket.on("notifyMembers", script => {
-
-
     if (script.groups)
       for (var group of script.groups) {
         createTrainerSession(script.scriptName, script.videourl, script.scriptType, group);
@@ -189,10 +206,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
      * */
 
   function createTrainerSession(roomName, videoUrl, sessionType, group) {
-    const roomId = group._id;
-    console.log("starte Session");
+    const roomId = String(group._id);
     if (roomId in roomsData) {
-      console.log("ERROR: Session already available", roomId);
+      console.log("ERROR: TrainerSession already available", roomId);
       return;
     }
 
@@ -209,7 +225,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       videoUrl: videoUrl,
       sessionType: sessionType,
       clientCount: 0,
-      groupMembers: group.groupMembers
+
 
     };
     roomsData[roomId].isSession = true;
