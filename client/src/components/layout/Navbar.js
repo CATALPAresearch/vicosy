@@ -10,7 +10,7 @@ import { clearError } from "../../actions/errorActions";
 import { withRouter } from "react-router";
 import { LOG } from "../logic-controls/logEvents";
 import "./navbar.css";
-import {STUDENT, TRAINER} from  "../../actions/types";
+import { STUDENT, TRAINER } from "../../actions/types";
 
 class Navbar extends Component {
   constructor(props) {
@@ -95,14 +95,15 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          {this.props.auth.user.role===STUDENT ? 
-          <Link className="nav-link" to="/lobby">
-            Lobby <RoomComponent component={ClientCounter} roomId="lobby" />
-          </Link>
-          : 
-          <Link className="nav-link" to="/trainerlobby">
-            Lobby <RoomComponent component={ClientCounter} roomId="trainerlobby" />
-          </Link>}
+          {this.props.auth.user.role === TRAINER ?
+            <Link className="nav-link" to="/trainerlobby">
+              Lobby <RoomComponent component={ClientCounter} roomId="trainerlobby" />
+            </Link>
+
+            :
+            <Link className="nav-link" to="/studentlobby">
+              Lobby <RoomComponent component={ClientCounter} roomId="studentlobby" />
+            </Link>}
         </li>
         {/* <li>
           <Link className="nav-link" to="/testConference">

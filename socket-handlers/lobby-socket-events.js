@@ -26,7 +26,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       for (var script of scripts) {
         for (var group of script.groups) {
           console.log("Session: ", group._id, " initiating!");
-          createTrainerSession(String(script.scriptName), String(script.videourl), String(script.scriptType), group);
+          createTrainerSession(String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
           //clientSocket.emit("notifyMembers", script);
         }
 
@@ -81,7 +81,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   clientSocket.on("notifyMembers", script => {
     if (script.groups)
       for (var group of script.groups) {
-        createTrainerSession(script.scriptName, script.videourl, script.scriptType, group);
+        createTrainerSession(script._id, script.scriptName, script.videourl, script.scriptType, group);
       }
 
     var myGroup = {};
@@ -205,7 +205,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
      * TRAINERSESSION CREATION
      * */
 
-  function createTrainerSession(roomName, videoUrl, sessionType, group) {
+  function createTrainerSession(scriptId, roomName, videoUrl, sessionType, group) {
     const roomId = String(group._id);
     if (roomId in roomsData) {
       console.log("ERROR: TrainerSession already available", roomId);
@@ -225,6 +225,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       videoUrl: videoUrl,
       sessionType: sessionType,
       clientCount: 0,
+      scriptId: scriptId
 
 
     };
@@ -256,8 +257,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
   }
 
-  clientSocket.on("createTrainerSession", (roomName, videoUrl, sessionType, groupId) => {
-    createTrainerSession(roomName, videoUrl, sessionType, groupId);
+  clientSocket.on("createTrainerSession", (scriptId, roomName, videoUrl, sessionType, groupId) => {
+    createTrainerSession(scriptId, roomName, videoUrl, sessionType, groupId);
     /*
     console.log(groupId);
     console.log("asfdddddddddddddddddmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
