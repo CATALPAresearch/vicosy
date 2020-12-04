@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect, useStore } from "react-redux";
-import { getMyScripts, getScriptById, getMyScriptsBySocket } from "../../actions/scriptActions";
+import { checkRemovedScript, getMyScripts, getScriptById, getMyScriptsBySocket } from "../../actions/scriptActions";
 import { SET_SCRIPT_MEMBERS } from "../../actions/types";
 
 export class TrainerSessionList extends Component {
   constructor(props) {
     super(props);
     this.props.getMyScripts(this.props.auth.user.id, this.callback.bind(this));
-
-
-
+    var listener = false;
 
   }
   setScript(scriptId) {
@@ -20,10 +18,14 @@ export class TrainerSessionList extends Component {
 
   callback() {
     this.props.getMyScriptsBySocket(this.props.auth.user.id, this.props.script.scripts);
+    this.props.checkRemovedScript(this.props.auth.user.id, this.props.script.scripts);
   }
 
+ /* startScriptRemoveListener() {
+    this.props.checkRemovedScript(this.props.auth.user.id, this.props.script.scripts);
+    console.log(this.props.script.scripts);
+  }*/
   render() {
-
     const { roomAvailable, roomData } = this.props.roomState;
     var sessionsToRender = null;
     console.log(this.props.roomState);
@@ -72,7 +74,7 @@ export class TrainerSessionList extends Component {
                 to={`/session/${group._id}`}
                 scriptid={script._id}
                 className="btn btn-success"
-                onClick={(e)=>this.setScript(script._id)}
+                onClick={(e) => this.setScript(script._id)}
               >
                 join
                 <span className="badge ml-2 badge-light">
@@ -84,7 +86,7 @@ export class TrainerSessionList extends Component {
         );
 
       });
-
+    
     /*
     var sessionsToRender = null;
     if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
@@ -144,6 +146,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { getMyScripts, getMyScriptsBySocket, getScriptById },
+  mapStateToProps, { getMyScripts, getMyScriptsBySocket, getScriptById, checkRemovedScript },
   null
 )(TrainerSessionList);

@@ -1,11 +1,31 @@
 import axios from "axios";
 import { set } from "mongoose";
 // import { notify } from "../../../routes/api/users";
-import { getSessions, scriptMembers, notifyMembers, subscribeToScriptSocket, createTrainerSession } from "../socket-handlers/api";
+import { removedScript, getSessions, scriptMembers, notifyMembers, subscribeToScriptSocket, createTrainerSession } from "../socket-handlers/api";
 import { DELETE_MEMBER_FROM_SCRIPT, GET_SESSIONS, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
 
-//
+export const checkRemovedScript = (user_id, scripts) => dispatch => {
+  removedScript(user_id, (script_id) => {
+    console.log("verbindung gelungen")
+    console.log(script_id);
+    if (!scripts)
+      scripts = {};
+    else
+      for (var i = 0; i < scripts.length; i++) {
+
+        if (scripts[i]._id == script_id) {
+          scripts.splice(i, 1);
+
+        }
+      }
+    console.log(scripts);
+    dispatch({ type: GET_SCRIPTS, payload: scripts }
+    );
+  }
+  )
+
+}
 export const getMyScriptsBySocket = (user_id, scripts) => dispatch => {
 
   getSessions(user_id, (script) => {
@@ -174,7 +194,8 @@ export const deleteScript = _id => dispatch => {
   axios
     .post("/api/script/deletescript", { _id: _id })
     .then(res => {
-
+      console.log(res.data);
+      //removeScript(res.data._id);
       dispatch({
         type: CLEAR_SCRIPT,
         payload: res.data._id
@@ -443,3 +464,4 @@ export const subScribeToScript = (userId, name, expLevel, scriptId, role, callba
     });
 
 }
+

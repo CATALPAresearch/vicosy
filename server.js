@@ -17,6 +17,8 @@ require("./client/src/utils/extensionMethods");
 const ColorHash = require("color-hash");
 const Script = require("./models/Script");
 
+
+
 var colorHash = new ColorHash({ saturation: 0.5 });
 
 const isSecure = !!keys.ssl_cert;
@@ -118,7 +120,10 @@ const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
 io.origins("*:*");
 
 const handleSocketEvents = require("./socket-handlers/lobby-socket-events");
+const DbSocket= require("./socket-handlers/db-socket-events");
 
+//const setSocket = require("./routes/api/script");
+//set socket to script.js
 
 
 // auth
@@ -161,13 +166,16 @@ io.on("connection", clientSocket => {
     }, interval);
   });
 
-  // handleSocketEvents(clientSocket, io);
+  //handleSocketEvents(clientSocket, io);
 
   const obj = new handleSocketEvents(clientSocket, io);
   if (!sessionsInitialized)
-    obj.initSessions(()=>{sessionsInitialized=true;});
+    obj.initSessions(() => { sessionsInitialized = true; });
+
+
   //init sessions
 
+  DbSocket.setSocket(clientSocket, io);
 
 
 

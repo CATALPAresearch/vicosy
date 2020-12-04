@@ -122,7 +122,10 @@ export const unregisterFrom = (event, callback) => {
  */
 //connects to script member and updates when member subscribes to script
 
-
+//if TRainer deletes SCript it will be removed
+export const removedScript = (userId, callback) => {
+  socket.on("removedScript"+ userId, scriptId => callback(scriptId));
+}
 
 export const scriptMembers = (scriptId, user_id, callback) =>
 
@@ -136,7 +139,7 @@ export const getSessions = (user_id, callback) => {
     console.log("nachricht angebkommen");
     callback(script);
   })
- }
+}
 
 //notifies members of a script
 export const notifyMembers = (script) => {

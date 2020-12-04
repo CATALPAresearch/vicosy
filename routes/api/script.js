@@ -5,17 +5,17 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
-const socket = require("socket.io");
+//const socket = require("socket.io");
 
 // load input validation
 const validateScriptInput = require("../../validation/script");
 const validateSuscribeInput = require("../../validation/subscribeToScript");
 const isEmpty = require("../../validation/is-empty");
-//import {deleteTrainerSession} from "./../../socket-handlers/lobby-socket-events";
+const { faHandSparkles } = require("@fortawesome/free-solid-svg-icons");
+const dbsocketevents = require("../../socket-handlers/db-socket-events");
 
 
-// load script model
-const Script = require("../../models/Script");
+
 
 
 // @route GET api/script/test
@@ -41,14 +41,29 @@ router.post("/deleteallscripts", (req, res) => {
 // @access Public
 
 router.post("/deletescript", (req, res) => {
+
+    var oldScript = {};
+    Script.findById(req.body._id).then(script => {
+        oldScript = script;
+        dbsocketevents.deleteScript(oldScript);
+    }
+    ).catch(errors => {
+        return res.status(400).json(errors);
+
+
+    })
+    /*
     Script.deleteOne({ _id: req.body._id }).then(script => {
-        console.log("hier bin ich");
+
+        dbsocketevents.deleteScript(oldScript);
         res.json({ msg: "Script gelöscht", _id: req.body._id })
+
     }
     ).catch(errors => {
         return res.status(400).json(errors);
     }
     )
+    */
 
 });
 
@@ -444,3 +459,4 @@ router.post("/subscribetoscript", (req, res) => {
 
 
 module.exports = router;
+
