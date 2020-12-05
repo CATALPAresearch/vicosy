@@ -52,7 +52,7 @@ router.post("/deletescript", (req, res) => {
 
 
     })
-    /*
+
     Script.deleteOne({ _id: req.body._id }).then(script => {
 
         dbsocketevents.deleteScript(oldScript);
@@ -63,7 +63,7 @@ router.post("/deletescript", (req, res) => {
         return res.status(400).json(errors);
     }
     )
-    */
+
 
 });
 
