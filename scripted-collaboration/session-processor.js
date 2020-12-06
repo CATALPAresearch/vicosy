@@ -1,6 +1,7 @@
 // base class for session processors
 module.exports = class SessionProcessor {
-  constructor(sessionData, emitSharedRoomData, socketIO) {
+  constructor(meta, sessionData, emitSharedRoomData, socketIO) {
+    this.meta=meta,
     this.sessionData = sessionData;
     this.emitSharedRoomData = emitSharedRoomData;
     this.socketIO = socketIO;

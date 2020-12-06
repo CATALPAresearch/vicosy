@@ -10,9 +10,9 @@ const PeerTeachingDiscussion = require("./pt-item-discussion");
 const PeerTeachingCompletion = require("./pt-item-completion");
 
 module.exports = class PeerTeachingProcessor extends SessionProcessor {
-  constructor(sessionData, emitSharedRoomData, socketIO) {
-    super(sessionData, emitSharedRoomData, socketIO);
-
+  constructor(meta, sessionData, emitSharedRoomData, socketIO) {
+    super(meta, sessionData, emitSharedRoomData, socketIO);
+    console.log("Das Script", meta.script);
     this.processQueue = this.processQueue.bind(this);
     this.generateNextStepsBySectionsAndContinue = this.generateNextStepsBySectionsAndContinue.bind(
       this
@@ -28,18 +28,22 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
         this.sessionData,
         this,
         this.processQueue
-      ),
-      new PeerTeachingItemWarmUp(
+      ));
+    if (this.meta.script.isphase0) {
+      console.log("Vorstellungsphase erwünscht");
+      this.phaseQueue.push(new PeerTeachingItemWarmUp(
         this.sessionData,
         this,
         this.switchRolesAndContinue
-      ),
+      ));
+    }
+    else { console.log("keine Vorstellungsphase"); }
 
-      new PeerTeachingItemSeparateSections(
-        this.sessionData,
-        this,
-        this.generateNextStepsBySectionsAndContinue
-      )
+    this.phaseQueue.push(new PeerTeachingItemSeparateSections(
+      this.sessionData,
+      this,
+      this.generateNextStepsBySectionsAndContinue
+    )
     );
 
     this.processQueue();
@@ -121,7 +125,9 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
           this.sessionData,
           this,
           this.processQueue
-        ),
+        ));
+
+      this.phaseQueue.push(
         new PeerTeachingDeepenUnderStanding(
           { startTime, endTime },
           this.sessionData,
@@ -142,30 +148,37 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
         // )
       );
     }
-
+    if (this.meta.script.isphase0) {
+      console.log("Reflektionsphase erwünscht!");
     this.phaseQueue.push(
-      new PeerTeachingReflection(this.sessionData, this, this.processQueue),
-      new PeerTeachingCompletion(this.sessionData, this, this.processQueue)
-    );
+      new PeerTeachingReflection(this.sessionData, this, this.processQueue));
+    
+    }
+    else
+    console.log("Keine Reflektionsphase erwünscht!");
 
-    this.processQueue();
-  }
+      this.phaseQueue.push(
+        new PeerTeachingCompletion(this.sessionData, this, this.processQueue)
+      );
 
-  switchRolesAndContinue() {
-    const rolesObj = { ...this.sessionData.collabScript.roles };
-
-    const nicks = Object.keys(rolesObj);
-
-    if (rolesObj[nicks[0]] === "ROLE_TUTOR") {
-      rolesObj[nicks[0]] = "ROLE_TUTEE";
-      rolesObj[nicks[1]] = "ROLE_TUTOR";
-    } else {
-      rolesObj[nicks[0]] = "ROLE_TUTOR";
-      rolesObj[nicks[1]] = "ROLE_TUTEE";
+      this.processQueue();
     }
 
-    super.adjustRoomData("collabScript.roles", rolesObj);
+    switchRolesAndContinue() {
+      const rolesObj = { ...this.sessionData.collabScript.roles };
 
-    this.processQueue();
-  }
-};
+      const nicks = Object.keys(rolesObj);
+
+      if (rolesObj[nicks[0]] === "ROLE_TUTOR") {
+        rolesObj[nicks[0]] = "ROLE_TUTEE";
+        rolesObj[nicks[1]] = "ROLE_TUTOR";
+      } else {
+        rolesObj[nicks[0]] = "ROLE_TUTOR";
+        rolesObj[nicks[1]] = "ROLE_TUTEE";
+      }
+
+      super.adjustRoomData("collabScript.roles", rolesObj);
+
+      this.processQueue();
+    }
+  };

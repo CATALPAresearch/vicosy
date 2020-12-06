@@ -8,6 +8,7 @@ exports.tryCreateSessionProcessor = function(
   socketIO
 ) {
   const processor = requestProcessorBySessionType(
+    meta,
     meta.sessionType,
     roomsData,
     emitSharedRoomData,
@@ -18,6 +19,7 @@ exports.tryCreateSessionProcessor = function(
 };
 
 function requestProcessorBySessionType(
+  meta,
   sessionType,
   roomsData,
   emitSharedRoomData,
@@ -28,6 +30,7 @@ function requestProcessorBySessionType(
       // todo: create processor for session
       console.log("create peer teaching session processor");
       const ptProcessor = new PeerTeachingProcessor(
+        meta,
         roomsData,
         emitSharedRoomData,
         socketIO

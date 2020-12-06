@@ -28,7 +28,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       for (var script of scripts) {
         for (var group of script.groups) {
           console.log("Session: ", group._id, " initiating!");
-          createTrainerSession(String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
+          createTrainerSession(script, String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
           //clientSocket.emit("notifyMembers", script);
         }
 
@@ -81,9 +81,10 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
 
   clientSocket.on("notifyMembers", script => {
+    console.log("das Script: ", script);
     if (script.groups)
       for (var group of script.groups) {
-        createTrainerSession(script._id, script.scriptName, script.videourl, script.scriptType, group);
+        createTrainerSession(script, script._id, script.scriptName, script.videourl, script.scriptType, group);
       }
 
     var myGroup = {};
@@ -207,8 +208,12 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
      * TRAINERSESSION CREATION
      * */
 
-  function createTrainerSession(scriptId, roomName, videoUrl, sessionType, group) {
+  function createTrainerSession(script, scriptId, roomName, videoUrl, sessionType, group) {
     const roomId = String(group._id);
+    //save space from unnessessary data
+    var scriptshort = Object.assign({}, script);
+    scriptshort.groups={};
+    scriptshort.participants={};
     if (roomId in roomsData) {
       console.log("ERROR: TrainerSession already available", roomId);
       return;
@@ -227,7 +232,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       videoUrl: videoUrl,
       sessionType: sessionType,
       clientCount: 0,
-      scriptId: scriptId
+      scriptId: scriptId,
+      script: scriptshort
 
 
     };
