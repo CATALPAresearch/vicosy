@@ -11,6 +11,7 @@ import SocketController from "../../components/logic-controls/SocketController";
 //import YoutubePlayer from "videojs-youtube";
 
 import Navbar from "../../components/layout/Navbar";
+import Assistent from "../../components/layout/Assistent";
 import Footer from "../../components/layout/Footer";
 import Landing from "../../components/layout/Landing";
 import Register from "../../components/auth/Register";
@@ -39,7 +40,7 @@ class AppContent extends Component {
       >
         {/* invisible controllers */}
         <VisibilityController />
-
+        <Assistent/>
         <Navbar isSession={isSessionPath} />
         <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
