@@ -50,6 +50,7 @@ class Assistent extends Component {
             <div id="assistent">
                 <div id="overlay" style={{ display: this.state.display }}>
                     <div id="text">
+                        test
                     </div>
                 </div>
                 <button id="switchAssistent" className="accordion">Assistent</button>
