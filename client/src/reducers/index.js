@@ -6,7 +6,7 @@ import settingsReducer from "./settingsReducer";
 import localStateReducer from "./localStateReducer";
 import restrictionReducer from "./restrictionReducer";
 import scriptReducer from "./scriptReducer";
-import iTutorReducer from "./iTutorReducer";
+import assistentReducer from "./assistentReducer";
 export default combineReducers({
   auth: authReducer, // global auth data
   errors: errorReducer, // global app errors
@@ -15,6 +15,6 @@ export default combineReducers({
   localState: localStateReducer, // my own session data that is shared in current session (will become remoteState in shared data for others)
   restrictions: restrictionReducer, // features access state
   script: scriptReducer, //actual script
-  iTutor: iTutorReducer //tutor
+  assistent: assistentReducer //assistent
 
 });

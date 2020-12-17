@@ -11,6 +11,7 @@ import { withRouter } from "react-router";
 import { LOG } from "../logic-controls/logEvents";
 import "./navbar.css";
 import { STUDENT, TRAINER } from "../../actions/types";
+import Assistent from "./Assistent/Assistent";
 
 class Navbar extends Component {
   constructor(props) {
@@ -178,6 +179,7 @@ class Navbar extends Component {
           })}
         >
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
+          <Assistent/>
           <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
             CloseUpTogether
         </Link>
@@ -207,9 +209,9 @@ class Navbar extends Component {
           </div>
 
         </nav>
-        { this.props.iTutor.warningMessage ?
+        { this.props.assistent.warningMessage ?
           <div className="alert alert-warning">
-            <strong>Warning!</strong> {this.props.iTutor.warningMessage}
+            <strong>Warning!</strong> {this.props.assistent.warningMessage}
           </div> : null
         }
       </div>
@@ -225,7 +227,7 @@ Navbar.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
-  iTutor: state.iTutor
+  assistent: state.assistent
 });
 
 export default connect(
