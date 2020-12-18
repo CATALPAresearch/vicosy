@@ -32,7 +32,6 @@ import Assistent from "./Assistent/Assistent";
 class AppContent extends Component {
   render() {
     const isSessionPath = this.props.location.pathname.includes("/session");
-    console.log(Store.getState().assistent.active);
     return (
       <div
         className={classnames("App", {
