@@ -68,3 +68,5 @@ export const GET_SESSIONS="GET_SESSIONS";
 export const REMOVE_SCRIPT="REMOVE_SCRIPT";
 //assistent
 export const SET_WARNING = "SET_WARNING";
+export const SET_ACTIVE="SET_ACTIVE";
+export const SWITCH_ACTIVE="SWITCH_ACTIVE";

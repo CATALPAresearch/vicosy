@@ -11,7 +11,7 @@ import { withRouter } from "react-router";
 import { LOG } from "../logic-controls/logEvents";
 import "./navbar.css";
 import { STUDENT, TRAINER } from "../../actions/types";
-import Assistent from "./Assistent/Assistent";
+import { setActive } from "../../actions/assistentActions";
 
 class Navbar extends Component {
   constructor(props) {
@@ -23,6 +23,12 @@ class Navbar extends Component {
   onLogoutClick(e) {
     e.preventDefault();
     this.props.logoutUser();
+  }
+
+  setAssitent(e) {
+    // if (this.props.assistent.active)
+      this.props.setActive(!this.props.assistent.active);
+    //else (this.props.setActive(false))
   }
 
   onWarningDismissed(e) {
@@ -179,7 +185,7 @@ class Navbar extends Component {
           })}
         >
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
-          <Assistent/>
+          <button id="switchAssistent" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button>
           <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
             CloseUpTogether
         </Link>
@@ -232,5 +238,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, clearError, loginGuest }
+  { logoutUser, clearError, loginGuest, setActive }
 )(withRouter(Navbar));

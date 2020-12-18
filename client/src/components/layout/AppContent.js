@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import { withRouter } from "react-router";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import PrivateRoute from "../../components/controls/PrivateRoute";
@@ -9,7 +10,7 @@ import PrivateRoute from "../../components/controls/PrivateRoute";
 import SocketController from "../../components/logic-controls/SocketController";
 
 //import YoutubePlayer from "videojs-youtube";
-
+import Store from "../../store";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import Landing from "../../components/layout/Landing";
@@ -26,11 +27,12 @@ import NotFound from "../../components/not-found/NotFound";
 import VisibilityController from "../logic-controls/VisibilityController";
 import TrainerScriptCreator from "../script-options/TrainerScriptCreation/TrainerScriptCreator";
 import SubscribeToScript from "../script-options/Student/SubscribeToScript"
+import Assistent from "./Assistent/Assistent";
 
 class AppContent extends Component {
   render() {
     const isSessionPath = this.props.location.pathname.includes("/session");
-
+    console.log(Store.getState().assistent.active);
     return (
       <div
         className={classnames("App", {
@@ -40,10 +42,12 @@ class AppContent extends Component {
         {/* invisible controllers */}
         <VisibilityController />
 
+
+        {this.props.assistent.active ? <Assistent /> : null}
+
         <Navbar isSession={isSessionPath} />
 
-
-        <Route exact path="/" component={Landing} />
+        < Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login/:scriptId" component={Login} />
         <Route exact path="/login" component={Login} />
@@ -78,12 +82,15 @@ class AppContent extends Component {
   }
 }
 
-
-
 AppContent.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
 
-export default withRouter(AppContent);
+const mapStateToProps = state => ({
+  assistent: state.assistent
+});
+
+export default withRouter(connect(mapStateToProps)(AppContent), AppContent);
+

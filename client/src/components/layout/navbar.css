@@ -5,3 +5,13 @@
   z-index: 99;
   margin-top: 1px;
 }
+
+#switchAssistent{
+  background-color: rgba(52, 58, 64, 0.93);
+  color: rgb(241, 241, 241);
+  margin:5px;
+  padding:0px;
+  font-size: larger;
+  text-align: center;
+  width: 200px;
+}
