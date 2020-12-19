@@ -42,10 +42,10 @@ class AppContent extends Component {
         <VisibilityController />
 
 
-        {this.props.assistent.active ? <Assistent /> : null}
+     
 
         <Navbar isSession={isSessionPath} />
-
+        {this.props.assistent.active ? <Assistent /> : null}
         < Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login/:scriptId" component={Login} />

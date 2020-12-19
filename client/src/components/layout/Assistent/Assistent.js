@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "./assistent.css";
 import assi_on from './lehrer.png';
 import assi_off from './lehrer_aus.png';
+import Instruction from "./Instruction";
 class Assistent extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +12,7 @@ class Assistent extends Component {
 
     }
 
-    
+
     render() {
         return (
             <div id="assistent">
@@ -24,6 +25,7 @@ class Assistent extends Component {
                 <div className="panel" id="laempel">
                     <img src={assi_on} alt="Laempel" width="100%" height="100%" />
                 </div>
+                <Instruction/>
             </div>
         )
     }

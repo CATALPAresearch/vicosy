@@ -1,0 +1,50 @@
+
+  
+  .sprechblase {
+    position: relative;
+    left:100px;
+      top:-30px;
+      min-width: 80px;
+      padding: 10px;
+      text-align: center;
+      background: #fff;
+      border: #000 solid 3px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      /* Positionierung zB. 2 nebeneinander */
+      float: top;
+      margin: 20px 20px 0 0;
+  }
+   
+  /* Dreieck: weisse Innenfläche */
+  .sprechblase:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      display: block;
+      width: 0;
+      top: 17px;
+      left: -14px; /* Hälfe der Dreiecksweite minus Hälfte der Sprechblase */
+      margin-left: -8px; /* Hälfte der Sprechblase */
+      border-style: solid;
+      border-width: 0 15px 15px;
+    border-color: #fff transparent;
+    transform: rotate(270deg);
+  }
+   
+  /* Dreieck: schwarzer Rahmen */
+  .sprechblase:before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      display: block;
+      width: 0;
+      top: 16px;
+      left: -19px; /* Hälfe der Dreiecksweite minus Hälfte der Sprechblase */
+      margin-left: -8px; /* Hälfte der Sprechblase */
+      border-style: solid;
+      border-width: 0 17px 17px;
+    border-color: #000 transparent;
+    transform: rotate(270deg);
+  }
