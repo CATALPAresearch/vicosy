@@ -11,8 +11,8 @@ class Instruction extends Component {
 
     render() {
         return (
-            <div class="instruction">
-                <div class="sprechblase">Das ist die erste Sprechblase mit 30% Weite.</div>
+            <div className="instruction">
+                <div className="sprechblase"></div>
             </div>
         )
     }

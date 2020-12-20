@@ -60,7 +60,8 @@ export class TrainerSessionList extends Component {
           } else {
             alert("Group not found");
           }
-        return (
+          console.log(group._id);
+          return (
           <tr key={group._id}>
             <th scope="row">{script.scriptName}</th>
             <td className="force-break">{script.videourl}</td>

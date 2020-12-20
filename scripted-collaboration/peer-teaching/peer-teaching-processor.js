@@ -8,11 +8,22 @@ const PeerTeachingDeepenUnderStanding = require("./pt-item-deepen-understanding"
 const PeerTeachingReflection = require("./pt-item-reflection");
 const PeerTeachingDiscussion = require("./pt-item-discussion");
 const PeerTeachingCompletion = require("./pt-item-completion");
+// const winston = require("../../winston-setup");
 
 module.exports = class PeerTeachingProcessor extends SessionProcessor {
   constructor(meta, sessionData, emitSharedRoomData, socketIO) {
     super(meta, sessionData, emitSharedRoomData, socketIO);
     console.log("Das Script", meta.script);
+
+
+   /*
+    winston.log(meta.script);
+    winston.info(meta.script);
+*/
+
+
+
+
     this.processQueue = this.processQueue.bind(this);
     this.generateNextStepsBySectionsAndContinue = this.generateNextStepsBySectionsAndContinue.bind(
       this
@@ -150,35 +161,35 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
     }
     if (this.meta.script.isphase0) {
       console.log("Reflektionsphase erwünscht!");
-    this.phaseQueue.push(
-      new PeerTeachingReflection(this.sessionData, this, this.processQueue));
-    
+      this.phaseQueue.push(
+        new PeerTeachingReflection(this.sessionData, this, this.processQueue));
+
     }
     else
-    console.log("Keine Reflektionsphase erwünscht!");
+      console.log("Keine Reflektionsphase erwünscht!");
 
-      this.phaseQueue.push(
-        new PeerTeachingCompletion(this.sessionData, this, this.processQueue)
-      );
+    this.phaseQueue.push(
+      new PeerTeachingCompletion(this.sessionData, this, this.processQueue)
+    );
 
-      this.processQueue();
+    this.processQueue();
+  }
+
+  switchRolesAndContinue() {
+    const rolesObj = { ...this.sessionData.collabScript.roles };
+
+    const nicks = Object.keys(rolesObj);
+
+    if (rolesObj[nicks[0]] === "ROLE_TUTOR") {
+      rolesObj[nicks[0]] = "ROLE_TUTEE";
+      rolesObj[nicks[1]] = "ROLE_TUTOR";
+    } else {
+      rolesObj[nicks[0]] = "ROLE_TUTOR";
+      rolesObj[nicks[1]] = "ROLE_TUTEE";
     }
 
-    switchRolesAndContinue() {
-      const rolesObj = { ...this.sessionData.collabScript.roles };
+    super.adjustRoomData("collabScript.roles", rolesObj);
 
-      const nicks = Object.keys(rolesObj);
-
-      if (rolesObj[nicks[0]] === "ROLE_TUTOR") {
-        rolesObj[nicks[0]] = "ROLE_TUTEE";
-        rolesObj[nicks[1]] = "ROLE_TUTOR";
-      } else {
-        rolesObj[nicks[0]] = "ROLE_TUTOR";
-        rolesObj[nicks[1]] = "ROLE_TUTEE";
-      }
-
-      super.adjustRoomData("collabScript.roles", rolesObj);
-
-      this.processQueue();
-    }
-  };
+    this.processQueue();
+  }
+};

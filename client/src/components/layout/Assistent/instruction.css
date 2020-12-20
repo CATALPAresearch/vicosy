@@ -2,9 +2,11 @@
   
   .sprechblase {
     position: relative;
+    max-width: 90%;
     left:100px;
-      top:-30px;
+      top:-20px;
       min-width: 80px;
+      min-height: 50px;
       padding: 10px;
       text-align: center;
       background: #fff;
@@ -15,6 +17,7 @@
       /* Positionierung zB. 2 nebeneinander */
       float: top;
       margin: 20px 20px 0 0;
+      font-size: 20px;
   }
    
   /* Dreieck: weisse Innenfläche */

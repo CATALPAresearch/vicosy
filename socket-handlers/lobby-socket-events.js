@@ -25,12 +25,29 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   this.initSessions = function (callback) {
 
     ScriptDBApi.find({ started: true }).then(scripts => {
+      console.log("AAAAAAAAAAAAAAAAAA");
+
       for (var script of scripts) {
         for (var group of script.groups) {
           console.log("Session: ", group._id, " initiating!");
-          createTrainerSession(script, String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
+          createTrainerSession(String(script), String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
           //clientSocket.emit("notifyMembers", script);
         }
+/*
+        var myGroup = {};
+        if (script.participants)
+          for (var member of script.participants) {
+
+            for (var group of script.groups)
+              for (var gmember of group.groupMembers)
+                if (gmember._id == member._id) {
+                  myGroup = group;
+                }
+            console.log(member._id, "wird informiert!");
+            clientSocket.to("studentlobby").emit("newScript" + member._id, script);
+
+          }
+*/
 
       }
 
@@ -39,6 +56,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     });
 
   }
+
+
 
 
 
@@ -81,6 +100,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
 
   clientSocket.on("notifyMembers", script => {
+    console.log("WICHTIGGGG!");
     console.log("das Script: ", script);
     if (script.groups)
       for (var group of script.groups) {
@@ -210,10 +230,17 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
   function createTrainerSession(script, scriptId, roomName, videoUrl, sessionType, group) {
     const roomId = String(group._id);
+    console.log("WICHTIGGGG!11111111");
     //save space from unnessessary data
-    var scriptshort = Object.assign({}, script);
-    scriptshort.groups={};
-    scriptshort.participants={};
+    //   console.log(script);
+
+    if (script._doc)
+      var scriptshort = Object.assign({}, script._doc);
+    else
+      var scriptshort = Object.assign({}, script);
+    scriptshort.groups = {};
+    scriptshort.participants = {};
+    // console.log(scriptshort);
     if (roomId in roomsData) {
       console.log("ERROR: TrainerSession already available", roomId);
       return;
@@ -258,16 +285,17 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
     if (processor) roomProcessors[roomId] = processor;
 
-    emitSharedRoomData(socketIO, "studentlobby", "sessions", meta, null, roomId);
+    emitSharedRoomData(socketIO, roomId, "sessions", meta, null, roomId);
     logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
 
     if (processor) processor.initialize();
 
   }
-
+/*
   clientSocket.on("createTrainerSession", (scriptId, roomName, videoUrl, sessionType, groupId) => {
+    console.log("WICHTIGGGG!4444444");
     createTrainerSession(scriptId, roomName, videoUrl, sessionType, groupId);
-    /*
+    
     console.log(groupId);
     console.log("asfdddddddddddddddddmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
     console.log("hallo");
@@ -317,8 +345,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
   
     if (processor) processor.initialize();
-    */
+    
   });
+  */
 
   /**
    * STREAM ROOMS
