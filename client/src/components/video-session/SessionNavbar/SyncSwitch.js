@@ -7,6 +7,7 @@ import { LOG } from "../../logic-controls/logEvents";
 import ToggleSwitchButton from "../../controls/ToggleSwitchButton";
 import { FEATURES } from "../../../reducers/featureTypes";
 import connectShared from "../../../highOrderComponents/SharedRoomDataConsumer";
+import "./SessionNavbar.css";
 
 class SyncSwitch extends Component {
   constructor(props) {

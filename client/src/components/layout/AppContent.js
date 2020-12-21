@@ -45,7 +45,7 @@ class AppContent extends Component {
      
 
         <Navbar isSession={isSessionPath} />
-        {this.props.assistent.active ? <Assistent /> : null}
+        {this.props.assistent.active ? <Assistent /> : null}  
         < Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login/:scriptId" component={Login} />

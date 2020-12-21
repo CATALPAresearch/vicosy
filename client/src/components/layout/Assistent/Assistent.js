@@ -25,7 +25,7 @@ class Assistent extends Component {
                 <div className="panel" id="laempel">
                     <img src={assi_on} alt="Laempel" width="100%" height="100%" />
                 </div>
-                <Instruction/>
+                <Instruction />
             </div>
         )
     }

@@ -27,8 +27,8 @@ export default class TrainerLobby extends Component {
                     {/*
                 <FontAwesomeIcon icon={faEdit}/>
                 <FontAwesomeIcon icon={faTrashAlt}/> */}
-                    <button className="btn" value={id} onClick={edit}>{started?"ansehen":"bearbeiten"}</button>
-                    <button className="btn" data-toggle="modal" data-target="#exampleModal" value={id} onClick={e => passId(e.target.value)}>Löschen</button>
+                    <button id="bearbeiten" className="btn" value={id} onClick={edit}>{started?"ansehen":"bearbeiten"}</button>
+                    <button id="loeschen" className="btn" data-toggle="modal" data-target="#exampleModal" value={id} onClick={e => passId(e.target.value)}>Löschen</button>
 
                 </div>
 

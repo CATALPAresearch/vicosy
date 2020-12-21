@@ -13,14 +13,6 @@ const PeerTeachingCompletion = require("./pt-item-completion");
 module.exports = class PeerTeachingProcessor extends SessionProcessor {
   constructor(meta, sessionData, emitSharedRoomData, socketIO) {
     super(meta, sessionData, emitSharedRoomData, socketIO);
-    console.log("Das Script", meta.script);
-
-
-   /*
-    winston.log(meta.script);
-    winston.info(meta.script);
-*/
-
 
 
 
@@ -40,7 +32,7 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
         this,
         this.processQueue
       ));
-    if (this.meta.script.isphase0) {
+    if (this.meta.isPhase0) {
       console.log("Vorstellungsphase erwünscht");
       this.phaseQueue.push(new PeerTeachingItemWarmUp(
         this.sessionData,
@@ -159,7 +151,7 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
         // )
       );
     }
-    if (this.meta.script.isphase0) {
+    if (this.meta.isPhase0) {
       console.log("Reflektionsphase erwünscht!");
       this.phaseQueue.push(
         new PeerTeachingReflection(this.sessionData, this, this.processQueue));

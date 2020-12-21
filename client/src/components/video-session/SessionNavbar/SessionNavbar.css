@@ -1,5 +1,6 @@
 #SyncButton {
   max-height: 100%;
+  top:300px;  
 }
 
 #MainRessourceTab {
@@ -12,7 +13,9 @@
   height: 38px;
 }
 
+
 .sync-counter {
+  
 }
 
 .sync-counter.sync {

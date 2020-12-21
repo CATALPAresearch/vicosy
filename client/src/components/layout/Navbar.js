@@ -180,7 +180,7 @@ class Navbar extends Component {
       <div>
         <nav
           className={classnames("navbar navbar-dark bg-dark ", {
-            "mb-4": !isSession,
+            "mb-0": !isSession,
             "navbar-expand-sm": !isSession
           })}
         >
@@ -215,12 +215,12 @@ class Navbar extends Component {
           </div>
 
         </nav>
-        { this.props.assistent.warningMessage ?
+{ this.props.assistent.warningMessage ?
           <div className="alert alert-warning">
             <strong>Warning!</strong> {this.props.assistent.warningMessage}
           </div> : null
         }
-      </div>
+       </div>
     );
   }
 }
