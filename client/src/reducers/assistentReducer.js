@@ -3,7 +3,7 @@ import isEmpty from "../validation/is-empty";
 
 const initialState = {
   warningMessage: "",
-  active: true
+  active: false
 };
 
 export default function (state = initialState, action) {

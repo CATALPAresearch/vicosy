@@ -262,7 +262,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       phase0Assignment: script.phase0Assignment,
       isPhase5: script.isPhase5,
       phase5Assignment: script.phase5Assignment,
-      groupSize: script.groupSize
+      groupSize: script.groupSize, 
+      group: script.group
 
 
     };
@@ -293,63 +294,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     if (processor) processor.initialize();
 
   }
-  /*
-    clientSocket.on("createTrainerSession", (scriptId, roomName, videoUrl, sessionType, groupId) => {
-      console.log("WICHTIGGGG!4444444");
-      createTrainerSession(scriptId, roomName, videoUrl, sessionType, groupId);
-      
-      console.log(groupId);
-      console.log("asfdddddddddddddddddmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
-      console.log("hallo");
-      const roomId = groupId;
-      console.log("starte Session");
-      if (roomId in roomsData) {
-        console.log("ERROR: Session already available", roomId);
-        return;
-      }
-    
-    
-      // for sessions requiring server logic we need to be able to listen to data changes
-      roomsData[roomId] =
-        sessionType === sessionTypes.SESSION_DEFAULT
-          ? {}
-          : createWatchableSessionRoom(roomId);
-      const meta = {
-        roomName: roomName,
-        roomId: roomId,
-        creator: { id: clientSocket.id, nick: clientSocket.nick },
-        videoUrl: videoUrl,
-        sessionType: sessionType,
-        clientCount: 0
-      };
-      roomsData[roomId].isSession = true;
-      roomsData[roomId].meta = meta;
-    
-      Object.assign(
-        roomsData
-          .getAdd("studentlobby")
-          .getAdd("sessions")
-          .getAdd(roomId),
-        meta
-      );
-    
-      // creates collaboration script processor if required
-      const processor = tryCreateSessionProcessor(
-        meta,
-        roomsData[roomId],
-        emitSharedRoomData,
-        socketIO
-      );
-    
-      if (processor) roomProcessors[roomId] = processor;
-    
-      emitSharedRoomData(socketIO, "studentlobby", "sessions", meta, null, roomId);
-      logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
-    
-      if (processor) processor.initialize();
-      
-    });
-    */
+  
 
   /**
    * STREAM ROOMS

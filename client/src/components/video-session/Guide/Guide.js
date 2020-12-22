@@ -41,7 +41,7 @@ class Guide extends Component {
         break;
     }
 
-    const targetUrl = "https://closeuptogether.neocities.org" + activeUrl; // e.g. /PeerTeachingGuide/Intro.html
+    const targetUrl = window.location.href.replace(window.location.pathname, "") + activeUrl; // e.g. /PeerTeachingGuide/Intro.html
     console.log(
       "html target url",
       targetUrl,
@@ -51,16 +51,13 @@ class Guide extends Component {
 
     return (
       <div id="Guide">
-        <div id="InnerGuide" className="roundedStrong">
-          <div id="GuideHeader" className="guide-flex-item">
-            Guide <i className="ml-1 fa fa-info-circle" />
-          </div>
-          <div className="guide-flex-item-grow" id="IframeContent">
-            <HTMLLoader url={targetUrl} />
-          </div>
-          <div id="GuideFooter" className="guide-flex-item">
+         <div id="GuideFooter" className="guide-flex-item">
             {confirmationComponent}
           </div>
+        <div id="InnerGuide" className="roundedStrong">
+  
+            <HTMLLoader url={targetUrl} />
+         
         </div>
       </div>
     );
