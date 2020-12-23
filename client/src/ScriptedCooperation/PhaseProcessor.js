@@ -9,6 +9,7 @@ import FeatureSetup, {
 } from "./controlComponents/FeatureSetup";
 import SectionHighlighting from "./controlComponents/SectionHighlighting";
 import GuideController from "./controlComponents/GuideController";
+import AssistentController from "../components/Assistent/AssistentController";
 
 // base class for phase processors
 export default class PhaseProcessor extends Component {
@@ -22,6 +23,7 @@ export default class PhaseProcessor extends Component {
     };
 
     this.guideControlRef = null;
+    this.assistentControlRef= null;
   }
 
   /**
@@ -46,6 +48,10 @@ export default class PhaseProcessor extends Component {
   // modes: simple, scriptready, none
   openGuidePath(publicUrl, confirmationMode = "simple") {
     this.guideControlRef.openGuide(publicUrl, confirmationMode);
+  }
+
+  setPhase(phase) {
+    this.assistentControlRef.setPhase(phase);
   }
 
   setContent(rectNode) {
@@ -102,6 +108,7 @@ export default class PhaseProcessor extends Component {
             ownRole={currentRole}
           />
           <GuideController createRef={el => (this.guideControlRef = el)} />
+          <AssistentController  createRef={el => (this.assistentControlRef = el)} />
         </div>
       </div>
     );
