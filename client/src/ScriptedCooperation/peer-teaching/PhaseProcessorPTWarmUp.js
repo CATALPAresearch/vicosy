@@ -14,6 +14,7 @@ export default class PhaseProcessorPTWarmUp extends PhaseProcessor {
     );
 
     super.openGuidePath("/PeerTeachingGuide/WarmUp.html", "scriptready");
+    super.setPhase("WARMUP");
 
     this.setContent(null);
   }

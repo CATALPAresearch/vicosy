@@ -12,7 +12,9 @@ class Instruction extends Component {
     render() {
         return (
             <div className="instruction">
-                <div className="sprechblase"></div>
+                <div className="sprechblase">
+                    {this.props.instruction.text}
+                </div>
             </div>
         )
     }

@@ -18,7 +18,7 @@ class PhaseProcessorPTReflection extends PhaseProcessor {
     this.props.setSyncState(false);
 
     this.setEnabledFeatures([FEATURES.SHARED_DOC, FEATURES.SYNC_SWITCH]);
-
+    super.setPhase("REFLECTION");
     super.openGuidePath("/PeerTeachingGuide/Reflection.html", "simple");
 
     setTimeout(() => {

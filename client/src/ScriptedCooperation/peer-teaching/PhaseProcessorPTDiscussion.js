@@ -18,7 +18,7 @@ class PhaseProcessorPTDiscussion extends PhaseProcessor {
     this.props.setSyncState(true);
 
     this.setEnabledFeatures([FEATURES.SHARED_DOC]);
-
+    super.setPhase("DISCUSSION");
     super.openGuidePath("/PeerTeachingGuide/Discussion.html", "simple");
 
     setTimeout(() => {

@@ -25,14 +25,17 @@ class Assistent extends Component {
                 <div className="panel" id="laempel">
                     <img src={assi_on} alt="Laempel" width="100%" height="100%" />
                 </div>
-                <Instruction />
+                <Instruction 
+                 instruction={this.props.assistent.act_instruction}
+                />
             </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    assistent: state.assistent
 });
 
 export default connect(

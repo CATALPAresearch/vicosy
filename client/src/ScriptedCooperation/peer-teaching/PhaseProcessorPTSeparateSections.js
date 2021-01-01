@@ -53,11 +53,14 @@ export default class PhaseProcessorPTSeparateSections extends PhaseProcessor {
         "/PeerTeachingGuide/SeparateSections_Leader.html",
         "simple"
       );
+      super.setPhase("SEPERATESECTIONSTUTOR");
     } else {
       super.openGuidePath(
         "/PeerTeachingGuide/SeparateSections_Joiner.html",
         "simple"
       );
+      super.setPhase("SEPERATESECTIONSTUTEE");
+
     }
   }
 
