@@ -1,4 +1,4 @@
-import { SET_ACTIVE, SET_ACT_INSTRUCTION, SET_PHASE } from "./types";
+import {NEXT_INSTRUCTION, SET_ACTIVE, SET_ACT_INSTRUCTION, SET_PHASE, PREVIOUS_INSTRUCTION} from "./types";
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -12,12 +12,33 @@ export const setPhase = (phase) => dispatch => {
 
 
 
-export const setActInstruction = (instruction) => dispatch => {
+export const setActInstruction = (actInstruction) => dispatch => {
   dispatch({
     type: SET_ACT_INSTRUCTION,
-    payload: instruction
+    payload: actInstruction
   });
 };
+
+
+export const nextInstruction = () => dispatch => {
+  dispatch({
+    type: NEXT_INSTRUCTION,
+    payload: ""
+  });
+};
+
+
+export const previousInstruction = () => dispatch => {
+  dispatch({
+    type: PREVIOUS_INSTRUCTION,
+    payload: ""
+  });
+};
+
+
+
+
+
 
 
 

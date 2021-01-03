@@ -15,10 +15,14 @@
       border-radius: 10px;
       /* Positionierung zB. 2 nebeneinander */
       float: top;
-    
+      text-align: left;
       font-size: 20px;
   }
    
+  #arrows {
+    position:absolute;
+    right: 10px;
+  }
   /* Dreieck: weisse Innenfläche */
   .sprechblase:after {
       content: "";

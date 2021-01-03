@@ -156,6 +156,7 @@ class Chat extends Component {
             />
             <input
               className="form-control form-control-sm mr-sm-2"
+              id="chat-write"
               type="text"
               name="input"
               value={this.state.input}

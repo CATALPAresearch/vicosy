@@ -6,11 +6,18 @@ import {
 import { setPhase, setActInstruction } from "../../actions/assistentActions";
 import { connect } from "react-redux";
 import { GetTogether } from "./phases/GetTogether";
+import { WarmUp } from "./phases/WarmUp";
 
-class AssistentController extends Component {
+export class AssistentController extends Component {
   constructor() {
     super();
     this.state = { phase: {} };
+  }
+
+  getActInstruction() {
+    if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer])
+      return this.props.assistent.phase.instructions[this.props.assistent.phase.pointer];
+    else return null;
   }
   render() {
     console.log(this.state);
@@ -23,19 +30,33 @@ class AssistentController extends Component {
     this.props.createRef(this);
   }
 
+
+
   setPhase(phase) {
-    var phase0 = new GetTogether();
-    this.setState({ phase: phase0 })
-    this.props.setPhase(phase);
-    alert(phase);
-    
-    this.props.setActInstruction(phase0.getActInstruction());
+    var actPhase = {};
+    switch (phase) {
+      case "GETTOGETHER":
+        actPhase = new GetTogether();
+        this.setState({ phase: actPhase });
+        break;
+      case "WARMUP":
+        actPhase = new WarmUp();
+        this.setState({ phase: actPhase });
+        break;
+      default:
+        break;
+    }
+
+    this.props.setPhase(actPhase);
+    console.log(this.state);
+    //this.props.setActInstruction(actPhase.getActInstruction());
 
   }  // public
   openGuide(publicUrl, confirmationMode = "simple") {
     this.props.openPublicGuide(publicUrl, confirmationMode);
   }
 }
+
 
 
 const mapStateToProps = state => ({

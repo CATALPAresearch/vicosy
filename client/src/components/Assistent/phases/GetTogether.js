@@ -4,7 +4,8 @@ import Instruction from "./Instruction";
 export class GetTogether extends AbstractPhase {
     constructor() {
         super();
-        this.instructions.push(new Instruction("Die erste Anweisung", ""));
+        this.name="GETTOGETHER";
+        this.instructions.push(new Instruction("Warte auf deinen Partner!", ""));
     }
 
 }

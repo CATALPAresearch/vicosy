@@ -1,18 +1,43 @@
-import { SET_ACTIVE, SET_WARNING, SET_PHASE, SET_ACT_INSTRUCTION, UNSET_ACT_INSTRUCTION } from "../actions/types";
+import { PREVIOUS_INSTRUCTION, SET_PHASE_INSTRUCTIONS, SET_ACTIVE, SET_WARNING, SET_PHASE, SET_ACT_INSTRUCTION, UNSET_ACT_INSTRUCTION, NEXT_INSTRUCTION } from "../actions/types";
 import isEmpty from "../validation/is-empty";
 
 const initialState = {
   warningMessage: "",
-  active: false
+  active: false,
+  phase: null
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
+
+    case NEXT_INSTRUCTION:
+      const nextPhase = { ...state.phase };
+      nextPhase.pointer = state.phase.pointer + 1;
+      return {
+        ...state,
+        phase: nextPhase,
+        actInstruction: state.phase.instructions[state.phase.pointer + 1]
+      };
+
+    case PREVIOUS_INSTRUCTION:
+      const nextPhase1 = { ...state.phase };
+      nextPhase1.pointer = state.phase.pointer - 1;
+      return {
+        ...state,
+        phase: nextPhase1,
+        actInstruction: state.phase.instructions[state.phase.pointer - 1]
+      };
     case SET_ACTIVE:
       return {
         ...state,
         active: !state.active
       };
+    case SET_PHASE_INSTRUCTIONS:
+      return {
+        ...state,
+        instructions: action.payload
+      };
+
     case SET_WARNING:
       return {
         ...state,
@@ -21,17 +46,19 @@ export default function (state = initialState, action) {
     case SET_PHASE:
       return {
         ...state,
-        phase: action.payload
+        phase: action.payload,
+        actInstruction: action.payload.instructions[action.payload.pointer]
+
       };
     case SET_ACT_INSTRUCTION:
       return {
         ...state,
-        act_instruction: action.payload
+        actInstruction: action.payload
       };
     case UNSET_ACT_INSTRUCTION:
       return {
         ...state,
-        act_instruction: ""
+        actInstruction: ""
       };
 
     default:

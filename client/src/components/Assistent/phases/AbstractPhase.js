@@ -2,6 +2,7 @@ export default class AbstractPhase {
     constructor() {
         this.pointer = 0;
         this.instructions = [];
+        this.name="";
     }
 
     getActInstruction() {
