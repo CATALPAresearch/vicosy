@@ -8,19 +8,37 @@ import Instruction from "./Instruction";
 import AssistentController from "./AssistentController";
 import { setPhase, setActInstruction, nextInstruction, previousInstruction } from "../../actions/assistentActions";
 import { faAllergies } from "@fortawesome/free-solid-svg-icons";
-import Xarrow from "react-xarrows";
+import Arrow from 'react-arrow';
+
 
 class Assistent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { display: "none" };
+        this.state = {
+            display: "none",
+            left: 0, top: 0
+        };
         this.assistentControlRef = null;
-        
-        
+        // window.onresize = this.setArrowPosition;
+        window.addEventListener('resize', this.updateArrowPosition.bind(this));
+
 
     }
+    setArrowPosition() {
+        let element = document.getElementById("chat-write").getBoundingClientRect();
+        this.setState({ left: element.left - 90, top: element.top - 60 });
+    }
 
+    updateArrowPosition() {
+        let element = document.getElementById("chat-write").getBoundingClientRect();
+        this.setState({ left: element.left - 90, top: element.top +25 });
+    }
+
+
+    componentDidMount() {
+        this.setArrowPosition();
+    }
     nextInstruction() {
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
             this.props.nextInstruction();
@@ -43,20 +61,39 @@ class Assistent extends Component {
         else return null;
     }
     render() {
-     
+
+
         return (
-            
+
             <div id="assistent">
 
-                         <Xarrow
-                    start="assistent" //can be react ref
-                    startAnchor="middle"
-                    end="chat-write" //or an id
-                    endAnchor="middle"
+
+                <Arrow
+                    direction="right"
+                    shaftWidth={15}
+                    shaftLength={40}
+                    headWidth={40}
+                    headLength={30}
+                    fill="red"
+                    text="Chat"
+                    stroke="red"
+                    strokeWidth={2}
+                    style={{ position: "absolute", left: this.state.left, top: this.state.top }}
                 />
 
 
+                {/*
+                <Xarrow
+                    start="startarrow" //can be react ref
+                    end="chat-write" //or an id
+                    curveness={0}
+                    color="red"
+                    strokeWidth={10}
+                    headSize={8}
+                    z-index="999"
+                />
 
+*/}
                 <div id="overlay" style={{ display: this.state.display }}>
                     <div id="text">
                         test
