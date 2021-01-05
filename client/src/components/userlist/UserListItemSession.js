@@ -110,7 +110,7 @@ class UserListItemSession extends Component {
           onClick={this.onActivateStream.bind(this, true, true)}
           title="Stream video and audio to others"
         >
-          <i className="fa fa-video" style={{ color: "#FFF" }} />
+          <i id="video-button" className="fa fa-video" style={{ color: "#FFF" }} />
         </button>
         <button
           className={classnames("btn btn-info btn-sm ml-1", {
@@ -119,7 +119,7 @@ class UserListItemSession extends Component {
           onClick={this.onActivateStream.bind(this, false, true)}
           title="Stream audio only to others"
         >
-          <i className="fa fa-microphone" style={{ color: "#FFF" }} />
+          <i id="audio-button" className="fa fa-microphone" style={{ color: "#FFF" }} />
         </button>
 
         <button

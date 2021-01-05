@@ -4,7 +4,8 @@ import isEmpty from "../validation/is-empty";
 const initialState = {
   warningMessage: "",
   active: false,
-  phase: null
+  phase: null,
+  actInstruction: null
 };
 
 export default function (state = initialState, action) {

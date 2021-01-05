@@ -76,20 +76,20 @@ class ReadyContinueScriptButton extends Component {
   render() {
     var targetContent = null;
     const continueContent = (
-      <div className="ml-1">
+      <div id="ready-to-finish" className="ml-1">
         {this.state.waitingForOthers ? (
           <div className="hFlexLayout">
             {this.state.meIsReady ? (
               <span className="mr-1">Waiting for peer...</span>
             ) : null}
-            <ToggleSwitchButton
+            <ToggleSwitchButton 
               onToggle={this.onButtonClick}
               isChecked={this.state.meIsReady}
               label="Ready To Finish"
             />
           </div>
         ) : (
-          <button
+          <button 
             onClick={this.onButtonClick}
             className="btn btn-success btn-sm"
           >
@@ -105,7 +105,7 @@ class ReadyContinueScriptButton extends Component {
     else if (this.state.meIsRequired) targetContent = continueContent;
     else if (this.state.waitingForOthers)
       targetContent = (
-        <div className="ml-1">Waiting for peer to continue...</div>
+        <div id="ready-to-finish" className="ml-1">Waiting for peer to continue...</div>
       );
 
     return targetContent;
