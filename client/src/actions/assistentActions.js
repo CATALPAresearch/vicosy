@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 export const setPhase = (phase) => dispatch => {
-  dispatch({
+    dispatch({
     type: SET_PHASE,
     payload: phase
   });

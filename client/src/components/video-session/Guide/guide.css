@@ -22,7 +22,7 @@
 #GuideFooter {
   display: flex;
   right: 20px;
-  justify-content: center;
+  justify-content: flex-end;
   min-height: 50px;
   align-items: center;
 }

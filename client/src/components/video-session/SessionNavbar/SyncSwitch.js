@@ -58,7 +58,7 @@ class SyncSwitch extends Component {
     }
 
     const syncBadge = (
-      <span
+      <span id="sync-mode"
         className={classnames("sync-counter badge", {
           "badge-secondary": syncClientCount === 0,
           "badge-success": syncClientCount > 0,

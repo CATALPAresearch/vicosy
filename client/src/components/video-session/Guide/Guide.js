@@ -21,7 +21,7 @@ class Guide extends Component {
     switch (confirmationMode) {
       case "simple":
         confirmationComponent = (
-          <button
+          <button id="ok-understand"
             onClick={this.onConfirmed}
             className="btn btn-small btn-success"
           >

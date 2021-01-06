@@ -219,7 +219,7 @@ class PlayBackInterface extends Component {
     const isSync = this.props.localState.syncState.sync;
 
     return (
-      <button
+      <button id="play-button"
         type="button"
         className={classnames("btn", {
           "btn-success": isSync,
@@ -229,7 +229,7 @@ class PlayBackInterface extends Component {
           play ? this.onPlayClick.bind(this) : this.onStopClick.bind(this)
         }
       >
-        <i
+        <i 
           className={classnames("fa", {
             "fa-play-circle": play,
             "fa-pause-circle": !play

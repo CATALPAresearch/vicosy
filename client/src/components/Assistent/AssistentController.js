@@ -5,8 +5,8 @@ import {
 } from "../../actions/localStateActions";
 import { setPhase, setActInstruction } from "../../actions/assistentActions";
 import { connect } from "react-redux";
-import { GetTogether } from "./phases/GetTogether";
-import { WarmUp } from "./phases/WarmUp";
+import { GetTogether, WarmUp, SeparateSectionsTutee, SeparateSectionsTutor } from "./phases/Phases";
+
 
 export class AssistentController extends Component {
   constructor() {
@@ -33,21 +33,36 @@ export class AssistentController extends Component {
 
 
   setPhase(phase) {
+   // alert(phase);
     var actPhase = {};
     switch (phase) {
       case "GETTOGETHER":
         actPhase = new GetTogether();
         this.setState({ phase: actPhase });
+        this.props.setPhase(actPhase);
         break;
       case "WARMUP":
         actPhase = new WarmUp();
         this.setState({ phase: actPhase });
+        this.props.setPhase(actPhase);
         break;
+      case "SEPERATESECTIONSTUTOR":
+        actPhase = new SeparateSectionsTutor();
+        this.setState({ phase: actPhase });
+        this.props.setPhase(actPhase);
+        break;
+      case "SEPERATESECTIONSTUTEE":
+        actPhase = new SeparateSectionsTutee();
+        this.setState({ phase: actPhase });
+        this.props.setPhase(actPhase);
+        break;
+
       default:
+
         break;
     }
 
-    this.props.setPhase(actPhase);
+
     console.log(this.state);
     //this.props.setActInstruction(actPhase.getActInstruction());
 

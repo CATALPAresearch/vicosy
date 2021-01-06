@@ -45,6 +45,7 @@ export default function (state = initialState, action) {
         warningMessage: action.payload
       };
     case SET_PHASE:
+      console.log(action.payload);
       return {
         ...state,
         phase: action.payload,

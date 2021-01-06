@@ -101,7 +101,7 @@ class AnnotationDropDown extends Component {
             </a>
           </div>
         </div>
-        <button
+        <button id="open-annotations"
           onClick={this.onAnnotationTriggered.bind(this)}
           className="btn btn-secondary btn-sm"
           title="Open annotation editor for the current video frame"
