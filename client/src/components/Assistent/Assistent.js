@@ -26,6 +26,7 @@ class Assistent extends Component {
 
     }
     setArrowPosition() {
+        if (this.props.assistent.actInstruction)
         if (this.props.assistent.actInstruction.markers)
             if (this.props.assistent.actInstruction.markers.length > 0)
                 this.props.assistent.actInstruction.markers.map(arrow => {
@@ -42,7 +43,7 @@ class Assistent extends Component {
         if (this.props.assistent.actInstruction.markers)
             if (this.props.assistent.actInstruction.markers.length > 0)
                 this.props.assistent.actInstruction.markers.map(arrow => {
-                    let element = document.getElementById(arrow).getBoundingClientRect();
+                    let element = document.getElementById(arrow.id).getBoundingClientRect();
                     let position = [];
                     let left;
                     let top;
@@ -79,13 +80,14 @@ class Assistent extends Component {
     }
     render() {
 
-        var key = 0;
+        if (this.props.assistent.actInstruction)
         if (this.props.assistent.actInstruction.markers)
             var arrows = this.props.assistent.actInstruction.markers.map(arrow => {
-                key++;
+           
                 if (arrow.mode == "id") {
                     
                     var element = document.getElementById(arrow.id).getBoundingClientRect();
+                    
                     let position = [];
                     var left = element.left + window.pageXOffset - 80+arrow.left;
 
@@ -93,10 +95,11 @@ class Assistent extends Component {
 
                     var top = element.top + window.pageYOffset - 50 + halfheight+arrow.top;
                     //position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
+                    
                     return (
                         <Arrow className="arrow"
-                            key={arrow}
-                            id={arrow}
+                            key={arrow.id}
+                            id={arrow.id}
                             direction={arrow.orientation}
                             shaftWidth={15}
                             shaftLength={40}
@@ -108,7 +111,11 @@ class Assistent extends Component {
                             strokeWidth={2}
                             style={{ position: "absolute", left: left, top: top }}
                         />
+                        
                     );
+                    var el = document.getElementById(arrow.id);
+                    el.className="neu";
+                    el.className="arrow";
                 }
             }
             )
@@ -145,14 +152,14 @@ class Assistent extends Component {
 
                 <AssistentController createRef={el => (this.assistentControlRef = el)} />
 
-
+                {this.props.assistent.phase?
                 <Instruction
                     hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
                     hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}
                     instruction={this.props.assistent.actInstruction}
                     nextInstruction={this.nextInstruction.bind(this)}
                     previousInstruction={this.previousInstruction.bind(this)}
-                />
+                />: null}
 
 
             </div>

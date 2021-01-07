@@ -16,7 +16,7 @@ export default class TimeLineHandle extends Component {
     );
 
     const asyncHandle = (
-      <div
+      <div id="asynch-timeline-handle"
         style={{ left: `${this.props.offset}%` }}
         className="basic-timeline-handle async-timeline-handle"
       />

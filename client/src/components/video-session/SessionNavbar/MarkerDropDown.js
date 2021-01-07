@@ -43,7 +43,7 @@ class MarkerDropDown extends Component {
     if (!this.props.isMarkerUsable) return null;
 
     return (
-      <div className="btn-group dropleft ml-1">
+      <div id="maker-button" className="btn-group dropleft ml-1">
         <button
           type="button"
           className="btn btn-sm btn-secondary dropdown-toggle"
