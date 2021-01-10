@@ -1,4 +1,4 @@
-import React, { Component, useRef } from "react";
+import React, { Component, useRef, useState } from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import "./assistent.css";
@@ -13,6 +13,7 @@ import Arrow from 'react-arrow';
 
 class Assistent extends Component {
 
+
     constructor(props) {
         super(props);
         this.state = {
@@ -20,46 +21,71 @@ class Assistent extends Component {
             arrows: ""
         };
         this.assistentControlRef = null;
+
         // window.onresize = this.setArrowPosition;
-        window.addEventListener('resize', this.updateArrowPosition.bind(this));
+
+
 
 
     }
-    setArrowPosition() {
-        if (this.props.assistent.actInstruction)
-        if (this.props.assistent.actInstruction.markers)
-            if (this.props.assistent.actInstruction.markers.length > 0)
-                this.props.assistent.actInstruction.markers.map(arrow => {
-                    let element = document.getElementById(arrow).getBoundingClientRect();
-                    let position = [];
-                    let left;
-                    let top;
-                    position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
-                    this.setState({ arrows: position });
-                });
-    }
 
-    updateArrowPosition() {
-        if (this.props.assistent.actInstruction.markers)
-            if (this.props.assistent.actInstruction.markers.length > 0)
-                this.props.assistent.actInstruction.markers.map(arrow => {
-                    let element = document.getElementById(arrow.id).getBoundingClientRect();
-                    let position = [];
-                    let left;
-                    let top;
-                    position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
-                    this.setState({ arrows: position });
-                });
+    actualize() {
+        //Das müsste noch gefixed werden, aber forceUpdate geht nicht!!
+        window.location.reload();
     }
 
 
     componentDidMount() {
-        this.setArrowPosition();
+        window.addEventListener("resize", this.actualize.bind(this));
     }
+
+
+    getArrowPosition() {
+        let arrows = null;
+        if (this.props.assistent.actInstruction.markers) {
+            arrows = this.props.assistent.actInstruction.markers.map(arrow => {
+
+                if (arrow.mode == "id") {
+
+                    var element = document.getElementById(arrow.id).getBoundingClientRect();
+
+                    var left = element.left + window.pageXOffset - 80 + arrow.left;
+
+                    var halfheight = Math.round(parseFloat(((element.top - element.bottom) / 2)));
+
+                    var top = element.top + window.pageYOffset - 50 + halfheight + arrow.top;
+                    //position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
+
+                    return (
+                        <Arrow className="arrow"
+                            key={arrow.id}
+                            id={arrow.id}
+                            direction={arrow.orientation}
+                            shaftWidth={15}
+                            shaftLength={40}
+                            headWidth={40}
+                            headLength={30}
+                            fill="red"
+                            text="Chat"
+                            stroke="red"
+                            strokeWidth={2}
+                            style={{ position: "absolute", left: left, top: top }}
+                        />
+
+                    );
+
+                }
+            }
+            )
+        }
+        return arrows;
+    }
+
+
+
     nextInstruction() {
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
             this.props.nextInstruction();
-            this.updateArrowPosition();
         }
         else return null;
 
@@ -78,67 +104,14 @@ class Assistent extends Component {
             return this.props.assistent.phase.instructions[this.props.assistent.phase.pointer];
         else return null;
     }
+
     render() {
-
-        if (this.props.assistent.actInstruction)
-        if (this.props.assistent.actInstruction.markers)
-            var arrows = this.props.assistent.actInstruction.markers.map(arrow => {
-           
-                if (arrow.mode == "id") {
-                    
-                    var element = document.getElementById(arrow.id).getBoundingClientRect();
-                    
-                    let position = [];
-                    var left = element.left + window.pageXOffset - 80+arrow.left;
-
-                    var halfheight = Math.round(parseFloat(((element.top - element.bottom) / 2)));
-
-                    var top = element.top + window.pageYOffset - 50 + halfheight+arrow.top;
-                    //position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
-                    
-                    return (
-                        <Arrow className="arrow"
-                            key={arrow.id}
-                            id={arrow.id}
-                            direction={arrow.orientation}
-                            shaftWidth={15}
-                            shaftLength={40}
-                            headWidth={40}
-                            headLength={30}
-                            fill="red"
-                            text="Chat"
-                            stroke="red"
-                            strokeWidth={2}
-                            style={{ position: "absolute", left: left, top: top }}
-                        />
-                        
-                    );
-                    var el = document.getElementById(arrow.id);
-                    el.className="neu";
-                    el.className="arrow";
-                }
-            }
-            )
+        var arrows = this.getArrowPosition();
 
         return (
-
             <div id="assistent">
-
-
                 {arrows};
 
-                {/*
-                <Xarrow
-                    start="startarrow" //can be react ref
-                    end="chat-write" //or an id
-                    curveness={0}
-                    color="red"
-                    strokeWidth={10}
-                    headSize={8}
-                    z-index="999"
-                />
-
-*/}
                 <div id="overlay" style={{ display: this.state.display }}>
                     <div id="text">
                         test
@@ -152,14 +125,14 @@ class Assistent extends Component {
 
                 <AssistentController createRef={el => (this.assistentControlRef = el)} />
 
-                {this.props.assistent.phase?
-                <Instruction
-                    hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
-                    hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}
-                    instruction={this.props.assistent.actInstruction}
-                    nextInstruction={this.nextInstruction.bind(this)}
-                    previousInstruction={this.previousInstruction.bind(this)}
-                />: null}
+                {this.props.assistent.phase ?
+                    <Instruction
+                        hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
+                        hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}
+                        instruction={this.props.assistent.actInstruction}
+                        nextInstruction={this.nextInstruction.bind(this)}
+                        previousInstruction={this.previousInstruction.bind(this)}
+                    /> : null}
 
 
             </div>
@@ -173,7 +146,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps, { AssistentController, nextInstruction, previousInstruction }
+    mapStateToProps, { AssistentController, nextInstruction, previousInstruction, setActInstruction }
 )(withRouter(Assistent));
 
 

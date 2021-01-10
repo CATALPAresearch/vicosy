@@ -5,7 +5,7 @@ import {
 } from "../../actions/localStateActions";
 import { setPhase, setActInstruction } from "../../actions/assistentActions";
 import { connect } from "react-redux";
-import { GetTogether, WarmUp, SeparateSectionsTutee, SeparateSectionsTutor } from "./phases/Phases";
+import { GetTogether, WarmUp, SeparateSectionsTutee, SeparateSectionsTutor, DeepenTutor, DeepenTutee, Reflexion } from "./phases/Phases";
 
 
 export class AssistentController extends Component {
@@ -33,7 +33,7 @@ export class AssistentController extends Component {
 
 
   setPhase(phase) {
-    alert(phase);
+   // alert(phase);
     var actPhase = {};
     switch (phase) {
       case "GETTOGETHER":
@@ -53,6 +53,22 @@ export class AssistentController extends Component {
         break;
       case "SEPERATESECTIONSTUTEE":
         actPhase = new SeparateSectionsTutee();
+        this.setState({ phase: actPhase });
+        this.props.setPhase(actPhase);
+        break;
+
+      case "DEEPENTUTOR":
+        actPhase = new DeepenTutor();
+        this.setState({ phase: actPhase });
+        this.props.setPhase(actPhase);
+        break;
+      case "DEEPENTUTEE":
+        actPhase = new DeepenTutee();
+        this.setState({ phase: actPhase });
+        this.props.setPhase(actPhase);
+        break;
+      case "REFLEXION":
+        actPhase = new Reflexion();
         this.setState({ phase: actPhase });
         this.props.setPhase(actPhase);
         break;

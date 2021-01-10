@@ -34,11 +34,11 @@ export class SeparateSectionsTutor extends AbstractPhase {
         super();
         this.name = "SEPARATESECTIONSTUTOR";
         this.instructions.push(new Instruction("Nun sollt ihr das Video erst einmal in Unterabschnitte unterteilen", ""));
-        this.instructions.push(new Instruction("Die Anzahl der Abschnitte sollte ein Vielfaches der Gruppenmitglieder sein.", ""));
+        this.instructions.push(new Instruction("Die Anzahl der Abschnitte sollte ein Vielfaches der Anzahl der Mitglieder sein.", ""));
         this.instructions.push(new Instruction("Für eine Zweiergruppe also 2, 4, 6, ... Abschnitte", ""));
         this.instructions.push(new Instruction("Nur du kannst die Einteilung vornehmen, kommuniziert deshalb miteinander.", ""));
         this.instructions.push(new Instruction("Starte hiermit das Video.", new Array(new Options("left", "id", "play-button", 40, 100))));
-        this.instructions.push(new Instruction("Synch bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "sync-mode", 0, -60))));
+        this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "sync-mode", 0, -60))));
         this.instructions.push(new Instruction("Hier kannst du eine Unterteilung vornehmen. Wähle über den kleinen Pfeil links 'Chapter annotation'.", new Array(new Options("right", "id", "open-annotations", 10, -30))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
 
@@ -55,7 +55,7 @@ export class SeparateSectionsTutee extends AbstractPhase {
         this.instructions.push(new Instruction("Für eine Zweiergruppe also 2, 4, 6, ... Abschnitte", ""));
         this.instructions.push(new Instruction("Nur dein Partner kann die Einteilung vornehmen, kommuniziert deshalb miteinander.", ""));
         this.instructions.push(new Instruction("Das Video kannst du allerdings auch starten.", new Array(new Options("left", "id", "play-button", 20, 100))));
-        this.instructions.push(new Instruction("Synch bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "sync-mode", 20, -60))));
+        this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "sync-mode", 20, -60))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
 
     }
@@ -121,7 +121,7 @@ export class DeepenTutor extends AbstractPhase {
     }
 }
 
-export class DeepenTutuee extends AbstractPhase {
+export class DeepenTutee extends AbstractPhase {
     constructor() {
         super();
         this.name = "DEEPENTUTEE";
