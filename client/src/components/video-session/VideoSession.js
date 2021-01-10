@@ -118,7 +118,7 @@ class VideoSession extends Component {
     if (sessionId in props.errors && "roomReject" in props.errors[sessionId]) {
       window.activeSessionId = 0;
       this.setState({ sessionAvailable: false });
-      props.history.push("/lobby");
+      props.history.push("/studentlobby");
       this.props.setError("warning", props.errors[sessionId].reason);
       return;
     }

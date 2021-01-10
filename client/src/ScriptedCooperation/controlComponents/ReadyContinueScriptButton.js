@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { sendRoleReadyState } from "../../socket-handlers/api";
 import ToggleSwitchButton from "../../components/controls/ToggleSwitchButton";
+import { updateContinueButton } from "../../actions/assistentActions";
 
 /**
  * displays a button based on the states of the roles
@@ -20,7 +21,7 @@ class ReadyContinueScriptButton extends Component {
       meIsReady: false,
       waitingForOthers: false
     };
-
+    // this.props.updateContinueButton(false, false, false);
     this.onButtonClick = this.onButtonClick.bind(this);
   }
 
@@ -38,11 +39,15 @@ class ReadyContinueScriptButton extends Component {
       : props.rooms.rooms[props.sessionId].state.sharedRoomData;
 
     if (!collabScript.roles) {
+
       this.setState({
         meIsRequired: false,
         meIsReady: false,
         waitingForOthers: false
       });
+
+      this.props.updateContinueButton(false, false, false);
+
       return;
     }
 
@@ -67,6 +72,7 @@ class ReadyContinueScriptButton extends Component {
     }
 
     this.setState({ meIsRequired, meIsReady, waitingForOthers });
+    this.props.updateContinueButton(meIsRequired, meIsReady, waitingForOthers);
   }
 
   onButtonClick(e) {
@@ -82,21 +88,21 @@ class ReadyContinueScriptButton extends Component {
             {this.state.meIsReady ? (
               <span className="mr-1">Waiting for peer...</span>
             ) : null}
-            <ToggleSwitchButton 
+            <ToggleSwitchButton
               onToggle={this.onButtonClick}
               isChecked={this.state.meIsReady}
               label="Ready To Finish"
             />
           </div>
         ) : (
-          <button 
-            onClick={this.onButtonClick}
-            className="btn btn-success btn-sm"
-          >
-            Finish Phase
-            <i className="ml-1 fa fa-check-circle" />
-          </button>
-        )}
+            <button
+              onClick={this.onButtonClick}
+              className="btn btn-success btn-sm"
+            >
+              Finish Phase
+              <i className="ml-1 fa fa-check-circle" />
+            </button>
+          )}
       </div>
     );
 
@@ -124,6 +130,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps, { updateContinueButton },
   null
 )(ReadyContinueScriptButton);
