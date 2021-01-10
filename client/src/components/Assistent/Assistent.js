@@ -31,7 +31,9 @@ class Assistent extends Component {
 
     actualize() {
         //Das müsste noch gefixed werden, aber forceUpdate geht nicht!!
-        window.location.reload();
+        //    window.location.reload();
+        this.setActInstruction();
+
     }
 
 
@@ -42,6 +44,7 @@ class Assistent extends Component {
 
     getArrowPosition() {
         let arrows = null;
+        if (this.props.assistent.actInstruction)
         if (this.props.assistent.actInstruction.markers) {
             arrows = this.props.assistent.actInstruction.markers.map(arrow => {
 
@@ -103,6 +106,13 @@ class Assistent extends Component {
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer])
             return this.props.assistent.phase.instructions[this.props.assistent.phase.pointer];
         else return null;
+    }
+
+
+    setActInstruction() {
+        this.props.setActInstruction(null);
+        this.props.setActInstruction(this.props.assistent.phase.instructions[this.props.assistent.phase.pointer]);
+
     }
 
     render() {
