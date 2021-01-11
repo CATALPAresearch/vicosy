@@ -20,7 +20,7 @@ export class AssistentController extends Component {
     else return null;
   }
   render() {
-    console.log(this.state);
+    console.log(this.props.assistent);
     return null;
 
 
@@ -79,7 +79,7 @@ export class AssistentController extends Component {
     }
 
 
-    console.log(this.state);
+    console.log(this.props.assistent);
     //this.props.setActInstruction(actPhase.getActInstruction());
 
   }  // public

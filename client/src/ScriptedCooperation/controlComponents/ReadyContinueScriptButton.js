@@ -21,7 +21,7 @@ class ReadyContinueScriptButton extends Component {
       meIsReady: false,
       waitingForOthers: false
     };
-    // this.props.updateContinueButton(false, false, false);
+    this.props.updateContinueButton(false, false, false);
     this.onButtonClick = this.onButtonClick.bind(this);
   }
 

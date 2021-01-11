@@ -88,6 +88,7 @@ class Assistent extends Component {
 
     nextInstruction() {
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
+       
             this.props.nextInstruction();
         }
         else return null;
@@ -96,7 +97,7 @@ class Assistent extends Component {
 
     previousInstruction() {
         if (this.props.assistent.phase.pointer > 0) {
-            this.props.previousInstruction();
+          this.props.previousInstruction();
         }
         else return null;
 
