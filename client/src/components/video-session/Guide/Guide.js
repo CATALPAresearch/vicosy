@@ -2,13 +2,19 @@ import React, { Component } from "react";
 import "./guide.css";
 import { connect } from "react-redux";
 import { closePublicGuide } from "../../../actions/localStateActions";
-
+import {setPhase} from "../../Assistent/AssistentController";
 import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
 
 class Guide extends Component {
   onConfirmed = () => {
     this.props.closePublicGuide();
+switch (this.props.assistent.phase.name)
+{
+case "WARMUP":
+  this.setPhase
+
+}
   };
 
   render() {
@@ -66,10 +72,11 @@ class Guide extends Component {
 }
 
 const mapStateToProps = state => ({
-  localState: state.localState
+  localState: state.localState,
+  assistent: state.assistent
 });
 
 export default connect(
   mapStateToProps,
-  { closePublicGuide }
+  { closePublicGuide, setPhase }
 )(Guide);
