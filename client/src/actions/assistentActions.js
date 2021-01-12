@@ -1,13 +1,15 @@
-import { UPDATE_CONTINUEBUTTON, NEXT_INSTRUCTION, SET_ACTIVE, SET_ACT_INSTRUCTION, SET_PHASE, PREVIOUS_INSTRUCTION } from "./types";
+import { NEW_INSTRUCTION, UPDATE_CONTINUEBUTTON, NEXT_INSTRUCTION, SET_ACTIVE, SET_ACT_INSTRUCTION, SET_PHASE, PREVIOUS_INSTRUCTION } from "./types";
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
 export const updateContinueButton = (meIsRequired, meIsReady, waitingForOthers) => dispatch => {
+  setActInstruction(null);
   let buttonOptions = {};
   buttonOptions.meIsRequired = meIsRequired;
   buttonOptions.meIsReady = meIsReady;
   buttonOptions.waitingForOthers = waitingForOthers;
+
   dispatch({
     type: UPDATE_CONTINUEBUTTON,
     payload: buttonOptions
@@ -20,6 +22,16 @@ export const setPhase = (phase) => dispatch => {
     payload: phase
   });
 };
+//instruction has format {Instrucion {text, markers [] }}
+export const newInstruction = (newInstruction) => dispatch => {
+  setActInstruction(null);
+  dispatch({
+    type: NEW_INSTRUCTION,
+    payload: newInstruction
+  });
+};
+
+
 
 
 

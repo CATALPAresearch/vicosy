@@ -12,11 +12,13 @@ const initialState = {
   waitingForOthers: false
 };
 
-
+var continueMessageBlocked = false;
 export default function (state = initialState, action) {
   switch (action.type) {
     case UPDATE_CONTINUEBUTTON:
-      if (state.phase) {
+      if (state.phase && !continueMessageBlocked) {
+        continueMessageBlocked = true;
+        setTimeout(() => { continueMessageBlocked = false; }, 500);
         var newInstruction = {};
         var newPhase = state.phase;
         /*
@@ -35,17 +37,35 @@ export default function (state = initialState, action) {
                 else */
 
         if (action.payload.meIsReady && action.payload.meIsRequired && action.payload.waitingForOthers) {
-          newInstruction = new Instruction("Du hast die Phase beendet, warte auf deinen Partner!", new Array(new Options("right", "id", "ready-to-finish", 30, 30)));
+          newInstruction = new Instruction("Du hast die Phase beendet, warte auf deinen Partner!", "");
           newPhase.instructions = state.phase.instructions;
-          newPhase.instructions.splice(state.phase.pointer, 0, newInstruction);
-          newPhase.pointer = state.phase.pointer + 1;
+          if (newPhase.instructions) {
+            newPhase.instructions.splice(newPhase.instructions.length - 1, 1, newInstruction);
+            newPhase.pointer = newPhase.instructions.length - 1;
+          }
+          /*
+            if (newPhase.instructions[state.phase.pointer + 1])
+              newPhase.instructions.splice(state.phase.pointer + 1, 0, newInstruction);
+            else
+              newPhase.instructions.push(newInstruction);
+          newPhase.pointer = state.phase.pointer + 1;*/
         }
         else
           if (!action.payload.meIsReady && action.payload.meIsRequired && !action.payload.waitingForOthers) {
-            newInstruction = new Instruction("Dein Partner hat die Phase beendet. Hier kannst du sie ebenfalls beenden.!", new Array(new Options("right", "id", "ready-to-finish", 30, 30)));
+            newInstruction = new Instruction("Dein Partner hat die Phase beendet. Hier kannst du sie ebenfalls beenden.!", new Array(new Options("right", "id", "ready-to-finish", 15, 20)));
             newPhase.instructions = state.phase.instructions;
-            newPhase.instructions.splice(state.phase.pointer, 0, newInstruction);
-            newPhase.pointer = state.phase.pointer + 1;
+            if (newPhase.instructions) {
+              newPhase.instructions.splice(newPhase.instructions.length - 1, 1, newInstruction);
+              newPhase.pointer = newPhase.instructions.length - 1;
+            }
+            /*
+            
+              if (newPhase.instructions[state.phase.pointer + 1])
+                newPhase.instructions.splice(state.phase.pointer + 1, 0, newInstruction);
+              else
+                newPhase.instructions.push(newInstruction);
+            newPhase.pointer = state.phase.pointer + 1; */
+
           }
           else
             return {

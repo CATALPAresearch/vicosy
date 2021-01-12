@@ -29,6 +29,7 @@ class Assistent extends Component {
 
     }
 
+
     actualize() {
         //Das müsste noch gefixed werden, aber forceUpdate geht nicht!!
         //    window.location.reload();
@@ -43,44 +44,44 @@ class Assistent extends Component {
 
 
     getArrowPosition() {
-        let arrows = null;
+      let arrows = null;
         if (this.props.assistent.actInstruction)
-        if (this.props.assistent.actInstruction.markers) {
-            arrows = this.props.assistent.actInstruction.markers.map(arrow => {
+            if (this.props.assistent.actInstruction.markers) {
+                arrows = this.props.assistent.actInstruction.markers.map(arrow => {
 
-                if (arrow.mode == "id") {
+                    if (arrow.mode == "id") {
 
-                    var element = document.getElementById(arrow.id).getBoundingClientRect();
+                        var element = document.getElementById(arrow.id).getBoundingClientRect();
 
-                    var left = element.left + window.pageXOffset - 80 + arrow.left;
+                        var left = element.left + window.pageXOffset - 80 + arrow.left;
 
-                    var halfheight = Math.round(parseFloat(((element.top - element.bottom) / 2)));
+                        var halfheight = Math.round(parseFloat(((element.top - element.bottom) / 2)));
 
-                    var top = element.top + window.pageYOffset - 50 + halfheight + arrow.top;
-                    //position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
+                        var top = element.top + window.pageYOffset - 50 + halfheight + arrow.top;
+                        //position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
 
-                    return (
-                        <Arrow className="arrow"
-                            key={arrow.id}
-                            id={arrow.id}
-                            direction={arrow.orientation}
-                            shaftWidth={15}
-                            shaftLength={40}
-                            headWidth={40}
-                            headLength={30}
-                            fill="red"
-                            text="Chat"
-                            stroke="red"
-                            strokeWidth={2}
-                            style={{ position: "absolute", left: left, top: top }}
-                        />
+                        return (
+                            <Arrow className="arrow"
+                                key={arrow.id}
+                                id={arrow.id}
+                                direction={arrow.orientation}
+                                shaftWidth={15}
+                                shaftLength={40}
+                                headWidth={40}
+                                headLength={30}
+                                fill="red"
+                                text="Chat"
+                                stroke="red"
+                                strokeWidth={2}
+                                style={{ position: "absolute", left: left, top: top }}
+                            />
 
-                    );
+                        );
 
+                    }
                 }
+                )
             }
-            )
-        }
         return arrows;
     }
 
@@ -88,8 +89,9 @@ class Assistent extends Component {
 
     nextInstruction() {
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
-       
+
             this.props.nextInstruction();
+          
         }
         else return null;
 
@@ -97,7 +99,8 @@ class Assistent extends Component {
 
     previousInstruction() {
         if (this.props.assistent.phase.pointer > 0) {
-          this.props.previousInstruction();
+            this.props.previousInstruction();
+       
         }
         else return null;
 
