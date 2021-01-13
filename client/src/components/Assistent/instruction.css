@@ -19,10 +19,34 @@
       font-size: 20px;
   }
    
+  .sprechblase-incoming {
+    position: relative;
+    max-width: 90%;
+    left:100px;
+      min-width: 80px;
+      min-height: 60px;
+      padding: 10px;
+      text-align: center;
+      background: rgb(255, 237, 70);
+      border: #000 solid 3px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      /* Positionierung zB. 2 nebeneinander */
+      float: top;
+      text-align: left;
+      font-size: 20px;
+  }
   #arrows {
     position:absolute;
     right: 10px;
   }
+
+  #quit {
+    position:absolute;
+    right: 10px;
+  }
+
   /* Dreieck: weisse Innenfläche */
   .sprechblase:after {
       content: "";

@@ -3,9 +3,9 @@ import {
   openPublicGuide,
   closePublicGuide
 } from "../../actions/localStateActions";
-import { setPhase, setActInstruction } from "../../actions/assistentActions";
+import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
 import { connect } from "react-redux";
-import { GetTogether, WarmUp, SeparateSectionsTutee, SeparateSectionsTutor, DeepenTutor, DeepenTutee, Reflexion } from "./phases/Phases";
+import { GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutor, DeepenTutee, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 
 
 export class AssistentController extends Component {
@@ -33,43 +33,61 @@ export class AssistentController extends Component {
 
 
   setPhase(phase) {
-   // alert(phase);
+    alert(phase);
     var actPhase = {};
     switch (phase) {
       case "GETTOGETHER":
         actPhase = new GetTogether();
         this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
       case "WARMUP":
         actPhase = new WarmUp();
         this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
       case "SEPERATESECTIONSTUTOR":
-        actPhase = new SeparateSectionsTutor();
+        actPhase = new SeparateSectionsTutorPrep();
         this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
       case "SEPERATESECTIONSTUTEE":
-        actPhase = new SeparateSectionsTutee();
+        actPhase = new SeparateSectionsTuteePrep();
         this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
-
+      case "SEPARATESECTIONSTUTORPOST":
+        actPhase = new SeparateSectionsTutorPost();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+      case "SEPARATESECTIONSTUTEEPOST":
+        actPhase = new SeparateSectionsTuteePost();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
       case "DEEPENTUTOR":
         actPhase = new DeepenTutor();
         this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
       case "DEEPENTUTEE":
         actPhase = new DeepenTutee();
         this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
       case "REFLEXION":
         actPhase = new Reflexion();
         this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
 
@@ -97,7 +115,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { openPublicGuide, closePublicGuide, setPhase, setActInstruction }
+  { openPublicGuide, closePublicGuide, setPhase, setActInstruction, setIncominginstruction }
 )(AssistentController);
 
 

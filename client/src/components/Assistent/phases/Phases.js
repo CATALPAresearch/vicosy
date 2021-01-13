@@ -31,25 +31,27 @@ export class WarmUp extends AbstractPhase {
 export class SeparateSectionsTutorPrep extends AbstractPhase {
     constructor() {
         super();
-        this.name = "SEPARATESECTIONPREP";
+        this.name = "SEPARATESECTIONSTUTORPREP";
         this.instructions.push(new Instruction("Nun schaut ihr euch gemeinsam ein Video an und unterteilt es in Unterabschnitte.", ""));
         this.instructions.push(new Instruction("Später sollt ihr die Abschnitte zusammenfassen und euch gegenseitig vorstellen.", ""));
+        this.instructions.push(new Instruction("Hier weiter!", new Array(new Options("right", "id", "ok-understand", 10, 0))));
     }
 }
 
 export class SeparateSectionsTuteePrep extends AbstractPhase {
     constructor() {
         super();
-        this.name = "SEPARATESECTION";
+        this.name = "SEPARATESECTIONSTUTEEPREP";
         this.instructions.push(new Instruction("Nun schaut ihr euch gemeinsam ein Video an und unterteilt es in Unterabschnitte.", ""));
         this.instructions.push(new Instruction("Später sollt ihr die Abschnitte zusammenfassen und euch gegenseitig vorstellen.", ""));
+        this.instructions.push(new Instruction("Hier weiter!", new Array(new Options("right", "id", "ok-understand", 10, 0))));
     }
 }
 
-export class SeparateSectionsTutor extends AbstractPhase {
+export class SeparateSectionsTutorPost extends AbstractPhase {
     constructor() {
         super();
-        this.name = "SEPARATESECTIONSTUTOR";
+        this.name = "SEPARATESECTIONSTUTORPOST";
         this.instructions.push(new Instruction("Die Anzahl der Abschnitte sollte ein Vielfaches der Anzahl der Mitglieder sein.", ""));
         this.instructions.push(new Instruction("Für eine Zweiergruppe also 2, 4, 6, ... Abschnitte", ""));
         this.instructions.push(new Instruction("Nur du kannst die Einteilung vornehmen, kommuniziert deshalb miteinander.", ""));
@@ -59,15 +61,15 @@ export class SeparateSectionsTutor extends AbstractPhase {
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 40, 40))));
     }
 }
-export class SeparateSectionsTutee extends AbstractPhase {
+export class SeparateSectionsTuteePost extends AbstractPhase {
     constructor() {
         super();
-        this.name = "SEPARATESECTIONSTUTEE";
+        this.name = "SEPARATESECTIONSTUTEEPOST";
         this.instructions.push(new Instruction("Nun sollt ihr das Video erst einmal in Unterabschnitte unterteilen", ""));
         this.instructions.push(new Instruction("Die Anzahl der Abschnitte sollte ein Vielfaches der Gruppenmitglieder sein.", ""));
         this.instructions.push(new Instruction("Für eine Zweiergruppe also 2, 4, 6, ... Abschnitte", ""));
         this.instructions.push(new Instruction("Nur dein Partner kann die Einteilung vornehmen, kommuniziert deshalb miteinander.", ""));
-        this.instructions.push(new Instruction("Durch Video kannst du hier allerdings auch navigieren.", new Array(new Options("left", "id", "play-button", 20, 100))));
+        this.instructions.push(new Instruction("Durch das Video kannst du hier allerdings auch navigieren.", new Array(new Options("left", "id", "play-button", 20, 100))));
         this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "sync-mode", 20, -60))));
         this.instructions.push(new Instruction("Warte darauf, dass dein Partner die Phase beendet.", ""));
 

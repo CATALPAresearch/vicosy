@@ -2,20 +2,34 @@ import React, { Component } from "react";
 import "./guide.css";
 import { connect } from "react-redux";
 import { closePublicGuide } from "../../../actions/localStateActions";
-import {setPhase} from "../../Assistent/AssistentController";
+// import { setPhase, setActInstruction } from "../../../actions/assistentActions";
 import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
+import AssistentController from "../../Assistent/AssistentController";
 
 class Guide extends Component {
+  constructor(props) {
+    super(props);
+    this.assistentControlRef = null;
+  }
+
+
   onConfirmed = () => {
     this.props.closePublicGuide();
-switch (this.props.assistent.phase.name)
-{
-case "WARMUP":
-  this.setPhase
+    switch (this.props.assistent.phase.name) {
+      case "SEPARATESECTIONSTUTORPREP":
+        this.setPhase("SEPARATESECTIONSTUTORPOST");
+        break;
+      case "SEPARATESECTIONSTUTEEPREP":
+        this.setPhase("SEPARATESECTIONSTUTEEPOST");
+        break;
 
-}
+    }
   };
+  setPhase(phase) {
+    this.assistentControlRef.setPhase(phase);
+  }
+
 
   render() {
     console.log(this.props);
@@ -58,13 +72,14 @@ case "WARMUP":
 
     return (
       <div id="Guide">
-         <div id="GuideFooter" className="guide-flex-item">
-            {confirmationComponent}
-          </div>
+        <div id="GuideFooter" className="guide-flex-item">
+          {confirmationComponent}
+        </div>
         <div id="InnerGuide" className="roundedStrong">
-  
-            <HTMLLoader url={targetUrl} />
-         
+
+          <HTMLLoader url={targetUrl} />
+          <AssistentController createRef={el => (this.assistentControlRef = el)} />
+
         </div>
       </div>
     );
@@ -78,5 +93,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { closePublicGuide, setPhase }
+  { closePublicGuide /*, setPhase*/ }
 )(Guide);

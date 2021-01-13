@@ -1,4 +1,4 @@
-import { UPDATE_CONTINUEBUTTON, PREVIOUS_INSTRUCTION, SET_PHASE_INSTRUCTIONS, SET_ACTIVE, SET_WARNING, SET_PHASE, SET_ACT_INSTRUCTION, UNSET_ACT_INSTRUCTION, NEXT_INSTRUCTION } from "../actions/types";
+import { SET_INCOMING_INSTRUCTION, UPDATE_CONTINUEBUTTON, PREVIOUS_INSTRUCTION, SET_PHASE_INSTRUCTIONS, SET_ACTIVE, SET_WARNING, SET_PHASE, SET_ACT_INSTRUCTION, UNSET_ACT_INSTRUCTION, NEXT_INSTRUCTION } from "../actions/types";
 import isEmpty from "../validation/is-empty";
 import Instruction from "../components/Assistent/phases/Instruction"
 import Options from "../components/Assistent/phases/Options"
@@ -9,18 +9,28 @@ const initialState = {
   actInstruction: null,
   meIsRequired: false,
   meIsReady: false,
-  waitingForOthers: false
+  waitingForOthers: false,
+  incomingInstruction: null
 };
 
 var continueMessageBlocked = false;
 export default function (state = initialState, action) {
   switch (action.type) {
+    case SET_INCOMING_INSTRUCTION: {
+      return {
+        ...state,
+        incomingInstruction: action.payload
+      };
+
+    }
     case UPDATE_CONTINUEBUTTON:
       if (state.phase && !continueMessageBlocked) {
         continueMessageBlocked = true;
         setTimeout(() => { continueMessageBlocked = false; }, 500);
+        /* var newInstruction = {};
+         var newPhase = state.phase;
+         */
         var newInstruction = {};
-        var newPhase = state.phase;
         /*
                 if (!action.payload.meIsReady && action.payload.meIsRequired && action.payload.waitingForOthers) {
                    newInstruction = new Instruction("Beende hiermit die Phase!", new Array(new Options("right", "id", "ready-to-finish", 10, 0)));
@@ -38,11 +48,13 @@ export default function (state = initialState, action) {
 
         if (action.payload.meIsReady && action.payload.meIsRequired && action.payload.waitingForOthers) {
           newInstruction = new Instruction("Du hast die Phase beendet, warte auf deinen Partner!", "");
-          newPhase.instructions = state.phase.instructions;
-          if (newPhase.instructions) {
-            newPhase.instructions.splice(newPhase.instructions.length - 1, 1, newInstruction);
-            newPhase.pointer = newPhase.instructions.length - 1;
-          }
+          /*
+           newPhase.instructions = state.phase.instructions;
+           if (newPhase.instructions) {
+             newPhase.instructions.splice(newPhase.instructions.length - 1, 1, newInstruction);
+             newPhase.pointer = newPhase.instructions.length - 1;
+           }
+           */
           /*
             if (newPhase.instructions[state.phase.pointer + 1])
               newPhase.instructions.splice(state.phase.pointer + 1, 0, newInstruction);
@@ -52,12 +64,14 @@ export default function (state = initialState, action) {
         }
         else
           if (!action.payload.meIsReady && action.payload.meIsRequired && !action.payload.waitingForOthers) {
-            newInstruction = new Instruction("Dein Partner hat die Phase beendet. Hier kannst du sie ebenfalls beenden.!", new Array(new Options("right", "id", "ready-to-finish", 15, 20)));
-            newPhase.instructions = state.phase.instructions;
-            if (newPhase.instructions) {
-              newPhase.instructions.splice(newPhase.instructions.length - 1, 1, newInstruction);
-              newPhase.pointer = newPhase.instructions.length - 1;
-            }
+            newInstruction = new Instruction("Dein Partner hat die Phase beendet. Hier kannst du sie ebenfalls beenden!", new Array(new Options("right", "id", "toggle-switch", 15, 20)));
+            /*           
+                        newPhase.instructions = state.phase.instructions;
+                        if (newPhase.instructions) {
+                          newPhase.instructions.splice(newPhase.instructions.length - 1, 1, newInstruction);
+                          newPhase.pointer = newPhase.instructions.length - 1;
+                        }
+              */
             /*
             
               if (newPhase.instructions[state.phase.pointer + 1])
@@ -81,9 +95,7 @@ export default function (state = initialState, action) {
           meIsRequired: action.payload.meIsRequired,
           meIsReady: action.payload.meIsReady,
           waitingForOthers: action.payload.waitingForOthers,
-          actInstruction: newInstruction,
-          phase: newPhase
-
+          incomingInstruction: newInstruction,
         };
       }
       else {

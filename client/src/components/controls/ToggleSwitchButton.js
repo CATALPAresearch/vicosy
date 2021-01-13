@@ -7,7 +7,7 @@ export default class ToggleSwitchButton extends Component {
   render() {
     return (
       <div>
-        <button
+        <button 
           disabled={this.props.isDisabled}
           onClick={this.props.onToggle}
           className={classnames("btn btn-sm hFlexLayout", {

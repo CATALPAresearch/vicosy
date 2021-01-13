@@ -86,7 +86,7 @@ class ReadyContinueScriptButton extends Component {
     const continueContent = (
       <div id="ready-to-finish" className="ml-1">
         {this.state.waitingForOthers ? (
-          <div className="hFlexLayout">
+          <div className="hFlexLayout" id="toggle-switch">
             {this.state.meIsReady ? (
               <span className="mr-1">Waiting for peer...</span>
             ) : null}
@@ -97,7 +97,7 @@ class ReadyContinueScriptButton extends Component {
             />
           </div>
         ) : (
-            <button
+            <button id="toggle-switch"
               onClick={this.onButtonClick}
               className="btn btn-success btn-sm"
             >
