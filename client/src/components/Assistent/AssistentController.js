@@ -5,7 +5,7 @@ import {
 } from "../../actions/localStateActions";
 import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
 import { connect } from "react-redux";
-import { GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutor, DeepenTutee, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
+import {ReflexionPre, ReflexionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 
 
 export class AssistentController extends Component {
@@ -72,25 +72,79 @@ export class AssistentController extends Component {
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
-      case "DEEPENTUTOR":
-        actPhase = new DeepenTutor();
+      case "PREPARE":
+        actPhase = new PreparePre();
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
-      case "DEEPENTUTEE":
-        actPhase = new DeepenTutee();
+      case "PREPAREPOST":
+        actPhase = new PreparePost();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+      case "PRESENTTUTOR":
+        actPhase = new PresentTutorPre();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+      case "PRESENTTUTEE":
+        actPhase = new PresentTuteePre();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+      case "PRESENTTUTORPOST":
+        actPhase = new PresentTutorPost();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+      case "PRESENTTUTEEPOST":
+        actPhase = new PresentTuteePost();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+      case "DEEPENTUTOR":
+        actPhase = new DeepenTutorPre();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+      case "DEEPENTUTORPOST":
+        actPhase = new DeepenTutorPost();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+        case "DEEPENTUTEE":
+          actPhase = new DeepenTuteePre();
+          this.setState({ phase: actPhase });
+          this.props.setIncominginstruction(null);
+          this.props.setPhase(actPhase);
+          break;
+      case "DEEPENTUTEEPOST":
+        actPhase = new DeepenTuteePost();
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
       case "REFLEXION":
-        actPhase = new Reflexion();
+        actPhase = new ReflexionPre();
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
-
+        case "REFLEXIONPOST":
+          actPhase = new ReflexionPost();
+          this.setState({ phase: actPhase });
+          this.props.setIncominginstruction(null);
+          this.props.setPhase(actPhase);
+          break;
+  
       default:
 
         break;

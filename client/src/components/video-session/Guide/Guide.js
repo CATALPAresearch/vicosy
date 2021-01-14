@@ -15,6 +15,7 @@ class Guide extends Component {
 
 
   onConfirmed = () => {
+    //console.log(this.props.assistent.phase.name);
     this.props.closePublicGuide();
     switch (this.props.assistent.phase.name) {
       case "SEPARATESECTIONSTUTORPREP":
@@ -23,6 +24,26 @@ class Guide extends Component {
       case "SEPARATESECTIONSTUTEEPREP":
         this.setPhase("SEPARATESECTIONSTUTEEPOST");
         break;
+      case "PREPAREPRE":
+        this.setPhase("PREPAREPOST");
+        break;
+      case "PRESENTTUTEEPRE":
+        this.setPhase("PRESENTTUTEEPRE");
+        break;
+      case "PRESENTTUTORPRE":
+        this.setPhase("PRESENTTUTORPRE");
+        break;
+      case "DEEPENTUTEEPRE":
+        this.setPhase("DEEPENTUTEEPRE");
+        break;
+      case "DEEPENTUTORPRE":
+        this.setPhase("DEEPENTUTORPRE");
+        break;
+      case "REFLEXIONPRE":
+        this.setPhase("REFLEXIONPOST");
+        break;
+
+
 
     }
   };
