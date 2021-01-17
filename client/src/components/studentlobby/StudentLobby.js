@@ -16,7 +16,7 @@ export default class StudentLobby extends Component {
         <h1>Lernerlobby</h1>
         <RoomComponent roomId="studentlobby" component={SessionList} />
         
-        <SessionCreator />
+        {/*<SessionCreator />*/}
 
         <div className="lobby-chat">
           <RoomComponent roomId="studentlobby" component={Chat} />

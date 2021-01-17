@@ -5,7 +5,7 @@ import {
 } from "../../actions/localStateActions";
 import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
 import { connect } from "react-redux";
-import {ReflexionPre, ReflexionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
+import { ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 
 
 export class AssistentController extends Component {
@@ -20,7 +20,7 @@ export class AssistentController extends Component {
     else return null;
   }
   render() {
-    console.log(this.props.assistent);
+    console.log(this.props.script);
     return null;
 
 
@@ -33,9 +33,9 @@ export class AssistentController extends Component {
 
 
   setPhase(phase) {
-
     var actPhase = {};
-    switch (phase) {
+switch (phase) {
+  
       case "GETTOGETHER":
         actPhase = new GetTogether();
         this.setState({ phase: actPhase });
@@ -43,7 +43,7 @@ export class AssistentController extends Component {
         this.props.setPhase(actPhase);
         break;
       case "WARMUP":
-        actPhase = new WarmUp();
+        actPhase = new WarmUp(this.props.script.phase0Assignment);
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
@@ -120,31 +120,31 @@ export class AssistentController extends Component {
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
-        case "DEEPENTUTEE":
-          actPhase = new DeepenTuteePre();
-          this.setState({ phase: actPhase });
-          this.props.setIncominginstruction(null);
-          this.props.setPhase(actPhase);
-          break;
+      case "DEEPENTUTEE":
+        actPhase = new DeepenTuteePre();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
       case "DEEPENTUTEEPOST":
         actPhase = new DeepenTuteePost();
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
-      case "REFLEXION":
-        actPhase = new ReflexionPre();
+      case "REFLECTION":
+        actPhase = new ReflectionPre(this.props.script.phase5Assignment);
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
-        case "REFLEXIONPOST":
-          actPhase = new ReflexionPost();
-          this.setState({ phase: actPhase });
-          this.props.setIncominginstruction(null);
-          this.props.setPhase(actPhase);
-          break;
-  
+      case "REFLECTIONPOST":
+        actPhase = new ReflectionPost();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
+
       default:
 
         break;
@@ -163,7 +163,8 @@ export class AssistentController extends Component {
 
 
 const mapStateToProps = state => ({
-  assistent: state.assistent
+  assistent: state.assistent,
+  script: state.script
 });
 
 

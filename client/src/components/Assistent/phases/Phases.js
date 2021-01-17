@@ -9,18 +9,23 @@ export class GetTogether extends AbstractPhase {
     constructor() {
         super();
         this.name = "GETTOGETHER";
-        this.instructions.push(new Instruction("Warte auf deinen Partner!", ""));
+        this.instructions.push(new Instruction("Warte auf deinen Partner! ", ""));
     }
 
 }
 
 
 export class WarmUp extends AbstractPhase {
-    constructor() {
+    constructor(assignment) {
         super();
         this.name = "WARMUP";
-        this.instructions.push(new Instruction("Stell dich deinem Partner vor!", ""));
-        this.instructions.push(new Instruction("Du kannst den Chat dafür nutzen!", new Array(new Options("right", "id", "chat-write", 10, 0))));
+        if (assignment) {
+            this.instructions.push(new Instruction(assignment, ""));
+            this.instructions.push(new Instruction("Kommuniziere mit deinem Partner.", ""));
+        }
+        else
+            this.instructions.push(new Instruction("Stell dich deinem Partner vor!", ""));
+        this.instructions.push(new Instruction("Du kannst den Chat dafür nutzen! ", new Array(new Options("right", "id", "chat-write", 10, 0))));
         this.instructions.push(new Instruction("Oder eine Videoübertragung starten!", new Array(new Options("right", "id", "video-button", 0, 0))));
         this.instructions.push(new Instruction("Oder über Audio kommunizieren!", new Array(new Options("right", "id", "audio-button", 0, 0))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 20))));
@@ -32,7 +37,7 @@ export class SeparateSectionsTutorPrep extends AbstractPhase {
     constructor() {
         super();
         this.name = "SEPARATESECTIONSTUTORPRE";
-        this.instructions.push(new Instruction("Nun schaut ihr euch gemeinsam ein Video an und unterteilt es in Unterabschnitte.", ""));
+        this.instructions.push(new Instruction("Nun schaut ihr euch gemeinsam ein Video an und unterteilt es in Abschnitte.", ""));
         this.instructions.push(new Instruction("Später sollt ihr die Abschnitte zusammenfassen und euch gegenseitig vorstellen.", ""));
         this.instructions.push(new Instruction("Hier weiter!", new Array(new Options("right", "id", "ok-understand", 10, 0))));
     }
@@ -83,7 +88,7 @@ export class PreparePre extends AbstractPhase {
         super();
         this.name = "PREPAREPRE";
         this.instructions.push(new Instruction("In dieser Phase bereitest du jeweils aus einem Videoabschnitt einen Vortrag für deinen Partner vor.", ""));
-        
+
     }
 
 
@@ -113,7 +118,7 @@ export class PresentTuteePre extends AbstractPhase {
         super();
         this.name = "PRESENTTUTEEPRE";
         this.instructions.push(new Instruction("In dieser Phase hörst dir den Vortrag deines Partners an.", ""));
-        }
+    }
 
 
 }
@@ -126,7 +131,7 @@ export class PresentTuteePost extends AbstractPhase {
         this.name = "PRESENTTUTEEPOST";
         this.instructions.push(new Instruction("Stelle bei Bedarf Rückfragen.", ""));
         this.instructions.push(new Instruction("Mache dir hier Notizen ", new Array(new Options("right", "id", "notes-tab", 15, 0))));
-           this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
+        this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
     }
 
 
@@ -138,7 +143,7 @@ export class PresentTutorPre extends AbstractPhase {
         super();
         this.name = "PRESENTTUTORPRE";
         this.instructions.push(new Instruction("Stelle in dieser Phase deinem Partner deinen Vortrag vor.", ""));
-      }
+    }
 
 
 }
@@ -162,7 +167,7 @@ export class DeepenTutorPre extends AbstractPhase {
         super();
         this.name = "DEEPENTUTORPRE";
         this.instructions.push(new Instruction("Unterstüzte deinen Partner dabei, den Vortrag zusammenzufassen.", ""));
-      
+
     }
 }
 
@@ -171,8 +176,8 @@ export class DeepenTutorPost extends AbstractPhase {
         super();
         this.name = "DEEPENTUTORPOST";
         this.instructions.push(new Instruction("Korrigiere das gemeinsame Dokument.", new Array(new Options("right", "id", "doc-tab", 15, 0))));
-            this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
-    
+        this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
+
     }
 }
 
@@ -181,7 +186,7 @@ export class DeepenTuteePre extends AbstractPhase {
         super();
         this.name = "DEEPENTUTEEPRE";
         this.instructions.push(new Instruction("Fasse den Inhalt des Vortrags in einem gemeinsamen Dokument zusammen.", ""));
-           }
+    }
 }
 
 export class DeepenTuteePost extends AbstractPhase {
@@ -194,17 +199,21 @@ export class DeepenTuteePost extends AbstractPhase {
 }
 
 
-export class ReflexionPre extends AbstractPhase {
-    constructor() {
+export class ReflectionPre extends AbstractPhase {
+    constructor(assignment) {
         super();
-        this.name = "REFLEXIONPRE";
-        this.instructions.push(new Instruction("Vertieft euer Wissen gemeinsam.", ""));
-       }
+        this.name = "REFLECTIONPRE";
+        if (assignment)
+            this.instructions.push(new Instruction(assignment, ""));
+        else
+            this.instructions.push(new Instruction("Vertieft euer Wissen gemeinsam.", ""));
+
+    }
 }
-export class ReflexionPost extends AbstractPhase {
+export class ReflectionPost extends AbstractPhase {
     constructor() {
         super();
-        this.name = "REFLEXIONPOST";
-        this.instructions.push(new Instruction("Nutzt dafür alle Methoden, die ihr kennengelernt habt.", ""));
+        this.name = "REFLECTIONPOST";
+        this.instructions.push(new Instruction("Ihr könnt dafür auf alle bisherigen Methoden zugreifen.", ""));
     }
 }

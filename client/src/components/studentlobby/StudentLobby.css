@@ -1,5 +1,5 @@
 .lobby-chat {
-  height: 400px;
+  height: 200px;
   display: flex;
   overflow: auto;
   flex-direction: row;

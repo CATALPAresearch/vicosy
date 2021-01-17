@@ -162,6 +162,7 @@ class Assistent extends Component {
     }
 
     deleteIncomingInstruction() {
+        this.actualize();
         this.props.setIncominginstruction(null);
     }
 
@@ -169,18 +170,20 @@ class Assistent extends Component {
 
     componentDidMount() {
         window.addEventListener("resize", this.actualize.bind(this));
-       // this.arrows = null;
-       // this.getArrowPosition();
+        // this.arrows = null;
+        // this.getArrowPosition();
         this.actualize();
     }
 
     componentWillUnmount() {
         this.actualize();
         this.props.setActInstruction(null);
+        this.arrows = null;
     }
 
 
     render() {
+        console.log(this.props);
         {
             this.props.assistent.incomingInstruction ?
                 this.arrows = this.getArrowPositionIncoming() :

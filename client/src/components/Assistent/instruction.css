@@ -41,10 +41,15 @@
     position:absolute;
     right: 10px;
   }
+.inst-text {
+    padding-right:35px;
+
+}
 
   #quit {
     position:absolute;
     right: 10px;
+    
   }
 
   /* Dreieck: weisse Innenfläche */

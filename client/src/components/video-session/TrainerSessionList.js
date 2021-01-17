@@ -21,10 +21,10 @@ export class TrainerSessionList extends Component {
     this.props.checkRemovedScript(this.props.auth.user.id, this.props.script.scripts);
   }
 
- /* startScriptRemoveListener() {
-    this.props.checkRemovedScript(this.props.auth.user.id, this.props.script.scripts);
-    console.log(this.props.script.scripts);
-  }*/
+  /* startScriptRemoveListener() {
+     this.props.checkRemovedScript(this.props.auth.user.id, this.props.script.scripts);
+     console.log(this.props.script.scripts);
+   }*/
   render() {
     const { roomAvailable, roomData } = this.props.roomState;
     var sessionsToRender = null;
@@ -60,8 +60,8 @@ export class TrainerSessionList extends Component {
           } else {
             alert("Group not found");
           }
-          console.log(group._id);
-          return (
+        console.log(group._id);
+        return (
           <tr key={group._id}>
             <th scope="row">{script.scriptName}</th>
             <td className="force-break">{script.videourl}</td>
@@ -72,10 +72,11 @@ export class TrainerSessionList extends Component {
             <td>{script.scriptType}</td>
             <td>
               <Link
+                onClick={(e) => this.setScript(script._id)}
                 to={`/session/${group._id}`}
                 scriptid={script._id}
                 className="btn btn-success"
-                onClick={(e) => this.setScript(script._id)}
+
               >
                 join
                 <span className="badge ml-2 badge-light">
@@ -87,7 +88,7 @@ export class TrainerSessionList extends Component {
         );
 
       });
-    
+
     /*
     var sessionsToRender = null;
     if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {

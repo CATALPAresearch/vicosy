@@ -14,7 +14,9 @@ class Instruction extends Component {
         return (
             <div className="instruction">
                 <div className="sprechblase">
+                    <span className="inst-text">
                     {this.props.instruction ? this.props.instruction.text : null}
+                    </span>
                     <span id="arrows">
                         {this.props.hasPrevious?
                         <i className="far fa-arrow-alt-circle-left fa-2x" onClick={previousInstruction}></i>:null}

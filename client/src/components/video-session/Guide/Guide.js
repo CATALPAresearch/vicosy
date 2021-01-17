@@ -39,8 +39,8 @@ class Guide extends Component {
       case "DEEPENTUTORPRE":
         this.setPhase("DEEPENTUTORPOST");
         break;
-      case "REFLEXIONPRE":
-        this.setPhase("REFLEXIONPOST");
+      case "REFLECTIONPRE":
+        this.setPhase("REFLECTIONPOST");
         break;
 
 
