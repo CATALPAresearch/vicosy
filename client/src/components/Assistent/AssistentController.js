@@ -33,7 +33,7 @@ export class AssistentController extends Component {
 
 
   setPhase(phase) {
-    alert(phase);
+
     var actPhase = {};
     switch (phase) {
       case "GETTOGETHER":

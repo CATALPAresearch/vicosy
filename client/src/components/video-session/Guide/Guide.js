@@ -18,26 +18,26 @@ class Guide extends Component {
     //console.log(this.props.assistent.phase.name);
     this.props.closePublicGuide();
     switch (this.props.assistent.phase.name) {
-      case "SEPARATESECTIONSTUTORPREP":
+      case "SEPARATESECTIONSTUTORPRE":
         this.setPhase("SEPARATESECTIONSTUTORPOST");
         break;
-      case "SEPARATESECTIONSTUTEEPREP":
+      case "SEPARATESECTIONSTUTEEPRE":
         this.setPhase("SEPARATESECTIONSTUTEEPOST");
         break;
       case "PREPAREPRE":
         this.setPhase("PREPAREPOST");
-        break;
+      break;
       case "PRESENTTUTEEPRE":
-        this.setPhase("PRESENTTUTEEPRE");
+        this.setPhase("PRESENTTUTEEPOST");
         break;
       case "PRESENTTUTORPRE":
-        this.setPhase("PRESENTTUTORPRE");
+        this.setPhase("PRESENTTUTORPOST");
         break;
       case "DEEPENTUTEEPRE":
-        this.setPhase("DEEPENTUTEEPRE");
+        this.setPhase("DEEPENTUTEEPOST");
         break;
       case "DEEPENTUTORPRE":
-        this.setPhase("DEEPENTUTORPRE");
+        this.setPhase("DEEPENTUTORPOST");
         break;
       case "REFLEXIONPRE":
         this.setPhase("REFLEXIONPOST");
@@ -114,5 +114,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { closePublicGuide /*, setPhase*/ }
+  { closePublicGuide}
 )(Guide);

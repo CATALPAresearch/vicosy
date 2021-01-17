@@ -22,7 +22,8 @@ class Assistent extends Component {
             arrows: ""
         };
         this.assistentControlRef = null;
-
+        this.arrows = this.getArrowPosition();
+        this.renderDepth = 0;
         // window.onresize = this.setArrowPosition;
 
 
@@ -39,9 +40,7 @@ class Assistent extends Component {
     }
 
 
-    componentDidMount() {
-        window.addEventListener("resize", this.actualize.bind(this));
-    }
+
 
 
     getArrowPosition() {
@@ -166,16 +165,30 @@ class Assistent extends Component {
         this.props.setIncominginstruction(null);
     }
 
+
+
+    componentDidMount() {
+        window.addEventListener("resize", this.actualize.bind(this));
+       // this.arrows = null;
+       // this.getArrowPosition();
+        this.actualize();
+    }
+
+    componentWillUnmount() {
+        this.actualize();
+        this.props.setActInstruction(null);
+    }
+
+
     render() {
-        var arrows = {};
         {
             this.props.assistent.incomingInstruction ?
-            arrows = this.getArrowPositionIncoming() :
-            arrows = this.getArrowPosition()
+                this.arrows = this.getArrowPositionIncoming() :
+                this.arrows = this.getArrowPosition()
         }
         return (
             <div id="assistent">
-                {arrows};
+                {this.arrows}
 
                 <div id="overlay" style={{ display: this.state.display }}>
                     <div id="text">
