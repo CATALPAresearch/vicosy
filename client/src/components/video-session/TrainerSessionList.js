@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect, useStore } from "react-redux";
 import { checkRemovedScript, getMyScripts, getScriptById, getMyScriptsBySocket } from "../../actions/scriptActions";
+import { getScriptByIdCallback } from "../../actions/scriptActions";
 import { SET_SCRIPT_MEMBERS } from "../../actions/types";
 
 export class TrainerSessionList extends Component {
@@ -11,8 +12,12 @@ export class TrainerSessionList extends Component {
     var listener = false;
 
   }
-  setScript(scriptId) {
-    this.props.getScriptById(scriptId);
+  setScript(scriptId, groupId) {
+    this.props.getScriptByIdCallback(scriptId, () => {
+    this.props.history.push(`/session/${groupId}`);
+
+    });
+
 
   }
 
@@ -71,9 +76,8 @@ export class TrainerSessionList extends Component {
             </td>
             <td>{script.scriptType}</td>
             <td>
-              <Link
-                onClick={(e) => this.setScript(script._id)}
-                to={`/session/${group._id}`}
+              <button
+                onClick={(e) => this.setScript(script._id, group._id)}
                 scriptid={script._id}
                 className="btn btn-success"
 
@@ -82,7 +86,7 @@ export class TrainerSessionList extends Component {
                 <span className="badge ml-2 badge-light">
                   {script.clientCount}
                 </span>
-              </Link>
+              </button>
             </td>
           </tr>
         );
@@ -148,6 +152,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { getMyScripts, getMyScriptsBySocket, getScriptById, checkRemovedScript },
+  mapStateToProps, {getScriptByIdCallback, getMyScripts, getMyScriptsBySocket, getScriptById, checkRemovedScript },
   null
-)(TrainerSessionList);
+)(withRouter(TrainerSessionList));

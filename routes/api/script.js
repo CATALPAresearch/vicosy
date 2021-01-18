@@ -13,6 +13,7 @@ const validateSuscribeInput = require("../../validation/subscribeToScript");
 const isEmpty = require("../../validation/is-empty");
 const { faHandSparkles } = require("@fortawesome/free-solid-svg-icons");
 const dbsocketevents = require("../../socket-handlers/db-socket-events");
+const script = require("../../validation/script");
 
 
 
@@ -119,6 +120,57 @@ router.post("/getmyscripts", (req, res) => {
     )
 
 })
+
+
+// @route   POST api/script/getscriptbygroup
+// @desc    Gets scripts where user is member
+// @access  Public
+router.post("/getscriptbygroup", (req, res) => {
+
+    let groupId = req.body._id;
+    var qScript;
+ 
+    Script.find().then(scripts => {
+        if (scripts) {
+            for (var script of scripts) {
+                for (var group of script.groups)
+                    if (group._id == groupId) {
+                        console.log("Script found ");
+                        qScript = script;
+                    }
+            }
+            console.log(qScript);
+            if (qScript){
+                console.log("zuerück");
+                res.json({
+                    qScript
+                });
+            }
+            else {
+                console.log("No Script");
+                let errors = {};
+                errors.warning = "No Scripts available";
+                return res.status(400).json(errors);
+            }
+
+        } else {
+            console.log("Error getting Scripts by Id");
+            let errors = {};
+            errors.warning = "No Scripts available";
+            return res.status(400).json(errors);
+        }
+    }
+    ).catch(errors => {
+        console.log(errors);
+        return res.status(400).json(errors);
+    }
+    )
+
+})
+
+
+
+
 
 
 // @route   POST api/script/getscriptbyid

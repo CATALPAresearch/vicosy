@@ -4,6 +4,7 @@ import {
   closePublicGuide
 } from "../../actions/localStateActions";
 import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
+import { getScriptById } from "../../actions/scriptActions";
 import { connect } from "react-redux";
 import { ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 
@@ -22,8 +23,6 @@ export class AssistentController extends Component {
   render() {
     console.log(this.props.script);
     return null;
-
-
   }
 
   componentDidMount() {
@@ -34,8 +33,8 @@ export class AssistentController extends Component {
 
   setPhase(phase) {
     var actPhase = {};
-switch (phase) {
-  
+    switch (phase) {
+
       case "GETTOGETHER":
         actPhase = new GetTogether();
         this.setState({ phase: actPhase });
@@ -164,13 +163,14 @@ switch (phase) {
 
 const mapStateToProps = state => ({
   assistent: state.assistent,
-  script: state.script
+  script: state.script,
+  localState: state.localState
 });
 
 
 export default connect(
   mapStateToProps,
-  { openPublicGuide, closePublicGuide, setPhase, setActInstruction, setIncominginstruction }
+  { openPublicGuide, closePublicGuide, setPhase, setActInstruction, setIncominginstruction, getScriptById }
 )(AssistentController);
 
 

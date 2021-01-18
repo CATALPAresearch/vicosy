@@ -255,7 +255,7 @@ class UserListItemSession extends Component {
     ) : null;
 
     return (
-      <div
+      <div id="awareness-partner"
         key={clientId}
         className={classnames("session-user-item", {
           "session-user-item-own": isOwn

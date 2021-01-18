@@ -441,6 +441,49 @@ export const getScriptById = (scriptId) => dispatch => {
 }
 
 
+
+//get Script by GroupId
+export const getScriptByGroupId = (groupId, callback) => dispatch => {
+  let group = { _id: groupId};
+  axios
+    .post("/api/script/getscriptbygroup", group)
+    .then(res => {
+      dispatch({
+        type: SET_ACT_SCRIPT,
+        payload: res.data.qScript
+      });
+      callback();
+    }).catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.data
+      });
+    });
+}
+
+
+
+//get Script by Id
+export const getScriptByIdCallback = (scriptId, callback) => dispatch => {
+  let script = { _id: scriptId };
+  axios
+    .post("/api/script/getscriptbyid", script)
+    .then(res => {
+      dispatch({
+        type: SET_ACT_SCRIPT,
+        payload: res.data.script
+      });
+      callback();
+    }).catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+}
+
+
+
 export const subScribeToScript = (userId, name, expLevel, scriptId, role, callback) => dispatch => {
 
   let options =

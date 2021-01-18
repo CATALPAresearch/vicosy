@@ -28,8 +28,9 @@ export class WarmUp extends AbstractPhase {
         this.instructions.push(new Instruction("Du kannst den Chat dafür nutzen! ", new Array(new Options("right", "id", "chat-write", 10, 0))));
         this.instructions.push(new Instruction("Oder eine Videoübertragung starten!", new Array(new Options("right", "id", "video-button", 0, 0))));
         this.instructions.push(new Instruction("Oder über Audio kommunizieren!", new Array(new Options("right", "id", "audio-button", 0, 0))));
+        this.instructions.push(new Instruction("Hier siehst du, was dein Partner gerade macht.", new Array(new Options("down", "id", "awareness-partner", -50, 160))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 20))));
-
+        
     }
 }
 

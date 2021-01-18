@@ -14,17 +14,22 @@ class Instruction extends Component {
         return (
             <div className="instruction">
                 <div className="sprechblase">
-                    <span className="inst-text">
-                    {this.props.instruction ? this.props.instruction.text : null}
-                    </span>
-                    <span id="arrows">
-                        {this.props.hasPrevious?
-                        <i className="far fa-arrow-alt-circle-left fa-2x" onClick={previousInstruction}></i>:null}
-                        {this.props.hasNext?
-                        <i className="far fa-arrow-alt-circle-right fa-2x" onClick={nextInstruction}></i>:null}
-                    </span>
+                    <div class="row">
+                        <div className="col-10">
+                            {this.props.instruction ? this.props.instruction.text : null}
+                        </div>
+
+                        <div className="col-2">
+                            <span id="arrows">
+                                {this.props.hasPrevious ?
+                                    <i className="far fa-arrow-alt-circle-left fa-2x" onClick={previousInstruction}></i> : null}
+                                {this.props.hasNext ?
+                                    <i className="far fa-arrow-alt-circle-right fa-2x" onClick={nextInstruction}></i> : null}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div >
         )
     }
 }

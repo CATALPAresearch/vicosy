@@ -44,6 +44,7 @@ import AnnotationOverview from "./Sidebar/AnnotationOverview/AnnotationOverview"
 import { withLastLocation } from "react-router-last-location";
 import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContainer";
 import Guide from "./Guide/Guide";
+import { getScriptByGroupId } from "../../actions/scriptActions";
 
 class VideoSession extends Component {
   constructor(props) {
@@ -80,9 +81,13 @@ class VideoSession extends Component {
   }
 
   initialize() {
-    window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
-    window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
-    this.updateRoomState(this.props);
+
+    this.props.getScriptByGroupId(this.props.match.params.sessionId, () => {
+      window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
+      window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
+      this.updateRoomState(this.props);
+    });
+
   }
 
   componentWillUnmount() {
@@ -145,7 +150,7 @@ class VideoSession extends Component {
     if (
       sessionId in this.props.rooms.rooms &&
       ownSocketId() in
-        this.props.rooms.rooms[sessionId].state.sharedRoomData.clients
+      this.props.rooms.rooms[sessionId].state.sharedRoomData.clients
     )
       return this.props.rooms.rooms[sessionId].state.sharedRoomData.clients[
         ownSocketId()
@@ -153,7 +158,7 @@ class VideoSession extends Component {
     else return null;
   }
 
-  getTargetPlayerComponent() {}
+  getTargetPlayerComponent() { }
 
   render() {
     const { sessionId } = this.props.match.params;
@@ -303,5 +308,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setError, resetLocalState }
+  { setError, resetLocalState, getScriptByGroupId }
 )(withRouter(withLastLocation(VideoSession)));
