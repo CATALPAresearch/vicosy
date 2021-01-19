@@ -7,15 +7,25 @@ import UserList from "../userlist/UserList";
 import UserListItemDefault from "../userlist/UserListItemDefault";
 import "./StudentLobby.css";
 import Logger from "../logic-controls/Logger";
+import AssistentController from "../Assistent/AssistentController";
+import { STUDENTLOBBY } from "../Assistent/phases/types";
 
 export default class StudentLobby extends Component {
+  constructor() {
+    super();
+    this.assistentControlRef = null;
+  }
+  componentDidMount() {
+    this.assistentControlRef.setPhase(STUDENTLOBBY);
+  }
   render() {
     return (
       <div className="container mt-4">
+        <AssistentController createRef={el => (this.assistentControlRef = el)} />
         <Logger roomId="studentlobby" />
         <h1>Lernerlobby</h1>
         <RoomComponent roomId="studentlobby" component={SessionList} />
-        
+
         {/*<SessionCreator />*/}
 
         <div className="lobby-chat">
@@ -25,8 +35,8 @@ export default class StudentLobby extends Component {
             component={UserList}
             userListItemComponent={UserListItemDefault}
           />
-          
-          
+
+
         </div>
       </div>
     );

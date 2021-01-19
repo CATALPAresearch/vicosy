@@ -6,7 +6,8 @@ import {
 import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
 import { getScriptById } from "../../actions/scriptActions";
 import { connect } from "react-redux";
-import { ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
+import {StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
+import { STUDENTLOBBY } from "./phases/types";
 
 
 export class AssistentController extends Component {
@@ -21,10 +22,11 @@ export class AssistentController extends Component {
     else return null;
   }
   render() {
-    console.log(this.props.script);
+    console.log(this.props);
     return null;
   }
 
+ 
   componentDidMount() {
     this.props.createRef(this);
   }
@@ -35,6 +37,12 @@ export class AssistentController extends Component {
     var actPhase = {};
     switch (phase) {
 
+      case STUDENTLOBBY:
+        actPhase = new StudentLobby();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
       case "GETTOGETHER":
         actPhase = new GetTogether();
         this.setState({ phase: actPhase });

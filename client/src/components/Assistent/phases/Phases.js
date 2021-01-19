@@ -2,16 +2,35 @@ import React, { Component } from "react";
 import AbstractPhase from "./AbstractPhase";
 import Instruction from "./Instruction";
 import Options from "./Options";
+import {STUDENTLOBBY} from "./types";
 
 
 
 export class GetTogether extends AbstractPhase {
     constructor() {
         super();
+        this.url = window.location.href;
         this.name = "GETTOGETHER";
-        this.instructions.push(new Instruction("Warte auf deinen Partner! ", ""));
+        this.instructions.push(new Instruction("Warte auf deinen Partner oder lade ihn über diese URL ein: " + this.url , ""));
+
+
     }
 
+}
+
+
+
+export class StudentLobby extends AbstractPhase {
+    constructor() {
+        super();
+        this.name = STUDENTLOBBY;
+        this.instructions.push(new Instruction("Willkommmen in der Lobby für das kollaborative Arbeiten mit Videos in Partnerarbeit.", ""));
+        this.instructions.push(new Instruction("Unten siehst du die Videosessions, die dir zur Verfügung stehen.", ""));
+        
+                this.instructions.push(new Instruction("Um eine Sitzung durchzuführen, müssen beide Partner gleichzeitig die Sitzung starten.", ""));
+        this.instructions.push(new Instruction("Starte mit den grünen Buttons eine Sitzung ", new Array(new Options("right", "id", "join-session", 20, 0))));
+        
+    }
 }
 
 
@@ -30,7 +49,7 @@ export class WarmUp extends AbstractPhase {
         this.instructions.push(new Instruction("Oder über Audio kommunizieren!", new Array(new Options("right", "id", "audio-button", 0, 0))));
         this.instructions.push(new Instruction("Hier siehst du, was dein Partner gerade macht.", new Array(new Options("down", "id", "awareness-partner", -50, 160))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 20))));
-        
+
     }
 }
 

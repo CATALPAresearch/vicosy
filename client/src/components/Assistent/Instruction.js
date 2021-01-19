@@ -14,7 +14,7 @@ class Instruction extends Component {
         return (
             <div className="instruction">
                 <div className="sprechblase">
-                    <div class="row">
+                    <div className="row">
                         <div className="col-10">
                             {this.props.instruction ? this.props.instruction.text : null}
                         </div>

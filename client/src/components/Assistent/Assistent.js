@@ -10,6 +10,8 @@ import AssistentController from "./AssistentController";
 import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction } from "../../actions/assistentActions";
 import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import Arrow from 'react-arrow';
+import { getScriptById } from "../../actions/scriptActions";
+
 
 
 class Assistent extends Component {
@@ -130,6 +132,8 @@ class Assistent extends Component {
 
 
     nextInstruction() {
+        this.arrows = null;
+        this.props.setActInstruction(null);
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
 
             this.props.nextInstruction();
@@ -140,6 +144,7 @@ class Assistent extends Component {
     }
 
     previousInstruction() {
+        this.arrows = null;
         if (this.props.assistent.phase.pointer > 0) {
             this.props.previousInstruction();
 
@@ -148,7 +153,13 @@ class Assistent extends Component {
 
     }
 
+    resetInstructions () {
+        this.props.setActInstruction(null);
+        this.arrows=null;
+    }
+
     getActInstruction() {
+        this.arrows = null;
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer])
             return this.props.assistent.phase.instructions[this.props.assistent.phase.pointer];
         else return null;
@@ -156,6 +167,7 @@ class Assistent extends Component {
 
 
     setActInstruction() {
+        this.arrows = null;
         this.props.setActInstruction(null);
         this.props.setActInstruction(this.props.assistent.phase.instructions[this.props.assistent.phase.pointer]);
 
@@ -230,7 +242,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps, { AssistentController, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
+    mapStateToProps, { AssistentController, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
 )(withRouter(Assistent));
 
 

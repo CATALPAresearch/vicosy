@@ -11,10 +11,11 @@ export class TrainerSessionList extends Component {
     this.props.getMyScripts(this.props.auth.user.id, this.callback.bind(this));
     var listener = false;
 
+
   }
   setScript(scriptId, groupId) {
     this.props.getScriptByIdCallback(scriptId, () => {
-    this.props.history.push(`/session/${groupId}`);
+      this.props.history.push(`/session/${groupId}`);
 
     });
 
@@ -33,6 +34,8 @@ export class TrainerSessionList extends Component {
   render() {
     const { roomAvailable, roomData } = this.props.roomState;
     var sessionsToRender = null;
+
+
     console.log(this.props.roomState);
     if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
       const { sessions } = roomData.state.sharedRoomData;
@@ -57,7 +60,7 @@ export class TrainerSessionList extends Component {
     if (!this.props.script.scripts) return null;
     else
       scriptsToRender = this.props.script.scripts.map(script => {
-
+        var firstElement = true;
         var myGroup = null;
         for (var group of script.groups)
           if (group.groupMembers.some(member => member._id === this.props.auth.user.id)) {
@@ -76,18 +79,33 @@ export class TrainerSessionList extends Component {
             </td>
             <td>{script.scriptType}</td>
             <td>
-              <button
-                onClick={(e) => this.setScript(script._id, group._id)}
-                scriptid={script._id}
-                className="btn btn-success"
+              {firstElement ?
+                <button
+                  onClick={(e) => this.setScript(script._id, group._id)}
+                  scriptid={script._id}
+                  className="btn btn-success"
+                  id="join-session"
 
-              >
-                join
+                >
+                  join
                 <span className="badge ml-2 badge-light">
-                  {script.clientCount}
-                </span>
-              </button>
+                    {script.clientCount}
+                  </span>
+                </button>
+                : <button
+                  onClick={(e) => this.setScript(script._id, group._id)}
+                  scriptid={script._id}
+                  className="btn btn-success"
+
+                >
+                  join
+              <span className="badge ml-2 badge-light">
+                    {script.clientCount}
+                  </span>
+                </button>
+                }
             </td>
+            {firstElement=false}
           </tr>
         );
 
@@ -132,7 +150,7 @@ export class TrainerSessionList extends Component {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Session</th>
+              <th id="session-list" scope="col">Session</th>
               <th scope="col">Video-Url</th>
               <th scope="col">Teilnehmer</th>
               <th scope="col">Collaboration</th>
@@ -152,6 +170,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, {getScriptByIdCallback, getMyScripts, getMyScriptsBySocket, getScriptById, checkRemovedScript },
+  mapStateToProps, { getScriptByIdCallback, getMyScripts, getMyScriptsBySocket, getScriptById, checkRemovedScript },
   null
 )(withRouter(TrainerSessionList));
