@@ -3,16 +3,15 @@ const onChange = require("on-change");
 const VideoDBApi = require("../models/Video");
 const ScriptDBApi = require("../models/Script");
 const UsersDBApi = require("../models/User");
-
-
 const sessionTypes = require("../client/src/shared_constants/sessionTypes");
-
 const winston = require("../winston-setup");
 const { logToRoom, clearRoomLogger } = require("../winston-room-logger");
 const {
   tryCreateSessionProcessor
 } = require("../scripted-collaboration/processor-creator");
 const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
+const AssistentProcessor = require("../scripted-collaboration/assistent/assistent-processor");
+
 
 const roomsData = { lobby: {} };
 const roomProcessors = {}; // room id => processor
@@ -21,6 +20,7 @@ const roomProcessors = {}; // room id => processor
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
   //init sessions
+  this.AssistentProcessor = new AssistentProcessor();
 
   this.initSessions = function (callback) {
 
@@ -55,50 +55,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
   }
 
-
-
-
-
-
-  /*
-    var started = false;
-    if (!started)
-      ScriptDBApi.find({ started: true }).then(scripts => {
-        for (var script of scripts) {
-          for (var group of script.groups) {
-            createTrainerSession(String(script.scriptName), String(script.videourl), String(script.scriptType), String(group._id));
-          }
-  
-        }
-        started = true;
-      }).catch(errors => {
-        console.log(errors);
-      });
-  */
-
-
-
-  /**
-   * SCRIPT
-   */
-  /*
-    clientSocket.on("getScriptMembers", scriptId => {
-      ScriptDBApi.findById(scriptId).then(script => {
-  
-        clientSocket.emit("returnScriptMembers", script);
-      }).catch(
-        errors => {
-          clientSocket.emit("returnScriptMembers", errors);
-        });
-    });
-  
-  */
-
-
-
-
   clientSocket.on("notifyMembers", script => {
-      if (script.groups)
+    if (script.groups)
       for (var group of script.groups) {
         createTrainerSession(script, script._id, script.scriptName, script.videourl, script.scriptType, group);
       }
@@ -228,14 +186,14 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     const roomId = String(group._id);
     //save space from unnessessary data
     // console.log(script);
-/*
-    if (script._doc)
-      var scriptshort = Object.assign({}, script._doc);
-    else
-      var scriptshort = Object.assign({}, script);
-    scriptshort.groups = {};
-    scriptshort.participants = {};
-    */
+    /*
+        if (script._doc)
+          var scriptshort = Object.assign({}, script._doc);
+        else
+          var scriptshort = Object.assign({}, script);
+        scriptshort.groups = {};
+        scriptshort.participants = {};
+        */
     // console.log(scriptshort);
     if (roomId in roomsData) {
       console.log("ERROR: TrainerSession already available", roomId);
@@ -261,7 +219,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
       phase0Assignment: script.phase0Assignment,
       isPhase5: script.isPhase5,
       phase5Assignment: script.phase5Assignment,
-      groupSize: script.groupSize, 
+      groupSize: script.groupSize,
       group: script.group
 
 
@@ -293,7 +251,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     if (processor) processor.initialize();
 
   }
-  
+
 
   /**
    * STREAM ROOMS
@@ -422,6 +380,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
         clientBased ? clientSocket.id : null,
         playtime
       );
+      this.AssistentProcessor.setVideoAnnotation();
 
       VideoDBApi.setAnnotation(
         roomsData[roomId].meta.videoUrl,
@@ -509,6 +468,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
    * */
 
   clientSocket.on("chatMessage", (roomId, message, receiverId = -1) => {
+    this.AssistentProcessor.sentChatMessage();
     sendChatMessage(
       socketIO,
       roomId,
