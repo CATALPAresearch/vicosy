@@ -30,18 +30,19 @@ class VideoSessionController extends Component {
       videoUrl: "",
       playerApiInitialized: false,
       playBackUserAction: {}
-          };
+    };
 
     this.onPlayRequest = this.onPlayRequest.bind(this);
     this.onPauseRequest = this.onPauseRequest.bind(this);
     this.onSeekRequest = this.onSeekRequest.bind(this);
     this.onPlayerApiInitialized = this.onPlayerApiInitialized.bind(this);
     this.updateRefs = this.updateRefs.bind(this);
-    this.assistentProcessor = new AssistentProcessor(this.props.roomId, this.props.auth.user.id);
-  
+    console.log(this.props);
   }
 
   componentDidMount() {
+    this.assistentProcessor = new AssistentProcessor(this.props.roomId, this.props.auth.user.id, this.props.roomState.roomData);
+
     this.player = this.props.playerRef.current;
     this.playback = this.props.playBackRef.current;
 
@@ -100,6 +101,7 @@ class VideoSessionController extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    
     const { roomAvailable, roomData } = nextProps.roomState;
 
     if (roomAvailable && roomData.state.sharedRoomData.meta) {
@@ -184,8 +186,9 @@ VideoSessionController.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  localState: state.localState, 
-  auth: state.auth
+  localState: state.localState,
+  auth: state.auth,
+  script: state.script
 });
 
 export default connect(
