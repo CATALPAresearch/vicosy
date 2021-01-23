@@ -14,8 +14,6 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
   constructor(meta, sessionData, emitSharedRoomData, socketIO) {
     super(meta, sessionData, emitSharedRoomData, socketIO);
 
-
-
     this.processQueue = this.processQueue.bind(this);
     this.generateNextStepsBySectionsAndContinue = this.generateNextStepsBySectionsAndContinue.bind(
       this

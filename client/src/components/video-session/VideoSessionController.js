@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { setSyncState } from "../../actions/localStateActions";
 import DialogController from "./PhaseControllers/DialogController";
 import connectUIState from "../../highOrderComponents/UIStateConsumer";
+import AssistentProcessor from "./Activities/assistent-processor";
 
 // component that controls session and speaks with AbstractPlayer and Redux state
 // must be used as a RoomComponent
@@ -29,13 +30,15 @@ class VideoSessionController extends Component {
       videoUrl: "",
       playerApiInitialized: false,
       playBackUserAction: {}
-    };
+          };
 
     this.onPlayRequest = this.onPlayRequest.bind(this);
     this.onPauseRequest = this.onPauseRequest.bind(this);
     this.onSeekRequest = this.onSeekRequest.bind(this);
     this.onPlayerApiInitialized = this.onPlayerApiInitialized.bind(this);
     this.updateRefs = this.updateRefs.bind(this);
+    this.assistentProcessor = new AssistentProcessor(this.props.roomId, this.props.auth.user.id);
+  
   }
 
   componentDidMount() {
@@ -181,7 +184,8 @@ VideoSessionController.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  localState: state.localState
+  localState: state.localState, 
+  auth: state.auth
 });
 
 export default connect(

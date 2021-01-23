@@ -101,8 +101,14 @@ export const ownSocketId = () => {
   return socket.id;
 };
 
+/**
+ * ActivityEvents
+ * 
+ */
 
-
+ export const isActive = (scriptId, userId) => {
+console.log("Alive message!");
+ }
 
 /**
  * Generic Events (lightweight, eventually not part of redux state, e.g. draw)

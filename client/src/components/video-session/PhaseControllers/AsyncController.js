@@ -3,14 +3,17 @@ import React, { Component } from "react";
 import { setAsyncTime } from "../../../actions/localStateActions";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
 
+
 const asyncTimeUpdateDelta = 3; // update if last state is x seconds away
 // directly converts user interactions to videoplayer commands
 // saves current play behaviour into shared localState
 class AsyncController extends Component {
   constructor(props) {
     super(props);
-
+    console.log(this.props.localState);
+    console.log(this.props.auth);
     this.onVideoTimeUpdate = this.onVideoTimeUpdate.bind(this);
+   
   }
 
   render() {
@@ -64,7 +67,8 @@ class AsyncController extends Component {
 }
 
 const mapStateToProps = state => ({
-  localState: state.localState
+  localState: state.localState,
+  auth: state.auth
 });
 
 export default connect(

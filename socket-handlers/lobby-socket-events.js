@@ -10,7 +10,7 @@ const {
   tryCreateSessionProcessor
 } = require("../scripted-collaboration/processor-creator");
 const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
-const AssistentProcessor = require("../scripted-collaboration/assistent/assistent-processor");
+// const AssistentProcessor = require("../scripted-collaboration/assistent/assistent-processor");
 
 
 const roomsData = { lobby: {} };
@@ -20,7 +20,7 @@ const roomProcessors = {}; // room id => processor
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
   //init sessions
-  this.AssistentProcessor = new AssistentProcessor();
+//  this.AssistentProcessor = new AssistentProcessor();
 
   this.initSessions = function (callback) {
 
@@ -380,7 +380,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
         clientBased ? clientSocket.id : null,
         playtime
       );
-      this.AssistentProcessor.setVideoAnnotation();
+      // this.AssistentProcessor.setVideoAnnotation();
 
       VideoDBApi.setAnnotation(
         roomsData[roomId].meta.videoUrl,
@@ -468,7 +468,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
    * */
 
   clientSocket.on("chatMessage", (roomId, message, receiverId = -1) => {
-    this.AssistentProcessor.sentChatMessage();
+    // this.AssistentProcessor.sentChatMessage();
     sendChatMessage(
       socketIO,
       roomId,
