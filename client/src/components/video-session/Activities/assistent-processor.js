@@ -1,9 +1,20 @@
-const {isActive} = require("../../../socket-handlers/api")
+import React, { Component } from "react";
+import { connect } from "react-redux";
+const { isActive, listenActiveMessage } = require("../../../socket-handlers/api")
+
 
 // base class for assitent processor for backend Messages
-module.exports = class AssistentProcessor {
-    constructor(sessionId, userId) {
-        var interval = setInterval(function () { sendActiveMessage(sessionId, userId); }, 3000);
+export class AssistentProcessor extends Component {
+
+    constructor(props) {
+        super(props);
+        this.sessionId = this.props.sessionId;
+        this.userId = this.props.userId;
+        this.clients = this.props.clients;
+        this.userName = this.props.userName;
+
+        listenActiveMessage(this.sessionId, result => console.log("Action alive"));
+        var interval = setInterval(function () { sendActiveMessage(this.sessionId, this.userId, this.userName, this.clients); }, 3000);
         var timeOut = setTimeout(function () {
             clearInterval(interval);
             console.log("not active");
@@ -17,7 +28,7 @@ module.exports = class AssistentProcessor {
                     console.log("not active");
                 }, 3000);
                 if (!interval)
-                    interval = setInterval(function () { sendActiveMessage(sessionId, userId); }, 3000);
+                    interval = setInterval(function () { sendActiveMessage(this.sessionId, this.userId, this.userName, this.clients); }, 3000);
 
 
             })
@@ -30,17 +41,35 @@ module.exports = class AssistentProcessor {
                     console.log("not active");
                 }, 3000);
                 if (!interval)
-                    interval = setInterval(function () { sendActiveMessage(sessionId, userId); }, 3000);
+                    interval = setInterval(function () { sendActiveMessage(this.sessionId, this.userId, this.userName, this.clients); }, 3000);
 
             })
+        function sendActiveMessage(sessionId, userId, userName, clients) {
+            alert(sessionId);
+            isActive(sessionId, userId, userName, clients);
 
-
+        }
     }
 
 
-}
-function sendActiveMessage(sessionId, userId) {
-    isActive();
+
+
+    render() {
+        return null;
+    }
+
+
 
 }
+
+
+const mapStateToProps = state => ({
+    localState: state.localState,
+    auth: state.auth,
+    script: state.script
+});
+
+export default connect(
+    mapStateToProps
+)(AssistentProcessor);
 

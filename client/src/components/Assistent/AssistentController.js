@@ -14,7 +14,7 @@ export class AssistentController extends Component {
   constructor() {
     super();
     this.state = { phase: {} };
-  }
+    }
 
   getActInstruction() {
     if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer])

@@ -37,12 +37,11 @@ class VideoSessionController extends Component {
     this.onSeekRequest = this.onSeekRequest.bind(this);
     this.onPlayerApiInitialized = this.onPlayerApiInitialized.bind(this);
     this.updateRefs = this.updateRefs.bind(this);
-    console.log(this.props);
+   console.log(this.props);
   }
 
   componentDidMount() {
-    this.assistentProcessor = new AssistentProcessor(this.props.roomId, this.props.auth.user.id, this.props.roomState.roomData);
-
+   
     this.player = this.props.playerRef.current;
     this.playback = this.props.playBackRef.current;
 
@@ -166,6 +165,13 @@ class VideoSessionController extends Component {
         />
 
         <DialogController />
+        
+        <AssistentProcessor
+        sessionId={this.props.roomId}
+        userId={this.props.auth.user.id}
+        clients={this.props.roomState.roomData.clients}
+        userName={this.props.auth.user.name}
+        />
       </span>
     );
 

@@ -106,9 +106,29 @@ export const ownSocketId = () => {
  * 
  */
 
- export const isActive = (scriptId, userId) => {
-console.log("Alive message!");
- }
+//emits active message to other clients
+export const isActive = (sessionId, userId, userName, clients) => {
+  console.log("emit activitz Message id"+ sessionId);
+  var message = {};
+  message.userName = userName;
+  message.userId = userId;
+  for (var client in clients) {
+    if (client != userId) {
+      console.log("emit activitz Message id"+ sessionId);
+      socket.emit("activemessage" + sessionId, message);
+    }
+  }
+}
+
+//listens to Active message
+export const listenActiveMessage = (sessionId, cb) => {
+
+  socket.on("activemessage" + sessionId, message => cb(message));
+
+
+}
+
+
 
 /**
  * Generic Events (lightweight, eventually not part of redux state, e.g. draw)
@@ -130,7 +150,7 @@ export const unregisterFrom = (event, callback) => {
 
 //if TRainer deletes SCript it will be removed
 export const removedScript = (userId, callback) => {
-  socket.on("removedScript"+ userId, scriptId => callback(scriptId));
+  socket.on("removedScript" + userId, scriptId => callback(scriptId));
 }
 
 export const scriptMembers = (scriptId, user_id, callback) =>
