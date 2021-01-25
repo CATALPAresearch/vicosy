@@ -107,24 +107,24 @@ export const ownSocketId = () => {
  */
 
 //emits active message to other clients
-export const isActive = (sessionId, userId, userName, clients) => {
-  console.log("emit activitz Message id"+ sessionId);
+export const isActive = (sessionId, userName, userId, clients) => {
+
   var message = {};
   message.userName = userName;
-  message.userId = userId;
+
+  message.sessionId = sessionId;
   for (var client in clients) {
     if (client != userId) {
-      console.log("emit activitz Message id"+ sessionId);
-      socket.emit("activemessage" + sessionId, message);
+      message.userId = client;
+      console.log("emit active message");
+      socket.emit("activemessage", message);
     }
   }
 }
 
 //listens to Active message
-export const listenActiveMessage = (sessionId, cb) => {
-
-  socket.on("activemessage" + sessionId, message => cb(message));
-
+export const listenActiveMessage = (userId, cb) => {
+  socket.on("activemessage" + userId, message => { cb(message) });
 
 }
 

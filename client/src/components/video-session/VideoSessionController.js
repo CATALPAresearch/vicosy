@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { setSyncState } from "../../actions/localStateActions";
 import DialogController from "./PhaseControllers/DialogController";
 import connectUIState from "../../highOrderComponents/UIStateConsumer";
+import RoomComponent from "../controls/RoomComponent";
 import AssistentProcessor from "./Activities/assistent-processor";
 
 // component that controls session and speaks with AbstractPlayer and Redux state
@@ -144,6 +145,7 @@ class VideoSessionController extends Component {
 
   // sync state => exchange controllers
   render() {
+
     const contentPlayerApiInitialized = (
       <span>
         <HardSyncController
@@ -166,12 +168,13 @@ class VideoSessionController extends Component {
 
         <DialogController />
         
-        <AssistentProcessor
-        sessionId={this.props.roomId}
-        userId={this.props.auth.user.id}
-        clients={this.props.roomState.roomData.clients}
-        userName={this.props.auth.user.name}
-        />
+        <RoomComponent
+            roomId={this.props.roomId}
+            component={AssistentProcessor}
+                      
+          />
+
+        
       </span>
     );
 

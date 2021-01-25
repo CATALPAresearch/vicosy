@@ -20,7 +20,7 @@ const roomProcessors = {}; // room id => processor
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
   //init sessions
-//  this.AssistentProcessor = new AssistentProcessor();
+  //  this.AssistentProcessor = new AssistentProcessor();
 
   this.initSessions = function (callback) {
 
@@ -54,7 +54,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     });
 
   }
-
+  //notifies members in Script
   clientSocket.on("notifyMembers", script => {
     if (script.groups)
       for (var group of script.groups) {
@@ -79,7 +79,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
   )
 
-
+  //subscribes to script
   clientSocket.on("subscribeToScriptSocket", scriptId => {
 
     ScriptDBApi.findById(scriptId).then(script => {
@@ -89,6 +89,17 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
         clientSocket.to("memberlist").emit("returnScriptMembers", errors);
       });
   });
+
+  /*
+  * ACTIVITY
+  **/
+
+  clientSocket.on("activemessage", (message) => {
+        
+    clientSocket.to(message.sessionId).emit("activemessage"+message.userId, message);
+    
+  });
+
 
 
   /*

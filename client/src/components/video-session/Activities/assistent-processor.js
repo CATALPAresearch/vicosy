@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-const { isActive, listenActiveMessage } = require("../../../socket-handlers/api")
+import { sendActiveMessage} from "../../../actions/assistentActions";
+import { ownSocketId } from "../../../socket-handlers/api";
+
+const {listenActiveMessage } = require("../../../socket-handlers/api")
+
 
 
 // base class for assitent processor for backend Messages
@@ -8,13 +12,11 @@ export class AssistentProcessor extends Component {
 
     constructor(props) {
         super(props);
-        this.sessionId = this.props.sessionId;
-        this.userId = this.props.userId;
-        this.clients = this.props.clients;
-        this.userName = this.props.userName;
+        this.sessionId = this.props.roomId;
+        this.sendActiveMessage = this.sendActiveMessage.bind(this);
 
-        listenActiveMessage(this.sessionId, result => console.log("Action alive"));
-        var interval = setInterval(function () { sendActiveMessage(this.sessionId, this.userId, this.userName, this.clients); }, 3000);
+        listenActiveMessage(ownSocketId(), result => {alert ("alive")});
+        var interval = setInterval(this.sendActiveMessage, 3000);
         var timeOut = setTimeout(function () {
             clearInterval(interval);
             console.log("not active");
@@ -28,7 +30,7 @@ export class AssistentProcessor extends Component {
                     console.log("not active");
                 }, 3000);
                 if (!interval)
-                    interval = setInterval(function () { sendActiveMessage(this.sessionId, this.userId, this.userName, this.clients); }, 3000);
+                    interval = setInterval(this.sendActiveMessage, 3000);
 
 
             })
@@ -41,20 +43,21 @@ export class AssistentProcessor extends Component {
                     console.log("not active");
                 }, 3000);
                 if (!interval)
-                    interval = setInterval(function () { sendActiveMessage(this.sessionId, this.userId, this.userName, this.clients); }, 3000);
+                    interval = setInterval(this.sendActiveMessage, 3000);
 
             })
-        function sendActiveMessage(sessionId, userId, userName, clients) {
-            alert(sessionId);
-            isActive(sessionId, userId, userName, clients);
 
-        }
     }
 
 
 
 
+
+    sendActiveMessage() {
+        this.props.sendActiveMessage(this.sessionId, this.props.auth.user.name, ownSocketId(), this.props.rooms.rooms[this.sessionId].state.sharedRoomData.clients)
+    }
     render() {
+      //  listenActiveMessage();
         return null;
     }
 
@@ -70,6 +73,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps, { sendActiveMessage }
 )(AssistentProcessor);
 
