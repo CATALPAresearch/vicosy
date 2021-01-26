@@ -1,11 +1,16 @@
 import { SET_INCOMING_INSTRUCTION, NEW_INSTRUCTION, UPDATE_CONTINUEBUTTON, NEXT_INSTRUCTION, SET_ACTIVE, SET_ACT_INSTRUCTION, SET_PHASE, PREVIOUS_INSTRUCTION } from "./types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { isActive, listenActiveMessage } from "../socket-handlers/api";
+import { isActive, listenActiveMessage, sendTabLostMsg } from "../socket-handlers/api";
 
 
 export const sendActiveMessage = (sessionId, userId, userName, clients) => dispatch => {
   isActive(sessionId, userId, userName, clients);
+
+}
+
+export const sendTabLostMessage = (sessionId, userId, userName, clients) => dispatch => {
+  sendTabLostMsg(sessionId, userId, userName, clients);
 
 }
 

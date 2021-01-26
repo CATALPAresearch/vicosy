@@ -99,8 +99,14 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     clientSocket.to(message.sessionId).emit("activemessage"+message.userId, message);
     
   });
+  clientSocket.on("tablostmessage", (message) => {
+        
+    clientSocket.to(message.sessionId).emit("tablostmessage"+message.userId, message);
+    
+  });
 
 
+  
 
   /*
    * ROOMS

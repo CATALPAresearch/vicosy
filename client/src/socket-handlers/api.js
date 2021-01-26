@@ -122,9 +122,33 @@ export const isActive = (sessionId, userName, userId, clients) => {
   }
 }
 
+
 //listens to Active message
 export const listenActiveMessage = (userId, cb) => {
   socket.on("activemessage" + userId, message => { cb(message) });
+
+}
+
+
+//emits tab Focus lost
+export const sendTabLostMsg = (sessionId, userName, userId, clients) => {
+
+  var message = {};
+  message.userName = userName;
+
+  message.sessionId = sessionId;
+  for (var client in clients) {
+    if (client != userId) {
+      message.userId = client;
+      console.log("emit tablost message");
+      socket.emit("tablostmessage", message);
+    }
+  }
+}
+
+//listens to TabLost message
+export const listenTabLostMessage = (userId, cb) => {
+  socket.on("tablostmessage" + userId, message => { cb(message) });
 
 }
 
