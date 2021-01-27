@@ -11,12 +11,15 @@ export default class HTMLLoader extends Component {
         id="myId"
         className="myClassname"
         display="initial"
+        height="100%"
         styles={{
           position: "absolute",
-          top: "0",
+          top: "200",
           left: "0",
           right: "0",
-          bottom: "0"
+          bottom: "0",
+          height: "800px"
+
         }}
       />
       // </div>

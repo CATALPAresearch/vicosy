@@ -29,57 +29,66 @@ export class AssistentProcessor extends Component {
 
         });
         listenTabLostMessage(ownSocketId(), result => {
-          
-          
-         
-        this.props.setIncominginstruction(new Instruction("Dein Partner " + result.userName + " hat den Tab geschlossen oder gewechselt. Kontaktiere ihn.", ""))
-  
+
+
+
+            this.props.setIncominginstruction(new Instruction("Dein Partner " + result.userName + " hat den Tab geschlossen oder gewechselt. Kontaktiere ihn.", ""))
+
 
         });
 
-       
-        var interval = setInterval(this.sendActiveMessage, this.sendActiveMessageInterval);
-        var timeOut = setTimeout(function () {
-            clearInterval(interval);
+
+        this.interval = setInterval(this.sendActiveMessage, this.sendActiveMessageInterval);
+        this.timeOut = setTimeout(() => {
+            clearInterval(this.interval);
             console.log("not active");
         }, this.sendActiveMessageInterval);
 
 
         //Listener for Events that will be send to partner(s)
 
-        window.addEventListener('blur', (e) => {
-            this.sendTabLostMessage();
-            
-        });
+        window.addEventListener('blur',
+            this.sendTabLostMessage.bind(this)
+
+        );
         window.addEventListener('mousemove',
-            e => {
-                clearTimeout(timeOut);
-                timeOut = setTimeout(function () {
-                    clearInterval(interval);
-                    interval = false;
-                    console.log("not active");
-                }, this.sendActiveMessageInterval);
-                if (!interval)
-                    interval = setInterval(this.sendActiveMessage, this.sendActiveMessageInterval);
-
-
-            })
+            this.testFunction.bind(this)
+        )
         window.addEventListener('onkeypress',
-            e => {
-                clearTimeout(timeOut);
-                timeOut = setTimeout(function () {
-                    clearInterval(interval);
-                    interval = false;
-                    console.log("not active");
-                }, this.sendActiveMessageInterval);
-                if (!interval)
-                    interval = setInterval(this.sendActiveMessage, 3000);
-
-            })
+            this.testFunction.bind(this)
+        )
 
     }
 
+    testFunction() {
+        clearTimeout(this.timeOut);
+        this.timeOut = setTimeout(() => {
+            clearInterval(this.interval);
+            this.interval = false;
+            console.log("not active");
+        }, this.sendActiveMessageInterval);
+        if (!this.interval)
+            this.interval = setInterval(this.sendActiveMessage, this.sendActiveMessageInterval);
 
+
+
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('blur',
+            this.sendTabLostMessage.bind(this)
+        );
+        window.removeEventListener('mousemove',
+            this.testFunction.bind(this)
+        )
+        window.removeEventListener('onkeypress',
+            this.testFunction.bind(this)
+        )
+        clearTimeout(this.timeOut);
+        clearInterval(this.interval);
+
+
+    }
 
     resetTimer(partnerName) {
         this.partner = partnerName;
@@ -95,11 +104,15 @@ export class AssistentProcessor extends Component {
     }
 
     sendTabLostMessage() {
-         this.props.sendTabLostMessage(this.sessionId, this.props.auth.user.name, ownSocketId(), this.props.rooms.rooms[this.sessionId].state.sharedRoomData.clients);
+        if (this.sessionId)
+            if (this.props.rooms.rooms[this.sessionId])
+                this.props.sendTabLostMessage(this.sessionId, this.props.auth.user.name, ownSocketId(), this.props.rooms.rooms[this.sessionId].state.sharedRoomData.clients);
     }
 
     sendActiveMessage() {
-        this.props.sendActiveMessage(this.sessionId, this.props.auth.user.name, ownSocketId(), this.props.rooms.rooms[this.sessionId].state.sharedRoomData.clients);
+        if (this.sessionId)
+            if (this.props.rooms.rooms[this.sessionId])
+                this.props.sendActiveMessage(this.sessionId, this.props.auth.user.name, ownSocketId(), this.props.rooms.rooms[this.sessionId].state.sharedRoomData.clients);
     }
 
     onVideoTimeUpdate() {
