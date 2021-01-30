@@ -83,3 +83,36 @@
     border-color: #000 transparent;
     transform: rotate(270deg);
   }
+
+  
+  /* Dreieck: weisse Innenfläche */
+  .sprechblase-incoming:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: 0;
+    top: 17px;
+    left: -14px; /* Hälfe der Dreiecksweite minus Hälfte der Sprechblase */
+    margin-left: -8px; /* Hälfte der Sprechblase */
+    border-style: solid;
+    border-width: 0 15px 15px;
+  border-color: rgb(255, 237, 70) transparent;
+  transform: rotate(270deg);
+}
+ 
+/* Dreieck: schwarzer Rahmen */
+.sprechblase-incoming:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    display: block;
+    width: 0;
+    top: 16px;
+    left: -19px; /* Hälfe der Dreiecksweite minus Hälfte der Sprechblase */
+    margin-left: -8px; /* Hälfte der Sprechblase */
+    border-style: solid;
+    border-width: 0 17px 17px;
+  border-color: #000 transparent;
+  transform: rotate(270deg);
+}

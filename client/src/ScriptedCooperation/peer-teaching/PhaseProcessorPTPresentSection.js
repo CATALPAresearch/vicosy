@@ -28,11 +28,13 @@ class PhaseProcessorPTPresentSection extends PhaseProcessor {
         window.sessionEvents.dispatch(SEEK_REQUEST, this.getTargetTime());
       }, 1500);
       this.setEnabledFeatures([FEATURES.MARKERS]);
+     /*
       super.logToChat(
         "Your task is now to present the highlighted section." +
           "You can now jump from annotation to annotation, highlight specific areas in the video and act like a teacher!" +
           "be open for your peers questions since he will summarize the contents you explain in the next phase inside a shared document."
       );
+      */
       super.setPhase("PRESENTTUTOR");
       super.openGuidePath(
         "/PeerTeachingGuide/PresentSection_Tutor.html",

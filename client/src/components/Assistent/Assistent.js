@@ -132,10 +132,10 @@ class Assistent extends Component {
 
 
     nextInstruction() {
-        this.arrows = null;
-        this.props.setActInstruction(null);
-        if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
 
+        if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
+            this.arrows = null;
+            this.props.setActInstruction(null);
             this.props.nextInstruction();
 
         }
@@ -153,9 +153,9 @@ class Assistent extends Component {
 
     }
 
-    resetInstructions () {
+    resetInstructions() {
         this.props.setActInstruction(null);
-        this.arrows=null;
+        this.arrows = null;
     }
 
     getActInstruction() {
@@ -179,9 +179,25 @@ class Assistent extends Component {
     }
 
 
+    _handleKeyDown = (event) => {
+
+        switch (event.keyCode) {
+            case 27:
+                this.deleteIncomingInstruction();
+                break;
+            case 37:
+                this.previousInstruction();
+                break;
+            case 39:
+
+                this.nextInstruction();
+                break;
+        }
+    }
 
     componentDidMount() {
         window.addEventListener("resize", this.actualize.bind(this));
+        document.addEventListener("keydown", this._handleKeyDown, false);
         // this.arrows = null;
         // this.getArrowPosition();
         this.actualize();

@@ -21,7 +21,7 @@ export default class PhaseProcessorPTSeparateSections extends PhaseProcessor {
       "payload.foreignSectionsAvailable",
       false
     );
-
+/*
     super.logToChat(
       "The next step is to separate the video into sections by setting section annotations\n" +
         "Only the current tutor is allowed to set these annotations.\n\n" +
@@ -32,6 +32,7 @@ export default class PhaseProcessorPTSeparateSections extends PhaseProcessor {
           ? "There are already sections available for this video. Tutor can fetch them"
           : "")
     );
+    */
 
     const isTutor = this.getCurrentRole() === "ROLE_TUTOR";
 

@@ -62,7 +62,8 @@ class VideoSession extends Component {
     this.state = {
       sessionAvailable: false,
       sessionMeta: null,
-      userReady
+      userReady,
+      containerId: "Container"
     };
 
     this.onRoomJoined = this.onRoomJoined.bind(this);
@@ -159,8 +160,20 @@ class VideoSession extends Component {
   }
 
   getTargetPlayerComponent() { }
+  /*assistentLayout() {
+    this.setState({ containerId: "ContainerAssitent" });
+
+  };
+  normalLayout() {
+    this.setState({ containerId: "Container" });
+
+  };*/
 
   render() {
+   /* if (this.props.assistent.active)
+      this.assistentLayout();
+    else
+      this.normalLayout();*/
     const { sessionId } = this.props.match.params;
 
     const contentDocInteractionRequired = (
@@ -185,7 +198,8 @@ class VideoSession extends Component {
       this.state.sessionMeta.sessionType !== sessionTypes.SESSION_DEFAULT;
 
     const contentDataAvailable = (
-      <div id="Container">
+      <div id={this.props.assistent.active?"ContainerAssistent":"Container"
+      }>
         <RoomContextDataProvider roomId={sessionId}>
           {/* <RoomComponent roomId={sessionId} component={P2PController} /> */}
           {/* invisible controllers */}
@@ -303,7 +317,8 @@ class VideoSession extends Component {
 const mapStateToProps = state => ({
   rooms: state.rooms,
   errors: state.errors,
-  localState: state.localState
+  localState: state.localState,
+  assistent: state.assistent
 });
 
 export default connect(

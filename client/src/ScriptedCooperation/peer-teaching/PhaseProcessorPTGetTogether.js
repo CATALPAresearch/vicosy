@@ -7,11 +7,13 @@ export default class PhaseProcessorPTGetTogether extends PhaseProcessor {
     super.componentDidMount();
 
     console.log("client phase get together started");
+   /*
     super.logToChat(
       `Waiting for peer. You can invite your peer by sending him this URL: ${
         window.location.href
       }`
     );
+    */
 
     super.openGuidePath("/PeerTeachingGuide/GetTogether.html", "none");
     super.setPhase("GETTOGETHER");

@@ -25,10 +25,12 @@ class PhaseProcessorPTDeepenUnderstanding extends PhaseProcessor {
       setTimeout(() => {
         window.sessionEvents.dispatch(SEEK_REQUEST, this.getTargetTime());
       }, 1500);
+      /*
       super.logToChat(
         "Your task is now to support the tutee in summarizing the current section inside the shared document." +
           "Feel free to return to the video and view areas that are unclear"
       );
+      */
       super.setPhase("DEEPENTUTOR");
       super.openGuidePath(
         "/PeerTeachingGuide/DeepenUnderstanding_Tutor.html",

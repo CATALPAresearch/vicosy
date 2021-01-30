@@ -26,11 +26,13 @@ class PhaseProcessorPTPrepareSectionPair extends PhaseProcessor {
     }, 1500);
 
     // todo: separate text by role
+    /*
     super.logToChat(
       "Your task is now to prepare the highlighted section so that you are able to present it to you peer in a following phase." +
       "To do this you can set annotations as anchors and note containers." +
       "You are now working async! You can navigate the video without affecting your peer. If you are done click on ready/continue button"
     );
+    */
 
     super.openGuidePath("/PeerTeachingGuide/PrepareSection.html", "simple");
     super.setPhase("PREPARE");

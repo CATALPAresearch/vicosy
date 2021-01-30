@@ -4,6 +4,13 @@
   min-height: 0px;
 }
 
+#ContainerAssistent {
+  height: calc(82% - 50px);
+  overflow: auto;
+  min-height: 0px;
+}
+
+
 #SessionNavbar {
   height: 38px;
   max-height: 38px;
