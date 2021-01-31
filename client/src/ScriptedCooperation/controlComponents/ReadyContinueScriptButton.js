@@ -112,9 +112,10 @@ class ReadyContinueScriptButton extends Component {
       targetContent = null;
     else if (this.state.meIsRequired) targetContent = continueContent;
     else if (this.state.waitingForOthers)
-      targetContent = (
+      /*targetContent = (
         <div id="ready-to-finish" className="ml-1">Waiting for peer to continue...</div>
-      );
+      ); */
+      targetContent=null;
 
     return targetContent;
   }

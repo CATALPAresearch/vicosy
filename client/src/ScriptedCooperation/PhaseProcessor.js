@@ -93,9 +93,10 @@ export default class PhaseProcessor extends Component {
 
     return (
       <div id="PhaseBarContent">
+        {/*
         <div>
           {sessionType} > {phase} > {currentRole}
-        </div>
+        </div> */}
         <div className="hFlexLayout">
           {this.state.specificContent}
           <ReadyContinueScriptButton sessionData={sessionData} />

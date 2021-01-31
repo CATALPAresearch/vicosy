@@ -54,7 +54,6 @@ class Guide extends Component {
 
 
   render() {
-    console.log(this.props);
     const { isOpen, activeUrl, confirmationMode } = this.props.localState.guide;
     if (!isOpen || activeUrl === "") return null;
 
