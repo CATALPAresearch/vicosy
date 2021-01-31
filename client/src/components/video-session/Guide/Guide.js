@@ -6,6 +6,7 @@ import { closePublicGuide } from "../../../actions/localStateActions";
 import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
 import AssistentController from "../../Assistent/AssistentController";
+import ProgressBar from "./ProgressBar";
 
 class Guide extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Guide extends Component {
         break;
       case "PREPAREPRE":
         this.setPhase("PREPAREPOST");
-      break;
+        break;
       case "PRESENTTUTEEPRE":
         this.setPhase("PRESENTTUTEEPOST");
         break;
@@ -94,8 +95,11 @@ class Guide extends Component {
     return (
       <div id="Guide">
         <div id="GuideFooter" className="guide-flex-item">
+          <ProgressBar />
+
           {confirmationComponent}
         </div>
+
         <div id="InnerGuide" className="roundedStrong">
 
           <HTMLLoader url={targetUrl} />
@@ -114,5 +118,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { closePublicGuide}
+  { closePublicGuide }
 )(Guide);

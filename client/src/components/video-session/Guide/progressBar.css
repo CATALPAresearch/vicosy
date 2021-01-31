@@ -1,0 +1,51 @@
+#ProgressBar {
+    position: absolute;
+    left: 10px;
+    color: beige;
+    height:40px;
+    
+
+}
+.progress {
+    font-size: 15px;
+    height:40px;
+    
+
+}
+#phase0 {
+    width:10%;
+    padding-left:4px;
+padding-right:4px;
+
+}
+#phase1 {
+    width:20%;
+    padding-left:4px;
+padding-right:4px;
+
+
+    
+}
+#phase2 {
+    padding-left:4px;
+padding-right:4px;
+
+    width:30%;
+    
+}
+
+#phase3 {
+    padding-left:4px;
+padding-right:4px;
+
+    width:30%;
+    
+}
+
+#phase4 {
+    padding-left:4px;
+padding-right:4px;
+
+    width:30%;
+    
+}
