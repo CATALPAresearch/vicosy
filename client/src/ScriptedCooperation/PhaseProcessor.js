@@ -23,20 +23,19 @@ export default class PhaseProcessor extends Component {
     };
 
     this.guideControlRef = null;
-    this.assistentControlRef= null;
+    this.assistentControlRef = null;
   }
 
   /**
    * Protected
    */
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   logToChat(message) {
     setTimeout(() => {
-      message = `${
-        this.props.sessionData.collabScript.phaseData.phaseId
-      }: ${message}`;
+      message = `${this.props.sessionData.collabScript.phaseData.phaseId
+        }: ${message}`;
 
       window.logEvents.dispatch(LOG, {
         class: "warning", // TODO: introduce own style
@@ -93,13 +92,17 @@ export default class PhaseProcessor extends Component {
 
     return (
       <div id="PhaseBarContent">
+        
         {/*
         <div>
           {sessionType} > {phase} > {currentRole}
         </div> */}
         <div className="hFlexLayout">
-          {this.state.specificContent}
-          <ReadyContinueScriptButton sessionData={sessionData} />
+         
+
+            {this.state.specificContent}
+            <ReadyContinueScriptButton sessionData={sessionData} />
+         
           <FeatureSetup
             mode={this.state.featureSetupMode}
             features={this.state.features}
@@ -109,7 +112,7 @@ export default class PhaseProcessor extends Component {
             ownRole={currentRole}
           />
           <GuideController createRef={el => (this.guideControlRef = el)} />
-          <AssistentController  createRef={el => (this.assistentControlRef = el)} />
+          <AssistentController createRef={el => (this.assistentControlRef = el)} />
         </div>
       </div>
     );

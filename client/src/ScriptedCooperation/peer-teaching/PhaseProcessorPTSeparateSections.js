@@ -38,7 +38,7 @@ export default class PhaseProcessorPTSeparateSections extends PhaseProcessor {
 
     this.setContent(
       hasAlreadySections && isTutor ? (
-        <button
+        <button 
           className="btn btn-info btn-sm"
           onClick={this.onFetchSectionsClick}
         >

@@ -3,6 +3,7 @@ import "./CollaborationBar.css";
 import ClientCooperationProcessor from "../../../ScriptedCooperation/ClientCooperationProcessor";
 import { connect } from "react-redux";
 import { openPublicGuide } from "../../../actions/localStateActions";
+import ProgressBar  from "../Guide/ProgressBar";
 
 class CollaborationBar extends Component {
   onHelpClick = () => {
@@ -12,6 +13,7 @@ class CollaborationBar extends Component {
   render() {
     return (
       <div id="CollaborationBar">
+        <ProgressBar/>
        {/* <button onClick={this.onHelpClick} className="btn btn-sm btn-info m-1">
           <i className="fa fa-info-circle" /> 
         </button> */}

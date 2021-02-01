@@ -6,16 +6,87 @@ export class ProgressBar extends Component {
     constructor(props) {
         super(props);
     }
+
+
     render() {
+        console.log(this.props);
+        var id0 = "";
+        var id1 = "";
+        var id2 = "";
+        var id3 = "";
+        var id4 = "";
+        var id5 = "";
+        var id6 = "";
+        if (this.props.assistent)
+            if (this.props.assistent.phase)
+                switch (this.props.assistent.phase.name) {
+                    case "GETTOGETHER":
+                        id0 = "actPhase";
+                        break;
+                    case "WARMUP":
+                        id1 = "actPhase";
+                        break;
+                    case "SEPARATESECTIONSTUTORPRE":
+                        id2 = "actPhase";
+                        break;
+                    case "SEPARATESECTIONSTUTORPOST":
+                        id2 = "actPhase";
+                        break;
+                    case "SEPARATESECTIONSTUTEEPRE":
+                        id2 = "actPhase";
+                        break;
+                    case "SEPARATESECTIONSTUTEEPOST":
+                        id2 = "actPhase";
+                        break;
+                    case "PREPAREPRE":
+                        id3 = "actPhase";
+                        break;
+                    case "PREPAREPOST":
+                        id3 = "actPhase";
+                        break;
+                    case "PRESENTTUTORPRE":
+                        id4 = "actPhase";
+                        break;
+                    case "PRESENTTUTORPOST":
+                        id4 = "actPhase";
+                        break;
+                    case "PRESENTTUTEEPRE":
+                        id5 = "actPhase";
+                        break;
+                    case "PRESENTTUTEEPOST":
+                        id5 = "actPhase";
+                        break;
+                    case "DEEPENTUTEEPRE":
+                        id6 = "actPhase";
+                        break;
+                    case "DEEPENTUTEEPOST":
+                        id6 = "actPhase";
+                        break;
+                    case "DEEPENTUTORPRE":
+                        id6 = "actPhase";
+                        break;
+                    case "DEEPENTUTORPOST":
+                        id6 = "actPhase";
+                        break;
+                    case "REFLEXIONPRE":
+                        id6 = "actPhase";
+                        break;
+                    case "REFLEXIONPOST":
+                        id6 = "actPhase";
+                        break;
+                }
+
         return (
             <div id="ProgressBar">
-                <div class="progress">
-                    <div id="phase0" className="w-25 p-3 progress-bar" role="progressbar"  aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Start</div>
-                    <div id="phase1" className="w-25 p-3 progress-bar bg-success" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div>
-                    <div id="phase2"className="w-25 p-3 progress-bar bg-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unterteilen</div>
-                    <div id="phase3"className="w-25 p-3 progress-bar bg-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Präsentieren</div>
-                    <div id="phase4"className="w-25 p-3 progress-bar bg-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vertiefen</div>
-                
+                <div className="progress">
+                    <div id={id0} style={{ borderLeftWidth: "0px" }} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Start</div>
+                    <div id={id1} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div>
+                    <div id={id2} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unterteilen</div>
+                    <div id={id3} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorbereiten</div>
+                    <div id={id4} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorstellen</div>
+                    <div id={id5} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Zuhören</div>
+                    <div id={id6} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Reflexion</div>
+
                 </div>
             </div>
         );
@@ -24,7 +95,8 @@ export class ProgressBar extends Component {
 
 const mapStateToProps = state => ({
     localState: state.localState,
-    assistent: state.assistent
+    assistent: state.assistent,
+    script: state.script
 });
 
 export default connect(
