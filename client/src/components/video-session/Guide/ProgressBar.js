@@ -5,11 +5,13 @@ import "./progressBar.css";
 export class ProgressBar extends Component {
     constructor(props) {
         super(props);
+       
     }
 
+    
 
-    render() {
-        console.log(this.props);
+
+    renderBar() {
         var id0 = "";
         var id1 = "";
         var id2 = "";
@@ -17,6 +19,7 @@ export class ProgressBar extends Component {
         var id4 = "";
         var id5 = "";
         var id6 = "";
+        var id7 = "";
         if (this.props.assistent)
             if (this.props.assistent.phase)
                 switch (this.props.assistent.phase.name) {
@@ -69,25 +72,34 @@ export class ProgressBar extends Component {
                         id6 = "actPhase";
                         break;
                     case "REFLEXIONPRE":
-                        id6 = "actPhase";
+                        id7 = "actPhase";
                         break;
                     case "REFLEXIONPOST":
-                        id6 = "actPhase";
+                        id7 = "actPhase";
                         break;
                 }
-
         return (
-            <div id="ProgressBar">
-                <div className="progress">
-                    <div id={id0} style={{ borderLeftWidth: "0px" }} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Start</div>
-                    <div id={id1} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div>
-                    <div id={id2} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unterteilen</div>
-                    <div id={id3} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorbereiten</div>
-                    <div id={id4} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorstellen</div>
-                    <div id={id5} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Zuhören</div>
-                    <div id={id6} className="w-15 p-3 progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Reflexion</div>
+            <div className="progress">
+                <div id={id0} style={{ borderLeftWidth: "0px" }} className="w-9 p-3 progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Start</div>
+                <div id={id1} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div>
+                <div id={id2} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unterteilen</div>
+                <div id={id3} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorbereiten</div>
+                <div id={id4} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorstellen</div>
+                <div id={id5} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Zuhören</div>
+                <div id={id6} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vertiefen</div>
+                <div id={id7} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Reflexion</div>
+            </div>
 
-                </div>
+        );
+
+
+    }
+
+    render() {
+        var content = this.renderBar();
+return (
+            <div id="ProgressBar">
+                {content}
             </div>
         );
     }

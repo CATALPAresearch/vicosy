@@ -13,6 +13,7 @@ class CollaborationBar extends Component {
   render() {
     return (
       <div id="CollaborationBar">
+        
         <ProgressBar/>
        {/* <button onClick={this.onHelpClick} className="btn btn-sm btn-info m-1">
           <i className="fa fa-info-circle" /> 

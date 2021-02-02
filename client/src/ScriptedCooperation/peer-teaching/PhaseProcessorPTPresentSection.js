@@ -35,7 +35,7 @@ class PhaseProcessorPTPresentSection extends PhaseProcessor {
           "be open for your peers questions since he will summarize the contents you explain in the next phase inside a shared document."
       );
       */
-      super.setPhase("PRESENTTUTORPRE");
+      super.setPhase("PRESENTTUTOR");
       super.openGuidePath(
         "/PeerTeachingGuide/PresentSection_Tutor.html",
         "simple"
@@ -46,7 +46,7 @@ class PhaseProcessorPTPresentSection extends PhaseProcessor {
         "Your peer will now present the contents of the highlighted section to you." +
           "Listen intense and ask if things are unclear to you, since you have to summarize the contents in a shared document in the following phase"
       );*/
-      super.setPhase("PRESENTTUTEEPRE");
+      super.setPhase("PRESENTTUTEE");
       super.openGuidePath(
         "/PeerTeachingGuide/PresentSection_Tutee.html",
         "simple"

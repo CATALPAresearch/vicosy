@@ -8,75 +8,27 @@
 
 }
 .progress {
-    font-size: 15px;
+    font-size: 14px;
     height:40px;
     
 
 }
 .progress div {
-    width:20%;
-    padding-left:4px;
-    padding-right:4px;
+    
+    padding-left:2px;
+    padding-right:2px;
     background-color:#17a2b8;
     border-left-color: white;
     border-left-width: 3px;
     border-left-style: solid;
+    width:13%;
+ 
     
 
-}
-#phase0 {
-    width:10%;
-    padding-left:4px;
-    padding-right:4px;
-    background-color:#17a2b8;
-    border-left-width: 0px;
 }
 
 #actPhase {
    
     background-color:red;
 
-}
-#phase1 {
-    width:20%;
-    padding-left:4px;
-    padding-right:4px;
-    background-color:#17a2b8;
-    border-left-color: white;
-    border-left-width: 3px;
-    border-left-style: solid;
-
-
-    
-}
-#phase2 {
-    padding-left:4px;
-    padding-right:4px;
-    background-color:#17a2b8;
-    width:30%;
-    border-left-color: white;
-    border-left-width: 3px;
-    border-left-style: solid;
-    
-}
-
-#phase3 {
-    padding-left:4px;
-    padding-right:4px;
-    width:30%;
-    border-left-color: white;
-    border-left-width: 3px;
-    border-left-style: solid;
-    
-}
-
-#phase4 {
-    padding-left:4px;
-    padding-right:4px;
-    background-color:#17a2b8;
-    width:30%;
-    border-left-color: white;
-    border-left-width: 3px;
-    border-left-style: solid;
-    
 }

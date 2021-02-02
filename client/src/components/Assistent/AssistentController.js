@@ -6,7 +6,7 @@ import {
 import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
 import { getScriptById } from "../../actions/scriptActions";
 import { connect } from "react-redux";
-import {StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
+import { StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 import { STUDENTLOBBY } from "./phases/types";
 
 
@@ -14,7 +14,7 @@ export class AssistentController extends Component {
   constructor() {
     super();
     this.state = { phase: {} };
-    }
+  }
 
   getActInstruction() {
     if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer])
@@ -26,7 +26,7 @@ export class AssistentController extends Component {
     return null;
   }
 
- 
+
   componentDidMount() {
     this.props.createRef(this);
   }
@@ -35,6 +35,7 @@ export class AssistentController extends Component {
 
   setPhase(phase) {
     var actPhase = {};
+   // alert(phase);
     switch (phase) {
 
       case STUDENTLOBBY:
