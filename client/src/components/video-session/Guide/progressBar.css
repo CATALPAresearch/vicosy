@@ -4,6 +4,8 @@
     color: beige;
     height:40px;
     width: 80%;
+    margin-top:2px;
+    margin-bottom:2px;
     
 
 }
@@ -29,6 +31,6 @@
 
 #actPhase {
    
-    background-color:red;
+    background-color:rgb(219, 192, 208);
 
 }

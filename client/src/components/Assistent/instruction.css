@@ -56,7 +56,7 @@
   .sprechblase:after {
       content: "";
       position: absolute;
-      z-index: 1;
+      z-index: 51;
       display: block;
       width: 0;
       top: 17px;
@@ -72,7 +72,7 @@
   .sprechblase:before {
       content: "";
       position: absolute;
-      z-index: 0;
+      z-index: 50;
       display: block;
       width: 0;
       top: 16px;
@@ -89,7 +89,7 @@
   .sprechblase-incoming:after {
     content: "";
     position: absolute;
-    z-index: 1;
+    z-index: 51;
     display: block;
     width: 0;
     top: 17px;

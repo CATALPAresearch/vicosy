@@ -48,6 +48,7 @@ export class WarmUp extends AbstractPhase {
         this.instructions.push(new Instruction("Oder eine Videoübertragung starten!", new Array(new Options("right", "id", "video-button", 0, 0))));
         this.instructions.push(new Instruction("Oder über Audio kommunizieren!", new Array(new Options("right", "id", "audio-button", 0, 0))));
         this.instructions.push(new Instruction("Hier siehst du, was dein Partner gerade macht.", new Array(new Options("down", "id", "awareness-partner", -50, 160))));
+        this.instructions.push(new Instruction("Hier siehst die Phasen der Sitzung.", new Array(new Options("down", "id", "ProgressBar", -45, 160))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 20))));
 
     }
@@ -123,7 +124,7 @@ export class PreparePost extends AbstractPhase {
         this.instructions.push(new Instruction("Mache dir hier Notizen ", new Array(new Options("right", "id", "notes-tab", 15, 15))));
         this.instructions.push(new Instruction("Möchtest du in deinem Vortrag Bilder aus dem Video zeigen, kannst du diese über 'Annotate/Annotation' speichern.", new Array(new Options("right", "id", "open-annotations", 10, -30))));
         this.instructions.push(new Instruction("Über den Tab Annotations kannst du später darauf zugreifen", new Array(new Options("right", "id", "annotations-tab", 10, 0))));
-        this.instructions.push(new Instruction("Bereite einen Vortrag für alle deine Abschnitte vor", ""));
+        this.instructions.push(new Instruction("Bereite einen Vortrag für deinen Abschnitte vor", ""));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
     }
 

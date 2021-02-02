@@ -7,6 +7,7 @@ import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
 import AssistentController from "../../Assistent/AssistentController";
 import ProgressBar from "./ProgressBar";
+import RoomComponent from "../../controls/RoomComponent";
 
 class Guide extends Component {
   constructor(props) {
@@ -95,9 +96,17 @@ class Guide extends Component {
     return (
       <div id="Guide">
         <div id="GuideFooter" className="guide-flex-item">
-          <ProgressBar />
+          {/*
+        <RoomComponent
+            roomId="ProgressBar"
+            component={ProgressBar}
+          />
+*/}
 
-          {confirmationComponent}
+          <ProgressBar />
+          <div className="w-20 p-3">
+            {confirmationComponent}
+          </div>
         </div>
 
         <div id="InnerGuide" className="roundedStrong">

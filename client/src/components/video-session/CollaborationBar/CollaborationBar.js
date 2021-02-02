@@ -12,13 +12,15 @@ class CollaborationBar extends Component {
 
   render() {
     return (
-      <div id="CollaborationBar">
+      <div id="CollaborationBar" className="hFlexLayout">
         
         <ProgressBar/>
        {/* <button onClick={this.onHelpClick} className="btn btn-sm btn-info m-1">
           <i className="fa fa-info-circle" /> 
         </button> */}
+         
         <ClientCooperationProcessor sessionData={this.props.sharedRoomData} />
+        
       </div>
     );
   }
