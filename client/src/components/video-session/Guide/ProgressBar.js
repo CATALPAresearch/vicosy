@@ -80,7 +80,7 @@ export class ProgressBar extends Component {
                 }
         return (
             <div className="progress">
-                <div id={id0} style={{ borderLeftWidth: "0px" }} className="w-9 p-3 progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Start</div>
+                <div id={id0} style={{ borderLeftWidth: "0px" }} className="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Start</div>
                 <div id={id1} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div>
                 <div id={id2} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unterteilen</div>
                 <div id={id3} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorbereiten</div>

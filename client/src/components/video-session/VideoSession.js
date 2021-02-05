@@ -38,6 +38,7 @@ import CollaborationBar from "./CollaborationBar/CollaborationBar";
 import sessionTypes from "../../shared_constants/sessionTypes";
 import RoomContextDataProvider from "../../highOrderComponents/RoomContextDataProvider";
 import IndividualNotes from "./Sidebar/IndividualNotes/IndividualNotes";
+import PersonalNotes from "./Sidebar/PersonalNotes/PersonalNotes"
 import SideBarTabs from "./Sidebar/SideBarTabs";
 import ChildrenRenderer from "../controls/ChildrenRenderer";
 import AnnotationOverview from "./Sidebar/AnnotationOverview/AnnotationOverview";
@@ -170,10 +171,10 @@ class VideoSession extends Component {
   };*/
 
   render() {
-   /* if (this.props.assistent.active)
-      this.assistentLayout();
-    else
-      this.normalLayout();*/
+    /* if (this.props.assistent.active)
+       this.assistentLayout();
+     else
+       this.normalLayout();*/
     const { sessionId } = this.props.match.params;
 
     const contentDocInteractionRequired = (
@@ -198,7 +199,7 @@ class VideoSession extends Component {
       this.state.sessionMeta.sessionType !== sessionTypes.SESSION_DEFAULT;
 
     const contentDataAvailable = (
-      <div id={this.props.assistent.active?"ContainerAssistent":"Container"
+      <div id={this.props.assistent.active ? "ContainerAssistent" : "Container"
       }>
         <RoomContextDataProvider roomId={sessionId}>
           {/* <RoomComponent roomId={sessionId} component={P2PController} /> */}
@@ -225,7 +226,15 @@ class VideoSession extends Component {
                   "activities-tab"
                 }
               />
+              {/*
               <IndividualNotes
+                visible={
+                  this.props.localState.sideBarTab.activeTab === "notes-tab"
+                }
+                roomId={sessionId}
+              />
+              */}
+              <PersonalNotes
                 visible={
                   this.props.localState.sideBarTab.activeTab === "notes-tab"
                 }
@@ -241,10 +250,10 @@ class VideoSession extends Component {
           </div>
           <div id="VideoMain">
             {
-            
-            requiresCollaborationBar ? (
-              <RoomComponent roomId={sessionId} component={CollaborationBar} />
-            ) : null}
+
+              requiresCollaborationBar ? (
+                <RoomComponent roomId={sessionId} component={CollaborationBar} />
+              ) : null}
             <SessionNavbar playerRef={this.abstractPlayerRef} />
             <div
               id="VideoSection"
