@@ -41,11 +41,11 @@ class PersonalNotes extends Component {
 
     rteChange = (content, delta, source, editor) => {
         //this.setState({ text: content })
-        console.log(editor.getHTML()); // HTML/rich text
+/*        console.log(editor.getHTML()); // HTML/rich text
         console.log(editor.getText()); // plain text
         console.log(editor.getLength()); // number of characters
         console.log(delta); // number of characters
-
+*/
         if (this.props.auth.user.id) {
             let doc = (this.props.auth.user.id + this.sessionId).toString();
             let docId = doc.hashCode();
@@ -60,6 +60,7 @@ class PersonalNotes extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.isOpen = nextProps.localState.sideBarTab.activeTab === "notes-tab";
+     
 
     }
 
@@ -67,6 +68,7 @@ class PersonalNotes extends Component {
         if (this.props.auth.user.id) {
             let doc = (this.props.auth.user.id + this.sessionId).toString();
             this.props.getIndivDoc(doc.hashCode());
+
         }
 
     }

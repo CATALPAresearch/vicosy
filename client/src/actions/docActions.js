@@ -3,12 +3,14 @@ import { storeIndivDocApi } from "../socket-handlers/api";
 import { SET_INDIV_TEXT, GET_ERRORS } from "./types";
 
 
-export const storeIndivDoc = (text, docId) => {
+export const storeIndivDoc = (text, docId) =>dispatch => {
     storeIndivDocApi(text, docId);
-    return {
-        type: "irgendwas",
-        payload: "irgendwas"
-    };
+
+    dispatch({
+        type: SET_INDIV_TEXT,
+        payload: text
+    });
+       
 
 };
 
@@ -22,18 +24,18 @@ export const setIndivDoc = (text) => dispatch => {
 
 export const getIndivDoc = (docId) => dispatch => {
     axios
-        .post("/api/docs/getindivdoc", docId)
+        .post("/api/docs/getindivdoc", { "docId": docId })
         .then(res => {
-            alert("gut");
+        
+            console.log(res);
             dispatch({
                 type: SET_INDIV_TEXT,
-                payload: res
+                payload: res.data.doc.text
             });
         }).catch(err => {
-            alert("fehler");
-            dispatch({
+                    dispatch({
                 type: GET_ERRORS,
-                payload: err
+                payload: err.response
             });
         });
 }

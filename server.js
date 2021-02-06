@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const users = require("./routes/api/users");
 const script = require("./routes/api/script");
+const docs = require("./routes/api/docs");
 const passport = require("passport");
 const app = express();
 const socket = require("socket.io");
@@ -69,7 +70,7 @@ require("./config/passport")(passport);
 // Use Routes
 app.use("/api/users", users);
 app.use("/api/script", script);
-
+app.use("/api/docs", docs);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
