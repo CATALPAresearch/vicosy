@@ -2,6 +2,7 @@ const chatMessageTypes = require("../client/src/shared_constants/chatmessage-typ
 const onChange = require("on-change");
 const VideoDBApi = require("../models/Video");
 const ScriptDBApi = require("../models/Script");
+const DocDBApi = require("../models/Doc");
 const UsersDBApi = require("../models/User");
 const sessionTypes = require("../client/src/shared_constants/sessionTypes");
 const winston = require("../winston-setup");
@@ -54,6 +55,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     });
 
   }
+
+
+
   //notifies members in Script
   clientSocket.on("notifyMembers", script => {
     if (script.groups)
@@ -95,18 +99,27 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   **/
 
   clientSocket.on("activemessage", (message) => {
-        
-    clientSocket.to(message.sessionId).emit("activemessage"+message.userId, message);
-    
+
+    clientSocket.to(message.sessionId).emit("activemessage" + message.userId, message);
+
   });
   clientSocket.on("tablostmessage", (message) => {
-        
-    clientSocket.to(message.sessionId).emit("tablostmessage"+message.userId, message);
-    
+
+    clientSocket.to(message.sessionId).emit("tablostmessage" + message.userId, message);
+
   });
 
 
-  
+
+  /*
+   * DOCS
+   * */
+  clientSocket.on("storeIndivDoc", content => {
+    console.log(content);
+    DocDBApi.setIndividualText(content.text, content.docId);
+  });
+
+
 
   /*
    * ROOMS

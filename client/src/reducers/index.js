@@ -7,6 +7,7 @@ import localStateReducer from "./localStateReducer";
 import restrictionReducer from "./restrictionReducer";
 import scriptReducer from "./scriptReducer";
 import assistentReducer from "./assistentReducer";
+import docReducer from "./docReducer";
 export default combineReducers({
   auth: authReducer, // global auth data
   errors: errorReducer, // global app errors
@@ -15,6 +16,7 @@ export default combineReducers({
   localState: localStateReducer, // my own session data that is shared in current session (will become remoteState in shared data for others)
   restrictions: restrictionReducer, // features access state
   script: scriptReducer, //actual script
-  assistent: assistentReducer //assistent
+  assistent: assistentReducer, //assistent
+  docs: docReducer //collaborative Document
 
 });

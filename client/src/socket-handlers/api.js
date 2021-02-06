@@ -167,6 +167,21 @@ export const unregisterFrom = (event, callback) => {
 
 /**
  * 
+ * DOC events 
+ *  
+ */
+// connects doc to database
+
+
+export const storeIndivDocApi = (text, docId) => {
+  let content = {};
+  content.text = text;
+  content.docId = docId;
+  socket.emit("storeIndivDoc", content);
+};
+
+/**
+ * 
  * SCRIPT 
  *  
  */
