@@ -1,13 +1,21 @@
 import axios from "axios";
-import { storeIndivDocApi } from "../socket-handlers/api";
-import { SET_INDIV_TEXT, GET_ERRORS } from "./types";
+import { storeIndivDocApi, getSharedDocSocket } from "../socket-handlers/api";
+import {SET_COLLAB_TEXT, SET_INDIV_TEXT, GET_ERRORS } from "./types";
 
+export const getSharedDoc =(docId) => dispatch =>{
+    let doc= getSharedDocSocket(docId);
+    dispatch({
+        type: SET_COLLAB_TEXT,
+        payload: doc
+    });
+
+}
 
 export const storeIndivDoc = (text, docId) =>dispatch => {
     storeIndivDocApi(text, docId);
 
     dispatch({
-        type: SET_INDIV_TEXT,
+        type: SET_COLLAB_TEXT,
         payload: text
     });
        
@@ -35,7 +43,7 @@ export const getIndivDoc = (docId) => dispatch => {
         }).catch(err => {
                     dispatch({
                 type: GET_ERRORS,
-                payload: err.response
+                payload: err
             });
         });
 }

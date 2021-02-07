@@ -1,6 +1,11 @@
 import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import openSocket from "socket.io-client";
 import { PEER_SIGNAL_MESSAGE } from "../p2p-handlers/p2pEvents";
+import Sharedb from 'sharedb/lib/client';
+import richText from 'rich-text';
+Sharedb.types.register(richText.type);
+
+
 var socket = null;
 var lastToken = "";
 
@@ -100,6 +105,22 @@ export const ownSocketId = () => {
   if (!socket) return "";
   return socket.id;
 };
+
+
+/**
+ * Collaborative Docs
+ * 
+ */
+
+// Querying for our document
+export const getSharedDocSocket = (docId, cb) => {
+  const connection = new Sharedb.Connection(socket);
+  const doc = connection.get('docs', 'firstDocument');
+
+
+};
+
+
 
 /**
  * ActivityEvents

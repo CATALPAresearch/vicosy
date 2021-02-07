@@ -12,6 +12,21 @@ const {
 } = require("../scripted-collaboration/processor-creator");
 const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
 // const AssistentProcessor = require("../scripted-collaboration/assistent/assistent-processor");
+const WebSocketJSONStream = require('websocket-json-stream');
+const ShareDB = require('sharedb');
+/**
+ * By Default Sharedb uses JSON0 OT type.
+ * To Make it compatible with our quill editor.
+ * We are using this npm package called rich-text
+ * which is based on quill delta
+ */
+ShareDB.types.register(require('rich-text').type);
+
+
+const shareDBServer = new ShareDB();
+const connection = shareDBServer.connect();
+
+
 
 
 const roomsData = { lobby: {} };
@@ -20,6 +35,36 @@ const roomProcessors = {}; // room id => processor
 
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
+
+//shareddocs
+
+/**
+ * 'docs' is collection name(table name in sql terms)
+ * 'firstDocument' is the id of the document
+ */
+const doc = connection.get('docs', 'firstDocument');
+
+doc.fetch(function (err) {
+  if (err) throw err;
+  if (doc.type === null) {
+    /**
+     * If there is no document with id "firstDocument" in memory
+     * we are creating it and then starting up our ws server
+     */
+    doc.create([{ insert: 'Hello World!' }], 'rich-text', () => {
+     
+     
+      clientSocket.on('shareddoc', function connection(ws) {
+        // For transport we are using a ws JSON stream for communication
+        // that can read and write js objects.
+        const jsonStream = new WebSocketJSONStream(ws);
+        share.listen(jsonStream);
+      });
+    });
+    return;
+  }
+});
+
   //init sessions
   //  this.AssistentProcessor = new AssistentProcessor();
 
@@ -93,6 +138,8 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
         clientSocket.to("memberlist").emit("returnScriptMembers", errors);
       });
   });
+
+
 
   /*
   * ACTIVITY
