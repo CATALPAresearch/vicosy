@@ -11,8 +11,8 @@ const Docs = require("../../models/Doc");
 // @desc    Get indiv docs
 // @access  Public
 router.post("/getindivdoc", (req, res) => {
-    console.log("anfrage");
-    console.log(req.body);
+    console.log("Request individuel document");
+    //console.log(req.body);
 
     Docs.docs.findOne(req.body).then(doc => {
         console.log(doc);

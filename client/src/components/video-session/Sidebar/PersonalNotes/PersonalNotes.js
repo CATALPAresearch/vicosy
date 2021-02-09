@@ -39,6 +39,7 @@ class PersonalNotes extends Component {
 
     }
 
+    
     rteChange = (content, delta, source, editor) => {
         //this.setState({ text: content })
 /*        console.log(editor.getHTML()); // HTML/rich text

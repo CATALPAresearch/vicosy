@@ -5,9 +5,15 @@ import Sharedb from 'sharedb/lib/client';
 import richText from 'rich-text';
 Sharedb.types.register(richText.type);
 
+var sharedDoc = null;
 
 var socket = null;
+
+const sharedSocket = new WebSocket('ws://127.0.0.1:8080');
+const sharedConnection = new Sharedb.Connection(sharedSocket);
 var lastToken = "";
+
+
 
 const isSecure = window.location.protocol === "https:";
 
@@ -51,6 +57,8 @@ const connectSocket = (cbConnected, cbDisconnected, token = null) => {
     socket.off("connect");
     socket.off("disconnect");
     socket.off("reconnect");
+
+    socket.emit("connection");
   }
 
   // socket = openSocket(targetURL, { secure: true });
@@ -58,6 +66,8 @@ const connectSocket = (cbConnected, cbDisconnected, token = null) => {
   socket.on("connect", () => {
     console.log("socket connected", socket.id);
     cbConnected();
+
+
   });
 
   socket.on("disconnect", reason => {
@@ -68,6 +78,8 @@ const connectSocket = (cbConnected, cbDisconnected, token = null) => {
   socket.on("reconnect", () => {
     cbConnected();
     console.log("socket reconnected");
+
+
   });
 
   socket.on("peerSignalMessage", (otherClientId, roomId, message) => {
@@ -113,13 +125,41 @@ export const ownSocketId = () => {
  */
 
 // Querying for our document
-export const getSharedDocSocket = (docId, cb) => {
-  const connection = new Sharedb.Connection(socket);
-  const doc = connection.get('docs', 'firstDocument');
+export const connectSharedDocAPI = (docId, cb) => {
+
+  sharedDoc = sharedConnection.get('docs', 'firstDocument');
+  console.log(sharedDoc);
 
 
 };
 
+export const subscribeSharedDocAPI = (userId, errorCb, setContentCb, updateCb) => {
+
+  sharedDoc.subscribe(function (err) {
+    if (err) errorCb(err);
+    /**
+     * On Initialising if data is present in server
+     * Updaing its content to editor
+     */
+
+    setContentCb(sharedDoc.data);
+
+    /** listening to changes in the document
+     * that is coming from our server
+     */
+    sharedDoc.on('op', function (op, source) {
+      if (source == userId) return;
+      updateCb(op, source);
+    });
+  });
+
+
+}
+
+export const submitOpAPI = (delta, source) => {
+  sharedDoc.submitOp(delta, source);
+
+}
 
 
 /**

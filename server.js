@@ -17,6 +17,49 @@ const winston = require("./winston-setup");
 require("./client/src/utils/extensionMethods");
 const ColorHash = require("color-hash");
 const Script = require("./models/Script");
+const doc = require("./models/Doc");
+const WebSocket = require('ws');
+const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
+const ShareDB = require('sharedb');
+
+/**
+ * By Default Sharedb uses JSON0 OT type.
+ * To Make it compatible with our quill editor.
+ * We are using this npm package called rich-text
+ * which is based on quill delta
+ */
+ShareDB.types.register(require('rich-text').type);
+
+const shareDBServer = new ShareDB();
+const connection = shareDBServer.connect();
+
+/**
+ * 'docs' is collection name(table name in sql terms)
+ * 'firstDocument' is the id of the document
+ */
+const sharedDoc = connection.get('docs', 'firstDocument');
+
+sharedDoc.fetch(function (err) {
+  if (err) throw err;
+  if (sharedDoc.type === null) {
+    /**
+     * If there is no document with id "firstDocument" in memory
+     * we are creating it and then starting up our ws server
+     */
+    sharedDoc.create([{ insert: 'Hello World!' }], 'rich-text', () => {
+      const wss = new WebSocket.Server({ port: 8080 });
+      console.log("New Doc created");
+      wss.on('connection', function connection(ws) {
+        // For transport we are using a ws JSON stream for communication
+        // that can read and write js objects.
+        console.log("New collab Doc Connection established");
+        const jsonStream = new WebSocketJSONStream(ws);
+        shareDBServer.listen(jsonStream);
+      });
+    });
+    return;
+  }
+});
 
 
 
@@ -47,7 +90,7 @@ const db = require("./config/keys").mongoURI;
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true, useUnifiedTopology: true}
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(result => {
     console.log("MongoDB connected");
@@ -121,7 +164,7 @@ const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
 io.origins("*:*");
 
 const handleSocketEvents = require("./socket-handlers/lobby-socket-events");
-const DbSocket= require("./socket-handlers/db-socket-events");
+const DbSocket = require("./socket-handlers/db-socket-events");
 
 //const setSocket = require("./routes/api/script");
 //set socket to script.js

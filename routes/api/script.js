@@ -135,7 +135,7 @@ router.post("/getscriptbygroup", (req, res) => {
                         qScript = script;
                     }
             }
-            console.log(qScript);
+           // console.log(qScript);
             if (qScript){
                 console.log("zuerück");
                 res.json({

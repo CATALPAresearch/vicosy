@@ -4,7 +4,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 import { setSharedDocEditing } from "../../../actions/localStateActions";
-import { getSharedDoc } from "../../../actions/docActions";
+import { connectSharedDoc, subscribeSharedDoc, submitOp } from "../../../actions/docActions";
 import ReactQuill from 'react-quill'; // ES6
 import 'react-quill/dist/quill.bubble.css';
 
@@ -33,26 +33,47 @@ class SharedDoc extends Component {
       'align',
       'color', 'background'
     ];
-
+    this.props.connectSharedDoc("dummy");
 
   }
 
   componentDidMount() {
-    this.props.getSharedDoc("dummy");
-    console.log(this.props.docs);
+    this.props.connectSharedDoc("dummy");
+    this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => { console.log(op)});
+
   }
 
 
   componentWillUnmount() {
   }
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    /*
+    if (nextProps.localState.sharedDocEditing.isOpen) {
+      this.props.subscribeSharedDoc((sharedDoc) => { console.log(sharedDoc) });
+    }
+    */
   }
 
   onCloseClick() {
     window.dialogRequestEvents.dispatch(TOGGLE_SHARED_DOC_REQUEST);
   }
+  rteChange = (content, delta, source, editor) => {
 
+    /*
+    if (this.props.auth.user.id) {
+        let doc = (this.props.auth.user.id + this.sessionId).toString();
+        let docId = doc.hashCode();
+        this.props.storeIndivDoc(editor.getHTML(), docId)
+
+    }
+    else (console.log("kein Benutzer"));
+    */
+   this.props.submitOp(delta, { source: this.props.auth.user.id });
+
+}
   render() {
+    console.log(this.props);
     return (
       <div
         id="SharedDoc"
@@ -63,7 +84,7 @@ class SharedDoc extends Component {
         })}
       >
         <ReactQuill modules={this.modules}
-          formats={this.formats} value={this.props.docs.indivText} className="personal-notes"
+          formats={this.formats} value={this.props.docs.collabText} className="personal-notes"
           onChange={this.rteChange} /> : null
       </div>
     );
@@ -72,10 +93,11 @@ class SharedDoc extends Component {
 
 const mapStateToProps = state => ({
   localState: state.localState,
-  docs: state.docs
+  docs: state.docs, 
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { setSharedDocEditing, getSharedDoc }
+  { setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp }
 )(SharedDoc);

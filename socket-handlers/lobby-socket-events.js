@@ -4,6 +4,7 @@ const VideoDBApi = require("../models/Video");
 const ScriptDBApi = require("../models/Script");
 const DocDBApi = require("../models/Doc");
 const UsersDBApi = require("../models/User");
+const WebSocket = require('ws');
 const sessionTypes = require("../client/src/shared_constants/sessionTypes");
 const winston = require("../winston-setup");
 const { logToRoom, clearRoomLogger } = require("../winston-room-logger");
@@ -42,19 +43,24 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
  * 'docs' is collection name(table name in sql terms)
  * 'firstDocument' is the id of the document
  */
+/*
 const doc = connection.get('docs', 'firstDocument');
 
 doc.fetch(function (err) {
   if (err) throw err;
   if (doc.type === null) {
+    */
     /**
      * If there is no document with id "firstDocument" in memory
      * we are creating it and then starting up our ws server
      */
+    /*
+    console.log("Versuch: Share db zu starten");
     doc.create([{ insert: 'Hello World!' }], 'rich-text', () => {
-     
-     
-      clientSocket.on('shareddoc', function connection(ws) {
+      const wss = new WebSocket.Server({ port: 3001 });
+      console.log("Versuch 2: Share db zu starten");
+      wss.on('connection', function connection(ws) {
+        console.log("Share db startet");
         // For transport we are using a ws JSON stream for communication
         // that can read and write js objects.
         const jsonStream = new WebSocketJSONStream(ws);
@@ -64,7 +70,7 @@ doc.fetch(function (err) {
     return;
   }
 });
-
+*/
   //init sessions
   //  this.AssistentProcessor = new AssistentProcessor();
 
@@ -593,7 +599,7 @@ doc.fetch(function (err) {
 };
 
 function joinRoomInternal(socketIO, clientSocket, roomId) {
-  console.log("client is subscribing to", roomId, roomsData[roomId]);
+  // console.log("client is subscribing to", roomId, roomsData[roomId]);
   clientSocket.join(roomId);
   const clientData = roomsData
     .getAdd(roomId)

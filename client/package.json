@@ -41,6 +41,7 @@
     "socket.io-client": "^2.1.1",
     "video.js": "^7.0.3",
     "videojs-youtube": "^2.5.0",
+    "ws": "^7.4.3",
     "yarn": "^1.22.10"
   },
   "scripts": {
