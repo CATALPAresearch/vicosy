@@ -125,7 +125,7 @@ export const ownSocketId = () => {
  */
 
 // Querying for our document
-export const connectSharedDocAPI = (docId, cb) => {
+export const connectSharedDocAPI = (docId) => {
 
   sharedDoc = sharedConnection.get('docs', 'firstDocument');
   console.log(sharedDoc);
@@ -148,8 +148,9 @@ export const subscribeSharedDocAPI = (userId, errorCb, setContentCb, updateCb) =
      * that is coming from our server
      */
     sharedDoc.on('op', function (op, source) {
-      if (source == userId) return;
-      updateCb(op, source);
+     if (source == userId) return;
+      else
+        updateCb(op, source);
     });
   });
 
@@ -157,6 +158,7 @@ export const subscribeSharedDocAPI = (userId, errorCb, setContentCb, updateCb) =
 }
 
 export const submitOpAPI = (delta, source) => {
+  
   sharedDoc.submitOp(delta, source);
 
 }
