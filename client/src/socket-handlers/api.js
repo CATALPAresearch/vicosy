@@ -1,16 +1,17 @@
 import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import openSocket from "socket.io-client";
 import { PEER_SIGNAL_MESSAGE } from "../p2p-handlers/p2pEvents";
+/*
 import Sharedb from 'sharedb/lib/client';
 import richText from 'rich-text';
 Sharedb.types.register(richText.type);
 
 var sharedDoc = null;
-
+*/
 var socket = null;
-
+/*
 const sharedSocket = new WebSocket('ws://127.0.0.1:8080');
-const sharedConnection = new Sharedb.Connection(sharedSocket);
+const sharedConnection = new Sharedb.Connection(sharedSocket);*/
 var lastToken = "";
 
 
@@ -125,6 +126,7 @@ export const ownSocketId = () => {
  */
 
 // Querying for our document
+/*
 export const connectSharedDocAPI = (docId) => {
 
   sharedDoc = sharedConnection.get('docs', 'firstDocument');
@@ -137,16 +139,9 @@ export const subscribeSharedDocAPI = (userId, errorCb, setContentCb, updateCb) =
 
   sharedDoc.subscribe(function (err) {
     if (err) errorCb(err);
-    /**
-     * On Initialising if data is present in server
-     * Updaing its content to editor
-     */
-
+  
     setContentCb(sharedDoc.data);
 
-    /** listening to changes in the document
-     * that is coming from our server
-     */
     sharedDoc.on('op', function (op, source) {
      if (source == userId) return;
       else
@@ -162,7 +157,7 @@ export const submitOpAPI = (delta, source) => {
   sharedDoc.submitOp(delta, source);
 
 }
-
+*/
 
 /**
  * ActivityEvents

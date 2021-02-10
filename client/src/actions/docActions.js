@@ -1,41 +1,71 @@
 import axios from "axios";
 import { storeIndivDocApi, connectSharedDocAPI, subscribeSharedDocAPI, submitOpAPI } from "../socket-handlers/api";
-import { SET_COLLAB_TEXT, SET_INDIV_TEXT, GET_ERRORS } from "./types";
+import { SET_COLLAB_TEXT, SET_INDIV_TEXT, GET_ERRORS,UDPATE_COLLAB_TEXT } from "./types";
+/*
+export const upDateSharedDoc = (oldText, op, source) => dispatch => {
+
+    dispatch({
+        type: UDPATE_COLLAB_TEXT,
+        payload: op
+    })
+
+}
 
 
-export const submitOp = (delta, source) => dispatch =>{
-submitOpAPI(delta, source);
+export const submitOp = (delta, source) => dispatch => {
+    
+    submitOpAPI(delta, source);
 }
 
 
 export const subscribeSharedDoc = (userId, update) => dispatch => {
 
-    subscribeSharedDocAPI(userId, 
+    subscribeSharedDocAPI(userId,
         (err) =>
             dispatch({
                 type: GET_ERRORS,
                 payload: err
             }),
         (collabText) => {
-            dispatch({
-                type: SET_COLLAB_TEXT,
-                payload: collabText
-            })
+         //   dispatch({
+           //     type: SET_COLLAB_TEXT,
+             //   payload: collabText
+           // })
+            console.log(collabText);
         },
-        (op, source) => {update(op, source)})};
+        (op, source) => {
+            console.log(userId);
+            console.log(source);
+            if (source != userId) update(op, source)
+        })
+};
 
 
 
 export const connectSharedDoc = (docId) => dispatch => {
     connectSharedDocAPI(docId);
-    /*
-    dispatch({
-        type: SET_COLLAB_TEXT,
-        payload: "doc"
-    });
-    */
+
+//    dispatch({
+  //      type: SET_COLLAB_TEXT,
+    //    payload: "doc"
+  //  });
+    
 
 }
+
+*/
+
+
+export const setSharedDoc = (doc) => dispatch => {
+
+    dispatch({
+        type: SET_COLLAB_TEXT,
+        payload: doc
+    });
+
+
+}
+
 
 export const storeIndivDoc = (text, docId) => dispatch => {
     storeIndivDocApi(text, docId);

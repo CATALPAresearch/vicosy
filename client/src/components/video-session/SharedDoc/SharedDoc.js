@@ -1,53 +1,113 @@
-import React, { Component } from "react";
+import React, { useEffect, Component } from 'react';
+import Quill from 'quill';
+import 'quill/dist/quill.bubble.css';
+import 'quill/dist/quill.snow.css';
+import Sharedb from 'sharedb/lib/client';
+import richText from 'rich-text';
 import "./shared-doc.css";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 import { setSharedDocEditing } from "../../../actions/localStateActions";
-import { connectSharedDoc, subscribeSharedDoc, submitOp } from "../../../actions/docActions";
-import ReactQuill from 'react-quill'; // ES6
-import 'react-quill/dist/quill.bubble.css';
+// import { connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc } from "../../../actions/docActions";
+
+
+// Registering the rich text type to make sharedb work
+// with our quill editor
+Sharedb.types.register(richText.type);
+
+
+
 
 class SharedDoc extends Component {
   constructor(props) {
     super(props);
+    Sharedb.types.register(richText.type);
+    // Connecting to our socket server
+    const socket = new WebSocket('ws://127.0.0.1:8080');
+    const connection = new Sharedb.Connection(socket);
+
+    // Querying for our document
+    const doc = connection.get('docs', 'firstDocument');
     this.doc = {};
     this.isOpen = false;
     this.sessionId = this.props.roomId;
-    this.modules = {
-      toolbar: [
-        [{ 'font': [] }],
-        [{ 'size': ['small', false, 'large', 'huge'] }],
-        ['bold', 'italic', 'underline'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'align': [] }],
-        [{ 'color': [] }, { 'background': [] }],
-        ['clean']
-      ]
-    };
-    this.formats = [
-      'font',
-      'size',
-      'bold', 'italic', 'underline',
-      'list', 'bullet',
-      'align',
-      'color', 'background'
-    ];
-    this.props.connectSharedDoc("dummy");
+  
+    doc.subscribe(function (err) {
+      if (err) throw err;
+
+      const toolbarOptions = ['bold', 'italic', 'underline', 'strike', 'align'];
+      const options = {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            [{ 'font': [] }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            ['bold', 'italic', 'underline'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'align': [] }],
+            [{ 'color': [] }, { 'background': [] }],
+            ['clean']
+          ]
+        },
+        formats: [
+          'font',
+          'size',
+          'bold', 'italic', 'underline',
+          'list', 'bullet',
+          'align',
+          'color', 'background'
+        ]
+      };
+      let quill = new Quill('#editor', options);
+      /**
+       * On Initialising if data is present in server
+       * Updaing its content to editor
+       */
+      quill.setContents(doc.data);
+
+      /**
+       * On Text change publishing to our server
+       * so that it can be broadcasted to all other clients
+       */
+      quill.on('text-change', function (delta, oldDelta, source) {
+        if (source !== 'user') return;
+        doc.submitOp(delta, { source: quill });
+        quill.focus()
+      });
+
+      /** listening to changes in the document
+       * that is coming from our server
+       */
+      doc.on('op', function (op, source) {
+        if (source === quill) return;
+        quill.updateContents(op);
+        quill.focus()
+      });
+    });
+    
+
 
   }
 
   componentDidMount() {
+    /*
     this.props.connectSharedDoc("dummy");
-    this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => { console.log(op)});
+    this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => {
 
+      this.props.upDateSharedDoc(this.props.docs.collabText, op, source);
+
+    });
+*/
   }
 
 
   componentWillUnmount() {
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+  //  console.log(nextProps);
+
+
     /*
     if (nextProps.localState.sharedDocEditing.isOpen) {
       this.props.subscribeSharedDoc((sharedDoc) => { console.log(sharedDoc) });
@@ -59,33 +119,32 @@ class SharedDoc extends Component {
     window.dialogRequestEvents.dispatch(TOGGLE_SHARED_DOC_REQUEST);
   }
   rteChange = (content, delta, source, editor) => {
-
     /*
-    if (this.props.auth.user.id) {
-        let doc = (this.props.auth.user.id + this.sessionId).toString();
-        let docId = doc.hashCode();
-        this.props.storeIndivDoc(editor.getHTML(), docId)
+        if (this.props.auth.user.id) {
+            let doc = (this.props.auth.user.id + this.sessionId).toString();
+            let docId = doc.hashCode();
+            this.props.storeIndivDoc(editor.getHTML(), docId)
+    
+        }
+        else (console.log("kein Benutzer"));
+        */
+    this.props.submitOp(delta, this.props.auth.user.id);
 
-    }
-    else (console.log("kein Benutzer"));
-    */
-   this.props.submitOp(delta, { source: this.props.auth.user.id });
-
-}
+  }
   render() {
-    console.log(this.props);
+    // Connecting to our socket server
+   
+
     return (
       <div
-        id="SharedDoc"
+        id="SharedDoc" 
         className={classnames("", {
           "hidden-nosize": !this.props.localState.sharedDocEditing.isOpen,
           docOffsetWithCollaborationBar: this.props.useOffset,
           docOffsetWithoutCollaborationBar: !this.props.useOffset
         })}
       >
-        <ReactQuill modules={this.modules}
-          formats={this.formats} value={this.props.docs.collabText} className="personal-notes"
-          onChange={this.rteChange} /> : null
+        <div id='editor'></div>
       </div>
     );
   }
@@ -93,11 +152,11 @@ class SharedDoc extends Component {
 
 const mapStateToProps = state => ({
   localState: state.localState,
-  docs: state.docs, 
+  docs: state.docs,
   auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  { setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp }
+  { /* setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc */} 
 )(SharedDoc);
