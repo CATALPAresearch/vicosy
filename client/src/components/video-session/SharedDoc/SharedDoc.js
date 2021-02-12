@@ -9,7 +9,8 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 import { setSharedDocEditing } from "../../../actions/localStateActions";
-// import { connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc } from "../../../actions/docActions";
+//import {connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc } from "../../../actions/docActions";
+import { subscribeSharedDoc } from "../../../actions/docActions";
 
 
 // Registering the rich text type to make sharedb work
@@ -28,11 +29,12 @@ class SharedDoc extends Component {
     const connection = new Sharedb.Connection(socket);
 
     // Querying for our document
-    const doc = connection.get('docs', 'firstDocument');
+
     this.doc = {};
     this.isOpen = false;
     this.sessionId = this.props.roomId;
-  
+    const doc = connection.get('docs', this.sessionId);
+
     doc.subscribe(function (err) {
       if (err) throw err;
 
@@ -85,7 +87,7 @@ class SharedDoc extends Component {
         quill.focus()
       });
     });
-    
+
 
 
   }
@@ -99,13 +101,15 @@ class SharedDoc extends Component {
 
     });
 */
+    this.props.subscribeSharedDoc(this.sessionId);
   }
+
 
 
   componentWillUnmount() {
   }
   componentWillReceiveProps(nextProps) {
-  //  console.log(nextProps);
+    //  console.log(nextProps);
 
 
     /*
@@ -133,11 +137,11 @@ class SharedDoc extends Component {
   }
   render() {
     // Connecting to our socket server
-   
+
 
     return (
       <div
-        id="SharedDoc" 
+        id="SharedDoc"
         className={classnames("", {
           "hidden-nosize": !this.props.localState.sharedDocEditing.isOpen,
           docOffsetWithCollaborationBar: this.props.useOffset,
@@ -158,5 +162,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { /* setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc */} 
+  { subscribeSharedDoc/* setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc */ }
 )(SharedDoc);

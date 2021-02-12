@@ -159,6 +159,10 @@ export const submitOpAPI = (delta, source) => {
 }
 */
 
+export const subscribeSharedDocAPI = (docId) => {
+  socket.emit("startSharedDoc", docId);
+
+}
 /**
  * ActivityEvents
  * 

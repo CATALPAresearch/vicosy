@@ -22,30 +22,40 @@ const WebSocket = require('ws');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 const ShareDB = require('sharedb');
 
+// DB config
+const db = require("./config/keys").mongoURI;
+
+//const SharedMongoDb = require ('sharedb-mongo')(db);
 /**
  * By Default Sharedb uses JSON0 OT type.
  * To Make it compatible with our quill editor.
  * We are using this npm package called rich-text
  * which is based on quill delta
  */
-ShareDB.types.register(require('rich-text').type);
+ ShareDB.types.register(require('rich-text').type);
 
-const shareDBServer = new ShareDB();
-const connection = shareDBServer.connect();
+
+
+ const shareDBServer = new ShareDB(/*SharedMongoDb*/);
+ const sharedConnection = shareDBServer.connect();
 
 /**
  * 'docs' is collection name(table name in sql terms)
  * 'firstDocument' is the id of the document
  */
-const sharedDoc = connection.get('docs', 'firstDocument');
+/*
+const sharedDoc = sharedConnection.get('docs', 'firstDocument');
 
 sharedDoc.fetch(function (err) {
   if (err) throw err;
   if (sharedDoc.type === null) {
+    */
     /**
      * If there is no document with id "firstDocument" in memory
      * we are creating it and then starting up our ws server
      */
+
+     /*
     sharedDoc.create([{ insert: 'Hello World!' }], 'rich-text', () => {
       const wss = new WebSocket.Server({ port: 8080 });
       console.log("New Doc created");
@@ -60,6 +70,7 @@ sharedDoc.fetch(function (err) {
     return;
   }
 });
+*/
 
 
 
@@ -83,8 +94,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// DB config
-const db = require("./config/keys").mongoURI;
+
 
 // connect to MongoDB
 mongoose

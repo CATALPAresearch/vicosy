@@ -24,51 +24,54 @@ const ShareDB = require('sharedb');
 ShareDB.types.register(require('rich-text').type);
 
 
-const shareDBServer = new ShareDB();
-const connection = shareDBServer.connect();
+
 
 
 
 
 const roomsData = { lobby: {} };
 const roomProcessors = {}; // room id => processor
-
+const shareDBServer = new ShareDB();
+const sharedConnection = shareDBServer.connect();
+var sharedDoc = {};
 
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
+ 
 
-//shareddocs
 
-/**
- * 'docs' is collection name(table name in sql terms)
- * 'firstDocument' is the id of the document
- */
-/*
-const doc = connection.get('docs', 'firstDocument');
+  //shareddocs
 
-doc.fetch(function (err) {
-  if (err) throw err;
-  if (doc.type === null) {
-    */
-    /**
-     * If there is no document with id "firstDocument" in memory
-     * we are creating it and then starting up our ws server
-     */
-    /*
-    console.log("Versuch: Share db zu starten");
-    doc.create([{ insert: 'Hello World!' }], 'rich-text', () => {
-      const wss = new WebSocket.Server({ port: 3001 });
-      console.log("Versuch 2: Share db zu starten");
-      wss.on('connection', function connection(ws) {
-        console.log("Share db startet");
-        // For transport we are using a ws JSON stream for communication
-        // that can read and write js objects.
-        const jsonStream = new WebSocketJSONStream(ws);
-        share.listen(jsonStream);
-      });
+  /**
+   * 'docs' is collection name(table name in sql terms)
+   * 'firstDocument' is the id of the document
+   */
+  /*
+  const doc = connection.get('docs', 'firstDocument');
+  
+  doc.fetch(function (err) {
+    if (err) throw err;
+    if (doc.type === null) {
+      */
+  /**
+   * If there is no document with id "firstDocument" in memory
+   * we are creating it and then starting up our ws server
+   */
+  /*
+  console.log("Versuch: Share db zu starten");
+  doc.create([{ insert: 'Hello World!' }], 'rich-text', () => {
+    const wss = new WebSocket.Server({ port: 3001 });
+    console.log("Versuch 2: Share db zu starten");
+    wss.on('connection', function connection(ws) {
+      console.log("Share db startet");
+      // For transport we are using a ws JSON stream for communication
+      // that can read and write js objects.
+      const jsonStream = new WebSocketJSONStream(ws);
+      share.listen(jsonStream);
     });
-    return;
-  }
+  });
+  return;
+}
 });
 */
   //init sessions
@@ -167,12 +170,45 @@ doc.fetch(function (err) {
   /*
    * DOCS
    * */
+  /*individual doc ist stored in DB*/
   clientSocket.on("storeIndivDoc", content => {
     console.log(content);
     DocDBApi.setIndividualText(content.text, content.docId);
   });
 
+//collab doc is started
+  clientSocket.on("startSharedDoc", docId => {
+console.log("startSharedDoc")
+    sharedDoc = sharedConnection.get('docs', docId);
 
+    sharedDoc.fetch(function (err) {
+      if (err) throw err;
+      if (sharedDoc.type === null) {
+
+        /**
+         * If there is no document with id "firstDocument" in memory
+         * we are creating it and then starting up our ws server
+         */
+
+
+        sharedDoc.create([{ insert: 'Hier könnt ihr gemeinsam schreiben!' }], 'rich-text', () => {
+          const wss = new WebSocket.Server({ port: 8080 });
+          console.log("New Doc created");
+          wss.on('connection', function connection(ws) {
+            // For transport we are using a ws JSON stream for communication
+            // that can read and write js objects.
+            console.log("New collab Doc Connection established");
+            const jsonStream = new WebSocketJSONStream(ws);
+            shareDBServer.listen(jsonStream);
+          });
+        });
+        return;
+      }
+    });
+
+
+
+  })
 
   /*
    * ROOMS
@@ -267,6 +303,9 @@ doc.fetch(function (err) {
 
   function createTrainerSession(script, scriptId, roomName, videoUrl, sessionType, group) {
     const roomId = String(group._id);
+
+
+
     //save space from unnessessary data
     // console.log(script);
     /*
