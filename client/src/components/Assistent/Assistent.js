@@ -132,14 +132,14 @@ class Assistent extends Component {
 
 
     nextInstruction() {
-
+        
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
             this.arrows = null;
             this.props.setActInstruction(null);
             this.props.nextInstruction();
 
         }
-        else return null;
+        //else return null;
 
     }
 
@@ -149,7 +149,7 @@ class Assistent extends Component {
             this.props.previousInstruction();
 
         }
-        else return null;
+        //else return null;
 
     }
 
