@@ -2,11 +2,12 @@
     position: absolute;
     left: 10px;
     color: beige;
-
-    width: 80%;
+    align-items: stretch;
+    
     margin-top:2px;
     margin-bottom:2px;
     height:30px;
+    z-index: 10;
 
 }
 .progress {
@@ -16,17 +17,16 @@
 
 }
 .progress div {
-    
-    padding-left:2px;
-    padding-right:2px;
+    padding-left:4px;
+    padding-right:4px;
     background-color:#17a2b8;
     border-left-color: white;
     border-left-width: 3px;
     border-left-style: solid;
-    width:13%;
- 
-    
+    align-items: stretch;
+  
 
+ 
 }
 
 #actPhase {

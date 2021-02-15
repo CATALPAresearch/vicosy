@@ -235,7 +235,7 @@ class ScriptSettings extends Component {
                             <div className="col-6 col-sm-8">
                                 <h4>
                                     {!this.props.script._id ? "Neues Script" :
-                                        this.props.script.started ? "Script gestartet" : "Script bearbeiten und Mitglieder einladen" }
+                                        this.props.script.started ? "Script gestartet" : "Script bearbeiten und Mitglieder einladen"}
                                 </h4>
                             </div>
                             <div className="col-6 col-sm-3"><h4 htmlFor="scriptName">
@@ -364,7 +364,7 @@ class ScriptSettings extends Component {
                                     onChange={this.handleChange.bind(this)}
                                     role={this.state.role}
                                     valueProvider={this.props.script}
-                                    readOnly={this.props.script.started}
+                                    readOnly={true}
                                 />
                             </div>
                             <div className="w-100"></div>

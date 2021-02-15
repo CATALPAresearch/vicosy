@@ -29,7 +29,7 @@ export default class Interactive extends Component {
 }
 
 Interactive.propTypes = {
-  content: PropTypes.object.isRequired,
+  content: PropTypes.object,
   disabled: PropTypes.bool,
   disabledMessage: PropTypes.string
 };

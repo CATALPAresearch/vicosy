@@ -33,12 +33,12 @@
   width:100%;
   background-color: rgba(52, 58, 64, 0.93);
   position:relative;
-  height:18%;
+  height:114px;
 }
 
 #laempel {
   width: 100px;
-  position:relative;
+  position:absolute;
   left:-20px;
   float:left;
   /*position: fixed;

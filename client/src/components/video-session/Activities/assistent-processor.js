@@ -4,6 +4,7 @@ import { sendActiveMessage, setIncominginstruction, sendTabLostMessage } from ".
 import { ownSocketId } from "../../../socket-handlers/api";
 import Instruction from "../../Assistent/phases/Instruction";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
+const assistentConfig = require ("../../../shared_constants/assistent");
 const { listenActiveMessage, listenTabLostMessage } = require("../../../socket-handlers/api")
 
 
@@ -17,8 +18,9 @@ export class AssistentProcessor extends Component {
         this.sessionId = this.props.roomId;
         this.sendActiveMessage = this.sendActiveMessage.bind(this);
         this.state = { partnerActive: true, partner: null };
-        this.sendActiveMessageInterval = 3000;
-        this.checkActiveMessageInterval = 10000;
+        this.sendActiveMessageInterval = assistentConfig.inactive_report_interval;
+        this.checkActiveMessageInterval = assistentConfig.inactive_check_interval;
+        
         //this.activeMessageTimeOut = setTimeout(function () { this.setState({ partnerActive: false }) }, this.checkActiveMessageInterval);
         this.activeMessageTimeOut = null;
         this.resetTimerVar = null;
@@ -99,8 +101,11 @@ export class AssistentProcessor extends Component {
 
     }
     showMessage() {
+        if (this.partner)
+            this.props.setIncominginstruction(new Instruction("Dein Partner " + this.partner + " ist seit über " + this.checkActiveMessageInterval / 1000 + " Sekunden inaktiv. Tritt mit ihm in Kontakt.", ""))
+        else
+            this.props.setIncominginstruction(new Instruction("Dein Partner ist aktuell nicht in der Sitzung.", ""))
 
-        this.props.setIncominginstruction(new Instruction("Dein Partner " + this.partner + " ist seit über " + this.checkActiveMessageInterval / 1000 + " Sekunden inaktiv. Tritt mit ihm in Kontakt.", ""))
     }
 
     sendTabLostMessage() {

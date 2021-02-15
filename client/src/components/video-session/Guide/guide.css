@@ -49,3 +49,7 @@
 .guide-flex-item {
   flex: 0 1 auto;
 }
+
+#confirmButton {
+ z-index: 40;
+}

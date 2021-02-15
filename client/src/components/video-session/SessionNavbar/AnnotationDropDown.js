@@ -97,7 +97,7 @@ class AnnotationDropDown extends Component {
               )}
               href="#"
             >
-              <i className="fa fa-map-signs" /> Chapter Annotation
+              <i className="fa fa-cut" />Aufteilen
             </a>
           </div>
         </div>

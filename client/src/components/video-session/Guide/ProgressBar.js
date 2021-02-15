@@ -5,13 +5,12 @@ import "./progressBar.css";
 export class ProgressBar extends Component {
     constructor(props) {
         super(props);
-       
-    }
 
-    
+    }
 
 
     renderBar() {
+console.log(this.props);
         var id0 = "";
         var id1 = "";
         var id2 = "";
@@ -79,15 +78,16 @@ export class ProgressBar extends Component {
                         break;
                 }
         return (
+
             <div className="progress">
                 <div id={id0} style={{ borderLeftWidth: "0px" }} className="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Start</div>
-                <div id={id1} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div>
+                {  this.props.script.isPhase0? <div id={id1} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div> : null}
                 <div id={id2} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unterteilen</div>
                 <div id={id3} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorbereiten</div>
                 <div id={id4} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorstellen</div>
                 <div id={id5} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Zuhören</div>
                 <div id={id6} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vertiefen</div>
-                <div id={id7} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Reflexion</div>
+                {  this.props.script.isPhase5 ? <div id={id7} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Reflexion</div> : null}
             </div>
 
         );
@@ -97,7 +97,7 @@ export class ProgressBar extends Component {
 
     render() {
         var content = this.renderBar();
-return (
+        return (
             <div id="ProgressBar">
                 {content}
             </div>

@@ -5,6 +5,7 @@ import "./assistent.css";
 import assi_on from './images/lehrer.png';
 import assi_off from './images//lehrer_aus.png';
 import Instruction from "./Instruction";
+import {NoPhase} from "./phases/Phases";
 import IncomingInstruction from "./IncomingInstruction";
 import AssistentController from "./AssistentController";
 import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction } from "../../actions/assistentActions";
@@ -132,7 +133,7 @@ class Assistent extends Component {
 
 
     nextInstruction() {
-        
+
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
             this.arrows = null;
             this.props.setActInstruction(null);
@@ -169,7 +170,10 @@ class Assistent extends Component {
     setActInstruction() {
         this.arrows = null;
         this.props.setActInstruction(null);
-        this.props.setActInstruction(this.props.assistent.phase.instructions[this.props.assistent.phase.pointer]);
+        if (!this.props.assistent.phase)
+            this.props.setPhase (new NoPhase());
+        else
+            this.props.setActInstruction(this.props.assistent.phase.instructions[this.props.assistent.phase.pointer]);
 
     }
 
@@ -221,11 +225,6 @@ class Assistent extends Component {
             <div id="assistent">
                 {this.arrows}
 
-                <div id="overlay" style={{ display: this.state.display }}>
-                    <div id="text">
-                        test
-                    </div>
-                </div>
 
 
                 <div className="panel" id="laempel">
@@ -244,7 +243,14 @@ class Assistent extends Component {
                             instruction={this.props.assistent.actInstruction}
                             nextInstruction={this.nextInstruction.bind(this)}
                             previousInstruction={this.previousInstruction.bind(this)}
-                        /> : null}
+                        /> :
+                        <Instruction
+                            instruction={new Instruction("Ich habe dir im Moment nichts zu sagen.", "")}
+                        />
+
+                }
+
+
 
 
             </div>
@@ -258,7 +264,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps, { AssistentController, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
+    mapStateToProps, { AssistentController, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
 )(withRouter(Assistent));
 
 

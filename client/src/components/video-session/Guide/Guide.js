@@ -55,7 +55,6 @@ class Guide extends Component {
 
 
   render() {
-    console.log(this.props);
     const { isOpen, activeUrl, confirmationMode } = this.props.localState.guide;
     if (!isOpen || activeUrl === "") return null;
 
@@ -78,7 +77,7 @@ class Guide extends Component {
         );
         break;
       case "none":
-        confirmationComponent = "Waiting for condition to continue...";
+        confirmationComponent = "";
         break;
 
       default:
@@ -96,16 +95,19 @@ class Guide extends Component {
     return (
       <div id="Guide">
         <div id="GuideFooter" className="guide-flex-item">
-          {/*
+          <div className="d-flex flex-row">
+            {/*
         <RoomComponent
             roomId="ProgressBar"
             component={ProgressBar}
           />
 */}
-
-          <ProgressBar />
-          <div className="w-20 p-3">
-            {confirmationComponent}
+            <div className="d-flex align-content-stretch flex-wrap">
+              <ProgressBar />
+            </div>
+            <div id="confirmButton">
+              {confirmationComponent}
+            </div>
           </div>
         </div>
 

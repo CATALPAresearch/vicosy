@@ -82,15 +82,22 @@ class VideoSession extends Component {
       this.initialize();
     }
   }
-
+/*
+  initialize() {
+    window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
+    window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
+    this.updateRoomState(this.props);
+  }
+  */
   initialize() {
 
+    console.log(this.props);
     this.props.getScriptByGroupId(this.props.match.params.sessionId, () => {
       window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
       window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
       this.updateRoomState(this.props);
     });
-
+    
   }
 
   componentWillUnmount() {

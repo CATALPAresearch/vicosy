@@ -101,26 +101,42 @@ export const updateScriptProp = (prop) => dispatch => {
 
 //Trainer starts script
 export const startScript = (script) => dispatch => {
+
   axios
-    .post("/api/script/startscript", { _id: script._id })
+    .post("/api/script/updatescript", script)
     .then(res => {
-      notifyMembers(res.data);
-      /*
-      if (script.groups)
-        for (var group of script.groups) {
-          createTrainerSession(script.scriptName, script.videourl, script.scriptType, group._id);
-        }
-        */
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data
       });
+
+      axios
+        .post("/api/script/startscript", { _id: script._id })
+        .then(res => {
+          notifyMembers(res.data);
+
+          dispatch({
+            type: SET_ACT_SCRIPT,
+            payload: res.data
+          });
+        }).catch(err => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          });
+        });
+
+
+
+
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       });
     });
+
+
 
 }
 
@@ -444,7 +460,7 @@ export const getScriptById = (scriptId) => dispatch => {
 
 //get Script by GroupId
 export const getScriptByGroupId = (groupId, callback) => dispatch => {
-  let group = { _id: groupId};
+  let group = { _id: groupId };
   axios
     .post("/api/script/getscriptbygroup", group)
     .then(res => {

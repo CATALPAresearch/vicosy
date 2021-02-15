@@ -36,8 +36,7 @@ export class TrainerSessionList extends Component {
     var sessionsToRender = null;
 
 
-    console.log(this.props.roomState);
-    if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
+  if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
       const { sessions } = roomData.state.sharedRoomData;
       const sessionRoomIds = Object.keys(sessions);
 
