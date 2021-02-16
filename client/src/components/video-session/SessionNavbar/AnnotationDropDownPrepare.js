@@ -13,13 +13,13 @@ class AnnotationDropDown extends Component {
     super(props);
 
     this.state = {
-      selectedAnnotationType: "annotation"
+      selectedAnnotationType: "annotation-section"
     };
   }
 
   onAnnotationTriggered() {
     // window.genericAppEvents.dispatch(action);
-
+    this.props.setAnnotationType("annotation-section");
     if (this.isCurrentFrame()) {
       this.props.deActivateAnnotationEditing();
     } else {
@@ -57,29 +57,71 @@ class AnnotationDropDown extends Component {
   }
 
   render() {
-    console.log(this.props.settings);
-    if (this.props.settings.annotationType == "annotation-section")
-      return (
-        <button
+    return (
+      /*
+      <div className="btn-group">
+        <div className="btn-group dropleft" role="group">
+          <button
+            type="button"
+            className="btn btn-secondary dropdown-toggle dropdown-toggle-split  btn-sm"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <span className="sr-only">Toggle Dropleft</span>
+          </button>
+          <div className="dropdown-menu">
+            <a
+              className={classnames("dropdown-item", {
+                active: this.state.selectedAnnotationType === "annotation"
+              })}
+              title="Simple annotation marking POIs in the video."
+              onClick={this.onAnnotationTypeChange.bind(
+                this,
+                "annotation",
+                false
+              )}
+              href="#"
+            >
+              <i className="fa fa-map-marker" /> Annotation
+            </a>
+
+              */
+      <button
         className="btn btn-primary"
         title="Defines a split/chapter point. As a result 2 new timesections will appear."
-              onClick={this.onAnnotationTriggered.bind(this)}
+        /*   onClick={this.onAnnotationTypeChange.bind(
+             this,
+             "annotation-section",
+             false
+           )}
+           */
+        onClick={this.onAnnotationTriggered.bind(this)}
         >
         <i className="fa fa-film" />Create Chapter
       </button>
-      );
-      if (this.props.settings.annotationType == "annotation")
-      return (
-        <button
-        className="btn btn-primary"
-        title="Simple annotation marking POIs in the video."
-              onClick={this.onAnnotationTriggered.bind(this)}
-        >
-        <i className="fa map-marker" />Annotate
-      </button>
-      )
-    
-      
+      /*
+    </div>
+  </div>
+  <button id="open-annotations"
+    onClick={this.onAnnotationTriggered.bind(this)}
+    className="btn btn-secondary btn-sm"
+    title="Open annotation editor for the current video frame"
+  >
+    Annotate{" "}
+    <i
+      className={classnames("fa", {
+        "fa-film":
+          this.state.selectedAnnotationType === "annotation-section",
+        "fa-map-marker":
+          this.state.selectedAnnotationType === "annotation"
+      })}
+    />
+  </button>
+  
+</div>
+*/
+    );
   }
 }
 

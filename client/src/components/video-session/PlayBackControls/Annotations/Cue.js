@@ -49,7 +49,7 @@ class Cue extends Component {
     if (meta.type !== "annotation-section")
       return meta.temporaryAdd ? "fa fa-map-marker-alt" : " fa fa-map-marker";
 
-    return "fa fa-map-signs";
+    return "fa fa-film";
   }
 
   render() {

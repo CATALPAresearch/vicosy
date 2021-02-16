@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   markerType: "marker-transient",
-  annotationType: "annotation",
+  annotationType: "annotation-section",
   syncSharedDocInSyncSpace: true
 };
 

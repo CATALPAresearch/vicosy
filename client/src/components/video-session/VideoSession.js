@@ -183,6 +183,7 @@ class VideoSession extends Component {
        this.assistentLayout();
      else
        this.normalLayout();*/
+       //console.log(this.props);
     const { sessionId } = this.props.match.params;
 
     const contentDocInteractionRequired = (

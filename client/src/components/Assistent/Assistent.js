@@ -201,7 +201,7 @@ class Assistent extends Component {
 
     componentDidMount() {
         window.addEventListener("resize", this.actualize.bind(this));
-        document.addEventListener("keydown", this._handleKeyDown, false);
+        document.addEventListener("keydown", this._handleKeyDown.bind(this), false);
         // this.arrows = null;
         // this.getArrowPosition();
         this.actualize();

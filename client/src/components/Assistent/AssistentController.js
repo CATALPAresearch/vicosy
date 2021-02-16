@@ -8,7 +8,7 @@ import { getScriptById } from "../../actions/scriptActions";
 import { connect } from "react-redux";
 import { StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 import { STUDENTLOBBY } from "./phases/types";
-
+import {setAnnotationType} from "../../actions/settingActions";
 
 export class AssistentController extends Component {
   constructor() {
@@ -85,12 +85,14 @@ export class AssistentController extends Component {
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
+        this.props.setAnnotationType("annotation");
         break;
       case "PREPAREPOST":
         actPhase = new PreparePost();
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
+        this.props.setAnnotationType("annotation");
         break;
       case "PRESENTTUTOR":
         actPhase = new PresentTutorPre();
@@ -179,7 +181,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { openPublicGuide, closePublicGuide, setPhase, setActInstruction, setIncominginstruction, getScriptById }
+  {setAnnotationType, openPublicGuide, closePublicGuide, setPhase, setActInstruction, setIncominginstruction, getScriptById }
 )(AssistentController);
 
 
