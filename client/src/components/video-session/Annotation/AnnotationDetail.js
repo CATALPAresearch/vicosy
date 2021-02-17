@@ -39,6 +39,7 @@ class AnnotationDetail extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onVideoTimeUpdate = this.onVideoTimeUpdate.bind(this);
+
   }
 
   handleChange(event) {
@@ -138,7 +139,7 @@ class AnnotationDetail extends Component {
     try {
       availableAnnotationData = this.props.rooms.rooms[this.props.roomId].state
         .sharedRoomData.annotations[timestamp];
-    } catch (err) {}
+    } catch (err) { }
 
     if (frameSynced) {
       currentPlaytimeAnnotationData = availableAnnotationData;
@@ -147,7 +148,7 @@ class AnnotationDetail extends Component {
         currentPlaytimeAnnotationData = this.props.rooms.rooms[
           this.props.roomId
         ].state.sharedRoomData.annotations[currentPlayTime];
-      } catch (err) {}
+      } catch (err) { }
     }
 
     var newStateData = {
@@ -190,6 +191,8 @@ class AnnotationDetail extends Component {
   }
 
   render() {
+    var phase = this.props.rooms.rooms[this.props.roomId].state.sharedRoomData.collabScript.phaseData.phaseId;
+
     return (
       <div
         className={classnames("annotation-content roundedStrong", {
@@ -287,7 +290,6 @@ class AnnotationDetail extends Component {
             <i className="fa fa-map-marker" />{" "}
             <i className="fa fa-arrows-alt-h" />
           </button>
-
           <button
             onClick={this.onRemoveClick.bind(this)}
             type="button"
@@ -295,8 +297,13 @@ class AnnotationDetail extends Component {
               "hidden-nosize": this.state.isNew
             })}
             title="Delete this annotation from shared space"
+            disabled=
+            {(phase !== "PHASE_SEPARATE_SECTIONS" && this.state.type === "annotation-section")}
           >
             Remove
+            
+
+
           </button>
         </form>
         <button

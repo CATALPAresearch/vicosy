@@ -65,7 +65,7 @@ class AnnotationDropDown extends Component {
         title="Defines a split/chapter point. As a result 2 new timesections will appear."
               onClick={this.onAnnotationTriggered.bind(this)}
         >
-        <i className="fa fa-film" />Create Chapter
+        <i className="fa fa-film" /> Create Chapter
       </button>
       );
       if (this.props.settings.annotationType == "annotation")
