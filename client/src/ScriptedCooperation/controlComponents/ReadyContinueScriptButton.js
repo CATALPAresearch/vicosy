@@ -82,13 +82,16 @@ class ReadyContinueScriptButton extends Component {
   }
 
   render() {
+    const divStyle = {
+     zIndex: "30",
+    position: "relative"};
     var targetContent = null;
     const continueContent = (
       <div id="ready-to-finish" className="ml-1">
         {this.state.waitingForOthers ? (
           <div className="hFlexLayout" id="toggle-switch">
             {this.state.meIsReady ? (
-              <span className="mr-1">Waiting for peer...</span>
+              <span className="mr-1"></span>
             ) : null}
             <ToggleSwitchButton
               onToggle={this.onButtonClick}
@@ -97,13 +100,15 @@ class ReadyContinueScriptButton extends Component {
             />
           </div>
         ) : (
-            <button id="toggle-switch"
+          <div>
+            <button style={divStyle} id="toggle-switch"
               onClick={this.onButtonClick}
               className="btn btn-success btn-sm"
             >
               Finish Phase
               <i className="ml-1 fa fa-check-circle" />
             </button>
+            </div>
           )}
       </div>
     );

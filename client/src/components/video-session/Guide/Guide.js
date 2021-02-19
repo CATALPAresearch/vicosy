@@ -102,7 +102,7 @@ class Guide extends Component {
             component={ProgressBar}
           />
 */}
-            <div className="d-flex align-content-stretch flex-wrap">
+            <div className="">
               <ProgressBar />
             </div>
             <div id="confirmButton">
