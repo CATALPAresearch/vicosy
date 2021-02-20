@@ -39,44 +39,6 @@ var sharedDoc = {};
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
  
 
-
-  //shareddocs
-
-  /**
-   * 'docs' is collection name(table name in sql terms)
-   * 'firstDocument' is the id of the document
-   */
-  /*
-  const doc = connection.get('docs', 'firstDocument');
-  
-  doc.fetch(function (err) {
-    if (err) throw err;
-    if (doc.type === null) {
-      */
-  /**
-   * If there is no document with id "firstDocument" in memory
-   * we are creating it and then starting up our ws server
-   */
-  /*
-  console.log("Versuch: Share db zu starten");
-  doc.create([{ insert: 'Hello World!' }], 'rich-text', () => {
-    const wss = new WebSocket.Server({ port: 3001 });
-    console.log("Versuch 2: Share db zu starten");
-    wss.on('connection', function connection(ws) {
-      console.log("Share db startet");
-      // For transport we are using a ws JSON stream for communication
-      // that can read and write js objects.
-      const jsonStream = new WebSocketJSONStream(ws);
-      share.listen(jsonStream);
-    });
-  });
-  return;
-}
-});
-*/
-  //init sessions
-  //  this.AssistentProcessor = new AssistentProcessor();
-
   this.initSessions = function (callback) {
 
     ScriptDBApi.find({ started: true }).then(scripts => {
