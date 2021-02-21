@@ -38,7 +38,7 @@ class VideoSessionController extends Component {
     this.onSeekRequest = this.onSeekRequest.bind(this);
     this.onPlayerApiInitialized = this.onPlayerApiInitialized.bind(this);
     this.updateRefs = this.updateRefs.bind(this);
-   console.log(this.props);
+ 
   }
 
   componentDidMount() {

@@ -263,7 +263,7 @@ class VideoSession extends Component {
               requiresCollaborationBar ? (
                 <RoomComponent roomId={sessionId} component={CollaborationBar} />
               ) : null}
-            <SessionNavbar playerRef={this.abstractPlayerRef} />
+            <SessionNavbar  roomId={sessionId} playerRef={this.abstractPlayerRef} />
             <div
               id="VideoSection"
               className={classnames("", {

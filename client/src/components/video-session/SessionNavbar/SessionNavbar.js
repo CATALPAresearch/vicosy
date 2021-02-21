@@ -36,7 +36,9 @@ class SessionNavbar extends Component {
         })}
       >
         <span id="SessionNavbarContent" className="hFlexLayout">
-          <MainRessourceTabs />
+          <MainRessourceTabs 
+          sessionId={this.props.roomId}
+          />
           <Interactive disabled={false} disabledMessage="Zurzeit deaktiviert">
             <SyncSwitch />
           </Interactive>

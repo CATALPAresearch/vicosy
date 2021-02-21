@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 
 class MainRessourceTabs extends Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
+    this.sessionId=this.props.sessionId;
+    
     this.state = {
       tabs: []
     };
@@ -17,7 +18,7 @@ class MainRessourceTabs extends Component {
   };
 
   componentDidMount() {
-    const tabs = [
+       const tabs = [
       {
         id: "video-tab",
         callback: this.toggleSharedDoc,
@@ -42,6 +43,7 @@ class MainRessourceTabs extends Component {
       const isSelected = selectedTabId === tab.id;
 
       return (
+     // (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId!=="PHASE_SEPARATE_SECTIONS"||tab.id!=="doc-tab")?
         <li key={tab.id} className="nav-item">
           <a
             className={`nav-link${isSelected ? " active prevent-pointer" : ""}`}
@@ -56,6 +58,7 @@ class MainRessourceTabs extends Component {
             {tab.name} {!!tab.extraContent ? tab.extraContent : null}
           </a>
         </li>
+        //:null
       );
     });
 
@@ -74,7 +77,8 @@ class MainRessourceTabs extends Component {
 }
 
 const mapStateToProps = state => ({
-  localState: state.localState
+  localState: state.localState,
+  rooms: state.rooms
 });
 
 export default connect(

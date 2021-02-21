@@ -37,10 +37,10 @@ class PhaseProcessorPTDeepenUnderstanding extends PhaseProcessor {
         "simple"
       );
     } else {
-      super.logToChat(
+     /* super.logToChat(
         "Your task is now to summarize the contents of the current section presented to you in the shared document. The turor will support you" +
           "Feel free to return to the video and view areas that are unclear"
-      );
+      );*/
       super.setPhase("DEEPENTUTEE");
       super.openGuidePath(
         "/PeerTeachingGuide/DeepenUnderstanding_Tutee.html",
