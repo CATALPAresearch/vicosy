@@ -5,7 +5,7 @@ import { closePublicGuide } from "../../../actions/localStateActions";
 // import { setPhase, setActInstruction } from "../../../actions/assistentActions";
 import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
-import AssistentController from "../../Assistent/AssistentController";
+import AssistentController from "../../assistent/AssistentController";
 import ProgressBar from "./ProgressBar";
 import RoomComponent from "../../controls/RoomComponent";
 

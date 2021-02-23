@@ -252,5 +252,8 @@ export class ReflectionPost extends AbstractPhase {
         super();
         this.name = "REFLECTIONPOST";
         this.instructions.push(new Instruction("Ihr könnt dafür auf alle bisherigen Methoden zugreifen.", ""));
+        this.instructions.push(new Instruction("Ihr könnt das Video synchronen oder asynchronen Modus schauen.", new Array(new Options("right", "id", "synchswitch", 15, 0))));
+
+        
     }
 }

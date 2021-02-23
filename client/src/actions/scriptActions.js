@@ -7,8 +7,8 @@ const skmeans = require("../../node_modules/skmeans");
 
 export const checkRemovedScript = (user_id, scripts) => dispatch => {
   removedScript(user_id, (script_id) => {
-    console.log("verbindung gelungen")
-    console.log(script_id);
+    console.log("Script removed");
+    
     if (!scripts)
       scripts = {};
     else

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { sendRoleReadyState } from "../../socket-handlers/api";
 import ToggleSwitchButton from "../../components/controls/ToggleSwitchButton";
 import { updateContinueButton } from "../../actions/assistentActions";
+import "./script-components.css";
 
 /**
  * displays a button based on the states of the roles
@@ -87,7 +88,7 @@ class ReadyContinueScriptButton extends Component {
     position: "relative"};
     var targetContent = null;
     const continueContent = (
-      <div id="ready-to-finish" className="ml-1">
+      <div style={divStyle} id="ready-to-finish" className="ml-1">
         {this.state.waitingForOthers ? (
           <div className="hFlexLayout" id="toggle-switch">
             {this.state.meIsReady ? (

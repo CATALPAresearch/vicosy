@@ -27,7 +27,7 @@ import NotFound from "../../components/not-found/NotFound";
 import VisibilityController from "../logic-controls/VisibilityController";
 import TrainerScriptCreator from "../script-options/TrainerScriptCreation/TrainerScriptCreator";
 import SubscribeToScript from "../script-options/Student/SubscribeToScript"
-import Assistent from "../Assistent/Assistent";
+import Assistent from "../assistent/Assistent";
 
 class AppContent extends Component {
   render() {

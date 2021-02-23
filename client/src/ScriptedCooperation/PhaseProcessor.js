@@ -9,7 +9,7 @@ import FeatureSetup, {
 } from "./controlComponents/FeatureSetup";
 import SectionHighlighting from "./controlComponents/SectionHighlighting";
 import GuideController from "./controlComponents/GuideController";
-import AssistentController from "../components/Assistent/AssistentController";
+import AssistentController from "../components/assistent/AssistentController";
 
 // base class for phase processors
 export default class PhaseProcessor extends Component {

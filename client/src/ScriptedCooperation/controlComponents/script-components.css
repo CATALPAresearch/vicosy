@@ -9,3 +9,7 @@
 .color-ready {
   color: rgb(0, 150, 0);
 }
+
+.toggle-switch {
+  z-index: 30;
+}
