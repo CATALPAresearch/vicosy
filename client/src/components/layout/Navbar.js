@@ -27,7 +27,7 @@ class Navbar extends Component {
 
   setAssitent(e) {
     // if (this.props.assistent.active)
-      this.props.setActive(!this.props.assistent.active);
+    this.props.setActive(!this.props.assistent.active);
     //else (this.props.setActive(false))
   }
 
@@ -165,7 +165,7 @@ class Navbar extends Component {
             Login
           </Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <button
             className="btn btn-success ml-2"
             onClick={this.onGuestLogin.bind(this)}
@@ -173,6 +173,8 @@ class Navbar extends Component {
             Try (Guest Login)
           </button>
         </li>
+        */
+        }
       </ul>
     );
 
@@ -185,7 +187,8 @@ class Navbar extends Component {
           })}
         >
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
-          <button id="switchAssistent" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button>
+          {this.props.auth.user.role === "STUDENT"?
+          <button id="switchAssistent" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button>:null}
           <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
             CloseUpTogether
         </Link>
@@ -215,12 +218,12 @@ class Navbar extends Component {
           </div>
 
         </nav>
-{ this.props.assistent.warningMessage ?
+        { this.props.assistent.warningMessage ?
           <div className="alert alert-warning">
             <strong>Warning!</strong> {this.props.assistent.warningMessage}
           </div> : null
         }
-       </div>
+      </div>
     );
   }
 }

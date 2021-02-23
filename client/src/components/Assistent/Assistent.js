@@ -97,6 +97,8 @@ class Assistent extends Component {
 
                     if (arrow.mode == "id") {
 
+                        
+
                         var element = document.getElementById(arrow.id).getBoundingClientRect();
 
                         var left = element.left + window.pageXOffset - 80 + arrow.left;

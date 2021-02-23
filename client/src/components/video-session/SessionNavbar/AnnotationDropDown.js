@@ -60,7 +60,7 @@ class AnnotationDropDown extends Component {
     console.log(this.props.settings);
     if (this.props.settings.annotationType == "annotation-section")
       return (
-        <button
+        <button id="open-annotations"
         className="btn btn-primary"
         title="Defines a split/chapter point. As a result 2 new timesections will appear."
               onClick={this.onAnnotationTriggered.bind(this)}

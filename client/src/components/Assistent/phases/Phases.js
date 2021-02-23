@@ -97,7 +97,7 @@ export class SeparateSectionsTutorPost extends AbstractPhase {
         this.instructions.push(new Instruction("Nur du kannst die Einteilung vornehmen, kommuniziert deshalb miteinander.", ""));
         this.instructions.push(new Instruction("Starte hiermit das Video.", new Array(new Options("left", "id", "play-button", 20, 100))));
         this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "sync-mode", 0, -60))));
-        this.instructions.push(new Instruction("Über Annotations kannst du eine Unterteilung vornehmen. Wähle über den kleinen Pfeil links 'Chapter annotation'.", new Array(new Options("right", "id", "open-annotations", 10, -25))));
+        this.instructions.push(new Instruction("Mit diesem Button kannst du einen Abschnitt definieren.", new Array(new Options("right", "id", "open-annotations", 10, 0))));
         this.instructions.push(new Instruction("Setze das Videosymbol jeweils an den Anfang eines Abschnitts.", ""));
         this.instructions.push(new Instruction("Wenn ihr in zwei Abschnitte Unterteilen wollt, setze auch zwei Symbole.", ""));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 10, 20))));
@@ -112,7 +112,7 @@ export class SeparateSectionsTuteePost extends AbstractPhase {
         this.instructions.push(new Instruction("Für eine Zweiergruppe also 2, 4, 6, ... Abschnitte", ""));
         this.instructions.push(new Instruction("Nur dein Partner kann die Einteilung vornehmen, kommuniziert deshalb miteinander.", ""));
         this.instructions.push(new Instruction("Das Video können beide Partner starten und darin navigieren.", new Array(new Options("left", "id", "play-button", 20, 100))));
-        this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "sync-mode", 0, -60))));
+        this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "synchswitch", 10, -10))));
         this.instructions.push(new Instruction("Warte darauf, dass dein Partner die Phase beendet.", ""));
 
     }
@@ -253,6 +253,8 @@ export class ReflectionPost extends AbstractPhase {
         this.name = "REFLECTIONPOST";
         this.instructions.push(new Instruction("Ihr könnt dafür auf alle bisherigen Methoden zugreifen.", ""));
         this.instructions.push(new Instruction("Ihr könnt das Video synchronen oder asynchronen Modus schauen.", new Array(new Options("right", "id", "synchswitch", 15, 0))));
+        this.instructions.push(new Instruction("Mit diesem Button leitest du das Ende der Sitzung ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
+    
 
         
     }

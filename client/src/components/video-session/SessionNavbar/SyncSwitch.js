@@ -84,7 +84,7 @@ class SyncSwitch extends Component {
 
     const extraContent = synched ? syncBadge : null;
     return (
-      <div className="hFlexLayout ml-1 mr-1">
+      <div id="synchswitch" className="hFlexLayout ml-1 mr-1">
         <button
           disabled={isDisabled}
           onClick={this.onToggle}
