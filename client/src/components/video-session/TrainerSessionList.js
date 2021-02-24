@@ -76,7 +76,7 @@ export class TrainerSessionList extends Component {
               {myGroup.groupMembers.map(member => { return <p key={member._id}>{member.name}</p> })}
 
             </td>
-            <td>{script.scriptType}</td>
+           {/* <td>{script.scriptType}</td> */}
             <td>
               {firstElement ?
                 <button
@@ -151,8 +151,8 @@ export class TrainerSessionList extends Component {
             <tr>
               <th id="session-list" scope="col">Session</th>
               <th scope="col">Video-Url</th>
-              <th scope="col">Teilnehmer</th>
-              <th scope="col">Collaboration</th>
+              <th scope="col">Members</th>
+             {/* <th scope="col">Collaboration</th> */}
               <th scope="col">Join</th>
             </tr>
           </thead>
