@@ -116,12 +116,13 @@ class Navbar extends Component {
           <Link className="nav-link" to="/testConference">
             Conference
           </Link>
-        </li>*/}
+        </li>
         <li
           className={classnames("nav-item", {
             "hidden-nosize": !isSession
           })}
         >
+          
           <span>
             <a
               href="#"
@@ -132,6 +133,7 @@ class Navbar extends Component {
             </a>
           </span>
         </li>
+        */}
         {faqItem}
         <li className="nav-item">
           <a
