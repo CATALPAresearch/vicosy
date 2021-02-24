@@ -331,7 +331,7 @@ class ScriptSettings extends Component {
 
                             <div className="col-6 col-sm-3">
                                 <h4 htmlFor="isPhase5">
-                                    Arbeitsauftrag Vertiefung
+                                    Reflexionssphase erwünscht
                 </h4>
                             </div>
                             <div className="col-6 col-sm-8">

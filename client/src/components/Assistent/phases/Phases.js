@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AbstractPhase from "./AbstractPhase";
 import Instruction from "./Instruction";
 import Options from "./Options";
-import {STUDENTLOBBY} from "./types";
+import { STUDENTLOBBY } from "./types";
 
 
 export class NoPhase extends AbstractPhase {
@@ -23,7 +23,7 @@ export class GetTogether extends AbstractPhase {
         super();
         this.url = window.location.href;
         this.name = "GETTOGETHER";
-        this.instructions.push(new Instruction("Warte auf deinen Partner oder lade ihn über diese URL ein: " + this.url , ""));
+        this.instructions.push(new Instruction("Warte auf deinen Partner oder lade ihn über diese URL ein: " + this.url, ""));
 
 
     }
@@ -40,10 +40,10 @@ export class StudentLobby extends AbstractPhase {
         this.instructions.push(new Instruction("Ich bin dein Assistent und werde dich durch die Sitzung leiten.", ""));
 
         this.instructions.push(new Instruction("Unten siehst du die Videosessions, die dir zur Verfügung stehen.", ""));
-        
-                this.instructions.push(new Instruction("Um eine Sitzung durchzuführen, müssen beide Partner gleichzeitig die Sitzung starten.", ""));
+
+        this.instructions.push(new Instruction("Um eine Sitzung durchzuführen, müssen beide Partner gleichzeitig die Sitzung starten.", ""));
         this.instructions.push(new Instruction("Starte mit den grünen Buttons eine Sitzung ", new Array(new Options("right", "id", "join-session", 20, 0))));
-        
+
     }
 }
 
@@ -254,8 +254,16 @@ export class ReflectionPost extends AbstractPhase {
         this.instructions.push(new Instruction("Ihr könnt dafür auf alle bisherigen Methoden zugreifen.", ""));
         this.instructions.push(new Instruction("Ihr könnt das Video synchronen oder asynchronen Modus schauen.", new Array(new Options("right", "id", "synchswitch", 15, 0))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du das Ende der Sitzung ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
-    
 
-        
     }
+}
+export class Completion extends AbstractPhase {
+    constructor() {
+        super();
+        this.name = "COMPLETION";
+        this.instructions.push(new Instruction("Klicke auf den Link zur Beantwortung des Fragebogens!", ""));
+       
+    }
+
+
 }

@@ -6,9 +6,9 @@ import {
 import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
 import { getScriptById } from "../../actions/scriptActions";
 import { connect } from "react-redux";
-import { StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
+import {Completion, StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 import { STUDENTLOBBY } from "./phases/types";
-import {setAnnotationType} from "../../actions/settingActions";
+import { setAnnotationType } from "../../actions/settingActions";
 
 export class AssistentController extends Component {
   constructor() {
@@ -35,7 +35,7 @@ export class AssistentController extends Component {
 
   setPhase(phase) {
     var actPhase = {};
-   // alert(phase);
+    // alert(phase);
     switch (phase) {
 
       case STUDENTLOBBY:
@@ -154,6 +154,12 @@ export class AssistentController extends Component {
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
+      case "COMPLETION":
+        actPhase = new Completion();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
 
       default:
 
@@ -181,7 +187,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {setAnnotationType, openPublicGuide, closePublicGuide, setPhase, setActInstruction, setIncominginstruction, getScriptById }
+  { setAnnotationType, openPublicGuide, closePublicGuide, setPhase, setActInstruction, setIncominginstruction, getScriptById }
 )(AssistentController);
 
 

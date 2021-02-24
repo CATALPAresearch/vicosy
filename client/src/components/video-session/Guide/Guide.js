@@ -45,6 +45,11 @@ class Guide extends Component {
         this.setPhase("REFLECTIONPOST");
         break;
 
+      case "COMPLETION":
+        this.setPhase("COMPLETION");
+        break;
+
+
 
 
     }

@@ -134,7 +134,6 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
    * */
   /*individual doc ist stored in DB*/
   clientSocket.on("storeIndivDoc", content => {
-    console.log(content);
     DocDBApi.setIndividualText(content.text, content.docId);
   });
 

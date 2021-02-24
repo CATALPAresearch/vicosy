@@ -119,7 +119,7 @@ export class Members extends Component {
                     }
 
                 </div>
-                <div className="modal" id="exampleModal" tabIndex="-1" role="dialog">
+                <div className="modal modal-lg" id="exampleModal" tabIndex="-1" role="dialog">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -130,7 +130,7 @@ export class Members extends Component {
                             </div>
                             <div className="modal-body">
                                 {this.state.scriptUrl ?
-                                    <a href={this.state.scriptUrl}>{this.state.scriptUrl}</a> : null
+                                    <a style={{fontSize: '90%'}} href={this.state.scriptUrl}>{this.state.scriptUrl}</a> : null
                                 }
                                 <canvas ref={this.myRef} ></canvas>
                             </div>
