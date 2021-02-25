@@ -70,7 +70,7 @@ class AnnotationDropDown extends Component {
       );
       if (this.props.settings.annotationType == "annotation")
       return (
-        <button
+        <button id="annot-button"
         className="btn btn-primary"
         title="Simple annotation marking POIs in the video."
               onClick={this.onAnnotationTriggered.bind(this)}

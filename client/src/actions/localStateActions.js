@@ -62,7 +62,7 @@ export const setAsyncTime = timestamp => {
 };
 
 export const setSharedDocEditing = isEditing => {
-  return {
+ return {
     type: SET_SHARED_DOC_EDITING,
     payload: isEditing
   };

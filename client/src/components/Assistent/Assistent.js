@@ -5,13 +5,14 @@ import "./assistent.css";
 import assi_on from './images/lehrer.png';
 import assi_off from './images//lehrer_aus.png';
 import Instruction from "./Instruction";
-import {NoPhase} from "./phases/Phases";
+import { NoPhase } from "./phases/Phases";
 import IncomingInstruction from "./IncomingInstruction";
 import AssistentController from "./AssistentController";
 import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction } from "../../actions/assistentActions";
 import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import Arrow from 'react-arrow';
 import { getScriptById } from "../../actions/scriptActions";
+import { setSharedDocEditing } from "../../actions/localStateActions";
 
 
 
@@ -22,14 +23,14 @@ class Assistent extends Component {
         super(props);
         this.state = {
             display: "none",
-            arrows: ""
+            arrows: {}
         };
         this.assistentControlRef = null;
         this.arrows = this.getArrowPosition();
         this.renderDepth = 0;
         // window.onresize = this.setArrowPosition;
 
-
+        this.setState(this.getArrowPosition());
 
 
     }
@@ -53,6 +54,7 @@ class Assistent extends Component {
                 arrows = this.props.assistent.actInstruction.markers.map(arrow => {
 
                     if (arrow.mode == "id") {
+
 
                         var element = document.getElementById(arrow.id).getBoundingClientRect();
 
@@ -97,7 +99,7 @@ class Assistent extends Component {
 
                     if (arrow.mode == "id") {
 
-                        
+
 
                         var element = document.getElementById(arrow.id).getBoundingClientRect();
 
@@ -173,7 +175,7 @@ class Assistent extends Component {
         this.arrows = null;
         this.props.setActInstruction(null);
         if (!this.props.assistent.phase)
-            this.props.setPhase (new NoPhase());
+            this.props.setPhase(new NoPhase());
         else
             this.props.setActInstruction(this.props.assistent.phase.instructions[this.props.assistent.phase.pointer]);
 
@@ -183,7 +185,14 @@ class Assistent extends Component {
         this.actualize();
         this.props.setIncominginstruction(null);
     }
-
+    /*
+        componentDidUpdate() {
+            // if (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS");
+            if (this.props.assistent.phase.name === "SEPARATESECTIONSTUTEEPOST" && this.props.assistent.actInstruction.markers) {
+                this.props.setSharedDocEditing({ isOpen: false });
+            }
+    
+        }*/
 
     _handleKeyDown = (event) => {
 
@@ -217,7 +226,6 @@ class Assistent extends Component {
 
 
     render() {
-        console.log(this.props);
         {
             this.props.assistent.incomingInstruction ?
                 this.arrows = this.getArrowPositionIncoming() :
@@ -260,13 +268,15 @@ class Assistent extends Component {
     }
 }
 
+
 const mapStateToProps = state => ({
     auth: state.auth,
-    assistent: state.assistent
+    assistent: state.assistent,
+    rooms: state.rooms
 });
 
 export default connect(
-    mapStateToProps, { AssistentController, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
+    mapStateToProps, { AssistentController, setSharedDocEditing, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
 )(withRouter(Assistent));
 
 

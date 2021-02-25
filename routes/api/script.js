@@ -467,38 +467,12 @@ router.post("/subscribetoscript", (req, res) => {
                         });
                 }
             }
-            /*
-           if (!user) {
-                
-            }
-            */
+         
 
         })
     }
-    /*
-    console.log("Eishockey");
-    User.findOne({}).then(user => {
-        // check for user
-        if (!user) {
-            errors.email = "User not found";
-            return res.status(404).json(errors);
-        }
-    }
-    */
-
-
-    /*
-        newScript.save()
-            .then(script => {
-                console.log("Script saved");
-                res.json(script);
-            })
-            .catch(errors => {
-                console.log(errors);
-                return res.status(400).json(errors)
-            });
+ 
     
-    */
 });
 
 

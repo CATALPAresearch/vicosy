@@ -44,7 +44,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     ScriptDBApi.find({ started: true }).then(scripts => {
       for (var script of scripts) {
         for (var group of script.groups) {
-          console.log("Session: ", group._id, " initiating!");
+         // console.log("Session: ", group._id, " initiating!");
           createTrainerSession(script, String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
           //clientSocket.emit("notifyMembers", script);
         }
@@ -279,7 +279,7 @@ console.log("startSharedDoc")
         */
     // console.log(scriptshort);
     if (roomId in roomsData) {
-      console.log("ERROR: TrainerSession already available", roomId);
+     // console.log("ERROR: TrainerSession already available", roomId);
       return;
     }
 

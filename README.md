@@ -36,6 +36,11 @@ npm run dev
 
 Open "http://localhost:3000/" in a browser (Chrome or Firefox)
 
+### Local Development database
+
+
+
+
 ## Deployment
 
 ### provide environment
@@ -43,11 +48,13 @@ Open "http://localhost:3000/" in a browser (Chrome or Firefox)
 provide .env file with following content in root directory:
 
 ```
-MONGO_URI="mongodb://fuh:secure7@ds161710.mlab.com:61710/close-up-collab"
+MONGO_URI="mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
 SECRET_OR_KEY="secret"
 NODE_ENV="production"
 SSL_CERT="path/to/certificate"
 PORT=5000 // backend server port
+TEST="Arsch"
+
 ```
 
 ### build optimized client build
@@ -70,6 +77,7 @@ npm start
 ## Authors
 
 - **Markus Hermes**
+- **Jost Fromhage**
 
 ## License
 

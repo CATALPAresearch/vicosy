@@ -472,7 +472,7 @@ export const getScriptByGroupId = (groupId, callback) => dispatch => {
     }).catch(err => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.data
+        payload: err
       });
     });
 }
