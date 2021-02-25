@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/MaHermes/close-up-collab.git"
   },
-  "author": "Markus Hermes",
+  "author": "Markus Hermes, Jost Fromhage",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MaHermes/close-up-collab/issues"
