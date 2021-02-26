@@ -318,7 +318,7 @@ router.post("/subscribetoscript", (req, res) => {
 router.post("/newscript", (req, res) => {
     const { errors, isValid } = validateScriptInput(req.body);
     // check validation
-    console.log("script in backend not validated");
+
     if (!isValid) {
         return res.status(400).json(errors);
     }

@@ -30,7 +30,7 @@ class Assistent extends Component {
         this.renderDepth = 0;
         // window.onresize = this.setArrowPosition;
 
-        this.setState(this.getArrowPosition());
+      //  this.setState(this.getArrowPosition());
 
 
     }

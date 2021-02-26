@@ -53,7 +53,6 @@ SECRET_OR_KEY="secret"
 NODE_ENV="production"
 SSL_CERT="path/to/certificate"
 PORT=5000 // backend server port
-TEST="Arsch"
 
 ```
 
