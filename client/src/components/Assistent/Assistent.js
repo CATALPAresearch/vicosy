@@ -9,10 +9,10 @@ import { NoPhase } from "./phases/Phases";
 import IncomingInstruction from "./IncomingInstruction";
 import AssistentController from "./AssistentController";
 import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction } from "../../actions/assistentActions";
-import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import Arrow from 'react-arrow';
 import { getScriptById } from "../../actions/scriptActions";
 import { setSharedDocEditing } from "../../actions/localStateActions";
+import Arrows from "./Arrows";
 
 
 
@@ -26,11 +26,12 @@ class Assistent extends Component {
             arrows: {}
         };
         this.assistentControlRef = null;
+        this.arrowRef = null;
         this.arrows = this.getArrowPosition();
         this.renderDepth = 0;
         // window.onresize = this.setArrowPosition;
 
-      //  this.setState(this.getArrowPosition());
+        //  this.setState(this.getArrowPosition());
 
 
     }
@@ -185,14 +186,13 @@ class Assistent extends Component {
         this.actualize();
         this.props.setIncominginstruction(null);
     }
-    /*
-        componentDidUpdate() {
-            // if (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS");
-            if (this.props.assistent.phase.name === "SEPARATESECTIONSTUTEEPOST" && this.props.assistent.actInstruction.markers) {
-                this.props.setSharedDocEditing({ isOpen: false });
-            }
-    
-        }*/
+
+    componentDidUpdate() {
+        if (this.arrowRef) {
+         //   this.arrowRef.forceUpdate();
+        }
+
+    }
 
     _handleKeyDown = (event) => {
 
@@ -233,6 +233,9 @@ class Assistent extends Component {
         }
         return (
             <div id="assistent">
+              {/*
+                <Arrows createRef={el => (this.arrowRef = el)} />*/
+            }
                 {this.arrows}
 
 
