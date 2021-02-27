@@ -82,22 +82,21 @@ class VideoSession extends Component {
       this.initialize();
     }
   }
-/*
-  initialize() {
-    window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
-    window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
-    this.updateRoomState(this.props);
-  }
-  */
+  /*
+    initialize() {
+      window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
+      window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
+      this.updateRoomState(this.props);
+    }
+    */
   initialize() {
 
-    console.log(this.props);
     this.props.getScriptByGroupId(this.props.match.params.sessionId, () => {
       window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
       window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
       this.updateRoomState(this.props);
     });
-    
+
   }
 
   componentWillUnmount() {
@@ -183,7 +182,7 @@ class VideoSession extends Component {
        this.assistentLayout();
      else
        this.normalLayout();*/
-       //console.log(this.props);
+    //console.log(this.props);
     const { sessionId } = this.props.match.params;
 
     const contentDocInteractionRequired = (
@@ -263,7 +262,7 @@ class VideoSession extends Component {
               requiresCollaborationBar ? (
                 <RoomComponent roomId={sessionId} component={CollaborationBar} />
               ) : null}
-            <SessionNavbar  roomId={sessionId} playerRef={this.abstractPlayerRef} />
+            <SessionNavbar roomId={sessionId} playerRef={this.abstractPlayerRef} />
             <div
               id="VideoSection"
               className={classnames("", {

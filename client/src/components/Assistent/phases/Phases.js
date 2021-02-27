@@ -96,7 +96,7 @@ export class SeparateSectionsTutorPost extends AbstractPhase {
         this.instructions.push(new Instruction("Für eine Zweiergruppe also 2, 4, 6, ... Abschnitte", ""));
         this.instructions.push(new Instruction("Nur du kannst die Einteilung vornehmen, kommuniziert deshalb miteinander.", ""));
         this.instructions.push(new Instruction("Starte hiermit das Video.", new Array(new Options("left", "id", "play-button", 20, 100))));
-        this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "sync-mode", 0, -60))));
+        this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", new Array(new Options("right", "id", "synchswitch", 0, -60))));
         this.instructions.push(new Instruction("Mit diesem Button kannst du einen Abschnitt definieren.", new Array(new Options("right", "id", "open-annotations", 10, 0))));
         this.instructions.push(new Instruction("Setze das Videosymbol jeweils an den Anfang eines Abschnitts.", ""));
         this.instructions.push(new Instruction("Wenn ihr in zwei Abschnitte Unterteilen wollt, setze auch zwei Symbole.", ""));

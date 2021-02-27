@@ -32,6 +32,8 @@ import Assistent from "../assistent/Assistent";
 class AppContent extends Component {
   render() {
     const isSessionPath = this.props.location.pathname.includes("/session");
+
+    
     return (
       <div
         className={classnames("App", {
@@ -45,7 +47,8 @@ class AppContent extends Component {
      
 
         <Navbar isSession={isSessionPath} />
-        {this.props.assistent.active ? <Assistent /> : null}  
+        {this.props.assistent.active ? 
+        <Assistent isSession={isSessionPath}/> : null}  
         < Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login/:scriptId" component={Login} />
