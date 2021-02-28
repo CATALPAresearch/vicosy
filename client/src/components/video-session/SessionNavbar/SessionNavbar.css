@@ -7,10 +7,12 @@
   width: 400px;
   margin-top: 0px;
   height: 38px;
+  
 }
 
 #MainRessourceTab a {
   height: 38px;
+  color: grey;
 }
 
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { setSharedDocEditing } from "../../../actions/localStateActions";
 import { connect } from "react-redux";
 import { TOGGLE_SHARED_DOC_REQUEST, CLOSE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
-
+import {updateInstruction} from "../../../actions/assistentActions";
 class MainRessourceTabs extends Component {
   constructor(props) {
     super(props);
@@ -81,7 +81,6 @@ class MainRessourceTabs extends Component {
           <a
             className={`nav-link${isSelected ? " active prevent-pointer" : ""}`}
             id={tab.id}
-            href="#"
             role="tab"
             aria-controls={tab.id}
             aria-selected={isSelected ? "true" : "false"}
@@ -121,6 +120,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    setSharedDocEditing
+    setSharedDocEditing, updateInstruction
   }
 )(MainRessourceTabs);

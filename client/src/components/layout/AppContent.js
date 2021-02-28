@@ -49,7 +49,7 @@ class AppContent extends Component {
         <Navbar isSession={isSessionPath} />
         {this.props.assistent.active ? 
         <Assistent isSession={isSessionPath}/> : null}  
-        < Route exact path="/" component={Landing} />
+        <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login/:scriptId" component={Login} />
         <Route exact path="/login" component={Login} />
@@ -71,6 +71,7 @@ class AppContent extends Component {
               path="/session/:sessionId"
               component={VideoSession}
             />
+            
             <PrivateRoute exact path="/trainerlobby" component={TrainerLobby} />
             <PrivateRoute exact path="/newtrainerscript/" component={TrainerScriptCreator} />
             <Route exact path="/subscribeToScript/:scriptId" component={SubscribeToScript} />

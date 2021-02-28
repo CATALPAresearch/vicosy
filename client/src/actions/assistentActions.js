@@ -1,4 +1,4 @@
-import { SET_INCOMING_INSTRUCTION, NEW_INSTRUCTION, UPDATE_CONTINUEBUTTON, NEXT_INSTRUCTION, SET_ACTIVE, SET_ACT_INSTRUCTION, SET_PHASE, PREVIOUS_INSTRUCTION } from "./types";
+import {UPDATE_ACT_INSTRUCTION, SET_INCOMING_INSTRUCTION, NEW_INSTRUCTION, UPDATE_CONTINUEBUTTON, NEXT_INSTRUCTION, SET_ACTIVE, SET_ACT_INSTRUCTION, SET_PHASE, PREVIOUS_INSTRUCTION } from "./types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { isActive, listenActiveMessage, sendTabLostMsg } from "../socket-handlers/api";
@@ -69,6 +69,13 @@ export const nextInstruction = () => dispatch => {
 export const previousInstruction = () => dispatch => {
   dispatch({
     type: PREVIOUS_INSTRUCTION,
+    payload: ""
+  });
+};
+
+export const updateInstruction = () => dispatch => {
+  dispatch({
+    type: UPDATE_ACT_INSTRUCTION,
     payload: ""
   });
 };

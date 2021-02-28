@@ -135,12 +135,13 @@ export class PreparePost extends AbstractPhase {
     constructor() {
         super();
         this.name = "PREPAREPOST";
+      //  this.instructions.push(new Instruction("Dein Partner bereitet seine Abschnitte parallel dazu für dich vor.", ""));
         this.instructions.push(new Instruction("Wie du siehst, kann jeder das Video nun separat anschauen.", new Array(new Options("right", "id", "sync-mode", 15, -120))));
-        this.instructions.push(new Instruction("Hier beginnt dein Abschnitt (hell gekennzeicnet) ", new Array(new Options("down", "id", "asynch-timeline-handle", -70, 70))));
-        this.instructions.push(new Instruction("Mache dir hier Notizen ", new Array(new Options("right", "id", "notes-tab", 15, 15))));
+        this.instructions.push(new Instruction("Hier beginnt dein Abschnitt (hell gekennzeichnet) ", new Array(new Options("down", "id", "asynch-timeline-handle", -70, 70))));
+        this.instructions.push(new Instruction("Mache dir hier Notizen.", new Array(new Options("right", "id", "notes-tab", 15, 15))));
         this.instructions.push(new Instruction("Möchtest du in deinem Vortrag Bilder aus dem Video zeigen, kannst du diese über 'Annotate' speichern.", new Array(new Options("right", "id", "annot-button", 10, -10))));
         this.instructions.push(new Instruction("Über den Tab 'Annotations' kannst du später darauf zugreifen", new Array(new Options("right", "id", "annotations-tab", 20, 20))));
-        this.instructions.push(new Instruction("Bereite einen Vortrag für deinen Abschnitte vor", ""));
+        this.instructions.push(new Instruction("Bereite einen Vortrag für deinen Abschnitt vor", ""));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
     }
 
@@ -191,7 +192,7 @@ export class PresentTutorPost extends AbstractPhase {
     constructor() {
         super();
         this.name = "PRESENTTUTORPOST";
-        this.instructions.push(new Instruction("Über Annotations gelangst du du deinen gespeicherten Bildern aus dem Video.", new Array(new Options("right", "id", "annotations-tab", 15, 0))));
+        this.instructions.push(new Instruction("Über 'Annotations' gelangst du du deinen gespeicherten Bildern aus dem Video.", new Array(new Options("right", "id", "annotations-tab", 15, 0))));
         this.instructions.push(new Instruction("Klicke auf Marker, um in die Bilder des Videos zu zeichnen.", new Array(new Options("right", "id", "maker-button", 15, 0))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
     }

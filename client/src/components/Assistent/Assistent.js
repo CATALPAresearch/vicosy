@@ -13,6 +13,7 @@ import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import Arrow from 'react-arrow';
 import { getScriptById } from "../../actions/scriptActions";
 import { setSharedDocEditing } from "../../actions/localStateActions";
+import Arrows from "./Arrows";
 
 
 
@@ -28,9 +29,10 @@ class Assistent extends Component {
         this.assistentControlRef = null;
         this.arrows = this.getArrowPosition();
         this.renderDepth = 0;
+        this.toUpdate = true;
         // window.onresize = this.setArrowPosition;
 
-      //  this.setState(this.getArrowPosition());
+        //  this.setState(this.getArrowPosition());
 
 
     }
@@ -43,10 +45,18 @@ class Assistent extends Component {
 
     }
 
-
-
-
-
+    /*
+        showArrows() {
+            if (this.toUpdate)
+                this.getArrowPosition();
+    
+            this.toUpdate = !this.toUpdate;
+        }
+    
+    componentDidUpdate() {
+        this.showArrows();
+    }
+    */
     getArrowPosition() {
         let arrows = null;
         if (this.props.assistent.actInstruction)
@@ -92,7 +102,7 @@ class Assistent extends Component {
 
 
     getArrowPositionIncoming() {
-        let arrows = null;
+        var arrows = null;
         if (this.props.assistent.incomingInstruction)
             if (this.props.assistent.incomingInstruction.markers) {
                 arrows = this.props.assistent.incomingInstruction.markers.map(arrow => {
@@ -101,13 +111,13 @@ class Assistent extends Component {
 
 
 
-                        var element = document.getElementById(arrow.id).getBoundingClientRect();
+                        let element = document.getElementById(arrow.id).getBoundingClientRect();
 
-                        var left = element.left + window.pageXOffset - 80 + arrow.left;
+                        let left = element.left + window.pageXOffset - 80 + arrow.left;
 
-                        var halfheight = Math.round(parseFloat(((element.top - element.bottom) / 2)));
+                        let halfheight = Math.round(parseFloat(((element.top - element.bottom) / 2)));
 
-                        var top = element.top + window.pageYOffset - 50 + halfheight + arrow.top;
+                        let top = element.top + window.pageYOffset - 50 + halfheight + arrow.top;
                         //position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
 
                         return (
@@ -226,17 +236,17 @@ class Assistent extends Component {
 
 
     render() {
-        console.log(this.props);
+        var arrows=null;
+     
         {
             this.props.assistent.incomingInstruction ?
-                this.arrows = this.getArrowPositionIncoming() :
-                this.arrows = this.getArrowPosition()
+                arrows = this.getArrowPositionIncoming() :
+                arrows = this.getArrowPosition()
         }
         return (
             <div id="assistent">
-                {this.arrows}
-
-
+                {arrows}
+               {/* <Arrows></Arrows>*/}
 
                 <div className="panel" id="laempel">
                     <img src={assi_on} alt="Laempel" width="100%" height="100%" />
@@ -273,7 +283,7 @@ class Assistent extends Component {
 const mapStateToProps = state => ({
     auth: state.auth,
     assistent: state.assistent,
-    rooms: state.rooms, 
+    rooms: state.rooms,
     localState: state.localState
 });
 

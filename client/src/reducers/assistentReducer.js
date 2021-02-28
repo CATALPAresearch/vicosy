@@ -1,4 +1,4 @@
-import { SET_INCOMING_INSTRUCTION, UPDATE_CONTINUEBUTTON, PREVIOUS_INSTRUCTION, SET_PHASE_INSTRUCTIONS, SET_ACTIVE, SET_WARNING, SET_PHASE, SET_ACT_INSTRUCTION, UNSET_ACT_INSTRUCTION, NEXT_INSTRUCTION } from "../actions/types";
+import {UPDATE_ACT_INSTRUCTION, SET_INCOMING_INSTRUCTION, UPDATE_CONTINUEBUTTON, PREVIOUS_INSTRUCTION, SET_PHASE_INSTRUCTIONS, SET_ACTIVE, SET_WARNING, SET_PHASE, SET_ACT_INSTRUCTION, UNSET_ACT_INSTRUCTION, NEXT_INSTRUCTION } from "../actions/types";
 import isEmpty from "../validation/is-empty";
 import Instruction from "../components/assistent/phases/Instruction"
 import Options from "../components/assistent/phases/Options"
@@ -118,6 +118,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         actInstruction: ""
+      };
+
+    case UPDATE_ACT_INSTRUCTION:
+      return {
+        ...state,
+        actInstruction: state.actInstruction
       };
 
     default:

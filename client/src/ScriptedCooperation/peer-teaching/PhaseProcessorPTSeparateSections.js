@@ -35,7 +35,7 @@ export default class PhaseProcessorPTSeparateSections extends PhaseProcessor {
     */
 
     const isTutor = this.getCurrentRole() === "ROLE_TUTOR";
-/*
+
     this.setContent(
       hasAlreadySections && isTutor ? (
         <button 
@@ -46,7 +46,7 @@ export default class PhaseProcessorPTSeparateSections extends PhaseProcessor {
         </button>
       ) : null
     );
-*/
+
     if (isTutor) {
       this.setEnabledFeatures([FEATURES.ANNOTATING]);
 

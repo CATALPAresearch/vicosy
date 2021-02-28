@@ -1,16 +1,15 @@
   
   .icon {
     position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%,-50%);
     width: 80px;
     height: 60px;
-    cursor: pointer;
-    z-index:90;
+  z-index:90;
+    visibility: hidden;
+
   }
   
-  .arrow {
+  .newarrow {
     position: absolute;
     top: 25px;
     width: 90%;
@@ -24,7 +23,7 @@
     z-index:90;
   }
   
-  .arrow::after, .arrow::before {
+  .newarrow::after, .newarrow::before {
     content: '';
     position: absolute;
     width: 60%;
@@ -34,12 +33,12 @@
     z-index:90;
   }
   
-  .arrow::after {
+  .newarrow::after {
     top: -12px;
     transform: rotate(45deg);
   }
   
-  .arrow::before {
+  .newarrow::before {
     top: 12px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
     transform: rotate(-45deg);
