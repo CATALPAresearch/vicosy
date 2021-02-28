@@ -213,7 +213,7 @@ export class DeepenTutorPost extends AbstractPhase {
     constructor() {
         super();
         this.name = "DEEPENTUTORPOST";
-        this.instructions.push(new Instruction("Korrigiere das gemeinsame Dokument.", new Array(new Options("right", "id", "doc-tab", 15, 0))));
+        this.instructions.push(new Instruction("Dein Partner schreibt in das gemeinsame Dokument. Hilf und korrigiere.", new Array(new Options("right", "id", "doc-tab", 15, 0))));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", new Array(new Options("right", "id", "ready-to-finish", 15, 0))));
 
     }
