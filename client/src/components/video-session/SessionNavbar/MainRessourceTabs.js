@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { setSharedDocEditing } from "../../../actions/localStateActions";
 import { connect } from "react-redux";
-import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
+import { TOGGLE_SHARED_DOC_REQUEST, CLOSE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 
 class MainRessourceTabs extends Component {
   constructor(props) {
@@ -11,18 +11,26 @@ class MainRessourceTabs extends Component {
     this.state = {
       tabs: [],
     };
-    this.toggle = true;
+
   }
 
-  componentDidUpdate() {
-    /*
-    if (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS");
-    this.toggle = false;*/
-  }
+
 
   toggleSharedDoc = () => {
-    if (this.toggle)
-      window.dialogRequestEvents.dispatch(TOGGLE_SHARED_DOC_REQUEST);
+/*
+    if (!(this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS" ||
+    this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION_PAIR" ||
+    this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION"))
+  */
+    window.dialogRequestEvents.dispatch(TOGGLE_SHARED_DOC_REQUEST);
+    /*
+    else {
+      window.dialogRequestEvents.dispatch(CLOSE_SHARED_DOC_REQUEST);
+    }
+    */
+
+
+
   };
 
   componentDidMount() {
@@ -44,37 +52,50 @@ class MainRessourceTabs extends Component {
   }
 
   render() {
-     var selectedTabId = null;
+    var selectedTabId = null;
     selectedTabId = this.props.localState.sharedDocEditing.isOpen
-        ? "doc-tab"
-        : "video-tab"
-    
+      ? "doc-tab"
+      : "video-tab"
+
     const tabsEntries = this.state.tabs.map(tab => {
+
       const isSelected = selectedTabId === tab.id;
       // const isDisabled = tab.id == "doc-tab" && this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS";
+      var disabled =
+        (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS" ||
+          this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION_PAIR" ||
+          this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION")&&tab.id==="doc-tab"
 
-      // if(!isDisabled)
+          ? disabled = true : disabled = false;
+      if (!disabled)
+    //    window.dialogRequestEvents.dispatch(CLOSE_SHARED_DOC_REQUEST);
       return (
         // (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId!=="PHASE_SEPARATE_SECTIONS"||tab.id!=="doc-tab")?
 
-        <li key={tab.id} className="nav-item">
+        <li key={tab.id}
+          className="nav-item"
+
+        >
 
           <a
             className={`nav-link${isSelected ? " active prevent-pointer" : ""}`}
             id={tab.id}
-            data-toggle="tab"
             href="#"
             role="tab"
             aria-controls={tab.id}
             aria-selected={isSelected ? "true" : "false"}
             onClick={tab.callback}
 
+
+
           >
             {tab.name} {!!tab.extraContent ? tab.extraContent : null}
           </a>
         </li>
       );
-    });
+
+    }
+    );
 
     return (
       <div>

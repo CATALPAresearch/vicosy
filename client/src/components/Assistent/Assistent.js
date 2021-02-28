@@ -226,6 +226,7 @@ class Assistent extends Component {
 
 
     render() {
+        console.log(this.props);
         {
             this.props.assistent.incomingInstruction ?
                 this.arrows = this.getArrowPositionIncoming() :
