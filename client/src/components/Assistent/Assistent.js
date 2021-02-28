@@ -236,16 +236,16 @@ class Assistent extends Component {
 
 
     render() {
-        var arrows=null;
+   
      
         {
             this.props.assistent.incomingInstruction ?
-                arrows = this.getArrowPositionIncoming() :
-                arrows = this.getArrowPosition()
+                this.arrows = this.getArrowPositionIncoming() :
+                this.arrows = this.getArrowPosition()
         }
         return (
             <div id="assistent">
-                {arrows}
+                {this.arrows}
                {/* <Arrows></Arrows>*/}
 
                 <div className="panel" id="laempel">
