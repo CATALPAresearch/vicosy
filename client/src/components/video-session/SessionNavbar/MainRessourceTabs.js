@@ -6,6 +6,7 @@ import { TOGGLE_SHARED_DOC_REQUEST, CLOSE_SHARED_DOC_REQUEST } from "../../logic
 class MainRessourceTabs extends Component {
   constructor(props) {
     super(props);
+    
     this.sessionId = this.props.sessionId;
 
     this.state = {

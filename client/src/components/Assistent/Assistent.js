@@ -273,7 +273,8 @@ class Assistent extends Component {
 const mapStateToProps = state => ({
     auth: state.auth,
     assistent: state.assistent,
-    rooms: state.rooms
+    rooms: state.rooms, 
+    localState: state.localState
 });
 
 export default connect(
