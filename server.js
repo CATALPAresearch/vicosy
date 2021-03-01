@@ -80,7 +80,7 @@ mongoose
   });
 
 
-console.log(process.env.TEST);
+
 // Passport middleware
 app.use(passport.initialize());
 
