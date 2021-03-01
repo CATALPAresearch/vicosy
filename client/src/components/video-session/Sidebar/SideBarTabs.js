@@ -8,6 +8,7 @@ import {
 // import ActivityCounter from "../../chat/ActivityCounter";
 import "./sidebar-tabs.css";
 import Interactive from "../../controls/Interactive";
+import HintArrow from "../../assistent/HintArrow";
 
 class SideBarTabs extends Component {
   constructor() {
@@ -53,10 +54,20 @@ class SideBarTabs extends Component {
             disabled={false}
             disabledMessage="Zurzeit nicht verfügbar..."
           >
+
+            {tab.id === "notes-tab" && this.props.assistent.active && this.props.assistent.actInstruction.markers === "notes-tab" ?
+              <HintArrow
+                style={{ position: "absolute", marginTop: 0, marginLeft: -110, zIndex: 1000 }}
+                direction="right"
+              /> : null}
+   {tab.id === "annotations-tab" && this.props.assistent.active && this.props.assistent.actInstruction.markers === "annotations-tab" ?
+              <HintArrow
+                style={{ position: "absolute", marginTop: 0, marginLeft: -80, zIndex: 1000 }}
+                direction="right"
+              /> : null}
             <a
-              className={`nav-link${
-                isSelected ? " active prevent-pointer" : ""
-              }`}
+              className={`nav-link${isSelected ? " active prevent-pointer" : ""
+                }`}
               id={tab.id}
               data-toggle="tab"
               href="#"
@@ -87,7 +98,8 @@ class SideBarTabs extends Component {
 }
 
 const mapStateToProps = state => ({
-  localState: state.localState
+  localState: state.localState,
+  assistent: state.assistent
 });
 
 export default connect(

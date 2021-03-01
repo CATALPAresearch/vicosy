@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./progressBar.css";
+import HintArrow from "../../assistent/HintArrow";
 
 export class ProgressBar extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ export class ProgressBar extends Component {
 
 
     renderBar() {
-console.log(this.props);
+        console.log(this.props);
         var id0 = "";
         var id1 = "";
         var id2 = "";
@@ -81,7 +82,7 @@ console.log(this.props);
 
             <div className="progress">
                 <div id={id0} style={{ borderLeftWidth: "0px" }} className="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">Start</div>
-                {  this.props.script.isPhase0? <div id={id1} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div> : null}
+                {  this.props.script.isPhase0 ? <div id={id1} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Kennenlernen</div> : null}
                 <div id={id2} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Unterteilen</div>
                 <div id={id3} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorbereiten</div>
                 <div id={id4} className="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Vorstellen</div>
@@ -99,6 +100,12 @@ console.log(this.props);
         var content = this.renderBar();
         return (
             <div id="ProgressBar">
+                {this.props.assistent.active && this.props.assistent.actInstruction.markers === "ProgressBar"?
+                    <HintArrow
+                        style={{ position: "absolute", marginTop: 40, marginLeft: 100, zIndex:1000 }}
+                        direction="up"
+                    /> : null}
+
                 {content}
             </div>
         );

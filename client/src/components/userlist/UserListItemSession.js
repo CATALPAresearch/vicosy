@@ -10,6 +10,7 @@ import "./user-list.css";
 import { joinConference, leaveConference } from "../test/WebRtcConference";
 import { OWN_ACTIVE_MEDIA_CHANGED } from "../../stream-model/streamEvents";
 import PhaseReadyIndicator from "../../ScriptedCooperation/controlComponents/PhaseReadyIndicator";
+import HintArrow from "../assistent/HintArrow";
 
 class UserListItemSession extends Component {
   constructor(props) {
@@ -110,8 +111,14 @@ class UserListItemSession extends Component {
           onClick={this.onActivateStream.bind(this, true, true)}
           title="Stream video and audio to others"
         >
+          {this.props.assistent.active && this.props.assistent.actInstruction.markers === "video-button" ?
+            <HintArrow
+              style={{ position: "absolute", top: -5, right:50 }}
+              direction="right"
+            /> : null}
           <i id="video-button" className="fa fa-video" style={{ color: "#FFF" }} />
         </button>
+     
         <button
           className={classnames("btn btn-info btn-sm ml-1", {
             "hidden-nosize": hasAudioActive && !hasVideoActive
@@ -119,6 +126,11 @@ class UserListItemSession extends Component {
           onClick={this.onActivateStream.bind(this, false, true)}
           title="Stream audio only to others"
         >
+             {this.props.assistent.active && this.props.assistent.actInstruction.markers === "audio-button" ?
+            <HintArrow
+              style={{ position: "absolute", top: -5, right:20 }}
+              direction="right"
+            /> : null}
           <i id="audio-button" className="fa fa-microphone" style={{ color: "#FFF" }} />
         </button>
 
@@ -159,9 +171,9 @@ class UserListItemSession extends Component {
     const isAppInFocus = isOwn
       ? this.props.localState.focusState.appInFocus
       : this.props.rooms.getAtPath(
-          `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.focusState.appInFocus`,
-          true
-        );
+        `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.focusState.appInFocus`,
+        true
+      );
 
     if (!isAppInFocus) {
       usersViewSpaceIcon = "fa-eye-slash";
@@ -170,9 +182,9 @@ class UserListItemSession extends Component {
       const isViewingGuide = isOwn
         ? this.props.localState.guide.isOpen
         : this.props.rooms.getAtPath(
-            `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.guide.isOpen`,
-            false
-          );
+          `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.guide.isOpen`,
+          false
+        );
 
       // user looking at guide?
       if (isViewingGuide) {
@@ -182,9 +194,9 @@ class UserListItemSession extends Component {
         const isViewingSharedDoc = isOwn
           ? this.props.localState.sharedDocEditing.isOpen
           : this.props.rooms.getAtPath(
-              `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.sharedDocEditing.isOpen`,
-              false
-            );
+            `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.sharedDocEditing.isOpen`,
+            false
+          );
 
         // user shared doc ?
         if (isViewingSharedDoc) {
@@ -195,9 +207,9 @@ class UserListItemSession extends Component {
           const isViewingAnnotationEditor = isOwn
             ? !!this.props.localState.annotationEditing
             : !!this.props.rooms.getAtPath(
-                `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.annotationEditing`,
-                false
-              );
+              `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.annotationEditing`,
+              false
+            );
 
           if (isViewingAnnotationEditor) {
             usersViewSpaceIcon = "fa-map-marker";
@@ -210,9 +222,9 @@ class UserListItemSession extends Component {
     const isSync = isOwn
       ? this.props.localState.syncState.sync
       : this.props.rooms.getAtPath(
-          `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.syncState.sync`,
-          true
-        );
+        `rooms.${roomId}.state.sharedRoomData.clients.${clientId}.remoteState.syncState.sync`,
+        true
+      );
 
     var targetStateStyle;
 
@@ -248,7 +260,7 @@ class UserListItemSession extends Component {
     const isClientInStreamRoom =
       isJoinedStreamRoom &&
       clientId in
-        this.props.rooms.rooms[streamRoomId].state.sharedRoomData.clients;
+      this.props.rooms.rooms[streamRoomId].state.sharedRoomData.clients;
 
     var streamContent = isClientInStreamRoom ? (
       <VideoStream roomId={streamRoomId} clientId={clientId} />
@@ -261,6 +273,13 @@ class UserListItemSession extends Component {
           "session-user-item-own": isOwn
         })}
       >
+         {this.props.assistent.active && this.props.assistent.actInstruction.markers === "awareness-partner"&&!isOwn ?
+            <HintArrow
+              style={{ position: "absolute", marginTop:-70}}
+              direction="down"
+            /> : null}
+        
+        
         <span className="sessionuser-item-info">
           <span>
             <PhaseReadyIndicator
@@ -292,7 +311,8 @@ class UserListItemSession extends Component {
 
 const mapStateToProps = state => ({
   rooms: state.rooms,
-  localState: state.localState
+  localState: state.localState,
+  assistent: state.assistent
 });
 
 export default connect(mapStateToProps)(UserListItemSession);

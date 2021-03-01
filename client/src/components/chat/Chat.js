@@ -10,6 +10,8 @@ import InnerShadow from "../layout/InnerShadow";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { setUnseenActivities } from "../../actions/localStateActions";
+import Arrow from 'react-arrow';
+import HintArrow from './../../components/assistent/HintArrow'
 
 // room component, please wrap with RoomComponent
 class Chat extends Component {
@@ -135,7 +137,14 @@ class Chat extends Component {
         className={classnames("chat relative", {
           "hidden-nosize": !this.props.visible
         })}
-      >
+        
+          >
+            {this.props.assistent.active&&this.props.assistent.actInstruction.markers==="chat-write"?
+        <HintArrow
+        style= {{position: "absolute", left: 120, bottom:40}}
+        direction="down"
+        /> :null}
+
         <div className="chat-content relative" ref={this.contentRef}>
           <ul className="list-group message-list list-group list-group-flush">
             {messages}
@@ -147,13 +156,20 @@ class Chat extends Component {
           onSubmit={this.onSubmitClicked}
           className="chat-send"
         >
-          <span className="hFlexLayout">
+
+
+          <span className="hFlexLayout"
+          style={{overflow: "hidden"}}
+          >
+        
+
             <input
               autoComplete="false"
               name="hidden"
               type="text"
               style={{ display: "none" }}
             />
+
             <input
               className="form-control form-control-sm mr-sm-2"
               id="chat-write"
@@ -162,9 +178,15 @@ class Chat extends Component {
               value={this.state.input}
               onChange={this.onChange}
             />
+
             <button type="submit" className="btn btn-secondary btn-sm">
-              Send
+
+              Send       
+            
             </button>
+            <span>
+        
+            </span>
           </span>
         </form>
         <InnerShadow />
@@ -178,7 +200,8 @@ Chat.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  localState: state.localState
+  localState: state.localState,
+  assistent: state.assistent
 });
 
 export default connect(

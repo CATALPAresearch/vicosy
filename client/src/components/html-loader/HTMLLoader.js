@@ -18,8 +18,8 @@ export default class HTMLLoader extends Component {
           left: "0",
           right: "0",
           bottom: "0",
-          height: "800px"
-
+          height: "800px",
+      
         }}
       />
       // </div>

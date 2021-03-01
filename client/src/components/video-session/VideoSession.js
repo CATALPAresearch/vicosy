@@ -48,6 +48,7 @@ import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContai
 import Guide from "./Guide/Guide";
 import { getScriptByGroupId } from "../../actions/scriptActions";
 
+
 class VideoSession extends Component {
   constructor(props) {
     super(props);

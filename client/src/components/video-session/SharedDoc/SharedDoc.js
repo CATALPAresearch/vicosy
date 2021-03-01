@@ -11,6 +11,7 @@ import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 import { setSharedDocEditing } from "../../../actions/localStateActions";
 //import {connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc } from "../../../actions/docActions";
 import { subscribeSharedDoc } from "../../../actions/docActions";
+import {updateInstruction} from "../../../actions/assistentActions";
 
 
 // Registering the rich text type to make sharedb work
@@ -105,7 +106,6 @@ class SharedDoc extends Component {
   }
 
 
-
   componentWillUnmount() {
   }
   componentWillReceiveProps(nextProps) {
@@ -121,6 +121,7 @@ class SharedDoc extends Component {
 
   onCloseClick() {
     window.dialogRequestEvents.dispatch(TOGGLE_SHARED_DOC_REQUEST);
+    
   }
   rteChange = (content, delta, source, editor) => {
     /*
@@ -162,5 +163,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { subscribeSharedDoc/* setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc */ }
+  {updateInstruction, subscribeSharedDoc/* setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc */ }
 )(SharedDoc);

@@ -8,6 +8,7 @@ import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlCompo
 import AssistentController from "../../assistent/AssistentController";
 import ProgressBar from "./ProgressBar";
 import RoomComponent from "../../controls/RoomComponent";
+import HintArrow from "../../assistent/HintArrow";
 
 class Guide extends Component {
   constructor(props) {
@@ -111,6 +112,18 @@ class Guide extends Component {
               <ProgressBar />
             </div>
             <div id="confirmButton">
+              {this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
+                <HintArrow
+                  style={{ position: "absolute", marginTop: 40, marginLeft: 60, zIndex: 1000 }}
+                  direction="up"
+                /> : null}
+              {this.props.assistent.incomingInstruction ?
+                this.props.assistent.incomingInstruction.markers === "toggle-switch" ?
+                  <HintArrow
+                    style={{ position: "absolute", marginTop: 40, marginLeft: 60, zIndex: 1000 }}
+                    direction="up"
+                  /> : null : null}
+
               {confirmationComponent}
             </div>
           </div>

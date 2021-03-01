@@ -7,6 +7,7 @@ import {
 } from "../../../actions/localStateActions";
 import { connect } from "react-redux";
 import { PAUSE_REQUEST } from "../PlayBackUiEvents";
+import HintArrow from "../../assistent/HintArrow";
 
 class AnnotationDropDown extends Component {
   constructor(props) {
@@ -65,6 +66,11 @@ class AnnotationDropDown extends Component {
         title="Defines a split/chapter point. As a result 2 new timesections will appear."
               onClick={this.onAnnotationTriggered.bind(this)}
         >
+              {this.props.assistent.active && this.props.assistent.actInstruction.markers === "open-annotations" ?
+          <HintArrow
+            style={{ position: "absolute", marginTop: -80, marginLeft: 60, zIndex: 1000 }}
+            direction="down"
+          /> : null}
         <i className="fa fa-film" /> Create Chapter
       </button>
       );
@@ -75,6 +81,11 @@ class AnnotationDropDown extends Component {
         title="Simple annotation marking POIs in the video."
               onClick={this.onAnnotationTriggered.bind(this)}
         >
+          {this.props.assistent.active && this.props.assistent.actInstruction.markers === "annot-button" ?
+          <HintArrow
+            style={{ position: "absolute", marginTop: -80, marginLeft: 20, zIndex: 1000 }}
+            direction="down"
+          /> : null}
         <i className="fa map-marker" />Annotate
       </button>
       )
@@ -85,7 +96,8 @@ class AnnotationDropDown extends Component {
 
 const mapStateToProps = state => ({
   settings: state.settings,
-  localState: state.localState
+  localState: state.localState, 
+  assistent: state.assistent
 });
 
 export default connect(

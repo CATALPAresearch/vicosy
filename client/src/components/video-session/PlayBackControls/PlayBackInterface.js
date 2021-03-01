@@ -28,6 +28,7 @@ import FeatureRenderer from "../../controls/FeatureRenderer";
 import AnnotationDropDown from "../SessionNavbar/AnnotationDropDown";
 import MarkerDropDown from "../SessionNavbar/MarkerDropDown";
 import { FEATURES } from "../../../reducers/featureTypes";
+import HintArrow from "../../assistent/HintArrow";
 
 const SLIDER_STEPS = 1000;
 
@@ -228,7 +229,12 @@ class PlayBackInterface extends Component {
         onClick={
           play ? this.onPlayClick.bind(this) : this.onStopClick.bind(this)
         }
-      >
+      > {this.props.assistent.active && this.props.assistent.actInstruction.markers === "play-button"?
+      <HintArrow
+          style={{ position: "absolute", marginTop: -70, marginLeft: -10, zIndex:1000 }}
+          direction="down"
+      /> : null}
+
         <i 
           className={classnames("fa", {
             "fa-play-circle": play,
@@ -330,7 +336,8 @@ class PlayBackInterface extends Component {
 
 const mapStateToProps = state => ({
   localState: state.localState,
-  rooms: state.rooms
+  rooms: state.rooms,
+  assistent: state.assistent
 });
 
 export default connect(

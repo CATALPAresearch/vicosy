@@ -4,6 +4,7 @@ import { connect, useStore } from "react-redux";
 import { checkRemovedScript, getMyScripts, getScriptById, getMyScriptsBySocket } from "../../actions/scriptActions";
 import { getScriptByIdCallback } from "../../actions/scriptActions";
 import { SET_SCRIPT_MEMBERS } from "../../actions/types";
+import HintArrow from "../assistent/HintArrow";
 
 export class TrainerSessionList extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ export class TrainerSessionList extends Component {
     var sessionsToRender = null;
 
 
-  if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
+    if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
       const { sessions } = roomData.state.sharedRoomData;
       const sessionRoomIds = Object.keys(sessions);
 
@@ -76,8 +77,9 @@ export class TrainerSessionList extends Component {
               {myGroup.groupMembers.map(member => { return <p key={member._id}>{member.name}</p> })}
 
             </td>
-           {/* <td>{script.scriptType}</td> */}
+            {/* <td>{script.scriptType}</td> */}
             <td>
+
               {firstElement ?
                 <button
                   onClick={(e) => this.setScript(script._id, group._id)}
@@ -102,9 +104,9 @@ export class TrainerSessionList extends Component {
                     {script.clientCount}
                   </span>
                 </button>
-                }
+              }
             </td>
-            {firstElement=false}
+            {firstElement = false}
           </tr>
         );
 
@@ -152,8 +154,15 @@ export class TrainerSessionList extends Component {
               <th id="session-list" scope="col">Session</th>
               <th scope="col">Video-Url</th>
               <th scope="col">Members</th>
-             {/* <th scope="col">Collaboration</th> */}
-              <th scope="col">Join</th>
+              {/* <th scope="col">Collaboration</th> */}
+              <th scope="col">
+                {this.props.assistent.active && this.props.assistent.actInstruction.markers === "join-session" ?
+                  <HintArrow
+                    style={{ position: "absolute"}}
+                    direction="down"
+                  /> : null}
+
+                Join</th>
             </tr>
           </thead>
           <tbody>{scriptsToRender}</tbody>
@@ -166,6 +175,7 @@ export class TrainerSessionList extends Component {
 const mapStateToProps = state => ({
   auth: state.auth,
   script: state.script,
+  assistent: state.assistent
 });
 
 export default connect(

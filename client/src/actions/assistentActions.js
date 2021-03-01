@@ -74,6 +74,11 @@ export const previousInstruction = () => dispatch => {
 };
 
 export const updateInstruction = () => dispatch => {
+
+  dispatch({
+    type: SET_ACT_INSTRUCTION,
+    payload: ""
+  });
   dispatch({
     type: UPDATE_ACT_INSTRUCTION,
     payload: ""

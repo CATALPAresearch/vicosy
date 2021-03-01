@@ -37,7 +37,7 @@ export default function (state = initialState, action) {
         }
         else
           if (!action.payload.meIsReady && action.payload.meIsRequired && !action.payload.waitingForOthers) {
-            newInstruction = new Instruction("Dein Partner hat die Phase beendet. Hier kannst du sie ebenfalls beenden!", new Array(new Options("right", "id", "toggle-switch", 15, 20)));
+            newInstruction = new Instruction("Dein Partner hat die Phase beendet. Hier kannst du sie ebenfalls beenden!", "toggle-switch");
           }
           else
             return {
@@ -123,7 +123,7 @@ export default function (state = initialState, action) {
     case UPDATE_ACT_INSTRUCTION:
       return {
         ...state,
-        actInstruction: state.actInstruction
+        actInstruction: state.phase.instructions[state.phase.pointer]
       };
 
     default:

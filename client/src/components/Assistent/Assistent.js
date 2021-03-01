@@ -27,12 +27,8 @@ class Assistent extends Component {
             arrows: {}
         };
         this.assistentControlRef = null;
-        this.arrows = this.getArrowPosition();
         this.renderDepth = 0;
         this.toUpdate = true;
-        // window.onresize = this.setArrowPosition;
-
-        //  this.setState(this.getArrowPosition());
 
 
     }
@@ -45,107 +41,6 @@ class Assistent extends Component {
 
     }
 
-    /*
-        showArrows() {
-            if (this.toUpdate)
-                this.getArrowPosition();
-    
-            this.toUpdate = !this.toUpdate;
-        }
-    
-    componentDidUpdate() {
-        this.showArrows();
-    }
-    */
-    getArrowPosition() {
-        let arrows = null;
-        if (this.props.assistent.actInstruction)
-            if (this.props.assistent.actInstruction.markers) {
-                arrows = this.props.assistent.actInstruction.markers.map(arrow => {
-
-                    if (arrow.mode == "id") {
-
-
-                        var element = document.getElementById(arrow.id).getBoundingClientRect();
-
-                        var left = element.left + window.pageXOffset - 80 + arrow.left;
-
-                        var halfheight = Math.round(parseFloat(((element.top - element.bottom) / 2)));
-
-                        var top = element.top + window.pageYOffset - 50 + halfheight + arrow.top;
-                        //position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
-
-                        return (
-                            <Arrow className="arrow"
-                                key={arrow.id}
-                                id={arrow.id}
-                                direction={arrow.orientation}
-                                shaftWidth={15}
-                                shaftLength={40}
-                                headWidth={40}
-                                headLength={30}
-                                fill="red"
-                                text="Chat"
-                                stroke="red"
-                                strokeWidth={2}
-                                style={{ position: "absolute", left: left, top: top }}
-                            />
-
-                        );
-
-                    }
-                }
-                )
-            }
-        return arrows;
-    }
-
-
-    getArrowPositionIncoming() {
-        var arrows = null;
-        if (this.props.assistent.incomingInstruction)
-            if (this.props.assistent.incomingInstruction.markers) {
-                arrows = this.props.assistent.incomingInstruction.markers.map(arrow => {
-
-                    if (arrow.mode == "id") {
-
-
-
-                        let element = document.getElementById(arrow.id).getBoundingClientRect();
-
-                        let left = element.left + window.pageXOffset - 80 + arrow.left;
-
-                        let halfheight = Math.round(parseFloat(((element.top - element.bottom) / 2)));
-
-                        let top = element.top + window.pageYOffset - 50 + halfheight + arrow.top;
-                        //position[{ arrow }] = ({ left: element.left + window.pageXOffset - 80, top: element.top + window.pageYOffset - 55 });
-
-                        return (
-                            <Arrow className="arrow"
-                                key={arrow.id}
-                                id={arrow.id}
-                                direction={arrow.orientation}
-                                shaftWidth={15}
-                                shaftLength={40}
-                                headWidth={40}
-                                headLength={30}
-                                fill="red"
-                                text="Chat"
-                                stroke="red"
-                                strokeWidth={2}
-                                style={{ position: "absolute", left: left, top: top }}
-                            />
-
-                        );
-
-                    }
-                }
-                )
-            }
-        return arrows;
-    }
-
-
     nextInstruction() {
 
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
@@ -154,7 +49,7 @@ class Assistent extends Component {
             this.props.nextInstruction();
 
         }
-        //else return null;
+
 
     }
 
@@ -164,7 +59,7 @@ class Assistent extends Component {
             this.props.previousInstruction();
 
         }
-        //else return null;
+
 
     }
 
@@ -195,14 +90,7 @@ class Assistent extends Component {
         this.actualize();
         this.props.setIncominginstruction(null);
     }
-    /*
-        componentDidUpdate() {
-            // if (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS");
-            if (this.props.assistent.phase.name === "SEPARATESECTIONSTUTEEPOST" && this.props.assistent.actInstruction.markers) {
-                this.props.setSharedDocEditing({ isOpen: false });
-            }
-    
-        }*/
+
 
     _handleKeyDown = (event) => {
 
@@ -221,33 +109,19 @@ class Assistent extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener("resize", this.actualize.bind(this));
+
         document.addEventListener("keydown", this._handleKeyDown.bind(this), false);
-        // this.arrows = null;
-        // this.getArrowPosition();
-        this.actualize();
     }
 
     componentWillUnmount() {
-        this.actualize();
         this.props.setActInstruction(null);
-        this.arrows = null;
+
     }
 
 
     render() {
-   
-     
-        {
-            this.props.assistent.incomingInstruction ?
-                this.arrows = this.getArrowPositionIncoming() :
-                this.arrows = this.getArrowPosition()
-        }
         return (
             <div id="assistent">
-                {this.arrows}
-               {/* <Arrows></Arrows>*/}
-
                 <div className="panel" id="laempel">
                     <img src={assi_on} alt="Laempel" width="100%" height="100%" />
                 </div>
