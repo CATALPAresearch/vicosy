@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 
 import Arrow from 'react-arrow';
 
-
-
 export default class HintArrow extends Component {
     constructor(props) {
         super(props);

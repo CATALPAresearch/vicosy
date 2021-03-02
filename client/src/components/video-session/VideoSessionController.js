@@ -15,7 +15,7 @@ import { setSyncState } from "../../actions/localStateActions";
 import DialogController from "./PhaseControllers/DialogController";
 import connectUIState from "../../highOrderComponents/UIStateConsumer";
 import RoomComponent from "../controls/RoomComponent";
-import AssistentProcessor from "./Activities/assistent-processor";
+import ActivityOberserver from "./Activities/activity-observer";
 
 // component that controls session and speaks with AbstractPlayer and Redux state
 // must be used as a RoomComponent
@@ -170,7 +170,7 @@ class VideoSessionController extends Component {
         
         <RoomComponent
             roomId={this.props.roomId}
-            component={AssistentProcessor}
+            component={ActivityOberserver}
                       
           />
 

@@ -10,7 +10,7 @@ const { listenActiveMessage, listenTabLostMessage } = require("../../../socket-h
 
 
 // base class for assitent processor for backend Messages
-export class AssistentProcessor extends Component {
+export class ActivityOberserver extends Component {
 
     constructor(props) {
         super(props);
@@ -144,5 +144,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps, { sendActiveMessage, setIncominginstruction, sendTabLostMessage }
-)(AssistentProcessor);
+)(ActivityOberserver);
 
