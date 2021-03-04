@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./slider.css";
 import classnames from "classnames";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 export default class TimeLineHandle extends Component {
   render() {

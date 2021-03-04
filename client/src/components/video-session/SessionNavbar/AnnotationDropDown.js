@@ -7,7 +7,7 @@ import {
 } from "../../../actions/localStateActions";
 import { connect } from "react-redux";
 import { PAUSE_REQUEST } from "../PlayBackUiEvents";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class AnnotationDropDown extends Component {
   constructor(props) {

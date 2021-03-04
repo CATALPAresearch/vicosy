@@ -8,7 +8,7 @@ import {
 // import ActivityCounter from "../../chat/ActivityCounter";
 import "./sidebar-tabs.css";
 import Interactive from "../../controls/Interactive";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class SideBarTabs extends Component {
   constructor() {

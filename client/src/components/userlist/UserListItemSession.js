@@ -10,7 +10,7 @@ import "./user-list.css";
 import { joinConference, leaveConference } from "../test/WebRtcConference";
 import { OWN_ACTIVE_MEDIA_CHANGED } from "../../stream-model/streamEvents";
 import PhaseReadyIndicator from "../../ScriptedCooperation/controlComponents/PhaseReadyIndicator";
-import HintArrow from "../assistent/HintArrow";
+import HintArrow from "../Assistent/HintArrow";
 
 class UserListItemSession extends Component {
   constructor(props) {

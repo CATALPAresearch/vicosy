@@ -28,7 +28,7 @@ import FeatureRenderer from "../../controls/FeatureRenderer";
 import AnnotationDropDown from "../SessionNavbar/AnnotationDropDown";
 import MarkerDropDown from "../SessionNavbar/MarkerDropDown";
 import { FEATURES } from "../../../reducers/featureTypes";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 const SLIDER_STEPS = 1000;
 

@@ -8,7 +8,7 @@ import ToggleSwitchButton from "../../controls/ToggleSwitchButton";
 import { FEATURES } from "../../../reducers/featureTypes";
 import connectShared from "../../../highOrderComponents/SharedRoomDataConsumer";
 import "./SessionNavbar.css";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class SyncSwitch extends Component {
   constructor(props) {

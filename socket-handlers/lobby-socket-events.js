@@ -12,7 +12,7 @@ const {
   tryCreateSessionProcessor
 } = require("../scripted-collaboration/processor-creator");
 const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
-// const AssistentProcessor = require("../scripted-collaboration/assistent/assistent-processor");
+// const AssistentProcessor = require("../scripted-collaboration/Assistent/assistent-processor");
 const WebSocketJSONStream = require('websocket-json-stream');
 const ShareDB = require('sharedb');
 /**

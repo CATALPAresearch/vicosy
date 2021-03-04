@@ -5,10 +5,10 @@ import { closePublicGuide } from "../../../actions/localStateActions";
 // import { setPhase, setActInstruction } from "../../../actions/assistentActions";
 import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
-import AssistentController from "../../assistent/AssistentController";
+import AssistentController from "../../Assistent/AssistentController";
 import ProgressBar from "./ProgressBar";
 import RoomComponent from "../../controls/RoomComponent";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class Guide extends Component {
   constructor(props) {

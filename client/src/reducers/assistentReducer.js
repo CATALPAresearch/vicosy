@@ -1,7 +1,7 @@
 import {UPDATE_ACT_INSTRUCTION, SET_INCOMING_INSTRUCTION, UPDATE_CONTINUEBUTTON, PREVIOUS_INSTRUCTION, SET_PHASE_INSTRUCTIONS, SET_ACTIVE, SET_WARNING, SET_PHASE, SET_ACT_INSTRUCTION, UNSET_ACT_INSTRUCTION, NEXT_INSTRUCTION } from "../actions/types";
 import isEmpty from "../validation/is-empty";
-import Instruction from "../components/assistent/phases/Instruction"
-import Options from "../components/assistent/phases/Options"
+import Instruction from "../components/Assistent/phases/Instruction"
+import Options from "../components/Assistent/phases/Options"
 const initialState = {
   warningMessage: "",
   active: false,

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setMarkerType } from "../../../actions/settingActions";
 import { LOG_ERROR } from "../../logic-controls/logEvents";
 import connectUIState from "../../../highOrderComponents/UIStateConsumer";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class MarkerDropDown extends Component {
   constructor(props) {

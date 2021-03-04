@@ -7,8 +7,8 @@ import UserList from "../userlist/UserList";
 import UserListItemDefault from "../userlist/UserListItemDefault";
 import "./StudentLobby.css";
 import Logger from "../logic-controls/Logger";
-import AssistentController from "../assistent/AssistentController";
-import { STUDENTLOBBY } from "../assistent/phases/types";
+import AssistentController from "../Assistent/AssistentController";
+import { STUDENTLOBBY } from "../Assistent/phases/types";
 
 export default class StudentLobby extends Component {
   constructor() {

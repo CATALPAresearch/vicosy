@@ -3,7 +3,7 @@ import { setSharedDocEditing } from "../../../actions/localStateActions";
 import { connect } from "react-redux";
 import { TOGGLE_SHARED_DOC_REQUEST, CLOSE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 import { updateInstruction, setActive } from "../../../actions/assistentActions";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class MainRessourceTabs extends Component {
   constructor(props) {

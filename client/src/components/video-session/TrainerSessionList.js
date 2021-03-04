@@ -4,7 +4,7 @@ import { connect, useStore } from "react-redux";
 import { checkRemovedScript, getMyScripts, getScriptById, getMyScriptsBySocket } from "../../actions/scriptActions";
 import { getScriptByIdCallback } from "../../actions/scriptActions";
 import { SET_SCRIPT_MEMBERS } from "../../actions/types";
-import HintArrow from "../assistent/HintArrow";
+import HintArrow from "../Assistent/HintArrow";
 
 export class TrainerSessionList extends Component {
   constructor(props) {

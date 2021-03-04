@@ -11,7 +11,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { setUnseenActivities } from "../../actions/localStateActions";
 import Arrow from 'react-arrow';
-import HintArrow from './../../components/assistent/HintArrow'
+import HintArrow from './../../components/Assistent/HintArrow'
 
 // room component, please wrap with RoomComponent
 class Chat extends Component {
