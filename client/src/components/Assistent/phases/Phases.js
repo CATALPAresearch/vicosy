@@ -1,7 +1,5 @@
-import React, { Component } from "react";
 import AbstractPhase from "./AbstractPhase";
 import Instruction from "./Instruction";
-import Options from "./Options";
 import { STUDENTLOBBY } from "./types";
 
 

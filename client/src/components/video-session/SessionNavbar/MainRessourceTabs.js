@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { setSharedDocEditing } from "../../../actions/localStateActions";
 import { connect } from "react-redux";
-import { TOGGLE_SHARED_DOC_REQUEST, CLOSE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
+import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 import { updateInstruction, setActive } from "../../../actions/assistentActions";
-import HintArrow from "../../assistent/HintArrow";
 
 class MainRessourceTabs extends Component {
   constructor(props) {
@@ -53,7 +52,6 @@ class MainRessourceTabs extends Component {
       : "video-tab"
 
     const tabsEntries = this.state.tabs.map(tab => {
-
       const isSelected = selectedTabId === tab.id;
       // const isDisabled = tab.id == "doc-tab" && this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS";
       var disabled =

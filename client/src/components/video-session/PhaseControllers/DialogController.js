@@ -1,14 +1,12 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import connectShared from "../../../highOrderComponents/SharedRoomDataConsumer";
 import { connect } from "react-redux";
 import {
-  OPEN_SHARED_DOC_REQUEST,
-  CLOSE_SHARED_DOC_REQUEST,
+
   TOGGLE_SHARED_DOC_REQUEST
 } from "../../logic-controls/dialogEvents";
 import { setSharedDocEditing } from "../../../actions/localStateActions";
-import { sendSharedRoomData, ownSocketId } from "../../../socket-handlers/api";
-import sessionTypes from "../../../shared_constants/sessionTypes";
+import { sendSharedRoomData} from "../../../socket-handlers/api";
 import { PAUSE_REQUEST } from "../PlayBackUiEvents";
 
 const SHARED_DOC_BEHAVIOUR_SYNC = "SHARED_DOC_BEHAVIOUR_SYNC";

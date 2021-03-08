@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import { LOG } from "../../logic-controls/logEvents";
-import RoomComponent from "../../controls/RoomComponent";
-import Logger from "../../logic-controls/Logger";
 import GroupMemberList from "../memberlist/GroupMemberList";
-import MemberListItemDefault from "../memberlist/MemberListItemDefault";
-import { getScriptMembers } from "../../../actions/scriptActions"
-import { connect, useStore } from "react-redux";
+import { connect } from "react-redux";
 
 // requires a parent with non static (e.g. relative position)
 export class Groups extends Component {

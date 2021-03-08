@@ -1,19 +1,16 @@
-import React, { Component, useRef, useState } from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import "./assistent.css";
 import assi_on from './images/lehrer.png';
-import assi_off from './images//lehrer_aus.png';
+
 import Instruction from "./Instruction";
 import { NoPhase } from "./phases/Phases";
 import IncomingInstruction from "./IncomingInstruction";
 import PhaseController from "./PhaseController";
 import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction } from "../../actions/assistentActions";
-import { faAllergies } from "@fortawesome/free-solid-svg-icons";
-import Arrow from 'react-arrow';
 import { getScriptById } from "../../actions/scriptActions";
 import { setSharedDocEditing } from "../../actions/localStateActions";
-import Arrows from "./Arrows";
 
 
 
@@ -105,6 +102,8 @@ class Assistent extends Component {
 
                 this.nextInstruction();
                 break;
+            default:
+                return;
         }
     }
 

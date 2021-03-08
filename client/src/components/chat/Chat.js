@@ -10,7 +10,7 @@ import InnerShadow from "../layout/InnerShadow";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { setUnseenActivities } from "../../actions/localStateActions";
-import Arrow from 'react-arrow';
+
 import HintArrow from '../assistent/HintArrow'
 
 // room component, please wrap with RoomComponent

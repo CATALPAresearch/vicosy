@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams
-} from "react-router-dom";
-import RoomComponent from "../../controls/RoomComponent";
-import { connect, useStore } from "react-redux";
+import { connect} from "react-redux";
 import { getScriptById, subScribeToScript } from "../../../actions/scriptActions";
 import SelectListGroup1 from "../../controls/SelectListGroup1";
 import "./SubscribeToScript.css";

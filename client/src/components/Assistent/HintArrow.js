@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router";
-import { connect } from "react-redux";
-
 import Arrow from 'react-arrow';
 
 export default class HintArrow extends Component {

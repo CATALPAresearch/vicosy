@@ -4,12 +4,6 @@ import "./progressBar.css";
 import HintArrow from "../../assistent/HintArrow";
 
 export class ProgressBar extends Component {
-    constructor(props) {
-        super(props);
-
-    }
-
-
     renderBar() {
         console.log(this.props);
         var id0 = "";
@@ -77,6 +71,8 @@ export class ProgressBar extends Component {
                     case "REFLEXIONPOST":
                         id7 = "actPhase";
                         break;
+                    default:
+                        return;
                 }
         return (
 
@@ -100,9 +96,9 @@ export class ProgressBar extends Component {
         var content = this.renderBar();
         return (
             <div id="ProgressBar">
-                {this.props.assistent.active && this.props.assistent.actInstruction.markers === "ProgressBar"?
+                {this.props.assistent.active && this.props.assistent.actInstruction.markers === "ProgressBar" ?
                     <HintArrow
-                        style={{ position: "absolute", marginTop: 40, marginLeft: 100, zIndex:1000 }}
+                        style={{ position: "absolute", marginTop: 40, marginLeft: 100, zIndex: 1000 }}
                         direction="up"
                     /> : null}
 

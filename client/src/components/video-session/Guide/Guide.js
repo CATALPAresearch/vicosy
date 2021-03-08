@@ -7,7 +7,6 @@ import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
 import PhaseController from "../../assistent/PhaseController";
 import ProgressBar from "./ProgressBar";
-import RoomComponent from "../../controls/RoomComponent";
 import HintArrow from "../../assistent/HintArrow";
 
 class Guide extends Component {
@@ -45,9 +44,10 @@ class Guide extends Component {
       case "REFLECTIONPRE":
         this.setPhase("REFLECTIONPOST");
         break;
-
       case "COMPLETION":
         this.setPhase("COMPLETION");
+        break;
+      default:
         break;
 
 

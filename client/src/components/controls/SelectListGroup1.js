@@ -12,7 +12,7 @@ export default class SelectListGroup1 extends Component {
     const readOnly=this.props.readOnly;
     const valueProvider = this.props.valueProvider;
     const selectOptions = this.props.options.map(option => (
-      <option key={option.label} value={option.value} selected={valueProvider[id] == option.value ? true : false}
+      <option key={option.label} value={option.value} selected={valueProvider[id] === option.value ? true : false}
       >
         {option.label}
       </option>

@@ -10,7 +10,7 @@ import { clearError } from "../../actions/errorActions";
 import { withRouter } from "react-router";
 import { LOG } from "../logic-controls/logEvents";
 import "./navbar.css";
-import { STUDENT, TRAINER } from "../../actions/types";
+import {TRAINER } from "../../actions/types";
 import { setActive } from "../../actions/assistentActions";
 
 class Navbar extends Component {

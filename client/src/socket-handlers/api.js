@@ -1,4 +1,3 @@
-import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import openSocket from "socket.io-client";
 import { PEER_SIGNAL_MESSAGE } from "../p2p-handlers/p2pEvents";
 /*
@@ -176,7 +175,7 @@ export const isActive = (sessionId, userName, userId, clients) => {
 
   message.sessionId = sessionId;
   for (var client in clients) {
-    if (client != userId) {
+    if (client !== userId) {
       message.userId = client;
       console.log("emit active message");
       socket.emit("activemessage", message);
@@ -200,7 +199,7 @@ export const sendTabLostMsg = (sessionId, userName, userId, clients) => {
 
   message.sessionId = sessionId;
   for (var client in clients) {
-    if (client != userId) {
+    if (client !== userId) {
       message.userId = client;
       console.log("emit tablost message");
       socket.emit("tablostmessage", message);

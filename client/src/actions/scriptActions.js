@@ -1,20 +1,18 @@
 import axios from "axios";
-import { set } from "mongoose";
-// import { notify } from "../../../routes/api/users";
-import { removedScript, getSessions, scriptMembers, notifyMembers, subscribeToScriptSocket, createTrainerSession } from "../socket-handlers/api";
-import { DELETE_MEMBER_FROM_SCRIPT, GET_SESSIONS, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, SET_WARNING, SET_SCRIPT_MEMBERS, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
+import { removedScript, getSessions, scriptMembers, notifyMembers, subscribeToScriptSocket } from "../socket-handlers/api";
+import { DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
 
 export const checkRemovedScript = (user_id, scripts) => dispatch => {
   removedScript(user_id, (script_id) => {
     console.log("Script removed");
-    
+
     if (!scripts)
       scripts = {};
     else
       for (var i = 0; i < scripts.length; i++) {
 
-        if (scripts[i]._id == script_id) {
+        if (scripts[i]._id === script_id) {
           scripts.splice(i, 1);
 
         }
@@ -146,15 +144,15 @@ export const deleteMemberFromScript = (member_id, script) => dispatch => {
   console.log(script);
 
   for (var i = 0; i < script.participants.length; i++) {
-    if (script.participants[i].id == member_id)
+    if (script.participants[i].id === member_id)
       script.participants.splice(i, 1);
 
   }
   if (script.groups)
     for (let group of script.groups) {
-      for (var i = 0; i < group.groupMembers.length; i++) {
-        if (group.groupMembers[i].id == member_id)
-          group.groupMembers.splice(i, 1);
+      for (var j = 0; j < group.groupMembers.length; j++) {
+        if (group.groupMembers[j].id === member_id)
+          group.groupMembers.splice(j, 1);
 
       }
 
@@ -280,7 +278,6 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
         var groups = [];
       switch (method) {
         case SHUFFLE: {
-          let groupNr = 0;
           var group = { _id: "", groupMembers: [] };
           //var groupMembers=[];
           while (Array.isArray(memberArray) && memberArray.length > 0) {
@@ -307,7 +304,7 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
           var sizeOk = true;
 
-          for (var i = 0; i < members.length; i++)
+          for (let i = 0; i < members.length; i++)
             expLevels.push(members[i].expLevel);
 
           // var groupNumber = Math.round(members.length / groupSize);
@@ -423,6 +420,12 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
           });
 
         }
+        default:
+          dispatch({
+            type: GET_ERRORS,
+            payload: "Keine Methode ausgewähl"
+          });
+
       }
     }
   }

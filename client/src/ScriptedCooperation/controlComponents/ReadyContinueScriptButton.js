@@ -71,7 +71,7 @@ class ReadyContinueScriptButton extends Component {
         }
       }
     }
-    if (meIsRequired != this.state.meIsRequired || meIsReady != this.state.meIsReady || waitingForOthers != this.state.waitingForOthers)
+    if (meIsRequired !== this.state.meIsRequired || meIsReady !== this.state.meIsReady || waitingForOthers !== this.state.waitingForOthers)
       this.props.updateContinueButton(meIsRequired, meIsReady, waitingForOthers);
 
     this.setState({ meIsRequired, meIsReady, waitingForOthers });

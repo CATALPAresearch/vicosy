@@ -1,4 +1,4 @@
-import React, { useEffect, Component } from 'react';
+import React, { Component } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.bubble.css';
 import 'quill/dist/quill.snow.css';
@@ -8,8 +8,6 @@ import "./shared-doc.css";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
-import { setSharedDocEditing } from "../../../actions/localStateActions";
-//import {connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc } from "../../../actions/docActions";
 import { subscribeSharedDoc } from "../../../actions/docActions";
 import {updateInstruction} from "../../../actions/assistentActions";
 
@@ -39,7 +37,6 @@ class SharedDoc extends Component {
     doc.subscribe(function (err) {
       if (err) throw err;
 
-      const toolbarOptions = ['bold', 'italic', 'underline', 'strike', 'align'];
       const options = {
         theme: 'snow',
         modules: {

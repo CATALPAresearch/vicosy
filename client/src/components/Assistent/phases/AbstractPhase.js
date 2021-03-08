@@ -22,7 +22,7 @@ export default class AbstractPhase {
         if (!this.pointer)
             return false;
         else
-            if (this.pointer == 0)
+            if (this.pointer === 0)
                 return false;
             else
                 return true;

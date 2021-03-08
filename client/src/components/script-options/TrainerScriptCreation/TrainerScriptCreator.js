@@ -1,22 +1,17 @@
-import { connect, useStore } from "react-redux";
+import { connect } from "react-redux";
 import React, { Component } from "react";
-import { createTrainerSession, ownSocketId } from "../../../socket-handlers/api";
+import { ownSocketId } from "../../../socket-handlers/api";
 import "./TrainerScriptCreator.css";
 import PropTypes from "prop-types";
 import { LOG_ERROR } from "../../logic-controls/logEvents";
 import {
-  SESSION_DEFAULT,
+
   SESSION_PEER_TEACHING
 } from "../../../shared_constants/sessionTypes";
-import SelectListGroup1 from "../../controls/SelectListGroup1";
-import InputGroup from "../../controls/InputGroup";
-import InputGroupWithButton from "../../controls/InputGroupWithButton";
-import { HETEROGEN, HOMOGEN, SHUFFLE } from "../../../actions/types";
 import { updateScriptProp, createScript, updateScript, getScriptById, mixGroups, deleteAllScripts, startScript } from "../../../actions/scriptActions";
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "./Members";
-import Groups from "./Groups";
 import ScriptSettings from "./ScriptSettings";
 
 
@@ -148,7 +143,6 @@ class TrainerScriptCreator extends Component {
 
     };
 
-    const { _id, userId, videourl, scriptName, scriptType, groupSize, groupMix, themes, isPhase0, isPhase5, phase0Assignment, phase5Assignment } = this.props.script;
     if (/*videourl && scriptName && themes && scriptType*/true) {
       if (!this.props.script._id) {
         console.log("new Script");
@@ -217,9 +211,6 @@ class TrainerScriptCreator extends Component {
     this.setState({ groupClassname: "nav-link active" })
   }
   render() {
-
-    const scriptsEnabled = this.props.auth.user.name !== "Guest";
-    const { errors } = this.state;
     return (
 
 
