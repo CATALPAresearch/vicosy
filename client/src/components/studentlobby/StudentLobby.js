@@ -10,6 +10,7 @@ import Logger from "../logic-controls/Logger";
 import PhaseController from "../assistent/PhaseController";
 import { STUDENTLOBBY } from "../assistent/phases/types";
 
+
 export default class StudentLobby extends Component {
   constructor() {
     super();
