@@ -10,7 +10,7 @@ import {Completion, StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPos
 import { STUDENTLOBBY } from "./phases/types";
 import { setAnnotationType } from "../../actions/settingActions";
 
-export class AssistentController extends Component {
+export class PhaseController extends Component {
   constructor() {
     super();
     this.state = { phase: {} };
@@ -188,6 +188,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { setAnnotationType, openPublicGuide, closePublicGuide, setPhase, setActInstruction, setIncominginstruction, getScriptById }
-)(AssistentController);
+)(PhaseController);
 
 

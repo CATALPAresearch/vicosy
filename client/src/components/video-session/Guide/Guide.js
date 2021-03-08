@@ -5,7 +5,7 @@ import { closePublicGuide } from "../../../actions/localStateActions";
 // import { setPhase, setActInstruction } from "../../../actions/assistentActions";
 import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
-import AssistentController from "../../assistent/AssistentController";
+import PhaseController from "../../assistent/PhaseController";
 import ProgressBar from "./ProgressBar";
 import RoomComponent from "../../controls/RoomComponent";
 import HintArrow from "../../assistent/HintArrow";
@@ -132,7 +132,7 @@ class Guide extends Component {
         <div id="InnerGuide" className="roundedStrong">
 
           <HTMLLoader url={targetUrl} />
-          <AssistentController createRef={el => (this.assistentControlRef = el)} />
+          <PhaseController createRef={el => (this.assistentControlRef = el)} />
 
         </div>
       </div>

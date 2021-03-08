@@ -140,7 +140,7 @@ if (isSecure) {
 const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
 io.origins("*:*");
 
-const handleSocketEvents = require("./socket-handlers/lobby-socket-events");
+const handleSocketEvents = require("./socket-handlers/socket-events");
 const DbSocket = require("./socket-handlers/db-socket-events");
 
 //const setSocket = require("./routes/api/script");

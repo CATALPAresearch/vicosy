@@ -7,7 +7,7 @@ import assi_off from './images//lehrer_aus.png';
 import Instruction from "./Instruction";
 import { NoPhase } from "./phases/Phases";
 import IncomingInstruction from "./IncomingInstruction";
-import AssistentController from "./AssistentController";
+import PhaseController from "./PhaseController";
 import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction } from "../../actions/assistentActions";
 import { faAllergies } from "@fortawesome/free-solid-svg-icons";
 import Arrow from 'react-arrow';
@@ -126,7 +126,7 @@ class Assistent extends Component {
                     <img src={assi_on} alt="Laempel" width="100%" height="100%" />
                 </div>
 
-                <AssistentController createRef={el => (this.assistentControlRef = el)} />
+                <PhaseController createRef={el => (this.assistentControlRef = el)} />
                 {this.props.assistent.incomingInstruction ?
                     <IncomingInstruction
                         instruction={this.props.assistent.incomingInstruction}
@@ -162,7 +162,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps, { AssistentController, setSharedDocEditing, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
+    mapStateToProps, { PhaseController, setSharedDocEditing, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
 )(withRouter(Assistent));
 
 
