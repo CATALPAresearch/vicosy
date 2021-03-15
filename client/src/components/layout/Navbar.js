@@ -10,7 +10,7 @@ import { clearError } from "../../actions/errorActions";
 import { withRouter } from "react-router";
 import { LOG } from "../logic-controls/logEvents";
 import "./navbar.css";
-import {TRAINER } from "../../actions/types";
+import { TRAINER } from "../../actions/types";
 import { setActive } from "../../actions/assistentActions";
 
 class Navbar extends Component {
@@ -28,7 +28,7 @@ class Navbar extends Component {
   setAssitent(e) {
     // if (this.props.assistent.active)
     this.props.setActive(!this.props.assistent.active);
-        //else (this.props.setActive(false))
+    //else (this.props.setActive(false))
   }
 
   onWarningDismissed(e) {
@@ -86,6 +86,36 @@ class Navbar extends Component {
     }
 
     const { isSession } = this.props;
+    const userNav = (
+      <li className="nav-item dropdown" id="dropdown-menu-pos">
+
+        <a className="nav-link dropdown-toggle" id="dropdown-menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img
+            className="rounded-circle"
+            src={user.avatar}
+            alt={user.name}
+            style={{ width: "25px", marginRight: "5px" }}
+            title="You must have a Gravatar connected to you email to display an image"
+          />
+          {this.props.auth.user.name}
+        </a>
+        <div className="dropdown-menu" id="RightNavItems" aria-labelledby="navbarDropdown">
+          <li className="nav-item">
+            <a className="nav-link" href="#">Settings</a>
+          </li>
+          <li className="nav-item">
+            <a
+              href=""
+              onClick={this.onLogoutClick.bind(this)}
+              className="nav-link"
+            >
+              Logout
+          </a>
+          </li>
+        </div>
+      </li>
+    )
+
 
     const faqItem = (
       <li className="nav-item">
@@ -135,22 +165,8 @@ class Navbar extends Component {
         </li>
         */}
         {faqItem}
-        <li className="nav-item">
-          <a
-            href=""
-            onClick={this.onLogoutClick.bind(this)}
-            className="nav-link"
-          >
-            <img
-              className="rounded-circle"
-              src={user.avatar}
-              alt={user.name}
-              style={{ width: "25px", marginRight: "5px" }}
-              title="You must have a Gravatar connected to you email to display an image"
-            />{" "}
-            Logout
-          </a>
-        </li>
+
+        {userNav}
       </ul>
     );
 
@@ -189,8 +205,8 @@ class Navbar extends Component {
           })}
         >
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
-          {this.props.auth.user.role === "STUDENT"?
-          <button id="switchAssistent" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button>:null}
+          {this.props.auth.user.role === "STUDENT" ?
+            <button id="switchAssistent" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button> : null}
           <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
             CloseUpTogether
         </Link>
@@ -217,10 +233,11 @@ class Navbar extends Component {
             {/* {isSession ? sessionInfo : null} */}
             {isAuthenticated ? authLinks : guestLinks}
 
+
           </div>
 
         </nav>
-        { this.props.assistent.warningMessage ?
+        {this.props.assistent.warningMessage ?
           <div className="alert alert-warning">
             <strong>Warning!</strong> {this.props.assistent.warningMessage}
           </div> : null

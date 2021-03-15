@@ -288,6 +288,9 @@ height: 50px;
     0 -1px 1px white;
 }
 
-.nav-tabs a {
+.nav-tabs, .dropdown-menu a {
   color: rgb(114, 114, 114);
 }
+
+
+
