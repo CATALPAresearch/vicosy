@@ -7,7 +7,7 @@ import {
 } from "../../../actions/localStateActions";
 import { connect } from "react-redux";
 import { PAUSE_REQUEST } from "../PlayBackUiEvents";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class AnnotationDropDown extends Component {
   constructor(props) {
@@ -66,11 +66,11 @@ class AnnotationDropDown extends Component {
         title="Defines a split/chapter point. As a result 2 new timesections will appear."
               onClick={this.onAnnotationTriggered.bind(this)}
         >
-              {this.props.assistent.active && this.props.assistent.actInstruction.markers === "open-annotations" ?
+              {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "open-annotations" ?
           <HintArrow
             style={{ position: "absolute", marginTop: -80, marginLeft: 60, zIndex: 1000 }}
             direction="down"
-          /> : null}
+          /> : null:null}
         <i className="fa fa-film" /> Create Chapter
       </button>
       );

@@ -5,9 +5,9 @@ import { closePublicGuide } from "../../../actions/localStateActions";
 // import { setPhase, setActInstruction } from "../../../actions/assistentActions";
 import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
-import PhaseController from "../../assistent/PhaseController";
+import PhaseController from "../../Assistent/PhaseController";
 import ProgressBar from "./ProgressBar";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class Guide extends Component {
   constructor(props) {
@@ -112,11 +112,11 @@ class Guide extends Component {
               <ProgressBar />
             </div>
             <div id="confirmButton">
-              {this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
+              {this.props.assistent.actInstruction?this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
                 <HintArrow
                   style={{ position: "absolute", marginTop: 40, marginLeft: 60, zIndex: 1000 }}
                   direction="up"
-                /> : null}
+                /> : null:null}
               {this.props.assistent.incomingInstruction ?
                 this.props.assistent.incomingInstruction.markers === "toggle-switch" ?
                   <HintArrow

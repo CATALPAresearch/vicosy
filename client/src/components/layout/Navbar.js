@@ -28,7 +28,7 @@ class Navbar extends Component {
   setAssitent(e) {
     // if (this.props.assistent.active)
     this.props.setActive(!this.props.assistent.active);
-    //else (this.props.setActive(false))
+        //else (this.props.setActive(false))
   }
 
   onWarningDismissed(e) {

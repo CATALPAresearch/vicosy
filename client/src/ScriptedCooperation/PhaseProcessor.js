@@ -9,7 +9,7 @@ import FeatureSetup, {
 } from "./controlComponents/FeatureSetup";
 import SectionHighlighting from "./controlComponents/SectionHighlighting";
 import GuideController from "./controlComponents/GuideController";
-import PhaseController from "../components/assistent/PhaseController";
+import PhaseController from "../components/Assistent/PhaseController";
 
 // base class for phase processors
 export default class PhaseProcessor extends Component {
@@ -84,10 +84,10 @@ export default class PhaseProcessor extends Component {
 
   render() {
     const { sessionData } = this.props;
-
+/*
     const sessionType = sessionData.meta.sessionType;
     const phase = sessionData.collabScript.phaseData.phaseId;
-
+*/
     const currentRole = this.getCurrentRole();
 
     return (

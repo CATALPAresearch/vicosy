@@ -151,6 +151,7 @@ const DbSocket = require("./socket-handlers/db-socket-events");
 io.use((socket, next) => {
   let token = socket.handshake.query.token;
   console.log("token", token);
+  winston.info(token);
   if (!token) return next(new Error("authentication error"));
 
   jwt.verify(token, keys.secretOrKey, function (err, decoded) {
@@ -161,6 +162,7 @@ io.use((socket, next) => {
     }
 
     console.log("authenticated", decoded);
+    
 
     var nickName = decoded.name;
     // guest account

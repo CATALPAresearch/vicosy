@@ -58,7 +58,7 @@ export class WarmUp extends AbstractPhase {
             this.instructions.push(new Instruction("Stell dich deinem Partner vor!", ""));
         this.instructions.push(new Instruction("Du kannst den Chat dafür nutzen! ", "chat-write"));
         this.instructions.push(new Instruction("Oder eine Videoübertragung starten!", "video-button"));
-        this.instructions.push(new Instruction("Oder über Audio kommunizieren!",  "audio-button"));
+        this.instructions.push(new Instruction("Oder über Audio kommunizieren!", "audio-button"));
         this.instructions.push(new Instruction("Hier siehst du, was dein Partner gerade macht.", "awareness-partner"));
         this.instructions.push(new Instruction("Hier siehst du die Phasen der Sitzung.", "ProgressBar"));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", "ready-to-finish"));
@@ -109,7 +109,7 @@ export class SeparateSectionsTuteePost extends AbstractPhase {
         this.instructions.push(new Instruction("Die Anzahl der Abschnitte sollte ein Vielfaches der Gruppenmitglieder sein.", ""));
         this.instructions.push(new Instruction("Für eine Zweiergruppe also 2, 4, 6, ... Abschnitte", ""));
         this.instructions.push(new Instruction("Nur dein Partner kann die Einteilung vornehmen, kommuniziert deshalb miteinander.", ""));
-        this.instructions.push(new Instruction("Das Video können beide Partner starten und darin navigieren.",  "play-button"));
+        this.instructions.push(new Instruction("Das Video können beide Partner starten und darin navigieren.", "play-button"));
         this.instructions.push(new Instruction("Synched bedeutet: Ihr schaut gleichzeitig. ", "synchswitch"));
         this.instructions.push(new Instruction("Warte darauf, dass dein Partner die Phase beendet.", ""));
 
@@ -133,7 +133,7 @@ export class PreparePost extends AbstractPhase {
     constructor() {
         super();
         this.name = "PREPAREPOST";
-      //  this.instructions.push(new Instruction("Dein Partner bereitet seine Abschnitte parallel dazu für dich vor.", ""));
+        //  this.instructions.push(new Instruction("Dein Partner bereitet seine Abschnitte parallel dazu für dich vor.", ""));
         this.instructions.push(new Instruction("Wie du siehst, kann jeder das Video nun separat anschauen.", "sync-mode"));
         this.instructions.push(new Instruction("Hier beginnt dein Abschnitt (hell gekennzeichnet) ", "asynch-timeline-handle"));
         this.instructions.push(new Instruction("Mache dir hier Notizen.", "notes-tab"));
@@ -263,8 +263,21 @@ export class Completion extends AbstractPhase {
         super();
         this.name = "COMPLETION";
         this.instructions.push(new Instruction("Klicke auf den Link zur Beantwortung des Fragebogens!", ""));
-       
+
     }
 
+
+
+
+}
+
+export class Waiting extends AbstractPhase {
+    constructor() {
+        super();
+        this.name = "WAITING";
+        this.instructions.push(new Instruction("Ich habe dir im Moment nichts zu sagen"));
+
+
+    }
 
 }

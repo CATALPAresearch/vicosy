@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
@@ -35,8 +34,7 @@ export default class InputGroupWithButton extends Component {
     const error = this.props.error;
     const idCheckbox = this.props.idCheckbox;
     const idTextfield = this.props.idTextfield;
-    const icon = this.props.icon;
-    const type = this.props.type;
+
     const readOnly = this.props.readOnly;
 
 
@@ -45,7 +43,7 @@ export default class InputGroupWithButton extends Component {
         <div className="input-group-prepend">
           <div className="input-group-text">
             <input name={idTextfield} id={idCheckbox} disabled={readOnly} value="checkbox" checked={!this.props.disabled} type="checkbox" aria-label="Checkbox for following text input"
-              onChange={(e) => { this.changeDisabled(), onCheckboxChangeCallback(e) }}
+              onChange={(e) => { this.changeDisabled(); onCheckboxChangeCallback(e) }}
             />
           </div>
         </div>
@@ -56,7 +54,7 @@ export default class InputGroupWithButton extends Component {
           placeholder={placeholder}
           name={name}
           value={this.props.value}
-          onChange={(e) => { this.updateMessage(e.target.value), onChangeCallBack(e) }}
+          onChange={(e) => { this.updateMessage(e.target.value); onChangeCallBack(e); }}
           disabled={this.props.disabled || readOnly}
         />
         {error && <div className="invalid-feedback">{error}</div>}

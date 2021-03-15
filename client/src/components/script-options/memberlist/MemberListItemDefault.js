@@ -1,14 +1,7 @@
 import React, { Component } from "react";
-import { ownSocketId } from "../../../socket-handlers/api";
 import classnames from "classnames";
-import TransientAwareness from "./TransientAwareness";
-import ClientName from "../../controls/ClientName";
-
 export default class MemberListItemDefault extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
+render() {
     const clientId = this.props.clientId;
 
     return (

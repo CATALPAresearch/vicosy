@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import RoomComponent from "../../controls/RoomComponent";
-import ClientCounter from "../../controls/ClientCounter";
 import { getScriptMembers } from "../../../actions/scriptActions"
-import { connect, useStore } from "react-redux";
+import { connect} from "react-redux";
 
 export class MemberList extends Component {
   render() {
-    const { roomAvailable, roomData } = this.props.roomState;
+    const {roomData } = this.props.roomState;
 
     var clients = null;
     var MemberListItem = this.props.memberListItemComponent;

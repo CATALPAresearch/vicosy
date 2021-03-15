@@ -1,5 +1,5 @@
 import { SET_ACT_SCRIPT } from "../actions/types";
-import { REMOVE_SCRIPT, GET_SESSIONS, DELETE_MEMBER_FROM_SCRIPT, HETEROGEN, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
+import { GET_SESSIONS, DELETE_MEMBER_FROM_SCRIPT, HETEROGEN, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
 import {
     SESSION_PEER_TEACHING
 } from "../shared_constants/sessionTypes";
@@ -30,9 +30,6 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-
-        case REMOVE_SCRIPT: {
-        }
         case GET_SESSIONS: {
             return {
                 ...state,

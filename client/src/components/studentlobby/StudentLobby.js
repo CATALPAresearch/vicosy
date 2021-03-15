@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import Chat from "../chat/Chat";
+import { connect } from "react-redux";
 import RoomComponent from "../controls/RoomComponent";
-import SessionCreator from "../video-session/SessionCreation/SessionCreator";
 import SessionList from "../video-session/TrainerSessionList";
 import UserList from "../userlist/UserList";
 import UserListItemDefault from "../userlist/UserListItemDefault";
 import "./StudentLobby.css";
 import Logger from "../logic-controls/Logger";
-import PhaseController from "../assistent/PhaseController";
-import { STUDENTLOBBY } from "../assistent/phases/types";
+import PhaseController from "../Assistent/PhaseController";
+
+import { STUDENTLOBBY } from "../Assistent/phases/types";
 
 
-export default class StudentLobby extends Component {
+export class StudentLobby extends Component {
   constructor() {
     super();
     this.assistentControlRef = null;
@@ -19,9 +20,10 @@ export default class StudentLobby extends Component {
   componentDidMount() {
     this.assistentControlRef.setPhase(STUDENTLOBBY);
   }
+
   render() {
     return (
-      <div className="container mt-4">
+      <div id="studentlobby" className="container mt-4">
         <PhaseController createRef={el => (this.assistentControlRef = el)} />
         <Logger roomId="studentlobby" />
         <h1>Studentlobby</h1>
@@ -43,3 +45,11 @@ export default class StudentLobby extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  assistent: state.assistent  
+});
+
+export default connect(
+  mapStateToProps)(StudentLobby);
+

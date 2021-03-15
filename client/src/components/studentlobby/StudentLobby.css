@@ -21,3 +21,10 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+
+#studentlobby{
+  padding-top: 5px;
+  min-height: 517px;
+ 
+  }

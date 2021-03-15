@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import  { Component } from "react";
 import { setSectionHighlights } from "../../actions/localStateActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";

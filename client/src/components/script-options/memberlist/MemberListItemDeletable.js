@@ -1,19 +1,13 @@
 import React, { Component } from "react";
-import { ownSocketId } from "../../../socket-handlers/api";
 import classnames from "classnames";
-import TransientAwareness from "./TransientAwareness";
-import ClientName from "../../controls/ClientName";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { deleteMemberFromScript } from "../../../actions/scriptActions"
-import { connect, useStore } from "react-redux";
+import { connect} from "react-redux";
 
 
-export class MemberListItemDefault extends Component {
-  constructor(props) {
-    super(props);
+export class MemberListItemDeletable extends Component {
 
-  }
   deleteUser(e) {
 
     this.props.deleteMemberFromScript(e.value, this.props.script);
@@ -47,5 +41,5 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps, { deleteMemberFromScript },
   null
-)(MemberListItemDefault);
+)(MemberListItemDeletable);
 

@@ -1,9 +1,8 @@
 // Video session controller that synchs all room clients, no matter what
-import React, { Component } from "react";
+import { Component } from "react";
 import {
   sendSharedRoomData,
   ownSocketId,
-  shareTransientAwareness,
   broadcastHeartBeat,
   subscribeToHeartBeat,
   unSubscribeHeartBeat

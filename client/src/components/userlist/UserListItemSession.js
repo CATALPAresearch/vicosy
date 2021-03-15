@@ -7,10 +7,10 @@ import ClientName from "../controls/ClientName";
 import VideoStream from "../peer-components/VideoStream";
 import "./user-list.css";
 // import { connectToAll } from "../../p2p-handlers/P2PConnectionManager";
-import { joinConference, leaveConference } from "../test/WebRtcConference";
+import { joinConference} from "../test/WebRtcConference";
 import { OWN_ACTIVE_MEDIA_CHANGED } from "../../stream-model/streamEvents";
 import PhaseReadyIndicator from "../../ScriptedCooperation/controlComponents/PhaseReadyIndicator";
-import HintArrow from "../assistent/HintArrow";
+import HintArrow from "../Assistent/HintArrow";
 
 class UserListItemSession extends Component {
   constructor(props) {
@@ -61,7 +61,7 @@ class UserListItemSession extends Component {
       const { readyState } = this.client;
       if (readyState.playerStalled) {
         this.updateSyncState("stall");
-      } else if (syncAction && syncAction.hash != readyState.actionHash) {
+      } else if (syncAction && syncAction.hash !== readyState.actionHash) {
         this.updateSyncState("wait");
       } else this.updateSyncState("sync");
     } else {
@@ -111,11 +111,11 @@ class UserListItemSession extends Component {
           onClick={this.onActivateStream.bind(this, true, true)}
           title="Stream video and audio to others"
         >
-          {this.props.assistent.active && this.props.assistent.actInstruction.markers === "video-button" ?
+          {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "video-button" ?
             <HintArrow
               style={{ position: "absolute", top: -5, right:50 }}
               direction="right"
-            /> : null}
+            /> : null:null}
           <i id="video-button" className="fa fa-video" style={{ color: "#FFF" }} />
         </button>
      
@@ -126,11 +126,11 @@ class UserListItemSession extends Component {
           onClick={this.onActivateStream.bind(this, false, true)}
           title="Stream audio only to others"
         >
-             {this.props.assistent.active && this.props.assistent.actInstruction.markers === "audio-button" ?
+             {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "audio-button" ?
             <HintArrow
               style={{ position: "absolute", top: -5, right:20 }}
               direction="right"
-            /> : null}
+            /> : null:null}
           <i id="audio-button" className="fa fa-microphone" style={{ color: "#FFF" }} />
         </button>
 
@@ -273,11 +273,11 @@ class UserListItemSession extends Component {
           "session-user-item-own": isOwn
         })}
       >
-         {this.props.assistent.active && this.props.assistent.actInstruction.markers === "awareness-partner"&&!isOwn ?
+         {this.props.assistent.actInstructiont?this.props.assistent.active && this.props.assistent.actInstruction.markers === "awareness-partner"&&!isOwn ?
             <HintArrow
               style={{ position: "absolute", marginTop:-70}}
               direction="down"
-            /> : null}
+            /> : null:null}
         
         
         <span className="sessionuser-item-info">

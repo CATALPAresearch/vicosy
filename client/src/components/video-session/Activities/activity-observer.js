@@ -2,7 +2,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { sendActiveMessage, setIncominginstruction, sendTabLostMessage } from "../../../actions/assistentActions";
 import { ownSocketId } from "../../../socket-handlers/api";
-import Instruction from "../../assistent/phases/Instruction";
+import Instruction from "../../Assistent/phases/Instruction";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
 const assistentConfig = require ("../../../shared_constants/assistent");
 const { listenActiveMessage, listenTabLostMessage } = require("../../../socket-handlers/api")

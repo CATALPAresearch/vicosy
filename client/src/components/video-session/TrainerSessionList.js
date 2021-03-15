@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { connect, useStore } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { checkRemovedScript, getMyScripts, getScriptById, getMyScriptsBySocket } from "../../actions/scriptActions";
 import { getScriptByIdCallback } from "../../actions/scriptActions";
-import { SET_SCRIPT_MEMBERS } from "../../actions/types";
-import HintArrow from "../assistent/HintArrow";
+import HintArrow from "../Assistent/HintArrow";
 
 export class TrainerSessionList extends Component {
   constructor(props) {
     super(props);
     this.props.getMyScripts(this.props.auth.user.id, this.callback.bind(this));
-    var listener = false;
 
 
   }
@@ -47,6 +45,7 @@ export class TrainerSessionList extends Component {
         if (!sessionMeta) return null;
         else
           console.log(sessionMeta);
+        return null;
       }
 
       )
@@ -146,8 +145,7 @@ export class TrainerSessionList extends Component {
 */
     return (
       <div>
-        <h1>Session List</h1>
-
+    
         <table className="table table-striped">
           <thead>
             <tr>
@@ -156,11 +154,11 @@ export class TrainerSessionList extends Component {
               <th scope="col">Members</th>
               {/* <th scope="col">Collaboration</th> */}
               <th scope="col">
-                {this.props.assistent.active && this.props.assistent.actInstruction.markers === "join-session" ?
+                {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "join-session" ?
                   <HintArrow
-                    style={{ position: "absolute"}}
+                    style={{ position: "absolute" }}
                     direction="down"
-                  /> : null}
+                  /> : null:null}
 
                 Join</th>
             </tr>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./progressBar.css";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 export class ProgressBar extends Component {
     renderBar() {
@@ -96,11 +96,11 @@ export class ProgressBar extends Component {
         var content = this.renderBar();
         return (
             <div id="ProgressBar">
-                {this.props.assistent.active && this.props.assistent.actInstruction.markers === "ProgressBar" ?
+                {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "ProgressBar" ?
                     <HintArrow
                         style={{ position: "absolute", marginTop: 40, marginLeft: 100, zIndex: 1000 }}
                         direction="up"
-                    /> : null}
+                    /> : null:null}
 
                 {content}
             </div>

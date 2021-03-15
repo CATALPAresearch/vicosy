@@ -8,7 +8,7 @@ import {
 // import ActivityCounter from "../../chat/ActivityCounter";
 import "./sidebar-tabs.css";
 import Interactive from "../../controls/Interactive";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class SideBarTabs extends Component {
   constructor() {
@@ -55,16 +55,16 @@ class SideBarTabs extends Component {
             disabledMessage="Zurzeit nicht verfügbar..."
           >
 
-            {tab.id === "notes-tab" && this.props.assistent.active && this.props.assistent.actInstruction.markers === "notes-tab" ?
+            {this.props.assistent.actInstruction?tab.id === "notes-tab" && this.props.assistent.active && this.props.assistent.actInstruction.markers === "notes-tab" ?
               <HintArrow
                 style={{ position: "absolute", marginTop: 0, marginLeft: -110, zIndex: 1000 }}
                 direction="right"
-              /> : null}
-   {tab.id === "annotations-tab" && this.props.assistent.active && this.props.assistent.actInstruction.markers === "annotations-tab" ?
+              /> : null:null}
+   {this.props.assistent.actInstruction?tab.id === "annotations-tab" && this.props.assistent.active && this.props.assistent.actInstruction.markers === "annotations-tab" ?
               <HintArrow
                 style={{ position: "absolute", marginTop: 0, marginLeft: -80, zIndex: 1000 }}
                 direction="right"
-              /> : null}
+              /> : null:null}
             <a
               className={`nav-link${isSelected ? " active prevent-pointer" : ""
                 }`}

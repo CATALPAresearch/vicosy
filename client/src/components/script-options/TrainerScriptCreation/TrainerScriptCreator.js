@@ -216,10 +216,10 @@ class TrainerScriptCreator extends Component {
 
       <div className="mb-2">
         <ul className="nav nav-tabs">
-          <li className="nav-item">
+          <li className="nav-item inner-shadow-black">
             <a className={this.state.settingsClassname} onClick={this.setSettings.bind(this)}><h4>Scripteinstellungen</h4></a>
           </li>
-          <li className="nav-item">
+          <li className="nav-item inner-shadow-black">
             <a className={this.state.groupClassname} onClick={this.unsetSettings.bind(this)}><h4>Teilnehmer</h4></a>
           </li>
 

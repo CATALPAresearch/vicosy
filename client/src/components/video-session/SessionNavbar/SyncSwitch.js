@@ -8,7 +8,7 @@ import ToggleSwitchButton from "../../controls/ToggleSwitchButton";
 import { FEATURES } from "../../../reducers/featureTypes";
 import connectShared from "../../../highOrderComponents/SharedRoomDataConsumer";
 import "./SessionNavbar.css";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class SyncSwitch extends Component {
   constructor(props) {
@@ -69,11 +69,11 @@ class SyncSwitch extends Component {
         })}
         title={`Clients in synchronous mode`}
       >
-        {this.props.assistent.active && this.props.assistent.actInstruction.markers === "sync-mode" ?
+        {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "sync-mode" ?
           <HintArrow
             style={{ position: "absolute", marginTop: 25, marginLeft: -80, zIndex: 1000 }}
             direction="up"
-          /> : null}
+          /> : null:null}
 
         {syncClientCount}
       </span>
@@ -92,11 +92,11 @@ class SyncSwitch extends Component {
     const extraContent = synched ? syncBadge : null;
     return (
       <div id="synchswitch" className="hFlexLayout ml-1 mr-1">
-        {this.props.assistent.active && this.props.assistent.actInstruction.markers === "synchswitch" ?
+        {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "synchswitch" ?
           <HintArrow
             style={{ position: "absolute", marginTop: 90, marginLeft: 60, zIndex: 1000 }}
             direction="up"
-          /> : null}
+          /> : null:null}
         <button
           disabled={isDisabled}
           onClick={this.onToggle}

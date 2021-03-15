@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { LOG, LOG_ERROR } from "./logEvents";
 import { connect } from "react-redux";
 import { logToChat } from "../../actions/roomActions";

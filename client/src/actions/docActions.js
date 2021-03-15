@@ -1,6 +1,6 @@
 import axios from "axios";
-import { subscribeSharedDocAPI, storeIndivDocApi, connectSharedDocAPI, submitOpAPI } from "../socket-handlers/api";
-import { SET_COLLAB_TEXT, SET_INDIV_TEXT, GET_ERRORS, UDPATE_COLLAB_TEXT } from "./types";
+import { subscribeSharedDocAPI, storeIndivDocApi} from "../socket-handlers/api";
+import { SET_COLLAB_TEXT, SET_INDIV_TEXT, GET_ERRORS} from "./types";
 
 
 export const subscribeSharedDoc = (docId) => dispatch => {

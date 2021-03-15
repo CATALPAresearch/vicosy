@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { connect, useStore } from "react-redux";
+import { connect } from "react-redux";
 import RoomComponent from "../controls/RoomComponent";
-import TrainerScriptCreator from "../script-options/TrainerScriptCreation/TrainerScriptCreator";
 import TrainerSessionList from "../video-session/TrainerSessionList";
 import ScriptListElement from "./ScriptListElement";
 import { getScriptsByUserId, deleteAllScripts, deleteScript, clearScript } from "../../actions/scriptActions"
@@ -34,7 +33,7 @@ class TrainerLobby extends Component {
   }
 
   handleCLick(e) {
-    const { id, value } = e.target;
+    const { value } = e.target;
     this.props.history.push("/newtrainerscript/?" + value);
   }
 
@@ -51,11 +50,10 @@ class TrainerLobby extends Component {
 
   render() {
     var participants = null;
-       //this.setListElements.bind(this)
+    //this.setListElements.bind(this)
     // this.props.getScriptsByUserId(this.props.auth.user.id);
     // console.log(this.props.script.scripts);
     if (this.props.script.scripts) {
-      var scriptsArray = Object.keys(this.props.script.scripts);
       participants = this.props.script.scripts.map(script => {
         return <ScriptListElement
           id={script._id}
@@ -74,22 +72,21 @@ class TrainerLobby extends Component {
 
     return (
 
-
-
-      <div className="container mt-4">
-        <Logger roomId="trainerlobby" />
-        <h1>Trainerlobby</h1>
-        {<RoomComponent roomId="trainerlobby" component={TrainerSessionList} />}
-        <Link to="/newtrainerscript" className="btn btn-lg btn-info mr-2">
-          Neues Script
+      <div id="trainerlobby" className="container mt-4">
+     
+          <Logger roomId="trainerlobby" />
+          <h1>Trainerlobby</h1>
+          {<RoomComponent roomId="trainerlobby" component={TrainerSessionList} />}
+          <Link to="/newtrainerscript" className="btn btn-lg btn-info mr-2">
+            Neues Script
         </Link>
-        <br></br>
-        <div className="list-group">
-          {
-            participants
-          }
+          <br></br>
+          <div className="list-group">
+            {
+              participants
+            }
 
-        </div>
+          </div>
 
 
         <br></br>
@@ -114,8 +111,10 @@ class TrainerLobby extends Component {
             </div>
           </div>
         </div>
+        </div>
 
-      </div>
+
+
     );
   }
 }

@@ -47,6 +47,7 @@ class MainRessourceTabs extends Component {
 
   render() {
     var selectedTabId = null;
+    var disabled=true;
     selectedTabId = this.props.localState.sharedDocEditing.isOpen
       ? "doc-tab"
       : "video-tab"
@@ -54,7 +55,7 @@ class MainRessourceTabs extends Component {
     const tabsEntries = this.state.tabs.map(tab => {
       const isSelected = selectedTabId === tab.id;
       // const isDisabled = tab.id == "doc-tab" && this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS";
-      var disabled =
+       disabled =
         (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS" ||
           this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION_PAIR" ||
           this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION") && tab.id === "doc-tab"
@@ -69,7 +70,7 @@ class MainRessourceTabs extends Component {
             className="nav-item"
 
           >
-           
+
             <a
               className={`nav-link${isSelected ? " active prevent-pointer" : ""}`}
               id={tab.id}
@@ -85,6 +86,7 @@ class MainRessourceTabs extends Component {
             </a>
           </li>
         );
+      else return null;
 
     }
     );

@@ -143,16 +143,16 @@ export const startScript = (script) => dispatch => {
 export const deleteMemberFromScript = (member_id, script) => dispatch => {
   console.log(script);
 
-  for (var i = 0; i < script.participants.length; i++) {
+  for (let i = 0; i < script.participants.length; i++) {
     if (script.participants[i].id === member_id)
       script.participants.splice(i, 1);
 
   }
   if (script.groups)
     for (let group of script.groups) {
-      for (var j = 0; j < group.groupMembers.length; j++) {
-        if (group.groupMembers[j].id === member_id)
-          group.groupMembers.splice(j, 1);
+      for (let i = 0; i < group.groupMembers.length; i++) {
+        if (group.groupMembers[i].id === member_id)
+          group.groupMembers.splice(i, 1);
 
       }
 
@@ -273,10 +273,12 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
     }
     else {
+      
+      var groupNumber;
+      var groups = [];
       var memberArray = Object.values(members);
       for (var i = 0; i < memberArray.length; i++)
-        var groups = [];
-      switch (method) {
+        switch (method) {
         case SHUFFLE: {
           var group = { _id: "", groupMembers: [] };
           //var groupMembers=[];
@@ -300,7 +302,7 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
           break;
         case HOMOGEN: {
           var expLevels = [];
-          var groups = [];
+      
 
           var sizeOk = true;
 
@@ -308,40 +310,11 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
             expLevels.push(members[i].expLevel);
 
           // var groupNumber = Math.round(members.length / groupSize);
-
-          var groupNumber;
           if ((members.length / groupSize) > Math.round(members.length / groupSize))
             groupNumber = Math.round(members.length / groupSize) + 1;
           else
             groupNumber = Math.round(members.length / groupSize);
 
-          /*
-                    for (let i = 0; i < groupNumber; i++)
-                      groups[i] = { _id: "", groupMembers: [] };
-          
-                    members.sort((a, b) => {
-                      if (a.expLevel < b.expLevel)
-                        return -1;
-                      if (a.expLevel > b.expLevel)
-                        return 1;
-                      return 0;
-          
-                    })
-          
-                    //initarray
-                    var i = 0;
-                    var groupNr = 0;
-          
-                    for (var i = 0; i < members.length; i++) {
-                      if (groups[groupNr].groupMembers.length >= groupSize)
-                        groupNr++;
-                      groups[groupNr].groupMembers.push(members[i]);
-          
-          
-                    }
-          
-                    console.log(groups);
-          */
 
 
           group();
@@ -356,11 +329,11 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
             var res = skmeans(expLevels, groupNumber);
 
-            for (var i = 0; i < members.length; i++) {
+            for (let i = 0; i < members.length; i++) {
               groups[res.idxs[i]].groupMembers.push(members[i]);
             }
             sizeOk = true;
-            for (var i = 0; i < groups.length; i++) {
+            for (let i = 0; i < groups.length; i++) {
               if (groups[i].groupMembers.length > groupSize)
                 sizeOk = false;
 
@@ -376,12 +349,11 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
             payload: groups
           });
 
+
         }
           break;
         case HETEROGEN: {
 
-          var groupNumber;
-          var groups = [];
 
 
           if ((members.length / groupSize) > Math.round(members.length / groupSize))
@@ -403,11 +375,10 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
           })
 
-          //initarray
-          var i = 0;
+      
           var groupNr = 0;
 
-          for (var i = 0; i < members.length; i++) {
+          for (let i = 0; i < members.length; i++) {
             if (groupNr >= groupNumber)
               groupNr = 0
             groups[groupNr].groupMembers.push(members[i]);
@@ -418,22 +389,19 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
             type: SET_GROUPS,
             payload: groups
           });
-
+  
         }
+        break;
         default:
-          dispatch({
-            type: GET_ERRORS,
-            payload: "Keine Methode ausgewähl"
-          });
-
-      }
+          return;
     }
   }
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
+}
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 
 }

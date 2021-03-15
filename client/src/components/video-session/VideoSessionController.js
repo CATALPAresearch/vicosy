@@ -7,13 +7,10 @@ import {
   SEEK_REQUEST
 } from "../video-session/PlayBackUiEvents";
 import HardSyncController from "./PhaseControllers/HardSyncController";
-import { VISIBILITY_CHANGED } from "../logic-controls/genericAppEvents";
-import { shareTransientAwareness } from "../../socket-handlers/api";
 import AsyncController from "./PhaseControllers/AsyncController";
 import { connect } from "react-redux";
 import { setSyncState } from "../../actions/localStateActions";
 import DialogController from "./PhaseControllers/DialogController";
-import connectUIState from "../../highOrderComponents/UIStateConsumer";
 import RoomComponent from "../controls/RoomComponent";
 import ActivityOberserver from "./Activities/activity-observer";
 
@@ -176,10 +173,6 @@ class VideoSessionController extends Component {
 
         
       </span>
-    );
-
-    const contentPlayerApiNotInitialized = (
-      <h1>Waiting for Player to be ready...</h1>
     );
 
     const targetContent = this.state.playerApiInitialized

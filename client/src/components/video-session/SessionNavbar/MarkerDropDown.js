@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setMarkerType } from "../../../actions/settingActions";
 import { LOG_ERROR } from "../../logic-controls/logEvents";
 import connectUIState from "../../../highOrderComponents/UIStateConsumer";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 class MarkerDropDown extends Component {
   constructor(props) {
@@ -52,11 +52,11 @@ class MarkerDropDown extends Component {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          {this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "maker-button" ?
+          {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "maker-button" ?
             <HintArrow
               style={{ position: "absolute", marginTop: -80, marginLeft: 20, zIndex: 1000 }}
               direction="down"
-            /> : null}
+            /> : null:null}
           Marker{" "}
           <i
             className={classnames("fa", {

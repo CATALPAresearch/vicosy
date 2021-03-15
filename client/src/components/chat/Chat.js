@@ -11,7 +11,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { setUnseenActivities } from "../../actions/localStateActions";
 
-import HintArrow from '../assistent/HintArrow'
+import HintArrow from '../Assistent/HintArrow'
 
 // room component, please wrap with RoomComponent
 class Chat extends Component {
@@ -139,11 +139,11 @@ class Chat extends Component {
         })}
         
           >
-            {this.props.assistent.active&&this.props.assistent.actInstruction.markers==="chat-write"?
+            {this.props.assistent.actInstruction?this.props.assistent.active&&this.props.assistent.actInstruction.markers==="chat-write"?
         <HintArrow
         style= {{position: "absolute", left: 120, bottom:40}}
         direction="down"
-        /> :null}
+        /> :null:null}
 
         <div className="chat-content relative" ref={this.contentRef}>
           <ul className="list-group message-list list-group list-group-flush">

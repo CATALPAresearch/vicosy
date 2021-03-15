@@ -160,7 +160,7 @@ class AnnotationDetail extends Component {
     };
 
     // only change text on initialize
-    if (isVisible && (!wasVisible || prevTimeStamp != timestamp)) {
+    if (isVisible && (!wasVisible || prevTimeStamp !== timestamp)) {
       // only update contents if we are not moving the annotation
       if (!this.preventContentChange) {
         if (availableAnnotationData) {

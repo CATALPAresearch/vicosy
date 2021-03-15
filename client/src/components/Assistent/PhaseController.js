@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import {
   openPublicGuide,
   closePublicGuide
@@ -6,7 +6,7 @@ import {
 import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
 import { getScriptById } from "../../actions/scriptActions";
 import { connect } from "react-redux";
-import {Completion, StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, Reflexion, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
+import {Waiting, Completion, StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 import { STUDENTLOBBY } from "./phases/types";
 import { setAnnotationType } from "../../actions/settingActions";
 
@@ -38,6 +38,12 @@ export class PhaseController extends Component {
     // alert(phase);
     switch (phase) {
 
+      case "WAITING":
+        actPhase = new Waiting();
+        this.setState({ phase: actPhase });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
       case STUDENTLOBBY:
         actPhase = new StudentLobby();
         this.setState({ phase: actPhase });
@@ -45,7 +51,7 @@ export class PhaseController extends Component {
         this.props.setPhase(actPhase);
         break;
       case "GETTOGETHER":
-        actPhase = new GetTogether();
+                actPhase = new GetTogether();
         this.setState({ phase: actPhase });
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
@@ -160,8 +166,12 @@ export class PhaseController extends Component {
         this.props.setIncominginstruction(null);
         this.props.setPhase(actPhase);
         break;
-
       default:
+        actPhase = new StudentLobby();
+        this.setState({ phase: "STUDENTLOBBY" });
+        this.props.setIncominginstruction(null);
+        this.props.setPhase(actPhase);
+        break;
 
         break;
     }

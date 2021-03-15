@@ -22,13 +22,12 @@ import {
   resetSyncScrubPerc
 } from "../../../actions/localStateActions";
 import RemoteScrubLine from "./RemoteScrubLine";
-import { stat } from "fs";
 import { getRemoteScrubClient } from "../../../helpers/rooms/roomsHelper";
 import FeatureRenderer from "../../controls/FeatureRenderer";
 import AnnotationDropDown from "../SessionNavbar/AnnotationDropDown";
 import MarkerDropDown from "../SessionNavbar/MarkerDropDown";
 import { FEATURES } from "../../../reducers/featureTypes";
-import HintArrow from "../../assistent/HintArrow";
+import HintArrow from "../../Assistent/HintArrow";
 
 const SLIDER_STEPS = 1000;
 
@@ -229,11 +228,11 @@ class PlayBackInterface extends Component {
         onClick={
           play ? this.onPlayClick.bind(this) : this.onStopClick.bind(this)
         }
-      > {this.props.assistent.active && this.props.assistent.actInstruction.markers === "play-button"?
+      > {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "play-button"?
       <HintArrow
           style={{ position: "absolute", marginTop: -70, marginLeft: -10, zIndex:1000 }}
           direction="down"
-      /> : null}
+      /> : null:null}
 
         <i 
           className={classnames("fa", {

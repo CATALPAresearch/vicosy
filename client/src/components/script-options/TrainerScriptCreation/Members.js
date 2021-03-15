@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { connect, useStore } from "react-redux";
-import { LOG } from "../../logic-controls/logEvents";
+import { connect } from "react-redux";
 import RoomComponent from "../../controls/RoomComponent";
 import Logger from "../../logic-controls/Logger";
 import MemberList from "../memberlist/MemberList";
 import MemberListItemDeletable from "../memberlist/MemberListItemDeletable";
-import { getScriptMembers, updateScript, getScriptById, mixGroups } from "../../../actions/scriptActions"
+import { getScriptById, mixGroups } from "../../../actions/scriptActions"
 import Groups from "./Groups";
 var QRCode = require('qrcode')
 
@@ -30,7 +29,7 @@ export class Members extends Component {
     showUrl() {
         let urlprocessed = "";
         let url = window.location.href.replace(window.location.pathname, "")
-        if (url.charAt(url.length - 1) == "#")
+        if (url.charAt(url.length - 1) === "#")
             url = url.substring(0, url.length - 1);
         if (url.includes("?")) {
             let parts = url.split("?");
@@ -119,7 +118,7 @@ export class Members extends Component {
                     }
 
                 </div>
-                <div className="modal modal-lg" id="exampleModal" tabIndex="-1" role="dialog">
+                <div className="modal modal-xl" id="exampleModal" tabIndex="-1" role="dialog">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">

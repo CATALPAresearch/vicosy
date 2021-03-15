@@ -21,3 +21,9 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+#trainerlobby{
+  padding-top: 5px;
+  min-height: 517px;
+ 
+  }

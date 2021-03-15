@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import MarkerDropDown from "./MarkerDropDown";
-import AnnotationDropDown from "./AnnotationDropDown";
+
 import SyncSwitch from "./SyncSwitch";
 import "./SessionNavbar.css";
-import FeatureRenderer from "../../controls/FeatureRenderer";
-import { FEATURES } from "../../../reducers/featureTypes";
-import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
 import { FETCH_ANNOTATIONS } from "../../logic-controls/annotationEvents";
 import MainRessourceTabs from "./MainRessourceTabs";
 import Interactive from "../../controls/Interactive";

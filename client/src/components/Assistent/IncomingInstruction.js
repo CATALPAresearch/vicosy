@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import "./instruction.css";
 class IncomingInstruction extends Component {
-    constructor(props) {
-        super(props);
-
-    }
-
-
+ 
     render() {
         const quit = this.props.quit;
         return (

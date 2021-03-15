@@ -17,7 +17,7 @@ import {
 } from "../logic-controls/socketEvents";
 import { withRouter } from "react-router";
 import { setError } from "../../actions/errorActions";
-import { joinConference, leaveConference } from "../test/WebRtcConference";
+import { joinConference } from "../test/WebRtcConference";
 import { ownSocketId } from "../../socket-handlers/api";
 import { resetLocalState } from "../../actions/localStateActions";
 
@@ -38,10 +38,10 @@ import classnames from "classnames";
 import CollaborationBar from "./CollaborationBar/CollaborationBar";
 import sessionTypes from "../../shared_constants/sessionTypes";
 import RoomContextDataProvider from "../../highOrderComponents/RoomContextDataProvider";
-import IndividualNotes from "./Sidebar/IndividualNotes/IndividualNotes";
+// import IndividualNotes from "./Sidebar/IndividualNotes/IndividualNotes";
 import PersonalNotes from "./Sidebar/PersonalNotes/PersonalNotes"
 import SideBarTabs from "./Sidebar/SideBarTabs";
-import ChildrenRenderer from "../controls/ChildrenRenderer";
+// import ChildrenRenderer from "../controls/ChildrenRenderer";
 import AnnotationOverview from "./Sidebar/AnnotationOverview/AnnotationOverview";
 import { withLastLocation } from "react-router-last-location";
 import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContainer";

@@ -279,7 +279,7 @@ router.post("/subscribetoscript", (req, res) => {
                 }
                 else {
                     if (req.body.role == "TRAINER") {
-                        errors.warning = "Trainer darf nicht an Script teilnehmen";
+                        errors.warning = "In der Trainerrolle kannst du dich nicht ins Script einschreiben.";
                         return res.status(404).json(errors);
                     }
                     else

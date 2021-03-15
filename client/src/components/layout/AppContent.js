@@ -27,7 +27,7 @@ import NotFound from "../../components/not-found/NotFound";
 import VisibilityController from "../logic-controls/VisibilityController";
 import TrainerScriptCreator from "../script-options/TrainerScriptCreation/TrainerScriptCreator";
 import SubscribeToScript from "../script-options/Student/SubscribeToScript"
-import Assistent from "../assistent/Assistent";
+import Assistent from "../Assistent/Assistent";
 
 class AppContent extends Component {
   render() {
@@ -48,7 +48,8 @@ class AppContent extends Component {
 
         <Navbar isSession={isSessionPath} />
         {this.props.assistent.active ? 
-        <Assistent isSession={isSessionPath}/> : null}  
+        <Assistent isSession={isSessionPath}
+        /> : null}  
         <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login/:scriptId" component={Login} />

@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import "./instruction.css";
-class Instruction extends Component {
-    constructor(props) {
-        super(props);
-
-    }
-
-
+class InstructionUi extends Component {
     render() {
         const nextInstruction = this.props.nextInstruction;
         const previousInstruction = this.props.previousInstruction;
@@ -34,4 +27,4 @@ class Instruction extends Component {
     }
 }
 
-export default Instruction;
+export default InstructionUi;

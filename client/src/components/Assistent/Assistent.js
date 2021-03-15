@@ -3,8 +3,8 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import "./assistent.css";
 import assi_on from './images/lehrer.png';
-
-import Instruction from "./Instruction";
+import Instruction from "./phases/Instruction";
+import InstructionUi from "./Instruction";
 import { NoPhase } from "./phases/Phases";
 import IncomingInstruction from "./IncomingInstruction";
 import PhaseController from "./PhaseController";
@@ -26,6 +26,7 @@ class Assistent extends Component {
         this.assistentControlRef = null;
         this.renderDepth = 0;
         this.toUpdate = true;
+        this.isActive = this.props.isActive;
 
 
     }
@@ -39,23 +40,23 @@ class Assistent extends Component {
     }
 
     nextInstruction() {
+        if (this.props.assistent.actInstruction)
+            if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
+                this.arrows = null;
+                this.props.nextInstruction();
 
-        if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
-            this.arrows = null;
-            this.props.setActInstruction(null);
-            this.props.nextInstruction();
-
-        }
+            }
 
 
     }
 
     previousInstruction() {
         this.arrows = null;
-        if (this.props.assistent.phase.pointer > 0) {
-            this.props.previousInstruction();
+        if (this.props.assistent.actInstruction)
+            if (this.props.assistent.phase.pointer > 0) {
+                this.props.previousInstruction();
 
-        }
+            }
 
 
     }
@@ -75,7 +76,7 @@ class Assistent extends Component {
 
     setActInstruction() {
         this.arrows = null;
-        this.props.setActInstruction(null);
+        //this.props.setActInstruction(null);
         if (!this.props.assistent.phase)
             this.props.setPhase(new NoPhase());
         else
@@ -112,13 +113,9 @@ class Assistent extends Component {
         document.addEventListener("keydown", this._handleKeyDown.bind(this), false);
     }
 
-    componentWillUnmount() {
-        this.props.setActInstruction(null);
-
-    }
-
 
     render() {
+
         return (
             <div id="assistent">
                 <div className="panel" id="laempel">
@@ -131,14 +128,14 @@ class Assistent extends Component {
                         instruction={this.props.assistent.incomingInstruction}
                         quit={this.deleteIncomingInstruction.bind(this)}
                     /> : this.props.assistent.phase ?
-                        <Instruction
+                        <InstructionUi
                             hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
                             hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}
                             instruction={this.props.assistent.actInstruction}
                             nextInstruction={this.nextInstruction.bind(this)}
                             previousInstruction={this.previousInstruction.bind(this)}
                         /> :
-                        <Instruction
+                        <InstructionUi
                             instruction={new Instruction("Ich habe dir im Moment nichts zu sagen.", "")}
                         />
 

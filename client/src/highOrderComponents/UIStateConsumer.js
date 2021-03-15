@@ -9,7 +9,7 @@ const connectUIState = ComponentToWrap => {
 
   const consumer = class UIStateConsumer extends Component {
     render() {
-      const { localState, settings, restrictions } = this.props;
+      const { localState, settings} = this.props;
 
       const isVideoVisible =
         !localState.sharedDocEditing.isOpen && !localState.guide.isOpen;

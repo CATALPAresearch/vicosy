@@ -22,7 +22,7 @@ module.exports = function validatePostInput(data) {
     errors.warning = "Deine Vorkenntnisse müssen angegeben werden.";
   }
   if (data.role=="TRAINER") {
-    errors.warning = "Trainer darf nicht an Script mitmachen.";
+    errors.warning = "In der Trainerrolle kannst du dich nicht ins Script einschreiben.";
   }
 
   return {

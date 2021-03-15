@@ -1,11 +1,10 @@
-import React, { Component, useEffect, useMemo, useState } from 'react'
+import React, { Component} from 'react'
 import { connect } from "react-redux";
-import classnames from "classnames";
 import ReactQuill from 'react-quill'; // ES6
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import "./personal-notes.css";
-import { storeIndivDoc, getIndivDoc, setIndivDoc } from '../../../../actions/docActions';
+import { storeIndivDoc, getIndivDoc } from '../../../../actions/docActions';
 
 
 

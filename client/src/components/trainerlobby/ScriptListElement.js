@@ -1,20 +1,12 @@
 import React, { Component } from "react";
 import "./ScriptListElement.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 export default class TrainerLobby extends Component {
-    constructor(props) {
-        super(props);
-        ///this.onClick = this.props.callback.bind(this);
-   
-    }
 
     render() {
         const name = this.props.name;
         const edit = this.props.editScript;
-        const deleteScript = this.props.deleteScript;
         const id = this.props.id;
         const passId = this.props.passId;
         const started =this.props.started;
