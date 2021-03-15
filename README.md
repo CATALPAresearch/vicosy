@@ -6,15 +6,21 @@ Website that allows synchronous video conversations and scripted video learning.
 
 The project contains a backend server and a client (folder "client")
 
+**Tester**
+(Notizen von Niels Seidel)
+lehrer@lehrer.de   lehrer
+schueler@schueler.de schueler
+schueler@schueler2.de schueler
+
 ### Installing required npm packages of client and server
 
 From root directory:
 
 ```
-cd client
+npm run client-install
 npm install
-cd ..
-npm install
+npm audit fic
+
 ```
 
 or via script:
