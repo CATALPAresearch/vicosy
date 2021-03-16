@@ -116,7 +116,7 @@ class Navbar extends Component {
       </li>
     )
 
-
+/*
     const faqItem = (
       <li className="nav-item">
         <a
@@ -128,7 +128,7 @@ class Navbar extends Component {
         </a>
       </li>
     );
-
+*/
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
@@ -164,7 +164,7 @@ class Navbar extends Component {
           </span>
         </li>
         */}
-        {faqItem}
+        {/*faqItem*/}
 
         {userNav}
       </ul>
@@ -172,7 +172,7 @@ class Navbar extends Component {
 
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
-        {faqItem}
+        {/*faqItem*/}
         <li className="nav-item">
           <Link className="nav-link" to="/register">
             Sign Up
