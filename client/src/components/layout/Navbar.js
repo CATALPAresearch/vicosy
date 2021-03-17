@@ -89,7 +89,7 @@ class Navbar extends Component {
     const userNav = (
       <li className="nav-item dropdown" id="dropdown-menu-pos">
 
-        <a className="nav-link dropdown-toggle" id="dropdown-menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a className="nav-link dropdown-toggle " id="dropdown-menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img
             className="rounded-circle"
             src={user.avatar}
@@ -198,12 +198,18 @@ class Navbar extends Component {
 
     return (
       <div>
+       { /*
         <nav
           className={classnames("navbar navbar-dark bg-dark ", {
             "mb-0": !isSession,
             "navbar-expand-sm": !isSession
           })}
         >
+          */}
+          <nav
+          className={classnames("navbar navbar-dark bg-dark mb-0 navbar-expand-sm")}
+        >
+
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
           {this.props.auth.user.role === "STUDENT" ?
             <button id="switchAssistent" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button> : null}

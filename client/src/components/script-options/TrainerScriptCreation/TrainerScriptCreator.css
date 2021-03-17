@@ -2,6 +2,7 @@
   [class*="col-"] {
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-left:35px;
     }
 
 
@@ -9,3 +10,4 @@
 #groupSize, #groupMix {
     width:150px;
    }   
+
