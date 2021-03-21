@@ -109,12 +109,13 @@ class Assistent extends Component {
     }
 
     componentDidMount() {
-
         document.addEventListener("keydown", this._handleKeyDown.bind(this), false);
+
     }
 
 
     render() {
+
 
         return (
             <div id="assistent">
@@ -128,13 +129,18 @@ class Assistent extends Component {
                         instruction={this.props.assistent.incomingInstruction}
                         quit={this.deleteIncomingInstruction.bind(this)}
                     /> : this.props.assistent.phase ?
-                        <InstructionUi
-                            hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
-                            hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}
-                            instruction={this.props.assistent.actInstruction}
-                            nextInstruction={this.nextInstruction.bind(this)}
-                            previousInstruction={this.previousInstruction.bind(this)}
+                        (!this.props.localState.isSession && this.props.script.scripts.length==0) ? <InstructionUi
+                            instruction={new Instruction("Es liegen keine Sessions vor", "")}
+
                         /> :
+                            <InstructionUi
+                                hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
+                                hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}
+                                instruction={this.props.assistent.actInstruction}
+                                nextInstruction={this.nextInstruction.bind(this)}
+                                previousInstruction={this.previousInstruction.bind(this)}
+                            /> :
+
                         <InstructionUi
                             instruction={new Instruction("Ich habe dir im Moment nichts zu sagen.", "")}
                         />
@@ -154,7 +160,9 @@ const mapStateToProps = state => ({
     auth: state.auth,
     assistent: state.assistent,
     rooms: state.rooms,
-    localState: state.localState
+    localState: state.localState,
+    script: state.script
+
 });
 
 export default connect(

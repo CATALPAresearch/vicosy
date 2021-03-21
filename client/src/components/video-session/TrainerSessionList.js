@@ -33,7 +33,8 @@ export class TrainerSessionList extends Component {
   render() {
     const { roomAvailable, roomData } = this.props.roomState;
     var sessionsToRender = null;
-
+    var scriptsToRender = null;
+var anyScripts=false;
 
     if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
       const { sessions } = roomData.state.sharedRoomData;
@@ -55,11 +56,16 @@ export class TrainerSessionList extends Component {
 
 
     //const { roomAvailable, roomData } = this.props.roomState;
-    var scriptsToRender = null;
-    if (!this.props.script.scripts) return null;
-    else
+
+    if (!this.props.script.scripts) {
+      scriptsToRender = null;
+
+      return null;
+    }
+    else 
       scriptsToRender = this.props.script.scripts.map(script => {
-        var firstElement = true;
+        anyScripts=true;
+      var firstElement = true;
         var myGroup = null;
         for (var group of script.groups)
           if (group.groupMembers.some(member => member._id === this.props.auth.user.id)) {
@@ -67,12 +73,10 @@ export class TrainerSessionList extends Component {
           } else {
             alert("Group not found");
           }
-        console.log(group._id);
         return (
           <tr key={group._id}>
             <th scope="row">{script.scriptName}</th>
-            <td className="force-break">{script.videourl}</td>
-            <td className="force-break">
+       <td className="force-break">
               {myGroup.groupMembers.map(member => { return <p key={member._id}>{member.name}</p> })}
 
             </td>
@@ -111,60 +115,25 @@ export class TrainerSessionList extends Component {
 
       });
 
-    /*
-    var sessionsToRender = null;
-    if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
-      const { sessions } = roomData.state.sharedRoomData;
-      const sessionRoomIds = Object.keys(sessions);
-
-      sessionsToRender = sessionRoomIds.map(sessionId => {
-        const sessionMeta = sessions[sessionId];
-        if (!sessionMeta) return null;
-
-        return (
-          <tr key={sessionMeta.roomId}>
-            <th scope="row">{sessionMeta.roomName}</th>
-            <td className="force-break">{sessionMeta.videoUrl}</td>
-            <td>{sessionMeta.sessionType}</td>
-            <td>
-              <Link
-                to={`/session/${sessionMeta.roomId}`}
-                className="btn btn-success"
-              >
-                join
-                <span className="badge ml-2 badge-light">
-                  {sessionMeta.clientCount}
-                </span>
-              </Link>
-            </td>
-          </tr>
-        );
-      });
-      
-    }
-*/
     return (
       <div>
-    
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th id="session-list" scope="col">Session</th>
-              <th scope="col">Video-Url</th>
-              <th scope="col">Members</th>
-              {/* <th scope="col">Collaboration</th> */}
-              <th scope="col">
-                {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "join-session" ?
-                  <HintArrow
-                    style={{ position: "absolute" }}
-                    direction="down"
-                  /> : null:null}
+        {anyScripts ? <table className="table table-striped">
+            <thead>
+              <tr>
+                <th id="session-list" scope="col">Session</th>
+                <th scope="col">Members</th>
+                <th scope="col">
+                  {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "join-session" ?
+                    <HintArrow
+                      style={{ position: "absolute" }}
+                      direction="down"
+                    /> : null : null}
 
                 Join</th>
-            </tr>
-          </thead>
-          <tbody>{scriptsToRender}</tbody>
-        </table>
+              </tr>
+            </thead>
+            <tbody>{scriptsToRender}</tbody>
+          </table> : <h4>Es stehen keine Sessions zur Verfügung!</h4>}
       </div>
     );
   }
