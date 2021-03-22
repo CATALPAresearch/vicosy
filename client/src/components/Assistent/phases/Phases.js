@@ -16,19 +16,17 @@ export class NoPhase extends AbstractPhase {
 }
 
 
-export class GetTogether extends AbstractPhase {
+export class EmptyStudentLobby extends AbstractPhase {
     constructor() {
         super();
-        this.url = window.location.href;
-        this.name = "GETTOGETHER";
-        this.instructions.push(new Instruction("Warte auf deinen Partner oder lade ihn über diese URL ein: " + this.url, ""));
-
-
+        this.name = "EMPTYSTUDENTLOBBY";
+        this.instructions.push(new Instruction("Willkommmen in der Lobby für das kollaborative Arbeiten mit Videos in Partnerarbeit.", ""));
+        this.instructions.push(new Instruction("Ich bin dein Assistent und werde dich durch die Sitzung leiten.", ""));
+        this.instructions.push(new Instruction("Aktuell liegen keine Videosessions vor.", ""));
+        this.instructions.push(new Instruction("Warte, bis dein Trainer dich zu einer Session einlädt.", ""));
+    
     }
-
 }
-
-
 
 export class StudentLobby extends AbstractPhase {
     constructor() {
@@ -44,6 +42,21 @@ export class StudentLobby extends AbstractPhase {
 
     }
 }
+
+
+export class GetTogether extends AbstractPhase {
+    constructor() {
+        super();
+        this.url = window.location.href;
+        this.name = "GETTOGETHER";
+        this.instructions.push(new Instruction("Warte auf deinen Partner oder lade ihn über diese URL ein: " + this.url, ""));
+
+
+    }
+
+}
+
+
 
 
 export class WarmUp extends AbstractPhase {

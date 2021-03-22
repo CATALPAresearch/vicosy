@@ -128,11 +128,11 @@ class Assistent extends Component {
                     <IncomingInstruction
                         instruction={this.props.assistent.incomingInstruction}
                         quit={this.deleteIncomingInstruction.bind(this)}
-                    /> : this.props.assistent.phase ?
+                    /> : this.props.assistent.phase ?/*
                         (!this.props.localState.isSession && this.props.script.scripts.length==0) ? <InstructionUi
                             instruction={new Instruction("Es liegen keine Sessions vor", "")}
 
-                        /> :
+                        /> :*/
                             <InstructionUi
                                 hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
                                 hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}

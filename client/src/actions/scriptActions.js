@@ -3,10 +3,10 @@ import { removedScript, getSessions, scriptMembers, notifyMembers, subscribeToSc
 import { DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
 
-export const checkRemovedScript = (user_id, scripts) => dispatch => {
+export const checkRemovedScript = (user_id, scripts, actualize) => dispatch => {
   removedScript(user_id, (script_id) => {
     console.log("Script removed");
-
+    actualize();
     if (!scripts)
       scripts = {};
     else
@@ -24,10 +24,11 @@ export const checkRemovedScript = (user_id, scripts) => dispatch => {
   )
 
 }
-export const getMyScriptsBySocket = (user_id, scripts) => dispatch => {
+export const getMyScriptsBySocket = (user_id, scripts, callback) => dispatch => {
 
   getSessions(user_id, (script) => {
     scripts.push(script);
+    callback();
 
     dispatch({ type: GET_SCRIPTS, payload: scripts }
     );
@@ -273,135 +274,135 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
     }
     else {
-      
+
       var groupNumber;
       var groups = [];
       var memberArray = Object.values(members);
       for (var i = 0; i < memberArray.length; i++)
         switch (method) {
-        case SHUFFLE: {
-          var group = { _id: "", groupMembers: [] };
-          //var groupMembers=[];
-          while (Array.isArray(memberArray) && memberArray.length > 0) {
-            let memberPosition = getRandomInt(0, memberArray.length);
-            if ((group.groupMembers.length >= (groupSize))) {
-              groups.push(group);
-              group = { _id: "", groupMembers: [] };
-              //group = [];
+          case SHUFFLE: {
+            var group = { _id: "", groupMembers: [] };
+            //var groupMembers=[];
+            while (Array.isArray(memberArray) && memberArray.length > 0) {
+              let memberPosition = getRandomInt(0, memberArray.length);
+              if ((group.groupMembers.length >= (groupSize))) {
+                groups.push(group);
+                group = { _id: "", groupMembers: [] };
+                //group = [];
+              }
+              group.groupMembers.push(memberArray[memberPosition])
+              memberArray.splice(memberPosition, 1);
+
             }
-            group.groupMembers.push(memberArray[memberPosition])
-            memberArray.splice(memberPosition, 1);
+            if (group.groupMembers.length > 0) groups.push(group);
+            dispatch({
+              type: SET_GROUPS,
+              payload: groups
+            });
+          }
+            break;
+          case HOMOGEN: {
+            var expLevels = [];
+
+
+            var sizeOk = true;
+
+            for (let i = 0; i < members.length; i++)
+              expLevels.push(members[i].expLevel);
+
+            // var groupNumber = Math.round(members.length / groupSize);
+            if ((members.length / groupSize) > Math.round(members.length / groupSize))
+              groupNumber = Math.round(members.length / groupSize) + 1;
+            else
+              groupNumber = Math.round(members.length / groupSize);
+
+
+
+            group();
+
+            function group() {
+              console.log("groupcall");
+              groups = [];
+
+              for (var i = 0; i < groupNumber; i++)
+                groups[i] = { _id: "", groupMembers: [] };
+
+
+              var res = skmeans(expLevels, groupNumber);
+
+              for (let i = 0; i < members.length; i++) {
+                groups[res.idxs[i]].groupMembers.push(members[i]);
+              }
+              sizeOk = true;
+              for (let i = 0; i < groups.length; i++) {
+                if (groups[i].groupMembers.length > groupSize)
+                  sizeOk = false;
+
+              }
+              if (!sizeOk)
+                group();
+
+            }
+
+
+            dispatch({
+              type: SET_GROUPS,
+              payload: groups
+            });
+
 
           }
-          if (group.groupMembers.length > 0) groups.push(group);
-          dispatch({
-            type: SET_GROUPS,
-            payload: groups
-          });
-        }
-          break;
-        case HOMOGEN: {
-          var expLevels = [];
-      
-
-          var sizeOk = true;
-
-          for (let i = 0; i < members.length; i++)
-            expLevels.push(members[i].expLevel);
-
-          // var groupNumber = Math.round(members.length / groupSize);
-          if ((members.length / groupSize) > Math.round(members.length / groupSize))
-            groupNumber = Math.round(members.length / groupSize) + 1;
-          else
-            groupNumber = Math.round(members.length / groupSize);
+            break;
+          case HETEROGEN: {
 
 
 
-          group();
+            if ((members.length / groupSize) > Math.round(members.length / groupSize))
+              groupNumber = Math.round(members.length / groupSize) + 1;
+            else
+              groupNumber = Math.round(members.length / groupSize);
 
-          function group() {
-            console.log("groupcall");
-            groups = [];
 
-            for (var i = 0; i < groupNumber; i++)
+
+            for (let i = 0; i < groupNumber; i++)
               groups[i] = { _id: "", groupMembers: [] };
 
+            members.sort((a, b) => {
+              if (a.expLevel < b.expLevel)
+                return -1;
+              if (a.expLevel > b.expLevel)
+                return 1;
+              return 0;
 
-            var res = skmeans(expLevels, groupNumber);
+            })
+
+
+            var groupNr = 0;
 
             for (let i = 0; i < members.length; i++) {
-              groups[res.idxs[i]].groupMembers.push(members[i]);
-            }
-            sizeOk = true;
-            for (let i = 0; i < groups.length; i++) {
-              if (groups[i].groupMembers.length > groupSize)
-                sizeOk = false;
+              if (groupNr >= groupNumber)
+                groupNr = 0
+              groups[groupNr].groupMembers.push(members[i]);
+              groupNr++;
 
             }
-            if (!sizeOk)
-              group();
+            dispatch({
+              type: SET_GROUPS,
+              payload: groups
+            });
 
           }
-
-
-          dispatch({
-            type: SET_GROUPS,
-            payload: groups
-          });
-
-
+            break;
+          default:
+            return;
         }
-          break;
-        case HETEROGEN: {
-
-
-
-          if ((members.length / groupSize) > Math.round(members.length / groupSize))
-            groupNumber = Math.round(members.length / groupSize) + 1;
-          else
-            groupNumber = Math.round(members.length / groupSize);
-
-
-
-          for (let i = 0; i < groupNumber; i++)
-            groups[i] = { _id: "", groupMembers: [] };
-
-          members.sort((a, b) => {
-            if (a.expLevel < b.expLevel)
-              return -1;
-            if (a.expLevel > b.expLevel)
-              return 1;
-            return 0;
-
-          })
-
-      
-          var groupNr = 0;
-
-          for (let i = 0; i < members.length; i++) {
-            if (groupNr >= groupNumber)
-              groupNr = 0
-            groups[groupNr].groupMembers.push(members[i]);
-            groupNr++;
-
-          }
-          dispatch({
-            type: SET_GROUPS,
-            payload: groups
-          });
-  
-        }
-        break;
-        default:
-          return;
     }
   }
-}
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
 
 
 }

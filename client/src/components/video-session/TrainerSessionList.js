@@ -9,21 +9,21 @@ export class TrainerSessionList extends Component {
   constructor(props) {
     super(props);
     this.props.getMyScripts(this.props.auth.user.id, this.callback.bind(this));
-
+    this.actualize = this.props.actualize;
 
   }
   setScript(scriptId, groupId) {
     this.props.getScriptByIdCallback(scriptId, () => {
       this.props.history.push(`/session/${groupId}`);
-
     });
 
 
   }
 
   callback() {
-    this.props.getMyScriptsBySocket(this.props.auth.user.id, this.props.script.scripts);
-    this.props.checkRemovedScript(this.props.auth.user.id, this.props.script.scripts);
+    this.props.getMyScriptsBySocket(this.props.auth.user.id, this.props.script.scripts, this.actualize);
+    this.props.checkRemovedScript(this.props.auth.user.id, this.props.script.scripts, this.actualize);
+  
   }
 
   /* startScriptRemoveListener() {
@@ -34,7 +34,7 @@ export class TrainerSessionList extends Component {
     const { roomAvailable, roomData } = this.props.roomState;
     var sessionsToRender = null;
     var scriptsToRender = null;
-var anyScripts=false;
+    var anyScripts = false;
 
     if (roomAvailable && "sessions" in roomData.state.sharedRoomData) {
       const { sessions } = roomData.state.sharedRoomData;
@@ -62,10 +62,10 @@ var anyScripts=false;
 
       return null;
     }
-    else 
+    else
       scriptsToRender = this.props.script.scripts.map(script => {
-        anyScripts=true;
-      var firstElement = true;
+        anyScripts = true;
+        var firstElement = true;
         var myGroup = null;
         for (var group of script.groups)
           if (group.groupMembers.some(member => member._id === this.props.auth.user.id)) {
@@ -76,7 +76,7 @@ var anyScripts=false;
         return (
           <tr key={group._id}>
             <th scope="row">{script.scriptName}</th>
-       <td className="force-break">
+            <td className="force-break">
               {myGroup.groupMembers.map(member => { return <p key={member._id}>{member.name}</p> })}
 
             </td>
@@ -118,22 +118,22 @@ var anyScripts=false;
     return (
       <div>
         {anyScripts ? <table className="table table-striped">
-            <thead>
-              <tr>
-                <th id="session-list" scope="col">Session</th>
-                <th scope="col">Members</th>
-                <th scope="col">
-                  {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "join-session" ?
-                    <HintArrow
-                      style={{ position: "absolute" }}
-                      direction="down"
-                    /> : null : null}
+          <thead>
+            <tr>
+              <th id="session-list" scope="col">Session</th>
+              <th scope="col">Members</th>
+              <th scope="col">
+                {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "join-session" ?
+                  <HintArrow
+                    style={{ position: "absolute" }}
+                    direction="down"
+                  /> : null : null}
 
                 Join</th>
-              </tr>
-            </thead>
-            <tbody>{scriptsToRender}</tbody>
-          </table> : <h4>Es stehen keine Sessions zur Verfügung!</h4>}
+            </tr>
+          </thead>
+          <tbody>{scriptsToRender}</tbody>
+        </table> : <h4>Es stehen keine Sessions zur Verfügung!</h4>}
       </div>
     );
   }
