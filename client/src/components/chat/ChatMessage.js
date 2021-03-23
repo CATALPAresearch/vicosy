@@ -60,9 +60,9 @@ export default class ChatMessage extends Component {
     }
 
     const senderContent = message.nick ? (
-      <span>
+      <div>
         <ClientName color={message.color} nickName={message.nick} />{" "}
-      </span>
+      </div>
     ) : null;
 
     return (
@@ -73,7 +73,9 @@ export default class ChatMessage extends Component {
         style={{padding:2}}
       >
         {senderContent}
+        <span  style={{marginLeft:10, paddingTop:0}}>
         {messageContent}
+        </span>
       </li>
     );
   }
