@@ -29,10 +29,9 @@ export default class ClientName extends Component {
 
     return (
       <span
-        className="client-name rounded p-1 font-weight-bold"
+        className="client-name rounded p-1 font-weight-bold small"
         style={{
-          color: color,
-          backgroundColor: this.shadeColor(color)
+          color: color
         }}
       >
         {this.props.allowRoleIcon ? (

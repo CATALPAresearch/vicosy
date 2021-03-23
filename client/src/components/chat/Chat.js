@@ -6,7 +6,7 @@ import {
 import "./chat.css";
 import ChatMessage from "./ChatMessage";
 import { checkAndExecuteChatInputAction } from "./inputParser";
-import InnerShadow from "../layout/InnerShadow";
+import InnerShadowSmall from "../layout/InnerShadowSmall";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { setUnseenActivities } from "../../actions/localStateActions";
@@ -146,11 +146,13 @@ class Chat extends Component {
         /> :null:null}
 
         <div className="chat-content relative" ref={this.contentRef}>
-          <ul className="list-group message-list list-group list-group-flush">
+          <ul className="list-group message-list list-group-flush medium">
             {messages}
           </ul>
         </div>
+        <small>
         {typingAwareness}
+        </small>
         <form
           autoComplete="off"
           onSubmit={this.onSubmitClicked}
@@ -189,7 +191,7 @@ class Chat extends Component {
             </span>
           </span>
         </form>
-        <InnerShadow />
+        <InnerShadowSmall />
       </div>
     );
   }

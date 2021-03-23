@@ -204,6 +204,12 @@ height: 50px;
   box-shadow: inset 0 0 10px #000000;
 }
 
+.inner-shadow-black-small {
+  -moz-box-shadow: inset 0 0 4px #000000;
+  -webkit-box-shadow: inset 0 0 4px #000000;
+  box-shadow: inset 0 0 4px #000000;
+}
+
 .inner-shadow-red {
   -moz-box-shadow: inset 0 0 15px #dc3545;
   -webkit-box-shadow: inset 0 0 15px #dc3545;
@@ -293,6 +299,7 @@ height: 50px;
 }
 
 .client-name {
+
   text-shadow: -1px 0 1px white, 0 1px 1px white, 1px 0 1px white,
     0 -1px 1px white;
 }

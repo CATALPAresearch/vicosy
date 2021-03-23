@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 import {
   MESSAGE_SYNCHACTION,
   MESSAGE_JOINLEAVE,
-  MESSAGE_LOG
+  MESSAGE_LOG,
+  CHAT_DEFAULT
 } from "../../shared_constants/systemChatMessageTypes";
 import TimeButton from "../controls/TimeButton";
 
 export default class ChatMessage extends Component {
   render() {
+    console.log(this.props);
     const { message } = this.props;
 
     var messageContent;
@@ -18,7 +20,7 @@ export default class ChatMessage extends Component {
     switch (message.type) {
       case MESSAGE_SYNCHACTION:
         messageContent = (
-          <span className="font-weight-light">
+          <span className="font-italic small">
             <TimeButton
               secs={message.message.time}
               faIcon={
@@ -36,14 +38,21 @@ export default class ChatMessage extends Component {
         else additionalListClasses = "bg-secondary";
 
         messageContent = (
-          <span className="font-weight-light chat-message">
+          <span className="font-italic chat-message small">
             <i className="fa fa-exclamation-triangle" /> {payload.message}
+          </span>
+        );
+        break;
+      case CHAT_DEFAULT:
+            messageContent = (
+          <span className="font-weight-light chat-message small">
+            {message.message}
           </span>
         );
         break;
       default:
         messageContent = (
-          <span className="font-weight-light chat-message">
+          <span className="font-italic chat-message small">
             {message.message}
           </span>
         );
@@ -61,6 +70,7 @@ export default class ChatMessage extends Component {
       <li
         key={message.timestamp}
         className={`list-group-item chat-message-wrapper ${additionalListClasses}`}
+        style={{padding:2}}
       >
         {senderContent}
         {messageContent}
