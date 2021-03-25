@@ -157,6 +157,7 @@ class Chat extends Component {
           autoComplete="off"
           onSubmit={this.onSubmitClicked}
           className="chat-send"
+          title="Hier kannst du Chatnachrichten schreiben und abschicken"
         >
 
 

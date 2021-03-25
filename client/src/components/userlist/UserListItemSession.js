@@ -82,7 +82,7 @@ class UserListItemSession extends Component {
 
       return (
         // <i className="fa fa-play-circle" style={{ color: "#007bff" }} />
-        <i
+        <i title="Videoaktivitäten"
           className={classnames("fa ml-1", {
             "fa-play-circle": mediaAction === "play",
             "fa-pause-circle": mediaAction === "pause"
@@ -109,7 +109,7 @@ class UserListItemSession extends Component {
             "hidden-nosize": hasVideoActive
           })}
           onClick={this.onActivateStream.bind(this, true, true)}
-          title="Stream video and audio to others"
+          title="Starte Audio- und Videostream"
         >
           {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "video-button" ?
             <HintArrow
@@ -124,7 +124,7 @@ class UserListItemSession extends Component {
             "hidden-nosize": hasAudioActive && !hasVideoActive
           })}
           onClick={this.onActivateStream.bind(this, false, true)}
-          title="Stream audio only to others"
+          title="Starte Audio-Streaming"
         >
              {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "audio-button" ?
             <HintArrow
@@ -177,7 +177,7 @@ class UserListItemSession extends Component {
 
     if (!isAppInFocus) {
       usersViewSpaceIcon = "fa-eye-slash";
-      viewSpaceHint = "The users attention lies outside the app";
+      viewSpaceHint = "Der Benutzer ist abgelenkt";
     } else {
       const isViewingGuide = isOwn
         ? this.props.localState.guide.isOpen
@@ -189,7 +189,7 @@ class UserListItemSession extends Component {
       // user looking at guide?
       if (isViewingGuide) {
         usersViewSpaceIcon = "fa-info-circle";
-        viewSpaceHint = "The user is reading the guide";
+        viewSpaceHint = "Der Benutzer ließt gerade den Guide";
       } else {
         const isViewingSharedDoc = isOwn
           ? this.props.localState.sharedDocEditing.isOpen
@@ -201,7 +201,7 @@ class UserListItemSession extends Component {
         // user shared doc ?
         if (isViewingSharedDoc) {
           usersViewSpaceIcon = "fa-file-alt";
-          viewSpaceHint = "The user is viewing the shared document";
+          viewSpaceHint = "Der Benutzer schaut sich gerade das Dokument an";
         } else {
           // user edits annotation ?
           const isViewingAnnotationEditor = isOwn
@@ -213,7 +213,7 @@ class UserListItemSession extends Component {
 
           if (isViewingAnnotationEditor) {
             usersViewSpaceIcon = "fa-map-marker";
-            viewSpaceHint = "The user is editing an annotation";
+            viewSpaceHint = "Der Benutzer setzt gerade Markierungen im Video";
           }
         }
       }
@@ -248,7 +248,7 @@ class UserListItemSession extends Component {
     }
 
     const stateBadge = (
-      <span className={`badge  mr-1 ${targetStateStyle}`}>
+      <span title="Zeigt an, ob synchron oder " className={`badge  mr-1 ${targetStateStyle}`}>
         {isSync ? syncState : <del>sync</del>}
       </span>
     );
@@ -273,7 +273,7 @@ class UserListItemSession extends Component {
           "session-user-item-own": isOwn
         })}
       >
-         {this.props.assistent.actInstructiont?this.props.assistent.active && this.props.assistent.actInstruction.markers === "awareness-partner"&&!isOwn ?
+         {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "awareness-partner"&&!isOwn ?
             <HintArrow
               style={{ position: "absolute", marginTop:-70}}
               direction="down"
@@ -285,8 +285,9 @@ class UserListItemSession extends Component {
             <PhaseReadyIndicator
               sharedData={this.roomData.state.sharedRoomData}
               clientId={clientId}
+            
             />
-            {stateBadge}
+            {/*stateBadge*/}
             <ClientName
               roomData={this.roomData}
               clientId={clientId}

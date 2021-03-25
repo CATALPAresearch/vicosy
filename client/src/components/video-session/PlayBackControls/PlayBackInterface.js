@@ -220,6 +220,7 @@ class PlayBackInterface extends Component {
 
     return (
       <button id="play-button"
+      title="Play- und Pausetaste"
         type="button"
         className={classnames("btn", {
           "btn-success": isSync,

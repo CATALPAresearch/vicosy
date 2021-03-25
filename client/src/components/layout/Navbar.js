@@ -116,29 +116,29 @@ class Navbar extends Component {
       </li>
     )
 
-/*
-    const faqItem = (
-      <li className="nav-item">
-        <a
-          className="nav-link"
-          href="http://h2088653.stratoserver.net/closeuptogether/faq/closeup-faq.html"
-          target="_blank"
-        >
-          FAQ <i className="fa fa-question-circle" />
-        </a>
-      </li>
-    );
-*/
+    /*
+        const faqItem = (
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              href="http://h2088653.stratoserver.net/closeuptogether/faq/closeup-faq.html"
+              target="_blank"
+            >
+              FAQ <i className="fa fa-question-circle" />
+            </a>
+          </li>
+        );
+    */
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           {this.props.auth.user.role === TRAINER ?
-            <Link className="nav-link" to="/trainerlobby">
+            <Link className="nav-link" to="/trainerlobby" title="Hier geht es zu den Scripts">
               Lobby <RoomComponent component={ClientCounter} roomId="trainerlobby" />
             </Link>
 
             :
-            <Link className="nav-link" to="/studentlobby">
+            <Link className="nav-link" to="/studentlobby" title="Hier geht es zu den Sessions">
               Lobby <RoomComponent component={ClientCounter} roomId="studentlobby" />
             </Link>}
         </li>
@@ -164,8 +164,6 @@ class Navbar extends Component {
           </span>
         </li>
         */}
-        {/*faqItem*/}
-
         {userNav}
       </ul>
     );
@@ -198,7 +196,7 @@ class Navbar extends Component {
 
     return (
       <div>
-       { /*
+        { /*
         <nav
           className={classnames("navbar navbar-dark bg-dark ", {
             "mb-0": !isSession,
@@ -206,13 +204,13 @@ class Navbar extends Component {
           })}
         >
           */}
-          <nav
+        <nav
           className={classnames("navbar navbar-dark bg-dark mb-0 navbar-expand-sm")}
         >
 
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
           {this.props.auth.user.role === "STUDENT" ?
-            <button id="switchAssistent" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button> : null}
+            <button id="switchAssistent" title="Hier kannst du den Assistenten einschalten" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button> : null}
           <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
             CloseUpTogether
         </Link>
@@ -231,7 +229,7 @@ class Navbar extends Component {
 
           <div
             onClick={() => {
-              if (isSession) this.togglerRef.current.click();
+            //  if (isSession) this.togglerRef.current.click();
             }}
             className="collapse navbar-collapse"
             id="RightNavItems"

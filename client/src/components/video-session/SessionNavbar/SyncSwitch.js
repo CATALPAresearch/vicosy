@@ -86,8 +86,8 @@ class SyncSwitch extends Component {
       : "unsynched";
 
     const targetButtonTooltip = synched
-      ? "Click to leave the synchronous mode. You can then navigate the application by yourself"
-      : "Click to join synchronous mode. All clients in this mode are navigating together";
+      ? "Synchroner Modus"
+      : "Asynchroner Modus";
 
     const extraContent = synched ? syncBadge : null;
     return (

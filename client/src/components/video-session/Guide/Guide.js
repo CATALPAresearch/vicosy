@@ -72,8 +72,10 @@ class Guide extends Component {
           <button id="ok-understand"
             onClick={this.onConfirmed}
             className="btn btn-small btn-success"
+            title="Verstanden"
           >
             Ok, I understand
+            
           </button>
         );
         break;

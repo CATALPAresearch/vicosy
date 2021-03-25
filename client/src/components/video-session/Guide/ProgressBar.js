@@ -95,7 +95,7 @@ export class ProgressBar extends Component {
     render() {
         var content = this.renderBar();
         return (
-            <div id="ProgressBar">
+            <div id="ProgressBar" title="Der Fortschrittsbalken zeigt an, in welcher Phase du dich befindest">
                 {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "ProgressBar" ?
                     <HintArrow
                         style={{ position: "absolute", marginTop: 40, marginLeft: 100, zIndex: 1000 }}

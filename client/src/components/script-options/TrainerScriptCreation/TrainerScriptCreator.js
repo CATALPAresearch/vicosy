@@ -214,7 +214,7 @@ class TrainerScriptCreator extends Component {
     return (
 
 
-      <div className="mb-2">
+      <div className="mb-2" id="trainerscriptcreator">
         <ul className="nav nav-tabs">
           <li className="nav-item inner-shadow-black">
             <a className={this.state.settingsClassname} onClick={this.setSettings.bind(this)}><h4>Scripteinstellungen</h4></a>

@@ -52,7 +52,7 @@ class MarkerDropDown extends Component {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "maker-button" ?
+          {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.incomingInstruction&&this.props.assistent.incomingInstruction.markers === "maker-button" ?
             <HintArrow
               style={{ position: "absolute", marginTop: -80, marginLeft: 20, zIndex: 1000 }}
               direction="down"

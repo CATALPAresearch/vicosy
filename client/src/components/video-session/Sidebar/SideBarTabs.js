@@ -24,18 +24,21 @@ class SideBarTabs extends Component {
       {
         id: "activities-tab",
         callback: this.props.selectSidebarTabActivities,
-        name: "Activities"
+        name: "Activities",
+        title: "Hier siehst du Chatnachrichten und Ereignisse"
         // extraContent: <ActivityCounter />
       },
       {
         id: "notes-tab",
         callback: this.props.selectSidebarTabNotes,
-        name: "Notes"
+        name: "Notes",
+        title: "Bereich für persönliche Notizen"
       },
       {
         id: "annotations-tab",
         callback: this.props.selectSidebarTabAnnotations,
-        name: "Annotations"
+        name: "Annotations",
+        title: "Hier finden sich Sektionseinteilungen und andere Markierungen auf dem Video"
       }
     ];
 
@@ -49,7 +52,7 @@ class SideBarTabs extends Component {
       const isSelected = selectedTabId === tab.id;
 
       return (
-        <li key={tab.id} className="nav-item">
+        <li title={tab.title} key={tab.id} className="nav-item">
           <Interactive
             disabled={false}
             disabledMessage="Zurzeit nicht verfügbar..."

@@ -31,12 +31,14 @@ class MainRessourceTabs extends Component {
       {
         id: "video-tab",
         callback: this.toggleSharedDoc,
-        name: "Video"
+        name: "Video", 
+        title: "Videoansicht"
       },
       {
         id: "doc-tab",
         callback: this.toggleSharedDoc,
-        name: "Shared Document"
+        name: "Shared Document", 
+        title: "Kollaboratives Dokument"
       }
     ];
 
@@ -68,6 +70,7 @@ class MainRessourceTabs extends Component {
 
           <li key={tab.id}
             className="nav-item"
+            title={tab.title}
 
           >
 

@@ -1,9 +1,10 @@
 #RightNavItems {
   background-color: rgba(52, 58, 64, 0.93);
-  text-align: right;
+  text-align: left;
   z-index: 99;
   margin-top: 1px;
   min-width:100px;
+  right:-16px;
 }
 
 #switchAssistent{
