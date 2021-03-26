@@ -62,7 +62,7 @@ class AnnotationDropDown extends Component {
         <div className="btn-group dropleft" role="group">
           <button
             type="button"
-            className="btn btn-secondary dropdown-toggle dropdown-toggle-split  btn-sm"
+            className="btn btn-primary dropdown-toggle dropdown-toggle-split  btn-sm"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
@@ -103,7 +103,7 @@ class AnnotationDropDown extends Component {
         </div>
         <button id="open-annotations"
           onClick={this.onAnnotationTriggered.bind(this)}
-          className="btn btn-secondary btn-sm"
+          className="btn btn-primary btn-sm"
           title="Open annotation editor for the current video frame"
         >
           Annotate{" "}

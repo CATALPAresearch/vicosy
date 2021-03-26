@@ -131,6 +131,24 @@ height: 50px;
   
 
 }
+.btn-primary:hover{
+  background-color: #045FB4;
+  border-color: white;
+  border-width: 1px;
+  color: #E6E6E6;
+  border-style: solid;
+
+
+}
+
+.btn-primary{
+  background-color: #424242;
+  border-color: white;
+  border-width: 1px;
+  color: #E6E6E6;
+  border-style: solid;
+
+}
 
 .hFlexLayout {
   /* border: 3px solid green; */
@@ -268,6 +286,10 @@ height: 50px;
   100% {
     opacity: 0;
   }
+}
+
+a, a:hover{
+  color:#BDBDBD
 }
 
 .fadeInAnim {

@@ -52,7 +52,7 @@ class SideBarTabs extends Component {
       const isSelected = selectedTabId === tab.id;
 
       return (
-        <li title={tab.title} key={tab.id} className="nav-item">
+        <li title={tab.title} key={tab.id} className="nav-item btn-primary">
           <Interactive
             disabled={false}
             disabledMessage="Zurzeit nicht verfügbar..."

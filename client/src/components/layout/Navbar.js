@@ -210,7 +210,7 @@ class Navbar extends Component {
 
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
           {this.props.auth.user.role === "STUDENT" ?
-            <button id="switchAssistent" title="Hier kannst du den Assistenten einschalten" className="accordion" onClick={this.setAssitent.bind(this)}>Assistent</button> : null}
+            <button id="switchAssistent" title="Hier kannst du den Assistenten einschalten" className="btn-primary" onClick={this.setAssitent.bind(this)}>Assistent</button> : null}
           <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
             CloseUpTogether
         </Link>

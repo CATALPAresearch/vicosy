@@ -194,7 +194,7 @@ class VideoSession extends Component {
             this.setState({ userReady: true });
             this.initialize();
           }}
-          className="btn btn-success"
+          className="btn btn-primary"
         >
           continue
         </button>

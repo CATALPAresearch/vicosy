@@ -105,7 +105,7 @@ class TrainerLobby extends Component {
                 Script wirklich löschen?
       </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal">Abbrechen</button>
                 <button type="button" className="btn btn-primary" onClick={this.deleteScript.bind(this)} data-dismiss="modal">Script löschen</button>
               </div>
             </div>

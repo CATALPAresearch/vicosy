@@ -134,7 +134,7 @@ export class Members extends Component {
                                 <canvas ref={this.myRef} ></canvas>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Ok</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal">Ok</button>
                             </div>
                         </div>
                     </div>
