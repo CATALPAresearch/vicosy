@@ -27,3 +27,6 @@
   min-height: 100%;
  
   }
+  .modal-body a{
+    color:blue;
+  }

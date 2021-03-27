@@ -4,7 +4,7 @@
 
 .group-timeline-handle-image {
   position: relative;
-  color: #a2ffaa;
+  color: #A9D0F5;
   transform: scale(0.8);
   left: 1px;
 }
@@ -27,8 +27,8 @@
   width: 26px;
   height: 26px;
   transform: translate(-50%, -48%);
-  background-color: green;
-  border: solid 2px rgb(115, 182, 115);
+  background-color: #045FB4;
+  border: solid 2px #A9D0F5;
 }
 
 .async-timeline-handle {
@@ -54,8 +54,8 @@
   height: 26px;
   transform: translate(-50%, -48%);
   border-radius: 50%;
-  background-color: green;
-  border: solid 2px rgb(115, 182, 115);
+  background-color: #045FB4;
+  border: solid 2px #A9D0F5;
 }
 
 .remote-handle-label {

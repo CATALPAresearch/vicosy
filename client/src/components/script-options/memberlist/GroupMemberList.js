@@ -25,7 +25,7 @@ export class GroupMemberList extends Component {
     }
     return (
       group[1]?group[1].length>0?
-      <div className="userlist-main bg-dark pt-1">
+      <div className="userlist-main  pt-1">
         <div className="userlist-wrapper">
           <ul className="list-group text-dark ml-2 mr-2 mb-2">{members}</ul>
         </div>

@@ -31,7 +31,7 @@ export class MemberList extends Component {
     return (
       this.props.script.participants?
       this.props.script.participants.length > 0 ?
-        <div className="userlist-main bg-dark pt-1">
+        <div className="userlist-main pt-1">
           <div className="userlist-wrapper">
             <ul className="list-group text-dark ml-2 mr-2 mb-2">{clients}</ul>
           </div>

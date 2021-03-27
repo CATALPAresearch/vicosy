@@ -20,7 +20,7 @@
 .progress div {
     padding-left:4px;
     padding-right:4px;
-    background-color:#17a2b8;
+    background-color:gray;
     border-left-color: white;
     border-left-width: 3px;
     border-left-style: solid;
@@ -32,6 +32,6 @@
 
 #actPhase {
    
-    background-color:rgb(219, 192, 208);
+    background-color: #045FB4;
 
 }

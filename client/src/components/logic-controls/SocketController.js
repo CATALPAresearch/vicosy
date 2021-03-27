@@ -9,6 +9,7 @@ import {
 import { setError, clearError } from "../../actions/errorActions";
 import { connectSocket, disconnectSocket } from "../../socket-handlers/api";
 import { JOIN_ROOM, LEAVE_ROOM } from "./socketEvents";
+import "./socketcontroller.css"
 
 // listens to auth state
 // connects to socket or closes it based on this state
@@ -133,7 +134,7 @@ class SocketController extends Component {
 
     const connectionContent = this.props.children;
     const disconnectedContent = (
-      <div>
+      <div className="socketController">
         <h1>connecting...</h1>
       </div>
     );

@@ -204,10 +204,10 @@ class AnnotationDetail extends Component {
 
           <div className="form-group">
             <div className="input-group mb-2">
-              <div className="input-group-prepend">
+              <div className="input-group-prepend blueButton">
                 <div
                   className={classnames("input-group-text", {
-                    "bg-success": this.state.frameSynced,
+                    "blueButton": this.state.frameSynced,
                     "bg-danger": !this.state.frameSynced
                   })}
                   title="Indicates if the current video frame matches the annotation time."

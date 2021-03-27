@@ -82,7 +82,7 @@ export class Members extends Component {
                 <div className="col border bg-light">
                     <h4>Teilnehmer</h4>
                    {!this.props.script.started&&this.props.script._id ?
-                        <input type="button" onClick={this.generateQrCode.bind(this)} className="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal" value="Einladen"/>
+                        <input type="button" onClick={this.generateQrCode.bind(this)} className="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal" value="Einladen"/>
 
                      : null}
 

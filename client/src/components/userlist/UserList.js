@@ -24,7 +24,7 @@ export default class UserList extends Component {
     }
 
     return (
-      <div className="userlist-main bg-dark pt-1">
+      <div className="userlist-main pt-1">
         <div className="userlist-wrapper"> 
           <ul className="list-group text-dark ml-2 mr-2 mb-2">{clients}</ul>
         </div>
