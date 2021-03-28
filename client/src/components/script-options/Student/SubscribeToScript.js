@@ -61,7 +61,7 @@ class SubscribeToScript extends Component {
 
         <input
           type="submit"
-          className="btn btn-primary btn-lg"
+          className="btn primaryCol btn-lg"
           value="Einschreiben"
           onClick={this.onSubmit.bind(this)}
           errors={this.props.errors}

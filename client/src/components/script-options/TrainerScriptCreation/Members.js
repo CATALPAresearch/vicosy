@@ -82,7 +82,7 @@ export class Members extends Component {
                 <div className="col border bg-light">
                     <h4>Teilnehmer</h4>
                    {!this.props.script.started&&this.props.script._id ?
-                        <input type="button" onClick={this.generateQrCode.bind(this)} className="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal" value="Einladen"/>
+                        <input type="button" onClick={this.generateQrCode.bind(this)} className="btn primaryCol btn-lg" data-toggle="modal" data-target="#exampleModal" value="Einladen"/>
 
                      : null}
 
@@ -134,7 +134,7 @@ export class Members extends Component {
                                 <canvas ref={this.myRef} ></canvas>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-primary" data-dismiss="modal">Ok</button>
+                                <button type="button" className="btn primaryCol" data-dismiss="modal">Ok</button>
                             </div>
                         </div>
                     </div>

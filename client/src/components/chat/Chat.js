@@ -182,7 +182,7 @@ class Chat extends Component {
               onChange={this.onChange}
             />
 
-            <button type="submit" className="btn btn-primary btn-sm">
+            <button type="submit" className="btn primaryCol btn-sm">
 
               Send       
             

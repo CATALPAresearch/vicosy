@@ -17,9 +17,9 @@ this.direction=this.props.direction;
             shaftLength={40}
             headWidth={40}
             headLength={30}
-            fill="red"
+            fill="#FFCC30 "
             text="Chat"
-            stroke="red"
+            stroke="#FFCC30 "
             strokeWidth={2}
             style={this.style}
         />)

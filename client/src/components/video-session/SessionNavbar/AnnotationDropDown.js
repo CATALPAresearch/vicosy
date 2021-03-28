@@ -62,7 +62,7 @@ class AnnotationDropDown extends Component {
     if (this.props.settings.annotationType == "annotation-section")
       return (
         <button id="open-annotations"
-        className="btn btn-primary"
+        className="btn primaryCol"
         title="Defines a split/chapter point. As a result 2 new timesections will appear."
               onClick={this.onAnnotationTriggered.bind(this)}
         >
@@ -77,7 +77,7 @@ class AnnotationDropDown extends Component {
       if (this.props.settings.annotationType == "annotation")
       return (
         <button id="annot-button"
-        className="btn btn-primary"
+        className="btn primaryCol"
         title="Simple annotation marking POIs in the video."
               onClick={this.onAnnotationTriggered.bind(this)}
         >

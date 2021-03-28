@@ -52,7 +52,7 @@ class SideBarTabs extends Component {
       const isSelected = selectedTabId === tab.id;
 
       return (
-        <li title={tab.title} key={tab.id} className="nav-item btn-primary">
+        <li title={tab.title} key={tab.id} className="nav-item primaryCol">
           <Interactive
             disabled={false}
             disabledMessage="Zurzeit nicht verfügbar..."
@@ -69,7 +69,7 @@ class SideBarTabs extends Component {
                 direction="right"
               /> : null:null}
             <a
-              className={`nav-link${isSelected ? " active prevent-pointer" : ""
+              className={`nav-link ${isSelected ? " active prevent-pointer" : ""
                 }`}
               id={tab.id}
               data-toggle="tab"

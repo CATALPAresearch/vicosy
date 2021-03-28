@@ -35,7 +35,7 @@ class PhaseReadyIndicator extends Component {
             "fa-check-circle color-ready": ownReady,
             "fa-hourglass color-waiting": !ownReady
           })}
-            title={ownReady?"Phase sbgeschlossen":"Phase wird noch bearbeitet"}
+            title={ownReady?"Phase abgeschlossen":"Phase wird noch bearbeitet"}
         />{" "}
       </span>
     );

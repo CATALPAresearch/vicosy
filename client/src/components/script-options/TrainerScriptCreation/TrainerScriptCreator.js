@@ -236,7 +236,7 @@ class TrainerScriptCreator extends Component {
             {!this.props.script.started ?
               <button
                 type="submit"
-                className="btn btn-primary btn-lg"
+                className="btn primaryCol btn-lg"
                 onClick={this.onSubmit.bind(this)}
               >
                 Speichere Script
@@ -254,7 +254,7 @@ class TrainerScriptCreator extends Component {
                 {this.scriptStartable() ?
                   <button
                     type="submit"
-                    className="btn btn-primary btn-lg"
+                    className="btn primaryCol btn-lg"
                     onClick={this.startScript.bind(this)}
                   >
                     Starte Script

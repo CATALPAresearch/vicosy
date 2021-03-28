@@ -87,7 +87,7 @@ export class TrainerSessionList extends Component {
                 <button
                   onClick={(e) => this.setScript(script._id, group._id)}
                   scriptid={script._id}
-                  className="btn btn-primary"
+                  className="btn primaryCol"
                   id="join-session"
 
                 >

@@ -105,7 +105,7 @@ class ReadyContinueScriptButton extends Component {
           <div>
             <button style={divStyle} id="toggle-switch"
               onClick={this.onButtonClick}
-              className="btn btn-primary btn-sm"
+              className="btn primaryCol btn-sm"
             >
               Finish Phase
               <i className="ml-1 fa fa-check-circle" />

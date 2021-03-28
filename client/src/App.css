@@ -115,7 +115,6 @@ footer {
   height: 80px;
   padding: 10px;
   text-align: center;
-
 }
 
 
@@ -126,33 +125,47 @@ height: 50px;
 
 #main-footer {
   height: 50px;
-  bottom:-50px;
   width:100%;
   
-
 }
-.btn-primary:hover{
-  background-color: #045FB4;
-  border-color: white;
-  border-width: 1px;
-  color: #E6E6E6;
-  border-style: solid;
 
-}
+
 
 .blueButton {
-  background-color: #045FB4;
+  background-color: #5F4C0B;
 }
+
+.browncolor {
+  color:#5F4C0B;
+}
+
 
 .userlist-main {
   background-color:  #2E2E2E;
 }
-.btn-primary{
+.primaryCol{
   background-color: #424242;
   border-color: white;
   border-width: 1px;
   color: #E6E6E6;
   border-style: solid;
+
+}
+.primaryCol:hover{
+  background-color: #5F4C0B;
+  border-color: white;
+  border-width: 1px;
+  color: #E6E6E6;
+  border-style: solid;
+
+}
+
+.login {
+min-height: 95%;
+}
+
+.secondary {
+  background-color: #FFCC30;
 
 }
 
@@ -319,7 +332,10 @@ a, a:hover{
 
 .prevent-pointer {
   pointer-events: none;
+
+
 }
+
 
 .grey-out {
   opacity: 0.5;

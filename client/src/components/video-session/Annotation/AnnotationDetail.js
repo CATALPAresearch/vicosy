@@ -260,7 +260,7 @@ class AnnotationDetail extends Component {
           <button
             onClick={this.onJumpClick.bind(this)}
             type="button"
-            className={classnames("btn btn-primary mb-2 mr-1 btn-sm", {
+            className={classnames("btn primaryCol mb-2 mr-1 btn-sm", {
               "hidden-nosize": this.state.frameSynced
             })}
             title="Jump to this annotation"
@@ -268,7 +268,7 @@ class AnnotationDetail extends Component {
             <i className="fa fa-search" />
           </button>
           <input
-            className="btn btn-primary mb-2 btn-sm"
+            className="btn primaryCol mb-2 btn-sm"
             type="submit"
             value={this.state.isNew ? "Create" : "Submit"}
             title="Save this annotation to shared space"
@@ -277,7 +277,7 @@ class AnnotationDetail extends Component {
           <button
             onClick={this.onMoveClick.bind(this)}
             type="button"
-            className={classnames("btn btn-primary mb-2 ml-1 btn-sm", {
+            className={classnames("btn primaryCol mb-2 ml-1 btn-sm", {
               "hidden-nosize": this.state.frameSynced
             })}
             title={
@@ -308,7 +308,7 @@ class AnnotationDetail extends Component {
         </form>
         <button
           onClick={this.onCloseClick.bind(this)}
-          className="btn btn-danger btn-sm close-btn"
+          className="btn primaryCol btn-sm close-btn"
         >
           <i className="fa fa-times-circle" />
         </button>

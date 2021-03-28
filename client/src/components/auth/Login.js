@@ -121,7 +121,7 @@ class Login extends Component {
                   valueProvider={this.state}
                   placeHolder="Password"
                 />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <input type="submit" className="btn primaryCol btn-block mt-4" />
               </form>
             </div>
           </div>

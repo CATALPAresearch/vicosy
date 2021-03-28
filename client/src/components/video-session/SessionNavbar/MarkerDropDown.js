@@ -47,7 +47,7 @@ class MarkerDropDown extends Component {
       <div id="maker-button" className="btn-group dropleft ml-1">
         <button
           type="button"
-          className="btn btn-sm btn-primary dropdown-toggle"
+          className="btn btn-sm primaryCol dropdown-toggle"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"

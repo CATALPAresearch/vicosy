@@ -77,7 +77,7 @@ class TrainerLobby extends Component {
           <Logger roomId="trainerlobby" />
           <h1>Trainerlobby</h1>
           {<RoomComponent roomId="trainerlobby" component={TrainerSessionList} />}
-          <Link to="/newtrainerscript" className="btn btn-lg btn-primary mr-2">
+          <Link to="/newtrainerscript" className="btn btn-lg primaryCol mr-2">
             Neues Script
         </Link>
           <br></br>
@@ -105,8 +105,8 @@ class TrainerLobby extends Component {
                 Script wirklich löschen?
       </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" data-dismiss="modal">Abbrechen</button>
-                <button type="button" className="btn btn-primary" onClick={this.deleteScript.bind(this)} data-dismiss="modal">Script löschen</button>
+                <button type="button" className="btn primaryCol" data-dismiss="modal">Abbrechen</button>
+                <button type="button" className="btn primaryCol" onClick={this.deleteScript.bind(this)} data-dismiss="modal">Script löschen</button>
               </div>
             </div>
           </div>

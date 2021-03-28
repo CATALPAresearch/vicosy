@@ -71,7 +71,7 @@ class Guide extends Component {
         confirmationComponent = (
           <button id="ok-understand"
             onClick={this.onConfirmed}
-            className="btn btn-small btn-primary"
+            className="btn btn-small primaryCol"
             title="Verstanden"
           >
             Ok, I understand

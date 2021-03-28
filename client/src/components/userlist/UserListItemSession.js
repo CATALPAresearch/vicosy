@@ -83,11 +83,11 @@ class UserListItemSession extends Component {
       return (
         // <i className="fa fa-play-circle" style={{ color: "#007bff" }} />
         <i title="Videoaktivitäten"
-          className={classnames("fa ml-1", {
+          className={classnames("fa ml-1 browncolor", {
             "fa-play-circle": mediaAction === "play",
             "fa-pause-circle": mediaAction === "pause"
           })}
-          style={{ color: "#007bff" }}
+          
         />
       );
     } else return null;
@@ -105,7 +105,7 @@ class UserListItemSession extends Component {
     return (
       <span>
         <button
-          className={classnames("btn btn-primary btn-sm ml-1", {
+          className={classnames("btn primaryCol btn-sm ml-1", {
             "hidden-nosize": hasVideoActive
           })}
           onClick={this.onActivateStream.bind(this, true, true)}
@@ -120,7 +120,7 @@ class UserListItemSession extends Component {
         </button>
      
         <button
-          className={classnames("btn btn-primary btn-sm ml-1", {
+          className={classnames("btn primaryCol btn-sm ml-1", {
             "hidden-nosize": hasAudioActive && !hasVideoActive
           })}
           onClick={this.onActivateStream.bind(this, false, true)}
