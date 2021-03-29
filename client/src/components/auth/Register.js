@@ -123,7 +123,11 @@ class Register extends Component {
                 />
 
 
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <input type="submit" style={{
+                  display: "block",
+                  marginLeft: "auto",
+                  marginRight: "auto"
+                }} className="btn primaryCol mt-4 w-25" />
               </form>
             </div>
           </div>

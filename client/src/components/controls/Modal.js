@@ -21,12 +21,12 @@ export default class Modal extends Component {
               <p>Modal body text goes here.</p>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn primary">
                 Save changes
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn primaryCol"
                 data-dismiss="modal"
               >
                 Close

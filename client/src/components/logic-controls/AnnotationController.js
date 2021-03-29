@@ -97,7 +97,7 @@ class AnnotationController extends Component {
     // add creator & type data
     meta.type = meta.type ? meta.type : this.props.settings.annotationType;
 
-    meta.creator = { nick: this.props.ownNick, color: this.props.ownColor };
+    meta.creator = { nick: this.props.ownNick, color: "white" };
 
     sendSharedAnnotation(this.props.roomId, playTime.toString(), meta);
   }

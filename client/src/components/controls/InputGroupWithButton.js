@@ -40,7 +40,7 @@ export default class InputGroupWithButton extends Component {
 
     return (
       <div className="input-group mb-3">
-        <div className="blueButton">
+        <div className="primaryBack">
           <div className="input-group-text">
             <input name={idTextfield} id={idCheckbox} disabled={readOnly} value="checkbox" checked={!this.props.disabled} type="checkbox" aria-label="Checkbox for following text input"
               onChange={(e) => { this.changeDisabled(); onCheckboxChangeCallback(e) }}

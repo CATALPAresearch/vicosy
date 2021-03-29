@@ -83,7 +83,7 @@ class UserListItemSession extends Component {
       return (
         // <i className="fa fa-play-circle" style={{ color: "#007bff" }} />
         <i title="Videoaktivitäten"
-          className={classnames("fa ml-1 browncolor", {
+          className={classnames("fa ml-1 primaryBack", {
             "fa-play-circle": mediaAction === "play",
             "fa-pause-circle": mediaAction === "pause"
           })}

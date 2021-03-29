@@ -121,7 +121,12 @@ class Login extends Component {
                   valueProvider={this.state}
                   placeHolder="Password"
                 />
-                <input type="submit" className="btn primaryCol btn-block mt-4" />
+                <input type="submit"
+                style={{
+                  display: "block",
+                  marginLeft: "auto",
+                  marginRight: "auto"}}
+                className="btn primaryCol mt-4 w-25" />
               </form>
             </div>
           </div>

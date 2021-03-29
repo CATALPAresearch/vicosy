@@ -42,7 +42,7 @@ class CueLine extends Component {
         text: "New Annotation",
         temporaryAdd: true,
         type: this.props.settings.annotationType,
-        creator: { nick: this.props.ownNick, color: this.props.ownColor }
+        creator: { nick: this.props.ownNick, color: "white" }
       };
       const currentCues = {
         ...targetCues,
