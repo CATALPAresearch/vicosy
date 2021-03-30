@@ -4,8 +4,8 @@
   backface-visibility: hidden;
   perspective: 1000px;
   z-index: 500;
-
 }
+
 
 @keyframes shake {
   10%, 90% {
@@ -116,6 +116,7 @@ footer {
   padding: 10px;
   text-align: center;
 }
+
 
 
 .navbar {

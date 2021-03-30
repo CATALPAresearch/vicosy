@@ -19,6 +19,7 @@ export default class HTMLLoader extends Component {
           right: "0",
           bottom: "0",
           height: "800px",
+          fontFamily: "Arial, Helvetica, sans-serif"
       
         }}
       />

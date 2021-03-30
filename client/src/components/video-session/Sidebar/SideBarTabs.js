@@ -24,7 +24,7 @@ class SideBarTabs extends Component {
       {
         id: "activities-tab",
         callback: this.props.selectSidebarTabActivities,
-        name: "Activities",
+        name: "Chat",
         title: "Hier siehst du Chatnachrichten und Ereignisse"
         // extraContent: <ActivityCounter />
       },

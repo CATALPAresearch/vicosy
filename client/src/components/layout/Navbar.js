@@ -229,7 +229,7 @@ class Navbar extends Component {
 
           <div
             onClick={() => {
-            //  if (isSession) this.togglerRef.current.click();
+              //  if (isSession) this.togglerRef.current.click();
             }}
             className="collapse navbar-collapse"
             id="RightNavItems"

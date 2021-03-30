@@ -200,7 +200,7 @@ class AnnotationDetail extends Component {
         })}
       >
         <form className="form-control form-control-lg" onSubmit={this.onSubmit}>
-          <div>Annotation</div>
+          <div>Chapter creation</div>
 
           <div className="form-group">
             <div className="input-group mb-2">
@@ -249,12 +249,12 @@ class AnnotationDetail extends Component {
               name="content"
               className="form-control"
               rows="3"
-              placeholder="Annotation contents..."
+              placeholder="Description..."
             />
           </div>
           {this.state.isNew ? (
-            <p className="text-secondary" style={{ fontSize: "x-small" }}>
-              Tip: Quickly add annotation by sending "@@TITLE" chat command
+            <p className="text-secondary" style={{ fontSize: "small" }}>
+              Tip: Quickly add annotation by <br></br>sending "@@TITLE" chat command
             </p>
           ) : null}
           <button

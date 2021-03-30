@@ -80,7 +80,7 @@ export default function(state = initialState, action) {
             assignTarget.getAdd(part.property)[part.property2] = part.value;
           else assignTarget[part.property] = part.value;
 
-          checkLogToChat(roomState, part.property, part.value);
+          // checkLogToChat(roomState, part.property, part.value);
 
           roomsToUpdate[roomIdToUpdate].state = {
             ...roomState,
