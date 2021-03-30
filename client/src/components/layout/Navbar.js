@@ -51,6 +51,9 @@ class Navbar extends Component {
   }
 
   render() {
+    var toggleName = "";
+    this.props.assistent.active ? toggleName = "navbar navbar-dark bg-dark mb-0" : toggleName = "navbar navbar-dark bg-dark mb-0 navbar-expand-sm";
+
     const { isAuthenticated, user } = this.props.auth;
 
     var warningMessage = null;
@@ -205,15 +208,13 @@ class Navbar extends Component {
         >
           */}
         <nav
-          className={classnames("navbar navbar-dark bg-dark mb-0 navbar-expand-sm")}
+          className={classnames(toggleName)}
         >
 
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
           {this.props.auth.user.role === "STUDENT" ?
             <button id="switchAssistent" title="Hier kannst du den Assistenten einschalten" className="secondary" onClick={this.setAssitent.bind(this)}>Assistent</button> : null}
-          <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
-            CloseUpTogether
-        </Link>
+
           {errorMessage}
           {warningMessage}
 
@@ -235,6 +236,10 @@ class Navbar extends Component {
             id="RightNavItems"
           >
             {/* {isSession ? sessionInfo : null} */}
+            {!this.props.assistent.active ?
+              <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
+                CloseUpTogether
+        </Link> : null}
             {isAuthenticated ? authLinks : guestLinks}
 
 
