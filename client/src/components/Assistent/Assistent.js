@@ -125,7 +125,7 @@ class Assistent extends Component {
 
 
         return (
-            <div id="assistent" title="Ich bin dein Assistent und werde dich durch die Session führen.">
+            <div id="assistent" title="Ich bin dein Assistent und werde dich durch die Session führen. Du kannst mich ausschalten, indem du auf mich klickst.">
                 <div className="panel " id="laempel">
                     <img src={assi_on} alt="Laempel" width="100%" height="100%" onClick={this.setAssitent.bind(this)} />
                 </div>

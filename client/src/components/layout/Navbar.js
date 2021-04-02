@@ -137,7 +137,10 @@ class Navbar extends Component {
 
 
     const authLinks = (
-      <ul className={this.props.assistent.active ? "navbar-nav ml-auto w-25 p-3" : "navbar-nav ml-auto"}>
+      <ul className={this.props.assistent.active ? "navbar-nav ml-auto dropdown-menu navbar-dark bg-dark" : "navbar-nav ml-auto"}
+      
+      style={this.props.assistent.active?{right:0, width:100, paddingLeft:4}:null}
+      >
         <li className="nav-item">
           {this.props.auth.user.role === TRAINER ?
             <Link className="nav-link" to="/trainerlobby" title="Hier geht es zu den Scripts">
@@ -238,7 +241,7 @@ class Navbar extends Component {
             onClick={() => {
               //  if (isSession) this.togglerRef.current.click();
             }}
-            className={"collapse navbar-collapse"}
+            className={"collapse navbar-collapse "}
             id="toggleContainer"
             style={{
               width: 100,
