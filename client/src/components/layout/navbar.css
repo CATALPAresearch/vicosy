@@ -4,8 +4,16 @@
   z-index: 99;
   margin-top: 1px;
   min-width:100px;
-  right:-16px;
+right:-16px;
 }
+
+#toggleContainer {
+  background-color: rgba(52, 58, 64, 0.93);
+  text-align: left;
+  z-index: 99;
+  margin-top: 1px;
+ }
+
 
 #switchAssistent{
    margin:5px;
@@ -18,5 +26,8 @@
 #dropdown-menu{
   color: rgb(180, 180, 180);
   
+}
+#togglerbutton {
+ position:relative 
 }
 

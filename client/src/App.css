@@ -120,7 +120,7 @@ footer {
 
 
 .navbar {
-height: 50px;
+  height: max-content;
 
 }
 

@@ -8,7 +8,7 @@ import InstructionUi from "./Instruction";
 import { NoPhase } from "./phases/Phases";
 import IncomingInstruction from "./IncomingInstruction";
 import PhaseController from "./PhaseController";
-import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction } from "../../actions/assistentActions";
+import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction, setActive } from "../../actions/assistentActions";
 import { getScriptById } from "../../actions/scriptActions";
 import { setSharedDocEditing } from "../../actions/localStateActions";
 
@@ -84,6 +84,13 @@ class Assistent extends Component {
 
     }
 
+    setAssitent(e) {
+        // if (this.props.assistent.active)
+        this.props.setActive(!this.props.assistent.active);
+        //else (this.props.setActive(false))
+      }
+    
+
     deleteIncomingInstruction() {
         this.actualize();
         this.props.setIncominginstruction(null);
@@ -119,8 +126,8 @@ class Assistent extends Component {
 
         return (
             <div id="assistent" title="Ich bin dein Assistent und werde dich durch die Session führen.">
-                <div className="panel" id="laempel">
-                    <img src={assi_on} alt="Laempel" width="100%" height="100%" />
+                <div className="panel " id="laempel">
+                    <img src={assi_on} alt="Laempel" width="100%" height="100%" onClick={this.setAssitent.bind(this)} />
                 </div>
 
                 <PhaseController createRef={el => (this.assistentControlRef = el)} />
@@ -166,7 +173,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps, { PhaseController, setSharedDocEditing, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
+    mapStateToProps, {setActive, PhaseController, setSharedDocEditing, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
 )(withRouter(Assistent));
 
 

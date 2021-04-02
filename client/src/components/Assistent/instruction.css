@@ -2,9 +2,9 @@
   
   .sprechblase {
     position: relative;
-    max-width: 92.4%;
+    max-width: 88.4%;
     left:100px;
-      min-width: 90px;
+      min-width: 80px;
       min-height: 100px;
       padding: 10px;
       text-align: center;
@@ -21,7 +21,7 @@
    
   .sprechblase-incoming {
     position: relative;
-    max-width: 92.4%;
+    max-width: 88.4%;
     left:100px;
       min-width: 80px;
       min-height: 100px;

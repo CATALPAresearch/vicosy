@@ -12,6 +12,7 @@ import { LOG } from "../logic-controls/logEvents";
 import "./navbar.css";
 import { TRAINER } from "../../actions/types";
 import { setActive } from "../../actions/assistentActions";
+import Assistent from "../Assistent/Assistent";
 
 class Navbar extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class Navbar extends Component {
 
   render() {
     var toggleName = "";
-    this.props.assistent.active ? toggleName = "navbar navbar-dark bg-dark mb-0" : toggleName = "navbar navbar-dark bg-dark mb-0 navbar-expand-sm";
+    this.props.assistent.active ? toggleName = "navbar navbar-dark  bg-dark mb-0" : toggleName = "navbar navbar-dark bg-dark mb-0 navbar-expand-sm";
 
     const { isAuthenticated, user } = this.props.auth;
 
@@ -90,6 +91,7 @@ class Navbar extends Component {
 
     const { isSession } = this.props;
     const userNav = (
+
       <li className="nav-item dropdown" id="dropdown-menu-pos">
 
         <a className="nav-link dropdown-toggle " id="dropdown-menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -132,8 +134,10 @@ class Navbar extends Component {
           </li>
         );
     */
+
+
     const authLinks = (
-      <ul className="navbar-nav ml-auto">
+      <ul className={this.props.assistent.active ? "navbar-nav ml-auto w-25 p-3" : "navbar-nav ml-auto"}>
         <li className="nav-item">
           {this.props.auth.user.role === TRAINER ?
             <Link className="nav-link" to="/trainerlobby" title="Hier geht es zu den Scripts">
@@ -213,27 +217,33 @@ class Navbar extends Component {
 
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
           {this.props.auth.user.role === "STUDENT" ?
-            <button id="switchAssistent" title="Hier kannst du den Assistenten einschalten" className="secondary" onClick={this.setAssitent.bind(this)}>Assistent</button> : null}
-
+            !this.props.assistent.active ?
+              <button id="switchAssistent" title="Hier kannst du den Assistenten einschalten" className="secondary" onClick={this.setAssitent.bind(this)}>Assistent</button> : null : null}
+          {this.props.assistent.active ? <Assistent /> : null}
           {errorMessage}
           {warningMessage}
 
           <button
             ref={this.togglerRef}
-            className="navbar-toggler"
+            className="navbar-toggler ml-auto "
+            id="togglerbutton"
             type="button"
             data-toggle="collapse"
-            data-target="#RightNavItems"
+            data-target="#toggleContainer"
           >
+
             <span className="navbar-toggler-icon" />
           </button>
-
           <div
             onClick={() => {
               //  if (isSession) this.togglerRef.current.click();
             }}
-            className="collapse navbar-collapse"
-            id="RightNavItems"
+            className={"collapse navbar-collapse"}
+            id="toggleContainer"
+            style={{
+              width: 100,
+              position: "static"
+            }}
           >
             {/* {isSession ? sessionInfo : null} */}
             {!this.props.assistent.active ?
@@ -244,6 +254,8 @@ class Navbar extends Component {
 
 
           </div>
+
+
 
         </nav>
         {this.props.assistent.warningMessage ?
