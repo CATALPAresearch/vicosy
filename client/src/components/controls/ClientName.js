@@ -40,7 +40,7 @@ export default class ClientName extends Component {
             sharedData={this.props.roomData.state.sharedRoomData}
           />
         ) : null}
-        {nickName}
+        {this.props.isOwn?"Du":nickName}
       </span>
     );
   }
@@ -74,7 +74,6 @@ export default class ClientName extends Component {
 ClientName.propTypes = {
   roomData: PropTypes.object,
   clientId: PropTypes.string,
-
   color: PropTypes.string,
   nickName: PropTypes.string,
   showRoleIcon: PropTypes.bool

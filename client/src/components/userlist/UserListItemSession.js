@@ -292,6 +292,7 @@ class UserListItemSession extends Component {
               roomData={this.roomData}
               clientId={clientId}
               allowRoleIcon={true}
+              isOwn={isOwn}
             />
             <i
               className={`viewspace-indicator fa ${usersViewSpaceIcon}`}

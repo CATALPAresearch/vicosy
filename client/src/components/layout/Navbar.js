@@ -92,7 +92,7 @@ class Navbar extends Component {
     const { isSession } = this.props;
     const userNav = (
 
-      <li className="nav-item dropdown" id="dropdown-menu-pos">
+      <li className="nav-item dropdown " id="dropdown-menu-pos">
 
         <a className="nav-link dropdown-toggle " id="dropdown-menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img
