@@ -41,7 +41,7 @@ const sharedConnection = shareDBServer.connect();
 
 
 
-var colorHash = new ColorHash({ saturation: 0.5 });
+var colorHash = new ColorHash({ saturation: 0.5, lightness: 0.2 });
 
 const isSecure = !!keys.ssl_cert;
 

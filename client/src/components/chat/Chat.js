@@ -10,6 +10,7 @@ import InnerShadowSmall from "../layout/InnerShadowSmall";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { setUnseenActivities } from "../../actions/localStateActions";
+import { ownSocketId } from "../../socket-handlers/api";
 
 import HintArrow from '../Assistent/HintArrow'
 
@@ -101,6 +102,10 @@ class Chat extends Component {
     const { roomAvailable, roomData } = this.props.roomState;
     var messages = null;
 
+
+    
+  
+
     // console.log("available", roomAvailable);
 
     if (roomAvailable && roomData) {
@@ -127,7 +132,7 @@ class Chat extends Component {
           <ChatMessage
             key={message.timestamp + Math.random()}
             message={message}
-          />
+                    />
         ));
       }
     }

@@ -83,11 +83,11 @@ class UserListItemSession extends Component {
       return (
         // <i className="fa fa-play-circle" style={{ color: "#007bff" }} />
         <i title="Videoaktivitäten"
-          className={classnames("fa ml-1 primaryBack", {
+          className={classnames("fa ml-1", {
             "fa-play-circle": mediaAction === "play",
             "fa-pause-circle": mediaAction === "pause"
           })}
-          
+          style={{ color: "#000000" }}
         />
       );
     } else return null;
@@ -165,7 +165,7 @@ class UserListItemSession extends Component {
      * Check users view space. Priority: absent, shared editor, annotation, film/frame
      */
     var usersViewSpaceIcon = "fa-film";
-    var viewSpaceHint = "This user is focussed on the video";
+    var viewSpaceHint = "Der Benutzer hat den Fokus auf dem Video";
 
     // is user absent?
     const isAppInFocus = isOwn

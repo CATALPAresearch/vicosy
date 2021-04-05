@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ClientName from "../controls/ClientName";
 import PropTypes from "prop-types";
+import { ownSocketId } from "../../socket-handlers/api";
+
 import {
   MESSAGE_SYNCHACTION,
   MESSAGE_JOINLEAVE,
@@ -44,7 +46,7 @@ export default class ChatMessage extends Component {
         );
         break;
       case CHAT_DEFAULT:
-            messageContent = (
+        messageContent = (
           <span className="font-weight-light chat-message small">
             {message.message}
           </span>
@@ -61,7 +63,7 @@ export default class ChatMessage extends Component {
 
     const senderContent = message.nick ? (
       <div>
-        <ClientName color={message.color} nickName={message.nick} />{" "}
+        <ClientName color={message.color} nickName={message.sender === ownSocketId() ? "Du" : message.nick} />{" "}
       </div>
     ) : null;
 
@@ -70,11 +72,11 @@ export default class ChatMessage extends Component {
       <li
         key={message.timestamp}
         className={`list-group-item chat-message-wrapper ${additionalListClasses}`}
-        style={{padding:2}}
+        style={{ padding: 2 }}
       >
         {senderContent}
-        <span  style={{marginLeft:10, paddingTop:0}}>
-        {messageContent}
+        <span style={{ marginLeft: 10, paddingTop: 0 }}>
+          {messageContent}
         </span>
       </li>
     );

@@ -25,7 +25,10 @@
 .chat-content {
   height: calc(100% - 45px);
   overflow-y: auto;
+  border-radius: 1;
+
 }
+
 
 .message-list {
 }

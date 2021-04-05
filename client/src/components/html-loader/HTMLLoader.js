@@ -8,7 +8,7 @@ export default class HTMLLoader extends Component {
       // <div style={{width: 100%, height:100%}}>
       <Iframe
         url={this.props.url}
-        id="myId"
+        id="IframeContent"
         className="myClassname"
         display="initial"
         height="100%"

@@ -25,7 +25,7 @@ class RoleIcon extends Component {
 
     if (staticRoleData[ownRole] && staticRoleData[ownRole].faIcon)
       return (
-        <span className="roleicon" title={ownRole}>
+        <span className="roleicon" title={ownRole==="ROLE_TUTOR"?"Du hast die Rolle des Tutors":"Du hast die Rolle des Tuties"}>
           <i className={`mr-1 fa fa-${staticRoleData[ownRole].faIcon}`} />
         </span>
       );
