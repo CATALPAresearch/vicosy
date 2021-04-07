@@ -33,7 +33,7 @@ export  class ToggleSwitchButton extends Component {
                   <HintArrow
                     style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 1000 }}
                     direction="up"
-                  /> : null : null}
+              /> : null : null}
       </div>
     );
   }

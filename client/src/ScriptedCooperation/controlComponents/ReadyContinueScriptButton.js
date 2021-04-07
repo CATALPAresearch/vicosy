@@ -6,6 +6,7 @@ import ToggleSwitchButton from "../../components/controls/ToggleSwitchButton";
 import { updateContinueButton } from "../../actions/assistentActions";
 import "./script-components.css";
 import HintArrow from "./../../components/Assistent/HintArrow";
+import OkButton from "./OkButton";
 
 /**
  * displays a button based on the states of the roles
@@ -104,16 +105,16 @@ class ReadyContinueScriptButton extends Component {
           </div>
         ) : (
           <div>
-            <button style={divStyle} id="toggle-switch"
-              onClick={this.onButtonClick}
+            <OkButton style={divStyle}
+              onButtonClick={this.onButtonClick}
               className="btn primaryCol btn-sm"
             >
-              Finish Phase
-              <i className="ml-1 fa fa-check-circle" />
-            </button>
+             
+            </OkButton>
             </div>
           )}
-           {this.props.assistent.actInstruction?this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
+           { /*
+           this.props.assistent.actInstruction?this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
                 <HintArrow
                   style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 1000 }}
                   direction="up"
@@ -123,7 +124,7 @@ class ReadyContinueScriptButton extends Component {
                   <HintArrow
                     style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 1000 }}
                     direction="up"
-                  /> : null : null}
+              /> : null : null*/}
       </div>
     );
 
@@ -148,8 +149,7 @@ ReadyContinueScriptButton.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  rooms: state.rooms,
-  assistent: state.assistent
+  rooms: state.rooms
 });
 
 export default connect(
