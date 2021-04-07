@@ -65,10 +65,10 @@ export class ProgressBar extends Component {
                     case "DEEPENTUTORPOST":
                         id6 = "actPhase";
                         break;
-                    case "REFLEXIONPRE":
+                    case "REFLECTION":
                         id7 = "actPhase";
                         break;
-                    case "REFLEXIONPOST":
+                    case "REFLECTIONPOST":
                         id7 = "actPhase";
                         break;
                     default:

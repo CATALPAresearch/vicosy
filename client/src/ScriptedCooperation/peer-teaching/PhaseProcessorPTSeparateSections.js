@@ -49,17 +49,21 @@ export default class PhaseProcessorPTSeparateSections extends PhaseProcessor {
 */
     if (isTutor) {
       this.setEnabledFeatures([FEATURES.ANNOTATING]);
-
+      super.closeGuide();
+/*
       super.openGuidePath(
         "/PeerTeachingGuide/SeparateSections_Leader.html",
         "simple"
-      );
+      );*/
       super.setPhase("SEPERATESECTIONSTUTOR");
     } else {
+      /*
       super.openGuidePath(
         "/PeerTeachingGuide/SeparateSections_Joiner.html",
         "simple"
       );
+      */
+      super.closeGuide();
       super.setPhase("SEPERATESECTIONSTUTEE");
 
     }

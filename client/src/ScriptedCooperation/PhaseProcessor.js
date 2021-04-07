@@ -49,6 +49,10 @@ export default class PhaseProcessor extends Component {
     this.guideControlRef.openGuide(publicUrl, confirmationMode);
   }
 
+  closeGuide() {
+    this.guideControlRef.closeGuide();
+  };
+
   setPhase(phase) {
     this.assistentControlRef.setPhase(phase);
   }
@@ -84,25 +88,25 @@ export default class PhaseProcessor extends Component {
 
   render() {
     const { sessionData } = this.props;
-/*
-    const sessionType = sessionData.meta.sessionType;
-    const phase = sessionData.collabScript.phaseData.phaseId;
-*/
+    /*
+        const sessionType = sessionData.meta.sessionType;
+        const phase = sessionData.collabScript.phaseData.phaseId;
+    */
     const currentRole = this.getCurrentRole();
 
     return (
       <div id="PhaseBarContent">
-        
+
         {/*
         <div>
           {sessionType} > {phase} > {currentRole}
         </div> */}
         <div className="hFlexLayout">
-         
 
-            {this.state.specificContent}
-            <ReadyContinueScriptButton sessionData={sessionData} />
-         
+
+          {this.state.specificContent}
+          <ReadyContinueScriptButton sessionData={sessionData} />
+
           <FeatureSetup
             mode={this.state.featureSetupMode}
             features={this.state.features}

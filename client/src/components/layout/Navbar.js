@@ -104,7 +104,7 @@ class Navbar extends Component {
           />
           {this.props.auth.user.name}
         </a>
-        <div className="dropdown-menu" id="RightNavItems" aria-labelledby="navbarDropdown">
+        <ul className="dropdown-menu" id="RightNavItems" aria-labelledby="navbarDropdown">
           <li className="nav-item">
             <a className="nav-link" href="#">Settings</a>
           </li>
@@ -117,7 +117,7 @@ class Navbar extends Component {
               Logout
           </a>
           </li>
-        </div>
+        </ul>
       </li>
     )
 

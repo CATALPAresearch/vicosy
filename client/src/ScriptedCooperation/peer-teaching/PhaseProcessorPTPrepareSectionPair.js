@@ -34,7 +34,7 @@ class PhaseProcessorPTPrepareSectionPair extends PhaseProcessor {
     );
     */
 
-    super.openGuidePath("/PeerTeachingGuide/PrepareSection.html", "simple");
+    // super.openGuidePath("/PeerTeachingGuide/PrepareSection.html", "simple");
     super.setPhase("PREPARE");
     this.setEnabledFeatures([FEATURES.ANNOTATING]);
   }

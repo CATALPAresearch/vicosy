@@ -36,10 +36,12 @@ class PhaseProcessorPTPresentSection extends PhaseProcessor {
       );
       */
       super.setPhase("PRESENTTUTOR");
+      /*
       super.openGuidePath(
         "/PeerTeachingGuide/PresentSection_Tutor.html",
         "simple"
       );
+      */
     } else {
       /*
       super.logToChat(
@@ -47,10 +49,12 @@ class PhaseProcessorPTPresentSection extends PhaseProcessor {
           "Listen intense and ask if things are unclear to you, since you have to summarize the contents in a shared document in the following phase"
       );*/
       super.setPhase("PRESENTTUTEE");
+      /*
       super.openGuidePath(
         "/PeerTeachingGuide/PresentSection_Tutee.html",
         "simple"
       );
+      */
     }
   }
 

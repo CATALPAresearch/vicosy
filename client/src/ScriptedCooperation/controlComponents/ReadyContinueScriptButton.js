@@ -5,6 +5,7 @@ import { sendRoleReadyState } from "../../socket-handlers/api";
 import ToggleSwitchButton from "../../components/controls/ToggleSwitchButton";
 import { updateContinueButton } from "../../actions/assistentActions";
 import "./script-components.css";
+import HintArrow from "./../../components/Assistent/HintArrow";
 
 /**
  * displays a button based on the states of the roles
@@ -112,6 +113,17 @@ class ReadyContinueScriptButton extends Component {
             </button>
             </div>
           )}
+           {this.props.assistent.actInstruction?this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
+                <HintArrow
+                  style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 1000 }}
+                  direction="up"
+                /> : null:null}
+              {this.props.assistent.incomingInstruction ?
+                this.props.assistent.incomingInstruction.markers === "toggle-switch" ?
+                  <HintArrow
+                    style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 1000 }}
+                    direction="up"
+                  /> : null : null}
       </div>
     );
 
@@ -136,7 +148,8 @@ ReadyContinueScriptButton.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  rooms: state.rooms
+  rooms: state.rooms,
+  assistent: state.assistent
 });
 
 export default connect(

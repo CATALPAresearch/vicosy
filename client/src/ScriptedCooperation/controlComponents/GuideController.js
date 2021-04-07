@@ -17,6 +17,15 @@ class GuideController extends Component {
   // public
   openGuide(publicUrl, confirmationMode = "simple") {
     this.props.openPublicGuide(publicUrl, confirmationMode);
+
+
+  }
+
+  // public
+  closeGuide() {
+    this.props.closePublicGuide();
+
+
   }
 }
 

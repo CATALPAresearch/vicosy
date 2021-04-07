@@ -149,7 +149,7 @@ module.exports = class PeerTeachingProcessor extends SessionProcessor {
         // )
       );
     }
-    if (this.meta.isPhase0) {
+    if (this.meta.isPhase5) {
       console.log("Reflektionsphase erwünscht!");
       this.phaseQueue.push(
         new PeerTeachingReflection(this.sessionData, this, this.processQueue));

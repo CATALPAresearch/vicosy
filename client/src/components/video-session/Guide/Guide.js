@@ -114,7 +114,9 @@ class Guide extends Component {
               <ProgressBar />
             </div>
             <div id="confirmButton">
-              {this.props.assistent.actInstruction?this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
+              
+              {
+              /*this.props.assistent.actInstruction?this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
                 <HintArrow
                   style={{ position: "absolute", marginTop: 40, marginLeft: 60, zIndex: 1000 }}
                   direction="up"
@@ -124,7 +126,7 @@ class Guide extends Component {
                   <HintArrow
                     style={{ position: "absolute", marginTop: 40, marginLeft: 60, zIndex: 1000 }}
                     direction="up"
-                  /> : null : null}
+              /> : null : null*/}
 
               {confirmationComponent}
             </div>

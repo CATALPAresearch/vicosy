@@ -19,7 +19,7 @@ class PhaseProcessorPTDiscussion extends PhaseProcessor {
 
     this.setEnabledFeatures([FEATURES.SHARED_DOC]);
     super.setPhase("DISCUSSION");
-    super.openGuidePath("/PeerTeachingGuide/Discussion.html", "simple");
+    // super.openGuidePath("/PeerTeachingGuide/Discussion.html", "simple");
 
     setTimeout(() => {
       window.sessionEvents.dispatch(SEEK_REQUEST, this.getTargetTime());
