@@ -16,7 +16,7 @@ export default props => {
     <footer id="main-footer" className="d-flex bd-highlight mb-3 bg-dark text-white">
       <span className="ml-auto p-2 bd-highlight"></span>      Copyright &copy; {new Date().getFullYear()} CloseUpTogether
 
-      { faqItem}
+      {/* faqItem*/}
     </footer>
   );
 

@@ -90,6 +90,19 @@ class Navbar extends Component {
     }
 
     const { isSession } = this.props;
+
+    const faqItem = (
+      <li className="nav-item">
+        <a
+          className="nav-link"
+          href="http://h2088653.stratoserver.net/closeuptogether/faq/closeup-faq.html"
+          target="_blank"
+        >
+          FAQ <i className="fa fa-question-circle" />
+        </a>
+      </li>
+    );
+    
     const userNav = (
 
       <li className="nav-item dropdown " id="dropdown-menu-pos">
@@ -108,6 +121,7 @@ class Navbar extends Component {
           <li className="nav-item">
             <a className="nav-link" href="#">Settings</a>
           </li>
+          {faqItem}
           <li className="nav-item">
             <a
               href=""
@@ -121,19 +135,9 @@ class Navbar extends Component {
       </li>
     )
 
-    /*
-        const faqItem = (
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              href="http://h2088653.stratoserver.net/closeuptogether/faq/closeup-faq.html"
-              target="_blank"
-            >
-              FAQ <i className="fa fa-question-circle" />
-            </a>
-          </li>
-        );
-    */
+    
+ 
+    
 
 
     const authLinks = (
