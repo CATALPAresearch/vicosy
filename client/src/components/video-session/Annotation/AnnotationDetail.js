@@ -200,7 +200,7 @@ class AnnotationDetail extends Component {
         })}
       >
         <form className="form-control form-control-lg" onSubmit={this.onSubmit}>
-          <div>Chapter creation</div>
+          <div>Annotation</div>
 
           <div className="form-group">
             <div className="input-group mb-2">
@@ -254,8 +254,7 @@ class AnnotationDetail extends Component {
           </div>
           {this.state.isNew ? (
             <p className="text-secondary" style={{ fontSize: "small" }}>
-              Tip: Quickly add annotation by <br></br>sending "@@TITLE" chat command
-            </p>
+              Tipp: Annotation <br></br>mit "@@TITLE" im Chat setzen            </p>
           ) : null}
           <button
             onClick={this.onJumpClick.bind(this)}
@@ -270,8 +269,8 @@ class AnnotationDetail extends Component {
           <input
             className="btn primaryCol mb-2 btn-sm"
             type="submit"
-            value={this.state.isNew ? "Create" : "Submit"}
-            title="Save this annotation to shared space"
+            value={this.state.isNew ? "Setzen" : "Setzen"}
+            title="Speichere die Annotation"
           />
 
           <button
@@ -300,7 +299,7 @@ class AnnotationDetail extends Component {
             disabled=
             {(phase !== "PHASE_SEPARATE_SECTIONS" && this.state.type === "annotation-section")}
           >
-            Remove
+            Entfernen
             
 
 

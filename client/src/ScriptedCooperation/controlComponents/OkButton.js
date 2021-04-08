@@ -13,7 +13,7 @@ export class OkButton extends Component {
                     onClick={this.props.onButtonClick}
                     className="btn primaryCol btn-sm"
                 >
-                    Finish Phase
+                    Phase beenden
           <i className="ml-1 fa fa-check-circle" />
                 </button>
                 {this.props.assistent.actInstruction ? this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
@@ -24,7 +24,7 @@ export class OkButton extends Component {
                 {this.props.assistent.incomingInstruction ?
                     this.props.assistent.incomingInstruction.markers === "toggle-switch" ?
                         <HintArrow
-                            style={{ position: "absolute", marginTop: 20, marginLeft: -60, zIndex: 1000 }}
+                            style={{ position: "absolute", marginTop: 20, marginLeft: -60, zIndex: 100 }}
                             direction="up"
                         /> : null : null}
             </div>

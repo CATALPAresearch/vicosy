@@ -69,7 +69,7 @@ class MainRessourceTabs extends Component {
           // (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId!=="PHASE_SEPARATE_SECTIONS"||tab.id!=="doc-tab")?
 
           <li key={tab.id}
-            className="nav-item"
+            className="nav-item primaryCol"
             title={tab.title}
 
           >

@@ -31,13 +31,13 @@ class SideBarTabs extends Component {
       {
         id: "notes-tab",
         callback: this.props.selectSidebarTabNotes,
-        name: "Notes",
+        name: "Notizen",
         title: "Bereich für persönliche Notizen"
       },
       {
         id: "annotations-tab",
         callback: this.props.selectSidebarTabAnnotations,
-        name: "Annotations",
+        name: "Annotationen",
         title: "Hier finden sich Sektionseinteilungen und andere Markierungen auf dem Video"
       }
     ];

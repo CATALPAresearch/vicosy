@@ -155,8 +155,7 @@ export class PreparePre extends AbstractPhase {
         this.instructions.push(new Instruction("Hier beginnt dein Abschnitt (hell gekennzeichnet) ", "asynch-timeline-handle"));
         this.instructions.push(new Instruction("Mache dir hier Notizen.", "notes-tab"));
         this.instructions.push(new Instruction("Möchtest du in deinem Vortrag Bilder aus dem Video zeigen, kannst du diese über 'Annotate' speichern.", "annot-button"));
-        this.instructions.push(new Instruction("Über den Tab 'Annotations' kannst du später darauf zugreifen", "annotations-tab"));
-        this.instructions.push(new Instruction("Bereite einen Vortrag für deinen Abschnitt vor", ""));
+        this.instructions.push(new Instruction("Über den Tab 'Annotationen' kannst du später darauf zugreifen", "annotations-tab"));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", "ready-to-finish"));
 
     }
@@ -173,7 +172,7 @@ export class PreparePost extends AbstractPhase {
         this.instructions.push(new Instruction("Hier beginnt dein Abschnitt (hell gekennzeichnet) ", "asynch-timeline-handle"));
         this.instructions.push(new Instruction("Mache dir hier Notizen.", "notes-tab"));
         this.instructions.push(new Instruction("Möchtest du in deinem Vortrag Bilder aus dem Video zeigen, kannst du diese über 'Annotate' speichern.", "annot-button"));
-        this.instructions.push(new Instruction("Über den Tab 'Annotations' kannst du später darauf zugreifen", "annotations-tab"));
+        this.instructions.push(new Instruction("Über den Tab 'Annotationen' kannst du später darauf zugreifen", "annotations-tab"));
         this.instructions.push(new Instruction("Bereite einen Vortrag für deinen Abschnitt vor", ""));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", "ready-to-finish"));
     }
@@ -245,7 +244,7 @@ export class DeepenTutorPre extends AbstractPhase {
     constructor() {
         super();
         this.name = "DEEPENTUTORPRE";
-        this.instructions.push(new Instruction("Unterstüzte deinen Partner dabei, den Vortrag zusammenzufassen.", ""));
+        this.instructions.push(new Instruction("Unterstütze deinen Partner dabei, den Vortrag zusammenzufassen.", ""));
         this.instructions.push(new Instruction("Dein Partner schreibt in das gemeinsame Dokument. Hilf und korrigiere.", "doc-tab"));
         this.instructions.push(new Instruction("Ihr könnte bei Unklarheiten im Video nachschauen.", "video-tab"));
         this.instructions.push(new Instruction("Mit diesem Button leitest du die nächste Phase ein.", "ready-to-finish"));
@@ -318,8 +317,8 @@ export class Discussion extends AbstractPhase {
         this.name = "DISCUSSION";
         if (assignment) {
             this.instructions.push(new Instruction(assignment, ""));
-            }
-            else 
+        }
+        else
             this.instructions.push(new Instruction("Diskutiert nun über das Thema", ""));
 
     }

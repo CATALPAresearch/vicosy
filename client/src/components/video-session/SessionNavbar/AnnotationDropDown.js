@@ -71,7 +71,7 @@ class AnnotationDropDown extends Component {
             style={{ position: "absolute", marginTop: -80, marginLeft: 60, zIndex: 1000 }}
             direction="down"
           /> : null:null}
-        <i className="fa fa-film" /> Create Chapter
+        <i className="fa fa-film" /> Kapitel setzen
       </button>
       );
       if (this.props.settings.annotationType == "annotation")

@@ -196,8 +196,7 @@ class VideoSession extends Component {
           }}
           className="btn primaryCol"
         >
-          continue
-        </button>
+          Weiter        </button>
       </h1>
     );
 

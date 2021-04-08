@@ -189,7 +189,7 @@ class Chat extends Component {
 
             <button type="submit" className="btn primaryCol btn-sm">
 
-              Send       
+              Senden       
             
             </button>
             <span>

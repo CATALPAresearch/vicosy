@@ -5,7 +5,7 @@
 }
 
 #ContainerAssistent {
-  height: calc(82% - 50px);
+  height: calc(82%);
   overflow: auto;
   min-height: 0px;
 }

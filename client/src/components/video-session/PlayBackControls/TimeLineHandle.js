@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import "./slider.css";
 import classnames from "classnames";
+import { connect } from "react-redux";
+import HintArrow from '../../Assistent/HintArrow'
 
-export default class TimeLineHandle extends Component {
+export class TimeLineHandle extends Component {
   render() {
     const syncHandle = (
       <div
@@ -19,10 +21,26 @@ export default class TimeLineHandle extends Component {
       <div id="asynch-timeline-handle"
         style={{ left: `${this.props.offset}%` }}
         className="basic-timeline-handle async-timeline-handle"
-      ></div>
+      >
+        {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "asynch-timeline-handle" ?
+          <HintArrow
+            style={{ position: "absolute", left: -12, bottom: 26 }}
+            direction="down"
+          /> : null : null}
+
+      </div>
+
     );
 
     return this.props.isSyncSpace ? syncHandle : asyncHandle;
   }
 }
 
+
+const mapStateToProps = state => ({
+  assistent: state.assistent
+});
+
+export default connect(
+  mapStateToProps
+)(TimeLineHandle);
