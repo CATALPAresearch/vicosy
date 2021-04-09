@@ -149,6 +149,11 @@ class Chat extends Component {
         style= {{position: "absolute", left: 120, bottom:40}}
         direction="down"
         /> :null:null}
+         {this.props.assistent.incomingInstruction?this.props.assistent.active&&this.props.assistent.incomingInstruction.markers==="chat-write"?
+        <HintArrow
+        style= {{position: "absolute", left: 120, bottom:40}}
+        direction="down"
+        /> :null:null}
 
         <div className="chat-content relative" ref={this.contentRef}>
           <ul className="list-group message-list list-group-flush medium">

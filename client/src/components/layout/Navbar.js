@@ -13,6 +13,8 @@ import "./navbar.css";
 import { TRAINER } from "../../actions/types";
 import { setActive } from "../../actions/assistentActions";
 import Assistent from "../Assistent/Assistent";
+import HintArrow from "../Assistent/HintArrow";
+
 
 class Navbar extends Component {
   constructor(props) {
@@ -102,7 +104,7 @@ class Navbar extends Component {
         </a>
       </li>
     );
-    
+
     const userNav = (
 
       <li className="nav-item dropdown " id="dropdown-menu-pos">
@@ -135,15 +137,15 @@ class Navbar extends Component {
       </li>
     )
 
-    
- 
-    
+
+
+
 
 
     const authLinks = (
       <ul className={this.props.assistent.active ? "navbar-nav ml-auto dropdown-menu navbar-dark bg-dark" : "navbar-nav ml-auto"}
-      
-      style={this.props.assistent.active?{right:0, width:100, paddingLeft:4}:null}
+
+        style={this.props.assistent.active ? { right: 0, width: 100, paddingLeft: 4 } : null}
       >
         <li className="nav-item">
           {this.props.auth.user.role === TRAINER ?
@@ -238,6 +240,11 @@ class Navbar extends Component {
             data-toggle="collapse"
             data-target="#toggleContainer"
           >
+            {this.props.assistent.incomingInstruction ? this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "faq" ?
+              <HintArrow
+                style={{ position: "absolute", left:10 , top: 30 }}
+                direction="up"
+              /> : null : null}
 
             <span className="navbar-toggler-icon" />
           </button>

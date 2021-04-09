@@ -4,7 +4,8 @@ import { sendActiveMessage, setIncominginstruction, sendTabLostMessage } from ".
 import { ownSocketId } from "../../../socket-handlers/api";
 import Instruction from "../../Assistent/phases/Instruction";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
-const assistentConfig = require ("../../../shared_constants/assistent");
+import Hints from "./hints";
+const assistentConfig = require("../../../shared_constants/assistent");
 const { listenActiveMessage, listenTabLostMessage } = require("../../../socket-handlers/api")
 
 
@@ -20,10 +21,13 @@ export class ActivityOberserver extends Component {
         this.state = { partnerActive: true, partner: null };
         this.sendActiveMessageInterval = assistentConfig.inactive_report_interval;
         this.checkActiveMessageInterval = assistentConfig.inactive_check_interval;
-        
+        this.selfInactiveInterval = assistentConfig.self_inactive_check_interval;
+        this.hints = new Hints();
+
         //this.activeMessageTimeOut = setTimeout(function () { this.setState({ partnerActive: false }) }, this.checkActiveMessageInterval);
         this.activeMessageTimeOut = null;
         this.resetTimerVar = null;
+
         this.partner = null;
         this.resetTimer(null);
         listenActiveMessage(ownSocketId(), result => {
@@ -47,22 +51,28 @@ export class ActivityOberserver extends Component {
         }, this.sendActiveMessageInterval);
 
 
+        this.selfTimeOut = setTimeout(() => {
+            this.showHint();
+
+        }, this.selfInactiveInterval);
+
+
+
+
         //Listener for Events that will be send to partner(s)
 
         window.addEventListener('blur',
             this.sendTabLostMessage.bind(this)
-
         );
         window.addEventListener('mousemove',
-            this.testFunction.bind(this)
-        )
+            this.testFunction.bind(this))
         window.addEventListener('onkeypress',
-            this.testFunction.bind(this)
-        )
+            this.testFunction.bind(this))
 
     }
 
     testFunction() {
+        this.resetSelfTimer();
         clearTimeout(this.timeOut);
         this.timeOut = setTimeout(() => {
             clearInterval(this.interval);
@@ -91,6 +101,30 @@ export class ActivityOberserver extends Component {
 
 
     }
+
+    showHint() {
+        let position = Math.floor(Math.random() * this.hints.instructions.length);
+        if (this.hints.instructions.length > 0) {
+            this.props.setIncominginstruction(this.hints.instructions[position]);
+            this.hints.instructions.splice(position, 1);
+            this.resetSelfTimer();
+        }
+
+    }
+
+    resetSelfTimer() {
+        clearTimeout(this.selfTimeOut);
+
+        this.selfTimeOut = setTimeout(() => {
+            this.showHint();
+
+        }, this.selfInactiveInterval);
+
+
+    }
+
+
+
 
     resetTimer(partnerName) {
         this.partner = partnerName;
@@ -124,7 +158,8 @@ export class ActivityOberserver extends Component {
         this.resetTimer(this.partner);
     }
     componentDidMount() {
-        window.sessionEvents.add(TIME_UPDATE, this.onVideoTimeUpdate);
+        window.sessionEvents.add(TIME_UPDATE, this.onVideoTimeUpdate,
+            this.resetSelfTimer());
     }
     render() {
 

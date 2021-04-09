@@ -116,6 +116,11 @@ class UserListItemSession extends Component {
               style={{ position: "absolute", top: -5, right:50 }}
               direction="right"
             /> : null:null}
+              {this.props.assistent.incomingInstruction?this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "video-button" ?
+            <HintArrow
+              style={{ position: "absolute", top: -5, right:50 }}
+              direction="right"
+            /> : null:null}
           <i id="video-button" className="fa fa-video" style={{ color: "#FFF" }} />
         </button>
      
@@ -127,6 +132,11 @@ class UserListItemSession extends Component {
           title="Starte Audio-Streaming"
         >
              {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "audio-button" ?
+            <HintArrow
+              style={{ position: "absolute", top: -5, right:20 }}
+              direction="right"
+            /> : null:null}
+              {this.props.assistent.incomingInstruction?this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "audio-button" ?
             <HintArrow
               style={{ position: "absolute", top: -5, right:20 }}
               direction="right"
