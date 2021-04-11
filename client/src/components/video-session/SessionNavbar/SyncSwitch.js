@@ -29,13 +29,13 @@ class SyncSwitch extends Component {
       window.logEvents.dispatch(LOG, {
         class: "success",
         message:
-          "You are now in 'Sync Video Mode'. Actions like navigating the video and drawing will now affect others in the same mode."
+          "Du bist jetzt im 'Sync Video Mode'. Handlungen wie Navigation und malen wirken sich auf alle aus."
       });
     } else {
       window.logEvents.dispatch(LOG, {
         class: "danger",
         message:
-          "You are now in 'Async Video Mode'. You can navigate the video without affecting others."
+          "Du bist im 'Async Video Mode'. Navigation im Video wirkt sich nur bei dir aus."
       });
     }
   }
