@@ -16,7 +16,7 @@ export  class ToggleSwitchButton extends Component {
           onClick={this.props.onToggle}
           className={classnames("btn btn-sm hFlexLayout", {
             "btn-success": this.props.isChecked,
-            "btn-danger": !this.props.isChecked
+            "btn primaryCol": !this.props.isChecked
           })}
         >
           <span className="mr-1">{this.props.label}</span>{" "}

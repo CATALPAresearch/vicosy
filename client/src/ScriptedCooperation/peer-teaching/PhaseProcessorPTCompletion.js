@@ -9,7 +9,7 @@ class PhaseProcessorPTCompletion extends PhaseProcessor {
 
     this.setEnabledFeatures([]);
 
-   // super.openGuidePath("/PeerTeachingGuide/Completion.html", "none");
+    super.openGuidePath("/PeerTeachingGuide/Completion.html", "none");
     super.setPhase("COMPLETION");
   }
 }

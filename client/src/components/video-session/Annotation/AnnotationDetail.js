@@ -208,7 +208,7 @@ class AnnotationDetail extends Component {
                 <div
                   className={classnames("input-group-text", {
                     "primaryBack": this.state.frameSynced,
-                    "bg-danger": !this.state.frameSynced
+                    "bg-warning": !this.state.frameSynced
                   })}
                   title="Indicates if the current video frame matches the annotation time."
                 >
@@ -292,7 +292,7 @@ class AnnotationDetail extends Component {
           <button
             onClick={this.onRemoveClick.bind(this)}
             type="button"
-            className={classnames("btn btn-danger mb-2 ml-2 btn-sm", {
+            className={classnames("btn btn-warning mb-2 ml-2 btn-sm", {
               "hidden-nosize": this.state.isNew
             })}
             title="Delete this annotation from shared space"

@@ -169,7 +169,7 @@ min-height: 95%;
 }
 
 .secondary {
-  background-color: #FFCC30;
+  background-color: #FACC2E;
 
 }
 
@@ -363,4 +363,10 @@ a, a:hover{
 
 
 
+
+.bg-danger {
+  background-color: #ffc107;
+  border: solid 2px #af8102;
+
+}
 
