@@ -5,6 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const users = require("./routes/api/users");
+const User = require("./models/User");
 const script = require("./routes/api/script");
 const docs = require("./routes/api/docs");
 const passport = require("passport");
@@ -12,6 +13,8 @@ const app = express();
 const socket = require("socket.io");
 const path = require("path");
 const jwt = require("jsonwebtoken");
+const gravatar = require("gravatar");
+const bcrypt = require("bcryptjs");
 const keys = require("./config/keys");
 const winston = require("./winston-setup");
 require("./client/src/utils/extensionMethods");
@@ -78,6 +81,104 @@ mongoose
   .catch(err => {
     console.log(err);
   });
+
+if (process.env.NODE_ENV === "development") {
+  User.findOne({ email: "testlehrer2@web.de" }).then(user => {
+    if (user) {
+      console.log("User schon vorhanden")
+    } else {
+      const avatar = gravatar.url("testlehrer@web.de", {
+        s: "200", // Size
+        r: "pg", // Rating
+        d: "mm" // Default
+      });
+
+      // create new Mongo resource: new [Modelname]([pass in data as object])
+      const newUser = new User({
+        name: "testlehrer",
+        email: "testlehrer@web.de",
+        avatar, // ES6 = avatar: avatar = avatar
+        password: "testlehrer",
+        role: "TRAINER"
+      });
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then(user => console.log("Salt gesetzt"))
+            .catch(err => console.log(err));
+        });
+      });
+    }
+  });
+  User.findOne({ email: "testschueler1@web.de" }).then(user => {
+    if (user) {
+      console.log("User schon vorhanden")
+    } else {
+      const avatar = gravatar.url("testschueler1@web.de", {
+        s: "200", // Size
+        r: "pg", // Rating
+        d: "mm" // Default
+      });
+
+      // create new Mongo resource: new [Modelname]([pass in data as object])
+      const newUser = new User({
+        name: "testschueler1",
+        email: "testschueler1@web.de",
+        avatar, // ES6 = avatar: avatar = avatar
+        password: "testschueler1",
+        role: "STUDENT"
+      });
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then(user => console.log("Salt gesetzt"))
+            .catch(err => console.log(err));
+        });
+      });
+    }
+  });
+  User.findOne({ email: "testschueler2@web.de" }).then(user => {
+    if (user) {
+      console.log("User schon vorhanden")
+    } else {
+      const avatar = gravatar.url("testschueler2@web.de", {
+        s: "200", // Size
+        r: "pg", // Rating
+        d: "mm" // Default
+      });
+
+      // create new Mongo resource: new [Modelname]([pass in data as object])
+      const newUser = new User({
+        name: "testschueler2",
+        email: "testschueler2@web.de",
+        avatar, // ES6 = avatar: avatar = avatar
+        password: "testschueler2",
+        role: "STUDENT"
+      });
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then(user => console.log("Salt gesetzt"))
+            .catch(err => console.log(err));
+        });
+      });
+    }
+  });
+
+}
+
 
 
 
@@ -162,7 +263,7 @@ io.use((socket, next) => {
     }
 
     console.log("authenticated", decoded);
-    
+
 
     var nickName = decoded.name;
     // guest account

@@ -62,6 +62,20 @@ PORT=5000 // backend server port
 
 ```
 
+### seed
+On start Seed User will be created
+E-Mail: testlehrer@web.de
+Password: testlehrer
+Role: TRAINER
+
+E-Mail: testschueler1@web.de
+Password: testschueler1
+Role: STUDENT
+
+E-Mail: testschueler2@web.de
+Password: testschueler2
+Role: STUDENT
+
 ### build optimized client build
 
 From root directory:

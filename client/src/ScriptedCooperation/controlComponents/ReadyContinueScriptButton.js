@@ -99,7 +99,7 @@ class ReadyContinueScriptButton extends Component {
             <ToggleSwitchButton
               onToggle={this.onButtonClick}
               isChecked={this.state.meIsReady}
-              label="Bereit für Ende"
+              label="Nächste Phase"
              
             />
           </div>
