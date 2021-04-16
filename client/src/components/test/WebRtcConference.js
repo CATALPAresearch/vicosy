@@ -102,8 +102,8 @@ var config = {
         if (socketId !== socket.id) otherMediaConfig = mediaConfigs[socketId];
       });
 
-      otherMediaConfig.audio = otherMediaConfig.audio == "true";
-      otherMediaConfig.video = otherMediaConfig.video == "true";
+      otherMediaConfig.audio = otherMediaConfig.audio === "true";
+      otherMediaConfig.video = otherMediaConfig.video === "true";
 
       // console.log(
       //   "both connected, others media config received",

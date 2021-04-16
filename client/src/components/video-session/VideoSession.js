@@ -47,6 +47,7 @@ import { withLastLocation } from "react-router-last-location";
 import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContainer";
 import Guide from "./Guide/Guide";
 import { getScriptByGroupId } from "../../actions/scriptActions";
+import log4javascript from "log4javascript";
 
 
 class VideoSession extends Component {
@@ -96,10 +97,21 @@ class VideoSession extends Component {
       window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
       window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
       this.updateRoomState(this.props);
+      this.initLogger();
     });
 
   }
 
+  initLogger() {
+    //in debug mode replace line 4 with line 3.
+    //window.myLogger = log4javascript.getDefaultLogger();
+    window.myLogger = log4javascript.getLogger();
+    var ajaxAppender = new log4javascript.AjaxAppender('/api/evallogger');
+    ajaxAppender.setBatchSize(10); // send in batches of 10
+    ajaxAppender.setSendAllOnUnload(); // send all remaining messages on window.beforeunload()
+    window.myLogger.addAppender(ajaxAppender);
+    window.myLogger.silly("erster Clientlog");
+  }
   componentWillUnmount() {
     const { sessionId } = this.props.match.params;
     // this.props.logoutRoom(this.props.match.params.sessionId);

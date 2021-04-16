@@ -7,7 +7,6 @@ import HTMLLoader from "../../html-loader/HTMLLoader";
 import ReadyContinueScriptButton from "../../../ScriptedCooperation/controlComponents/ReadyContinueScriptButton";
 import PhaseController from "../../Assistent/PhaseController";
 import ProgressBar from "./ProgressBar";
-import HintArrow from "../../Assistent/HintArrow";
 
 class Guide extends Component {
   constructor(props) {

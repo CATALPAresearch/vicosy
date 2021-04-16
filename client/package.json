@@ -13,6 +13,7 @@
     "classnames": "^2.2.6",
     "getusermedia": "^2.0.1",
     "jwt-decode": "^2.2.0",
+    "log4javascript": "^1.4.16",
     "moment": "^2.22.2",
     "or": "^0.2.0",
     "plyr": "^3.4.0-beta.2",

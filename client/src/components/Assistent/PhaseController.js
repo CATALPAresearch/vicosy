@@ -6,7 +6,7 @@ import {
 import { setIncominginstruction, setPhase, setActInstruction } from "../../actions/assistentActions";
 import { getScriptById } from "../../actions/scriptActions";
 import { connect } from "react-redux";
-import { Discussion, EmptyStudentLobby, Waiting, Completion, StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
+import {EmptyStudentLobby, Waiting, Completion, StudentLobby, ReflectionPre, ReflectionPost, PresentTutorPost, PresentTuteePost, PresentTutorPre, PresentTuteePre, PreparePost, PreparePre, GetTogether, WarmUp, SeparateSectionsTuteePost, SeparateSectionsTutorPost, DeepenTutorPre, DeepenTuteePre, DeepenTutorPost, DeepenTuteePost, SeparateSectionsTutorPrep, SeparateSectionsTuteePrep } from "./phases/Phases";
 import { setAnnotationType } from "../../actions/settingActions";
 
 export class PhaseController extends Component {
@@ -181,7 +181,6 @@ export class PhaseController extends Component {
         this.props.setPhase(actPhase);
         break;
 
-        break;
     }
 
 

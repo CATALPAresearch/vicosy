@@ -82,11 +82,14 @@ mongoose
     console.log(err);
   });
 
+// Create Dummy Users in Dev Mode
+
 if (process.env.NODE_ENV === "development") {
-  User.findOne({ email: "testlehrer2@web.de" }).then(user => {
+  User.findOne({ email: "testlehrer@web.de" }).then(user => {
     if (user) {
-      console.log("User schon vorhanden")
-    } else {
+      console.log("Testuser schon vorhanden")
+    }
+    else {
       const avatar = gravatar.url("testlehrer@web.de", {
         s: "200", // Size
         r: "pg", // Rating
@@ -108,7 +111,7 @@ if (process.env.NODE_ENV === "development") {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => console.log("Salt gesetzt"))
+            .then(user => console.log("Seed gesetzt"))
             .catch(err => console.log(err));
         });
       });
@@ -116,7 +119,7 @@ if (process.env.NODE_ENV === "development") {
   });
   User.findOne({ email: "testschueler1@web.de" }).then(user => {
     if (user) {
-      console.log("User schon vorhanden")
+      console.log("Testuser schon vorhanden")
     } else {
       const avatar = gravatar.url("testschueler1@web.de", {
         s: "200", // Size
@@ -139,7 +142,7 @@ if (process.env.NODE_ENV === "development") {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => console.log("Salt gesetzt"))
+            .then(user => console.log("Seed gesetzt"))
             .catch(err => console.log(err));
         });
       });
@@ -147,7 +150,7 @@ if (process.env.NODE_ENV === "development") {
   });
   User.findOne({ email: "testschueler2@web.de" }).then(user => {
     if (user) {
-      console.log("User schon vorhanden")
+      console.log("Testuser schon vorhanden")
     } else {
       const avatar = gravatar.url("testschueler2@web.de", {
         s: "200", // Size
@@ -170,7 +173,7 @@ if (process.env.NODE_ENV === "development") {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => console.log("Salt gesetzt"))
+            .then(user => console.log("Seed gesetzt"))
             .catch(err => console.log(err));
         });
       });
@@ -221,6 +224,22 @@ if (process.env.NODE_ENV === "production") {
 var server;
 const port = process.env.PORT || 5000;
 
+//// logger api
+//Initialize server instance
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.post('/api/evallogger', function (req, res, next) {
+  winston.log("silly", 'Client: ' + req.body.message);
+  return res.send('OK');
+});
+
+
+
+//End of logger
+
+
 if (isSecure) {
   const pfxContent = fs.readFileSync(keys.ssl_cert);
   console.log(pfxContent);
@@ -236,6 +255,8 @@ if (isSecure) {
     winston.info("SSL secured server listening on port " + port)
   );
 }
+
+
 
 // Socket connections
 const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
@@ -321,6 +342,7 @@ io.use((socket, next) => {
   next(err);
 });
 */
+
 
 
 // p2p signaling
