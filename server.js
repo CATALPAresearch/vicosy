@@ -17,6 +17,7 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const keys = require("./config/keys");
 const winston = require("./winston-setup");
+const { logToRoom, clearRoomLogger } = require("./winston-room-logger");
 require("./client/src/utils/extensionMethods");
 const ColorHash = require("color-hash");
 const Script = require("./models/Script");
@@ -231,7 +232,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.post('/api/evallogger', function (req, res, next) {
-  winston.log("silly", 'Client: ' + req.body.message);
+  winston.log("info", 'Client: ' + req.body.message);
+  //logToRoom(roomId, `Session created: ${JSON.stringify(meta)}`);
+
   return res.send('OK');
 });
 

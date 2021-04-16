@@ -72,6 +72,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   }
 
 
+  //logToRoom for evaluation
+  clientSocket.on("evalLogToRoom", (roomId, message) => {
+    logToRoom(roomId, message)});
 
   //notifies members in Script
   clientSocket.on("notifyMembers", script => {

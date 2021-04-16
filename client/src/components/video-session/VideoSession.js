@@ -18,7 +18,7 @@ import {
 import { withRouter } from "react-router";
 import { setError } from "../../actions/errorActions";
 import { joinConference } from "../test/WebRtcConference";
-import { ownSocketId } from "../../socket-handlers/api";
+import { ownSocketId, evalLogToRoom } from "../../socket-handlers/api";
 import { resetLocalState } from "../../actions/localStateActions";
 
 // import "../../p2p-handlers/P2PConnectionManager";
@@ -105,12 +105,15 @@ class VideoSession extends Component {
   initLogger() {
     //in debug mode replace line 4 with line 3.
     //window.myLogger = log4javascript.getDefaultLogger();
+    /*
     window.myLogger = log4javascript.getLogger();
     var ajaxAppender = new log4javascript.AjaxAppender('/api/evallogger');
     ajaxAppender.setBatchSize(10); // send in batches of 10
     ajaxAppender.setSendAllOnUnload(); // send all remaining messages on window.beforeunload()
     window.myLogger.addAppender(ajaxAppender);
-    window.myLogger.silly("erster Clientlog");
+    window.myLogger.info({ message: "nächster Clientlog", roomId: this.props.match.params.sessionId });
+ */
+    evalLogToRoom("eval" + this.props.match.params.sessionId, "erster Roomlog")
   }
   componentWillUnmount() {
     const { sessionId } = this.props.match.params;
