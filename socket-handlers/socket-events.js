@@ -7,7 +7,7 @@ const UsersDBApi = require("../models/User");
 const WebSocket = require('ws');
 const sessionTypes = require("../client/src/shared_constants/sessionTypes");
 const winston = require("../winston-setup");
-const { logToRoom, clearRoomLogger } = require("../winston-room-logger");
+const { logToEvalRoom, logToRoom, clearRoomLogger } = require("../winston-room-logger");
 const {
   tryCreateSessionProcessor
 } = require("../scripted-collaboration/processor-creator");
@@ -36,14 +36,14 @@ var sharedDoc = {};
 
 
 module.exports = function handleSocketEvents(clientSocket, socketIO) {
- 
+
 
   this.initSessions = function (callback) {
 
     ScriptDBApi.find({ started: true }).then(scripts => {
       for (var script of scripts) {
         for (var group of script.groups) {
-         // console.log("Session: ", group._id, " initiating!");
+          // console.log("Session: ", group._id, " initiating!");
           createTrainerSession(script, String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
           //clientSocket.emit("notifyMembers", script);
         }
@@ -73,8 +73,12 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
 
   //logToRoom for evaluation
-  clientSocket.on("evalLogToRoom", (roomId, message) => {
-    logToRoom(roomId, message)});
+  clientSocket.on("evalLogToRoom", (scriptId, roomId, message) => {
+    logToEvalRoom(roomId, message);
+    logToEvalRoom("scriptId"+scriptId, message);
+  }
+  );
+
 
   //notifies members in Script
   clientSocket.on("notifyMembers", script => {
@@ -139,9 +143,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
     DocDBApi.setIndividualText(content.text, content.docId);
   });
 
-//collab doc is started
+  //collab doc is started
   clientSocket.on("startSharedDoc", docId => {
-console.log("startSharedDoc")
+    console.log("startSharedDoc")
     sharedDoc = sharedConnection.get('docs', docId);
 
     sharedDoc.fetch(function (err) {
@@ -281,7 +285,7 @@ console.log("startSharedDoc")
         */
     // console.log(scriptshort);
     if (roomId in roomsData) {
-     // console.log("ERROR: TrainerSession already available", roomId);
+      // console.log("ERROR: TrainerSession already available", roomId);
       return;
     }
 

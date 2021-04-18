@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { sendActiveMessage, setIncominginstruction, sendTabLostMessage } from "../../../actions/assistentActions";
-import { ownSocketId } from "../../../socket-handlers/api";
+import { ownSocketId, evalLogToRoom } from "../../../socket-handlers/api";
 import Instruction from "../../Assistent/phases/Instruction";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
 import Hints from "./hints";
@@ -10,7 +10,7 @@ const { listenActiveMessage, listenTabLostMessage } = require("../../../socket-h
 
 
 
-// base class for assitent processor for backend Messages
+// base class for assistent processor for backend Messages
 export class ActivityOberserver extends Component {
 
     constructor(props) {
@@ -39,6 +39,7 @@ export class ActivityOberserver extends Component {
 
 
             this.props.setIncominginstruction(new Instruction("Dein Partner " + result.userName + " hat den Tab geschlossen oder gewechselt. Kontaktiere ihn.", ""))
+            evalLogToRoom(this.props.script._id, this.sessionId, this.sessionId+","+"videoposition,"+result.userName+","+ this.props.script.videourl+","+this.props.assistent.phase.name+ ",activity-observer,"+"TabChange,");
 
 
         });
@@ -135,18 +136,23 @@ export class ActivityOberserver extends Component {
 
     }
     showMessage() {
-        if (this.partner)
+        if (this.partner) {
             this.props.setIncominginstruction(new Instruction("Dein Partner " + this.partner + " ist seit über " + this.checkActiveMessageInterval / 1000 + " Sekunden inaktiv. Tritt mit ihm in Kontakt.", ""))
-        else
+            evalLogToRoom(this.props.script._id, this.sessionId, this.sessionId+","+"videoposition,"+this.partner+","+ this.props.script.videourl+","+this.props.assistent.phase.name+ ",activity-observer,"+"inaktiv,"+this.checkActiveMessageInterval / 1000);
+
+        }
+            else
             this.props.setIncominginstruction(new Instruction("Dein Partner ist aktuell nicht in der Sitzung.", ""))
 
     }
 
     sendTabLostMessage() {
         if (this.sessionId)
-            if (this.props.rooms.rooms[this.sessionId])
+            if (this.props.rooms.rooms[this.sessionId]) {
+      
                 this.props.sendTabLostMessage(this.sessionId, this.props.auth.user.name, ownSocketId(), this.props.rooms.rooms[this.sessionId].state.sharedRoomData.clients);
-    }
+              
+            }}
 
     sendActiveMessage() {
         if (this.sessionId)
@@ -169,12 +175,13 @@ export class ActivityOberserver extends Component {
 
 
 }
-
+  
 
 const mapStateToProps = state => ({
     localState: state.localState,
     auth: state.auth,
-    script: state.script
+    script: state.script,
+    assistent: state.assistent
 });
 
 export default connect(

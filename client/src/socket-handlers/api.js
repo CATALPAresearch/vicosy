@@ -339,8 +339,8 @@ const subscribeToRoom = (roomId, cb, usersCb, errorCb) => {
 };
 
 
-export const evalLogToRoom = (roomId, message) => {
-  socket.emit("evalLogToRoom", roomId, message);
+export const evalLogToRoom = (scriptId, roomId, message) => {
+  socket.emit("evalLogToRoom", scriptId, roomId, message);
 }
 
 const unsubscribeFromRoom = roomId => {

@@ -47,7 +47,6 @@ import { withLastLocation } from "react-router-last-location";
 import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContainer";
 import Guide from "./Guide/Guide";
 import { getScriptByGroupId } from "../../actions/scriptActions";
-import log4javascript from "log4javascript";
 
 
 class VideoSession extends Component {
@@ -113,8 +112,17 @@ class VideoSession extends Component {
     window.myLogger.addAppender(ajaxAppender);
     window.myLogger.info({ message: "nächster Clientlog", roomId: this.props.match.params.sessionId });
  */
-    evalLogToRoom("eval" + this.props.match.params.sessionId, "erster Roomlog")
+    document.addEventListener("keydown", this._handleKeyDown.bind(this), false);
   }
+
+
+  _handleKeyDown = (event) => {
+    
+    evalLogToRoom(this.props.script._id, this.props.match.params.sessionId, this.props.match.params.sessionId+",videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+",videosession"+",keypress"+",");
+  
+
+   
+}
   componentWillUnmount() {
     const { sessionId } = this.props.match.params;
     // this.props.logoutRoom(this.props.match.params.sessionId);
@@ -349,10 +357,12 @@ class VideoSession extends Component {
 }
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   rooms: state.rooms,
   errors: state.errors,
   localState: state.localState,
-  assistent: state.assistent
+  assistent: state.assistent,
+  script: state.script
 });
 
 export default connect(

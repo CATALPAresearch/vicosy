@@ -11,6 +11,7 @@ import PhaseController from "./PhaseController";
 import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction, setActive } from "../../actions/assistentActions";
 import { getScriptById } from "../../actions/scriptActions";
 import { setSharedDocEditing } from "../../actions/localStateActions";
+import{evalLogToRoom} from "../../socket-handlers/api";
 
 
 
@@ -44,7 +45,9 @@ class Assistent extends Component {
             if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
                 this.arrows = null;
                 this.props.nextInstruction();
-
+             
+                evalLogToRoom(this.props.script._id, this.props.location.pathname.split("/")[2], this.props.location.pathname.split("/")[2]+",videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+",assistent"+",nextInstruction"+",");
+  
             }
 
 
@@ -55,6 +58,8 @@ class Assistent extends Component {
         if (this.props.assistent.actInstruction)
             if (this.props.assistent.phase.pointer > 0) {
                 this.props.previousInstruction();
+                evalLogToRoom(this.props.script._id, this.props.location.pathname.split("/")[2], this.props.location.pathname.split("/")[2]+",videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+",assistent"+",previousInstruction");
+  
 
             }
 
@@ -84,7 +89,7 @@ class Assistent extends Component {
 
     }
 
-    setAssitent(e) {
+    setAssistent(e) {
         // if (this.props.assistent.active)
         this.props.setActive(!this.props.assistent.active);
         //else (this.props.setActive(false))
@@ -122,12 +127,12 @@ class Assistent extends Component {
 
 
     render() {
-
+        console.log(this.props);
 
         return (
             <div id="assistent" title="Ich bin dein Assistent und werde dich durch die Session führen. Du kannst mich ausschalten, indem du auf mich klickst.">
                 <div className="panel " id="laempel">
-                    <img src={assi_on} alt="Laempel" width="100%" height="100%" onClick={this.setAssitent.bind(this)} />
+                    <img src={assi_on} alt="Laempel" width="100%" height="100%" onClick={this.setAssistent.bind(this)} />
                 </div>
 
                 <PhaseController createRef={el => (this.assistentControlRef = el)} />
