@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import { ownSocketId } from "../../socket-handlers/api";
+import { ownSocketId, evalLogToRoom } from "../../socket-handlers/api";
 import classnames from "classnames";
 import TransientAwareness from "./TransientAwareness";
 import ClientName from "../controls/ClientName";
@@ -95,6 +95,8 @@ class UserListItemSession extends Component {
 
   onActivateStream(video, audio) {
     // connectToAll(this.roomData.state.roomId);
+    evalLogToRoom(this.props.script._id, this.roomData.state.roomId, this.roomData.state.roomId+","+"videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+ ",UserListItemSession,"+"startvideostream,");
+
     joinConference(this.roomData.state.roomId, video, audio);
   }
 
@@ -324,6 +326,9 @@ class UserListItemSession extends Component {
 const mapStateToProps = state => ({
   rooms: state.rooms,
   localState: state.localState,
+  assistent: state.assistent,
+  script: state.script,
+  auth: state.auth,
   assistent: state.assistent
 });
 

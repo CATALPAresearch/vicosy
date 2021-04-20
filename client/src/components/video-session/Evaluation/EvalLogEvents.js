@@ -1,0 +1,1 @@
+export const KEY_CLICK="KEY_CLICK";

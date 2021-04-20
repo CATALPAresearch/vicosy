@@ -11,7 +11,9 @@ import PhaseController from "./PhaseController";
 import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, previousInstruction, setActive } from "../../actions/assistentActions";
 import { getScriptById } from "../../actions/scriptActions";
 import { setSharedDocEditing } from "../../actions/localStateActions";
-import{evalLogToRoom} from "../../socket-handlers/api";
+import EvalLogger from "../video-session/Evaluation/EvalLogger";
+import { KEY_CLICK } from "../video-session/Evaluation/EvalLogEvents";
+import { evalLogToRoom } from "../../socket-handlers/api";
 
 
 
@@ -28,7 +30,7 @@ class Assistent extends Component {
         this.renderDepth = 0;
         this.toUpdate = true;
         this.isActive = this.props.isActive;
-
+        this.evalLoggerRef = null;
 
     }
 
@@ -45,9 +47,9 @@ class Assistent extends Component {
             if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
                 this.arrows = null;
                 this.props.nextInstruction();
-             
-                evalLogToRoom(this.props.script._id, this.props.location.pathname.split("/")[2], this.props.location.pathname.split("/")[2]+",videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+",assistent"+",nextInstruction"+",");
-  
+
+                // evalLogToRoom(this.props.script._id, this.props.location.pathname.split("/")[2], this.props.location.pathname.split("/")[2]+",videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+",assistent"+",nextInstruction"+",");
+                this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, "");
             }
 
 
@@ -58,8 +60,8 @@ class Assistent extends Component {
         if (this.props.assistent.actInstruction)
             if (this.props.assistent.phase.pointer > 0) {
                 this.props.previousInstruction();
-                evalLogToRoom(this.props.script._id, this.props.location.pathname.split("/")[2], this.props.location.pathname.split("/")[2]+",videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+",assistent"+",previousInstruction");
-  
+                evalLogToRoom(this.props.script._id, this.props.location.pathname.split("/")[2], this.props.location.pathname.split("/")[2] + ",videoposition," + this.props.auth.user.name + "," + this.props.script.videourl + "," + this.props.assistent.phase.name + ",assistent" + ",previousInstruction");
+
 
             }
 
@@ -93,8 +95,8 @@ class Assistent extends Component {
         // if (this.props.assistent.active)
         this.props.setActive(!this.props.assistent.active);
         //else (this.props.setActive(false))
-      }
-    
+    }
+
 
     deleteIncomingInstruction() {
         this.actualize();
@@ -135,6 +137,7 @@ class Assistent extends Component {
                     <img src={assi_on} alt="Laempel" width="100%" height="100%" onClick={this.setAssistent.bind(this)} />
                 </div>
 
+                <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
                 <PhaseController createRef={el => (this.assistentControlRef = el)} />
                 {this.props.assistent.incomingInstruction ?
                     <IncomingInstruction
@@ -145,13 +148,13 @@ class Assistent extends Component {
                             instruction={new Instruction("Es liegen keine Sessions vor", "")}
 
                         /> :*/
-                            <InstructionUi
-                                hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
-                                hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}
-                                instruction={this.props.assistent.actInstruction}
-                                nextInstruction={this.nextInstruction.bind(this)}
-                                previousInstruction={this.previousInstruction.bind(this)}
-                            /> :
+                        <InstructionUi
+                            hasNext={this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1] ? true : false}
+                            hasPrevious={this.props.assistent.phase.pointer > 0 ? true : false}
+                            instruction={this.props.assistent.actInstruction}
+                            nextInstruction={this.nextInstruction.bind(this)}
+                            previousInstruction={this.previousInstruction.bind(this)}
+                        /> :
 
                         <InstructionUi
                             instruction={new Instruction("Ich habe dir im Moment nichts zu sagen.", "")}
@@ -178,7 +181,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps, {setActive, PhaseController, setSharedDocEditing, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
+    mapStateToProps, { EvalLogger, setActive, PhaseController, setSharedDocEditing, setPhase, getScriptById, nextInstruction, previousInstruction, setActInstruction, setIncominginstruction }
 )(withRouter(Assistent));
 
 
