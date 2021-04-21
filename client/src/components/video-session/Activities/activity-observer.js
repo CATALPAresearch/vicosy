@@ -1,10 +1,12 @@
-import { Component } from "react";
+import React,{ Component } from "react";
 import { connect } from "react-redux";
 import { sendActiveMessage, setIncominginstruction, sendTabLostMessage } from "../../../actions/assistentActions";
 import { ownSocketId, evalLogToRoom } from "../../../socket-handlers/api";
 import Instruction from "../../Assistent/phases/Instruction";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
 import Hints from "./hints";
+import EvalLogger from "../../video-session/Evaluation/EvalLogger";
+import { TAB_LOST, INACTIVE } from "../../video-session/Evaluation/EvalLogEvents";
 const assistentConfig = require("../../../shared_constants/assistent");
 const { listenActiveMessage, listenTabLostMessage } = require("../../../socket-handlers/api")
 
@@ -23,7 +25,7 @@ export class ActivityOberserver extends Component {
         this.checkActiveMessageInterval = assistentConfig.inactive_check_interval;
         this.selfInactiveInterval = assistentConfig.self_inactive_check_interval;
         this.hints = new Hints();
-
+        this.evalLoggerRef = null;
         //this.activeMessageTimeOut = setTimeout(function () { this.setState({ partnerActive: false }) }, this.checkActiveMessageInterval);
         this.activeMessageTimeOut = null;
         this.resetTimerVar = null;
@@ -39,7 +41,7 @@ export class ActivityOberserver extends Component {
 
 
             this.props.setIncominginstruction(new Instruction("Dein Partner " + result.userName + " hat den Tab geschlossen oder gewechselt. Kontaktiere ihn.", ""))
-            evalLogToRoom(this.props.script._id, this.sessionId, this.sessionId+","+"videoposition,"+result.userName+","+ this.props.script.videourl+","+this.props.assistent.phase.name+ ",activity-observer,"+"TabChange,");
+            this.evalLoggerRef.logToEvaluation(this.constructor.name, TAB_LOST, "Partner");
 
 
         });
@@ -138,10 +140,11 @@ export class ActivityOberserver extends Component {
     showMessage() {
         if (this.partner) {
             this.props.setIncominginstruction(new Instruction("Dein Partner " + this.partner + " ist seit über " + this.checkActiveMessageInterval / 1000 + " Sekunden inaktiv. Tritt mit ihm in Kontakt.", ""))
-            evalLogToRoom(this.props.script._id, this.sessionId, this.sessionId+","+"videoposition,"+this.partner+","+ this.props.script.videourl+","+this.props.assistent.phase.name+ ",activity-observer,"+"inaktiv,"+this.checkActiveMessageInterval / 1000);
+            this.evalLoggerRef.logToEvaluation(this.constructor.name, INACTIVE, "Partner inactive for " + this.checkActiveMessageInterval / 1000 + " s");
+
 
         }
-            else
+        else
             this.props.setIncominginstruction(new Instruction("Dein Partner ist aktuell nicht in der Sitzung.", ""))
 
     }
@@ -149,10 +152,11 @@ export class ActivityOberserver extends Component {
     sendTabLostMessage() {
         if (this.sessionId)
             if (this.props.rooms.rooms[this.sessionId]) {
-      
+
                 this.props.sendTabLostMessage(this.sessionId, this.props.auth.user.name, ownSocketId(), this.props.rooms.rooms[this.sessionId].state.sharedRoomData.clients);
-              
-            }}
+
+            }
+    }
 
     sendActiveMessage() {
         if (this.sessionId)
@@ -168,14 +172,14 @@ export class ActivityOberserver extends Component {
             this.resetSelfTimer());
     }
     render() {
-
-        return null;
+        return (
+            <EvalLogger createRef={el => (this.evalLoggerRef = el)} />)
     }
 
 
 
 }
-  
+
 
 const mapStateToProps = state => ({
     localState: state.localState,

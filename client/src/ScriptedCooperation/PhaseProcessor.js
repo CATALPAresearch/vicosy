@@ -10,6 +10,9 @@ import FeatureSetup, {
 import SectionHighlighting from "./controlComponents/SectionHighlighting";
 import GuideController from "./controlComponents/GuideController";
 import PhaseController from "../components/Assistent/PhaseController";
+import EvalLogger from "../components/video-session/Evaluation/EvalLogger";
+import { NEXT_PHASE } from "../components/video-session/Evaluation/EvalLogEvents";
+
 
 // base class for phase processors
 export default class PhaseProcessor extends Component {
@@ -24,6 +27,8 @@ export default class PhaseProcessor extends Component {
 
     this.guideControlRef = null;
     this.assistentControlRef = null;
+    this.evalLoggerRef = null;
+
   }
 
   /**
@@ -54,7 +59,13 @@ export default class PhaseProcessor extends Component {
   };
 
   setPhase(phase) {
+
     this.assistentControlRef.setPhase(phase);
+    setTimeout(()=> {
+      this.evalLoggerRef.logToEvaluation(this.constructor.name, NEXT_PHASE, phase);
+      ;
+    }, 1000);
+
   }
 
   setContent(rectNode) {
@@ -96,6 +107,7 @@ export default class PhaseProcessor extends Component {
 
     return (
       <div id="PhaseBarContent">
+        <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
 
         {/*
         <div>

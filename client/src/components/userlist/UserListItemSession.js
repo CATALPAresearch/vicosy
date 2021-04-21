@@ -7,10 +7,12 @@ import ClientName from "../controls/ClientName";
 import VideoStream from "../peer-components/VideoStream";
 import "./user-list.css";
 // import { connectToAll } from "../../p2p-handlers/P2PConnectionManager";
-import { joinConference} from "../test/WebRtcConference";
+import { joinConference } from "../test/WebRtcConference";
 import { OWN_ACTIVE_MEDIA_CHANGED } from "../../stream-model/streamEvents";
 import PhaseReadyIndicator from "../../ScriptedCooperation/controlComponents/PhaseReadyIndicator";
 import HintArrow from "../Assistent/HintArrow";
+import EvalLogger from "../video-session/Evaluation/EvalLogger";
+import { STOP_CONFERENCE, START_VIDEOCONFERENCE, START_AUDIOCONFERENCE } from "../video-session/Evaluation/EvalLogEvents";
 
 class UserListItemSession extends Component {
   constructor(props) {
@@ -22,6 +24,7 @@ class UserListItemSession extends Component {
     };
 
     this.onOwnStreamMediaChanged = this.onOwnStreamMediaChanged.bind(this);
+    this.evalLoggerRef = null;
   }
 
   componentWillMount() {
@@ -95,7 +98,12 @@ class UserListItemSession extends Component {
 
   onActivateStream(video, audio) {
     // connectToAll(this.roomData.state.roomId);
-    evalLogToRoom(this.props.script._id, this.roomData.state.roomId, this.roomData.state.roomId+","+"videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+ ",UserListItemSession,"+"startvideostream,");
+    if (video && audio)
+      this.evalLoggerRef.logToEvaluation(this.constructor.name, START_VIDEOCONFERENCE, "");
+    if (!video && audio)
+      this.evalLoggerRef.logToEvaluation(this.constructor.name, START_AUDIOCONFERENCE, "");
+    if (!video && !audio)
+      this.evalLoggerRef.logToEvaluation(this.constructor.name, STOP_CONFERENCE, "");
 
     joinConference(this.roomData.state.roomId, video, audio);
   }
@@ -106,6 +114,7 @@ class UserListItemSession extends Component {
 
     return (
       <span>
+        <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
         <button
           className={classnames("btn primaryCol btn-sm ml-1", {
             "hidden-nosize": hasVideoActive
@@ -113,19 +122,19 @@ class UserListItemSession extends Component {
           onClick={this.onActivateStream.bind(this, true, true)}
           title="Starte Audio- und Videostream"
         >
-          {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "video-button" ?
+          {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "video-button" ?
             <HintArrow
-              style={{ position: "absolute", top: -5, right:50 }}
+              style={{ position: "absolute", top: -5, right: 50 }}
               direction="right"
-            /> : null:null}
-              {this.props.assistent.incomingInstruction?this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "video-button" ?
+            /> : null : null}
+          {this.props.assistent.incomingInstruction ? this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "video-button" ?
             <HintArrow
-              style={{ position: "absolute", top: -5, right:50 }}
+              style={{ position: "absolute", top: -5, right: 50 }}
               direction="right"
-            /> : null:null}
+            /> : null : null}
           <i id="video-button" className="fa fa-video" style={{ color: "#FFF" }} />
         </button>
-     
+
         <button
           className={classnames("btn primaryCol btn-sm ml-1", {
             "hidden-nosize": hasAudioActive && !hasVideoActive
@@ -133,16 +142,16 @@ class UserListItemSession extends Component {
           onClick={this.onActivateStream.bind(this, false, true)}
           title="Starte Audio-Streaming"
         >
-             {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "audio-button" ?
+          {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "audio-button" ?
             <HintArrow
-              style={{ position: "absolute", top: -5, right:20 }}
+              style={{ position: "absolute", top: -5, right: 20 }}
               direction="right"
-            /> : null:null}
-              {this.props.assistent.incomingInstruction?this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "audio-button" ?
+            /> : null : null}
+          {this.props.assistent.incomingInstruction ? this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "audio-button" ?
             <HintArrow
-              style={{ position: "absolute", top: -5, right:20 }}
+              style={{ position: "absolute", top: -5, right: 20 }}
               direction="right"
-            /> : null:null}
+            /> : null : null}
           <i id="audio-button" className="fa fa-microphone" style={{ color: "#FFF" }} />
         </button>
 
@@ -285,19 +294,19 @@ class UserListItemSession extends Component {
           "session-user-item-own": isOwn
         })}
       >
-         {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "awareness-partner"&&!isOwn ?
-            <HintArrow
-              style={{ position: "absolute", marginTop:-70}}
-              direction="down"
-            /> : null:null}
-        
-        
+        {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "awareness-partner" && !isOwn ?
+          <HintArrow
+            style={{ position: "absolute", marginTop: -70 }}
+            direction="down"
+          /> : null : null}
+
+
         <span className="sessionuser-item-info">
           <span>
             <PhaseReadyIndicator
               sharedData={this.roomData.state.sharedRoomData}
               clientId={clientId}
-            
+
             />
             {/*stateBadge*/}
             <ClientName

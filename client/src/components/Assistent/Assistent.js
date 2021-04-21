@@ -12,8 +12,7 @@ import { setIncominginstruction, setPhase, setActInstruction, nextInstruction, p
 import { getScriptById } from "../../actions/scriptActions";
 import { setSharedDocEditing } from "../../actions/localStateActions";
 import EvalLogger from "../video-session/Evaluation/EvalLogger";
-import { KEY_CLICK } from "../video-session/Evaluation/EvalLogEvents";
-import { evalLogToRoom } from "../../socket-handlers/api";
+import { NEXT_INSTRUCTION, PREVIOUS_INSTRUCTION } from "../video-session/Evaluation/EvalLogEvents";
 
 
 
@@ -48,8 +47,7 @@ class Assistent extends Component {
                 this.arrows = null;
                 this.props.nextInstruction();
 
-                // evalLogToRoom(this.props.script._id, this.props.location.pathname.split("/")[2], this.props.location.pathname.split("/")[2]+",videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+",assistent"+",nextInstruction"+",");
-                this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, "");
+                this.evalLoggerRef.logToEvaluation(this.constructor.name, NEXT_INSTRUCTION, this.props.assistent.phase.instructions.length-this.props.assistent.phase.pointer-1);
             }
 
 
@@ -60,8 +58,8 @@ class Assistent extends Component {
         if (this.props.assistent.actInstruction)
             if (this.props.assistent.phase.pointer > 0) {
                 this.props.previousInstruction();
-                evalLogToRoom(this.props.script._id, this.props.location.pathname.split("/")[2], this.props.location.pathname.split("/")[2] + ",videoposition," + this.props.auth.user.name + "," + this.props.script.videourl + "," + this.props.assistent.phase.name + ",assistent" + ",previousInstruction");
-
+                this.evalLoggerRef.logToEvaluation(this.constructor.name, PREVIOUS_INSTRUCTION, "");
+            
 
             }
 

@@ -11,6 +11,8 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { setUnseenActivities } from "../../actions/localStateActions";
 import { ownSocketId } from "../../socket-handlers/api";
+import EvalLogger from "../video-session/Evaluation/EvalLogger";
+import {SEND_CHAT_MESSAGE} from "../video-session/Evaluation/EvalLogEvents";
 
 import HintArrow from '../Assistent/HintArrow'
 
@@ -28,6 +30,7 @@ class Chat extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmitClicked = this.onSubmitClicked.bind(this);
+    this.evalLoggerRef = null;
   }
 
   onSubmitClicked(e) {
@@ -37,6 +40,8 @@ class Chat extends Component {
 
     if (!this.parseInput(this.state.input)) {
       sendChatMessage(this.props.roomId, this.state.input);
+      this.evalLoggerRef.logToEvaluation(this.constructor.name, SEND_CHAT_MESSAGE, this.state.input);
+            
     }
 
     this.setState({ input: "" });
@@ -144,6 +149,10 @@ class Chat extends Component {
         })}
         
           >
+              
+        
+        <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
+                  
             {this.props.assistent.actInstruction?this.props.assistent.active&&this.props.assistent.actInstruction.markers==="chat-write"?
         <HintArrow
         style= {{position: "absolute", left: 120, bottom:40}}
@@ -203,6 +212,7 @@ class Chat extends Component {
           </span>
         </form>
         <InnerShadowSmall />
+        
       </div>
     );
   }

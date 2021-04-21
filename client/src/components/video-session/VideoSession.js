@@ -18,9 +18,10 @@ import {
 import { withRouter } from "react-router";
 import { setError } from "../../actions/errorActions";
 import { joinConference } from "../test/WebRtcConference";
-import { ownSocketId, evalLogToRoom } from "../../socket-handlers/api";
+import { ownSocketId } from "../../socket-handlers/api";
 import { resetLocalState } from "../../actions/localStateActions";
-
+import EvalLogger from "./Evaluation/EvalLogger";
+import {KEY_CLICK}from "./Evaluation/EvalLogEvents";
 // import "../../p2p-handlers/P2PConnectionManager";
 
 import "./VideoSession.css";
@@ -71,6 +72,7 @@ class VideoSession extends Component {
 
     this.onRoomJoined = this.onRoomJoined.bind(this);
     this.initialize = this.initialize.bind(this);
+    this.evalLoggerRef = null;
   }
 
   componentWillMount() {
@@ -102,24 +104,14 @@ class VideoSession extends Component {
   }
 
   initLogger() {
-    //in debug mode replace line 4 with line 3.
-    //window.myLogger = log4javascript.getDefaultLogger();
-    /*
-    window.myLogger = log4javascript.getLogger();
-    var ajaxAppender = new log4javascript.AjaxAppender('/api/evallogger');
-    ajaxAppender.setBatchSize(10); // send in batches of 10
-    ajaxAppender.setSendAllOnUnload(); // send all remaining messages on window.beforeunload()
-    window.myLogger.addAppender(ajaxAppender);
-    window.myLogger.info({ message: "nächster Clientlog", roomId: this.props.match.params.sessionId });
- */
     document.addEventListener("keydown", this._handleKeyDown.bind(this), false);
   }
 
 
   _handleKeyDown = (event) => {
     
-    evalLogToRoom(this.props.script._id, this.props.match.params.sessionId, this.props.match.params.sessionId+",videoposition,"+this.props.auth.user.name+","+ this.props.script.videourl+","+this.props.assistent.phase.name+",videosession"+",keypress"+",");
-  
+    this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, event.keyCode);
+            
 
    
 }
@@ -236,6 +228,7 @@ class VideoSession extends Component {
           {/* <RoomComponent roomId={sessionId} component={P2PController} /> */}
           {/* invisible controllers */}
           <Logger roomId={sessionId} />
+          <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
           <AnnotationController
             roomId={sessionId}
             playerRef={this.abstractPlayerRef}
