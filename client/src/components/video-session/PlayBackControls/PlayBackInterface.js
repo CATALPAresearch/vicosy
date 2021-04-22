@@ -28,6 +28,8 @@ import AnnotationDropDown from "../SessionNavbar/AnnotationDropDown";
 import MarkerDropDown from "../SessionNavbar/MarkerDropDown";
 import { FEATURES } from "../../../reducers/featureTypes";
 import HintArrow from "../../Assistent/HintArrow";
+import EvalLogger from "../Evaluation/EvalLogger";
+import { PLAY_VIDEO, STOP_VIDEO } from "../Evaluation/EvalLogEvents";
 
 const SLIDER_STEPS = 1000;
 
@@ -61,6 +63,7 @@ class PlayBackInterface extends Component {
 
     this.onVolumeSliderChange = this.onVolumeSliderChange.bind(this);
     this.onVideoVolumeChange = this.onVideoVolumeChange.bind(this);
+    this.evalLoggerRef = null;
   }
 
   on(event, listener) {
@@ -192,11 +195,15 @@ class PlayBackInterface extends Component {
 
   onPlayClick() {
     // console.log("PLAY");
+    this.evalLoggerRef.logToEvaluation(this.constructor.name, PLAY_VIDEO, "");
+
     this.observable.dispatch(PLAY_REQUEST);
   }
 
   onStopClick() {
     // console.log("STOP");
+    this.evalLoggerRef.logToEvaluation(this.constructor.name, STOP_VIDEO, "");
+
     this.observable.dispatch(PAUSE_REQUEST);
   }
 
@@ -220,7 +227,7 @@ class PlayBackInterface extends Component {
 
     return (
       <button id="play-button"
-      title="Play- und Pausetaste"
+        title="Play- und Pausetaste"
         type="button"
         className={classnames("btn", {
           "btn-success": isSync,
@@ -229,13 +236,13 @@ class PlayBackInterface extends Component {
         onClick={
           play ? this.onPlayClick.bind(this) : this.onStopClick.bind(this)
         }
-      > {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "play-button"?
-      <HintArrow
-          style={{ position: "absolute", marginTop: -70, marginLeft: -10, zIndex:1000 }}
+      > {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "play-button" ?
+        <HintArrow
+          style={{ position: "absolute", marginTop: -70, marginLeft: -10, zIndex: 1000 }}
           direction="down"
-      /> : null:null}
-
-        <i 
+        /> : null : null}
+        <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
+        <i
           className={classnames("fa", {
             "fa-play-circle": play,
             "fa-pause-circle": !play
