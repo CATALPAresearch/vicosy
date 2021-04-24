@@ -15,6 +15,9 @@ import { TIME_UPDATE } from "../AbstractVideoEvents";
 import { SEEK_REQUEST } from "../PlayBackUiEvents";
 import connectUIState from "../../../highOrderComponents/UIStateConsumer";
 import { formatTime } from "../../../helpers/formatHelper";
+import EvalLogger from "../../video-session/Evaluation/EvalLogger";
+import {SET_SECTION, MOVE_SECTION, REMOVE_SECTION } from "../../video-session/Evaluation/EvalLogEvents";
+
 
 // Annotation Viewer / Editor
 class AnnotationDetail extends Component {
@@ -33,6 +36,7 @@ class AnnotationDetail extends Component {
       isNew: false,
       playTimeHasAnnotation: false
     };
+    this.evalLoggerRef = null;
 
     this.preventContentChange = false;
 
@@ -56,11 +60,15 @@ class AnnotationDetail extends Component {
     });
 
     this.props.deActivateAnnotationEditing();
+    this.evalLoggerRef.logToEvaluation(this.constructor.name, SET_SECTION, "time: "+this.state.timestamp+" "+"name: "+this.state.title);
+           
   }
 
   onRemoveClick(event) {
     this.props.deActivateAnnotationEditing();
     window.annotationEvents.dispatch(REMOVE_ANNOTATION, this.state.timestamp);
+    this.evalLoggerRef.logToEvaluation(this.constructor.name, REMOVE_SECTION, "time: "+this.state.timestamp+" "+"name: "+this.state.title);
+   
   }
 
   onJumpClick() {
@@ -79,7 +87,8 @@ class AnnotationDetail extends Component {
         this.state.timestamp,
         currentPlayTime
       );
-
+      this.evalLoggerRef.logToEvaluation(this.constructor.name, MOVE_SECTION, "time: "+this.state.timestamp+" "+"name: "+this.state.title);
+   
       this.props.deActivateAnnotationEditing();
     }
   }
@@ -199,6 +208,7 @@ class AnnotationDetail extends Component {
           "hidden-nosize": !this.state.visible
         })}
       >
+             <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
         <form className="form-control form-control-lg" onSubmit={this.onSubmit}>
           <div>Annotation</div>
 
