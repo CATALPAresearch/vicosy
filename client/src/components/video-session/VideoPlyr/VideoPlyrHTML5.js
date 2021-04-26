@@ -7,6 +7,8 @@ import "./video-plyr.css";
 import { setInterval } from "timers";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import "../LoadingIndicator/loading-indicator.css";
+import EvalLogger from "../Evaluation/EvalLogger";
+import { PLAYBACK } from "../Evaluation/EvalLogEvents";
 
 const REQUIRED_TIMEUPDATE_COUNT_BEFORE_UNSTALLED_TARGETFRAME = 2;
 
@@ -18,7 +20,7 @@ export default class VideoPlyrHTML5 extends Component {
     // testing for native HTMLMediaElement Loading
     this.readyStateListener = -1;
     this.isLoadingInternal = false;
-
+    this.evalLoggerRef = null;
     this.playerTest = React.createRef();
 
     this.currentRealTime = 0;
@@ -42,6 +44,9 @@ export default class VideoPlyrHTML5 extends Component {
     // this.playerRef = React.createRef();
     this.playInternal = this.playInternal.bind(this);
     this.updateLoadingInternal = this.updateLoadingInternal.bind(this);
+    this.player = null;
+    this.myVideo = React.createRef();
+
   }
 
   playInternal(play) {
@@ -158,7 +163,60 @@ export default class VideoPlyrHTML5 extends Component {
       this.forceUpdate();
     }
   }
+  logger() {
+    var
+      _this = this,
+      interval = 2, // THE LENGTH OF AN INTERVAL IN SECONDS 
+      lastposition = -1,
+      timer
+      ;
 
+    function loop() {
+      var currentinterval;
+      currentinterval = (Math.round(_this.getCurrentTime()) / interval) >> 0;
+      console.log("i:" + currentinterval + ", p:" + _this.getCurrentTime());
+      if (currentinterval != lastposition) {
+        // HERE YOU SHOUL ADD SOME CALL TO WRITE THE PLAYBACK EVENT INCL. currentinterval TO THE LOG FILE ECT:
+        // {context:'player', action:'playback', values:[ currentinterval ]});
+        // if (_this.evalLoggerRef)
+          _this.evalLoggerRef.logToEvaluation(_this.constructor.name, PLAYBACK, currentinterval);
+
+        lastposition = currentinterval;
+      }
+    }
+
+    function start() {
+      if (timer) {
+        timer = clearInterval(timer);
+      }
+      timer = setInterval(loop, interval * 1000);
+      setTimeout(loop, 100);
+    }
+
+
+    function stop() {
+      timer = clearInterval(timer);
+      loop();
+    }
+
+    // this.video REFERS TO THE VIDEO ELEMENT
+    this.myVideo.current.addEventListener('play', function (e) {
+      start();
+    });
+
+    this.myVideo.current.addEventListener('pause', function (e) {
+      stop();
+    });
+
+    this.myVideo.current.addEventListener('abort', function (e) {
+      stop();
+    });
+
+    this.myVideo.current.addEventListener('ended', function (e) {
+      stop();
+    }, false);
+
+  }
   componentDidMount() {
     this.player = new Plyr("#player", {
       clickToPlay: false,
@@ -169,6 +227,7 @@ export default class VideoPlyrHTML5 extends Component {
       autopause: false
     });
 
+    this.logger();
     this.player.on("ready", event => {
       clearInterval(this.readyStateListener);
       this.readyStateListener = setInterval(this.updateLoadingInternal, 500);
@@ -253,7 +312,7 @@ export default class VideoPlyrHTML5 extends Component {
       if (
         this.correctionMode &&
         this.timeUpdateCountSinceLastCorrectionMode >=
-          REQUIRED_TIMEUPDATE_COUNT_BEFORE_UNSTALLED_TARGETFRAME
+        REQUIRED_TIMEUPDATE_COUNT_BEFORE_UNSTALLED_TARGETFRAME
       ) {
         this.player.currentTime = this.currentRealTime;
         this.setStalledTargetFrame(false);
@@ -308,10 +367,13 @@ export default class VideoPlyrHTML5 extends Component {
   render() {
     return (
       <div>
+        <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
+
         <video
           poster="http://aimvideoproduction.com/wp-content/uploads/2011/03/Video-Reel-and-Film-Canister2.png"
           id="player"
           playsInline
+          ref={this.myVideo}
         >
           <source src={this.props.videoUrl} type="video/mp4" />
         </video>

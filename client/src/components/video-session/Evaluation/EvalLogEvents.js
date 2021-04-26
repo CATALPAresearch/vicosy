@@ -16,3 +16,4 @@ export const ANNOT_TAB="ANNOT_TAB";
 export const SET_SECTION="SET_SECTION";
 export const REMOVE_SECTION="REMOVE_SECTION";
 export const MOVE_SECTION="MOVE_SECTION";
+export const PLAYBACK="PLAYBACK";

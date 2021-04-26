@@ -4,6 +4,8 @@ import Plyr from "plyr";
 import "plyr/dist/plyr.css";
 import PropTypes from "prop-types";
 import "./video-plyr.css";
+import EvalLogger from "../Evaluation/EvalLogger";
+import { PLAYBACK } from "../Evaluation/EvalLogEvents";
 
 //-1: Unstarted, 0: Ended, 1: Playing, 2: Paused, 3: Buffering, 5: Video cued. See the YouTube Docs for more information.
 const stalledStates = [3];
@@ -156,6 +158,80 @@ export default class VideoPlyrYouTube extends Component {
     if (this.player) this.player.destroy();
   }
 
+  logger() {
+    var
+      _this = this,
+      interval = 2, // THE LENGTH OF AN INTERVAL IN SECONDS 
+      lastposition = -1,
+      timer
+      ;
+
+    function loop() {
+      var currentinterval;
+      currentinterval = (Math.round(_this.getCurrentTime()) / interval) >> 0;
+      console.log("i:" + currentinterval + ", p:" + _this.getCurrentTime());
+      if (currentinterval != lastposition) {
+        // HERE YOU SHOUL ADD SOME CALL TO WRITE THE PLAYBACK EVENT INCL. currentinterval TO THE LOG FILE ECT:
+        // {context:'player', action:'playback', values:[ currentinterval ]});
+        // if (_this.evalLoggerRef)
+        _this.evalLoggerRef.logToEvaluation(_this.constructor.name, PLAYBACK, currentinterval);
+
+        lastposition = currentinterval;
+      }
+    }
+
+    function start() {
+      if (timer) {
+        timer = clearInterval(timer);
+      }
+      timer = setInterval(loop, interval * 1000);
+      setTimeout(loop, 100);
+    }
+
+
+    function stop() {
+      timer = clearInterval(timer);
+      loop();
+    }
+
+
+    this.player.on("statechange", e => {
+      switch (e.detail.code) {
+      
+        case -1:
+          stop();
+          break;
+        case 0:
+          stop();
+          break;
+        case 1:
+          start();
+          break;
+        case 2:
+          stop();
+          break;
+      }
+    });
+    // this.video REFERS TO THE VIDEO ELEMENT
+    /*
+        this.player.addEventListener('play', function (e) {
+          start();
+        });
+    
+        this.player.addEventListener('pause', function (e) {
+          stop();
+        });
+    
+        this.player.addEventListener('abort', function (e) {
+          stop();
+        });
+    
+        this.player.addEventListener('ended', function (e) {
+          stop();
+        }, false);
+        */
+
+  }
   componentDidMount() {
     this.player = new Plyr("#player", {
       clickToPlay: false,
@@ -165,7 +241,7 @@ export default class VideoPlyrYouTube extends Component {
       muted: false,
       autopause: false
     });
-
+    this.logger();
     this.player.on("ready", event => {
       this.setState({ playerApiInitialized: true });
       this.props.onPlayerApiInitialized();
@@ -304,6 +380,7 @@ export default class VideoPlyrYouTube extends Component {
   render() {
     return (
       <div>
+        <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
         <div
           ref={this.playerTest}
           id="player"
