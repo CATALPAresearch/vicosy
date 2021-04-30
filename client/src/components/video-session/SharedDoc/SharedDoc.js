@@ -8,8 +8,8 @@ import "./shared-doc.css";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { TOGGLE_SHARED_DOC_REQUEST } from "../../logic-controls/dialogEvents";
-import { subscribeSharedDoc } from "../../../actions/docActions";
-import {updateInstruction} from "../../../actions/assistentActions";
+import { subscribeSharedDoc, setSharedDoc } from "../../../actions/docActions";
+import { updateInstruction } from "../../../actions/assistentActions";
 
 
 // Registering the rich text type to make sharedb work
@@ -29,12 +29,13 @@ class SharedDoc extends Component {
 
     // Querying for our document
 
-    this.doc = {};
+
     this.isOpen = false;
     this.sessionId = this.props.roomId;
     const doc = connection.get('docs', this.sessionId);
+    this.doc = doc;
 
-    doc.subscribe(function (err) {
+    doc.subscribe( (err) => {
       if (err) throw err;
 
       const options = {
@@ -70,24 +71,33 @@ class SharedDoc extends Component {
        * On Text change publishing to our server
        * so that it can be broadcasted to all other clients
        */
-      quill.on('text-change', function (delta, oldDelta, source) {
+      quill.on('text-change',  (delta, oldDelta, source) => {
         if (source !== 'user') return;
         doc.submitOp(delta, { source: quill });
         quill.focus()
+        this.props.setSharedDoc(doc.data.ops[0].insert);
+        
       });
 
       /** listening to changes in the document
        * that is coming from our server
        */
-      doc.on('op', function (op, source) {
+      doc.on('op',  (op, source) => {
         if (source === quill) return;
+
         quill.updateContents(op);
         quill.focus()
+        this.props.setSharedDoc(doc.data.ops[0].insert);
       });
     });
 
 
 
+  }
+
+  takeSnapshot() {
+
+    alert(this.doc.data.ops[0].insert);
   }
 
   componentDidMount() {
@@ -106,7 +116,6 @@ class SharedDoc extends Component {
   componentWillUnmount() {
   }
   componentWillReceiveProps(nextProps) {
-    //  console.log(nextProps);
 
 
     /*
@@ -118,7 +127,7 @@ class SharedDoc extends Component {
 
   onCloseClick() {
     window.dialogRequestEvents.dispatch(TOGGLE_SHARED_DOC_REQUEST);
-    
+
   }
   rteChange = (content, delta, source, editor) => {
     /*
@@ -130,13 +139,14 @@ class SharedDoc extends Component {
         }
         else (console.log("kein Benutzer"));
         */
+
     this.props.submitOp(delta, this.props.auth.user.id);
 
   }
   render() {
     // Connecting to our socket server
 
-
+   
     return (
       <div
         id="SharedDoc"
@@ -160,5 +170,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {updateInstruction, subscribeSharedDoc/* setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc, setSharedDoc */ }
+  { updateInstruction, subscribeSharedDoc/* setSharedDocEditing, connectSharedDoc, subscribeSharedDoc, submitOp, upDateSharedDoc*/, setSharedDoc }
 )(SharedDoc);

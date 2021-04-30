@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { sendRoleReadyState } from "../../socket-handlers/api";
 import ToggleSwitchButton from "../../components/controls/ToggleSwitchButton";
 import { updateContinueButton } from "../../actions/assistentActions";
+import {logDocs} from "../../actions/docActions";
 import "./script-components.css";
 import HintArrow from "./../../components/Assistent/HintArrow";
 import OkButton from "./OkButton";
@@ -82,6 +83,8 @@ class ReadyContinueScriptButton extends Component {
 
   onButtonClick(e) {
     sendRoleReadyState(!this.state.meIsReady);
+    this.props.logDocs(this.props.auth.user.id, this.props.script._id, this.props.docs);
+
   }
 
   render() {
@@ -149,10 +152,12 @@ ReadyContinueScriptButton.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  rooms: state.rooms
+  rooms: state.rooms,
+  docs: state.docs,
+  script: state.script
 });
 
 export default connect(
-  mapStateToProps, { updateContinueButton },
+  mapStateToProps, { updateContinueButton, logDocs },
   null
 )(ReadyContinueScriptButton);

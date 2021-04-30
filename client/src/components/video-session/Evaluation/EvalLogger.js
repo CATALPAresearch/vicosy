@@ -33,7 +33,8 @@ const mapStateToProps = state => ({
     errors: state.errors,
     localState: state.localState,
     assistent: state.assistent,
-    script: state.script
+    script: state.script,
+    docs: state.docs
 });
 
 export default connect(

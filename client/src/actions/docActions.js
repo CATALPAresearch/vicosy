@@ -1,5 +1,5 @@
 import axios from "axios";
-import { subscribeSharedDocAPI, storeIndivDocApi} from "../socket-handlers/api";
+import { subscribeSharedDocAPI, storeIndivDocApi, storeSharedDocApi} from "../socket-handlers/api";
 import { SET_COLLAB_TEXT, SET_INDIV_TEXT, GET_ERRORS} from "./types";
 
 
@@ -70,6 +70,35 @@ export const setSharedDoc = (doc) => dispatch => {
 
 
 }
+
+
+export const storeSharedDoc = (text, docId) => dispatch => {
+    storeSharedDocApi(text, docId);
+/*
+    dispatch({
+        type: SET_COLLAB_TEXT,
+        payload: doc
+    });
+*/
+
+}
+
+
+export const logDocs = (user_id, script_id, docs)  => dispatch => {
+    var logdocs={};
+    logdocs.docs=docs;
+    logdocs._id=script_id;
+    logdocs.user_id=user_id;
+    axios
+    .post("/api/docs/logdocs", logdocs)
+    .then(res => console.log(res))
+    .catch(err => {
+        console.log(err)
+    });
+  
+
+}
+
 
 
 export const storeIndivDoc = (text, docId) => dispatch => {

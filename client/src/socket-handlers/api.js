@@ -241,6 +241,14 @@ export const storeIndivDocApi = (text, docId) => {
   socket.emit("storeIndivDoc", content);
 };
 
+export const storeSharedDocApi = (text, docId) => {
+  let content = {};
+  content.text = text;
+  content.docId = docId;
+  socket.emit("storeSharedDoc", content);
+};
+
+
 /**
  * 
  * SCRIPT 
