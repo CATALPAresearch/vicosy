@@ -293,9 +293,9 @@ class ScriptSettings extends Component {
                                     <option
                                         value={SESSION_DEFAULT}
                                         title="Uncontrolled video conversation without member limit."
-                                        disabled={true}
+                                        disabled={!scriptsEnabled}
                                     >
-                                        Default Video Conversation
+                                        Free Video Conversation
             </option>
                                 </select>
                             </div>

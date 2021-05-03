@@ -1,7 +1,16 @@
 import axios from "axios";
 import { removedScript, getSessions, scriptMembers, notifyMembers, subscribeToScriptSocket } from "../socket-handlers/api";
-import { DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
+import { SET_SESSION_ID, DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
+
+
+export const setSessionId = (session_id) => dispatch => {
+
+
+    dispatch({ type: SET_SESSION_ID, payload: session_id })
+
+
+}
 
 export const checkRemovedScript = (user_id, scripts, actualize) => dispatch => {
   removedScript(user_id, (script_id) => {

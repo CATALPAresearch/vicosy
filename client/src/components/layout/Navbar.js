@@ -211,6 +211,7 @@ class Navbar extends Component {
     );
 
     return (
+
       <div>
         { /*
         <nav
@@ -226,9 +227,9 @@ class Navbar extends Component {
 
           {/* <a class="navbar-brand" href="#">Navbar</a> */}
           {this.props.auth.user.role === "STUDENT" ?
-            !this.props.assistent.active ?
-              <button id="switchAssistent" title="Hier kannst du den Assistenten einschalten" className="secondary" onClick={this.setAssitent.bind(this)}>Assistent</button> : null : null}
-          {this.props.assistent.active ? <Assistent /> : null}
+            (!isSession||this.props.script.scriptType != "SESSION_DEFAULT") ?
+              !this.props.assistent.active ?
+                <button id="switchAssistent" title="Hier kannst du den Assistenten einschalten" className="secondary" onClick={this.setAssitent.bind(this)}>Assistent</button> : <Assistent /> : null : null}
           {errorMessage}
           {warningMessage}
 
@@ -242,7 +243,7 @@ class Navbar extends Component {
           >
             {this.props.assistent.incomingInstruction ? this.props.assistent.active && this.props.assistent.incomingInstruction.markers === "faq" ?
               <HintArrow
-                style={{ position: "absolute", left:10 , top: 30 }}
+                style={{ position: "absolute", left: 10, top: 30 }}
                 direction="up"
               /> : null : null}
 
@@ -290,7 +291,8 @@ Navbar.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
-  assistent: state.assistent
+  assistent: state.assistent,
+  script: state.script
 });
 
 export default connect(

@@ -271,8 +271,6 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   function createTrainerSession(script, scriptId, roomName, videoUrl, sessionType, group) {
     const roomId = String(group._id);
 
-
-
     //save space from unnessessary data
     // console.log(script);
     /*

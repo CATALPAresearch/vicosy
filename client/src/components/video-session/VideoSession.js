@@ -47,7 +47,7 @@ import AnnotationOverview from "./Sidebar/AnnotationOverview/AnnotationOverview"
 import { withLastLocation } from "react-router-last-location";
 import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContainer";
 import Guide from "./Guide/Guide";
-import { getScriptByGroupId } from "../../actions/scriptActions";
+import { getScriptByGroupId, setSessionId } from "../../actions/scriptActions";
 
 
 class VideoSession extends Component {
@@ -73,6 +73,7 @@ class VideoSession extends Component {
     this.onRoomJoined = this.onRoomJoined.bind(this);
     this.initialize = this.initialize.bind(this);
     this.evalLoggerRef = null;
+    this.props.setSessionId(this.props.match.params.sessionId);
   }
 
   componentWillMount() {
@@ -360,5 +361,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setError, resetLocalState, getScriptByGroupId }
+  { setError, resetLocalState, getScriptByGroupId, setSessionId }
 )(withRouter(withLastLocation(VideoSession)));

@@ -1,5 +1,5 @@
 import { SET_ACT_SCRIPT } from "../actions/types";
-import { GET_SESSIONS, DELETE_MEMBER_FROM_SCRIPT, HETEROGEN, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
+import { SET_SESSION_ID, GET_SESSIONS, DELETE_MEMBER_FROM_SCRIPT, HETEROGEN, UPDATE_SCRIPT_PROP, GET_SCRIPTS, CLEAR_SCRIPT, SET_GROUPS } from "../actions/types";
 import {
     SESSION_PEER_TEACHING
 } from "../shared_constants/sessionTypes";
@@ -24,12 +24,24 @@ const initialState = {
     started: false,
     participants: {},
     groups: [[]],
-    sessions: []
+    sessions: [],
+    session_id: null
 
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
+
+
+
+
+        case SET_SESSION_ID: {
+            return {
+                ...state,
+                session_id: action.payload
+            }
+
+        }
         case GET_SESSIONS: {
             return {
                 ...state,

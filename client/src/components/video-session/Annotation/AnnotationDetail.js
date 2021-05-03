@@ -200,7 +200,7 @@ class AnnotationDetail extends Component {
   }
 
   render() {
-    var phase = this.props.rooms.rooms[this.props.roomId].state.sharedRoomData.collabScript.phaseData.phaseId;
+    var phase = this.props.rooms.rooms[this.props.roomId].state.sharedRoomData.collabScript?this.props.rooms.rooms[this.props.roomId].state.sharedRoomData.collabScript.phaseData.phaseId:"PHASE_SEPARATE_SECTIONS";
 
     return (
       <div

@@ -66,6 +66,8 @@ export const SET_GROUPS="SET_GROUPS";
 export const DELETE_MEMBER_FROM_SCRIPT ="DELETE_MEMBER_FROM_SCRIPT";
 export const GET_SESSIONS="GET_SESSIONS";
 export const REMOVE_SCRIPT="REMOVE_SCRIPT";
+export const SET_SESSION_ID="SET_SESSION_ID";
+
 //assistent
 export const SET_WARNING = "SET_WARNING";
 export const SET_ACTIVE="SET_ACTIVE";

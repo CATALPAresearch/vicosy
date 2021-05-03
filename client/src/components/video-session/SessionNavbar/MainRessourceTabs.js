@@ -31,13 +31,13 @@ class MainRessourceTabs extends Component {
       {
         id: "video-tab",
         callback: this.toggleSharedDoc,
-        name: "Video", 
+        name: "Video",
         title: "Videoansicht"
       },
       {
         id: "doc-tab",
         callback: this.toggleSharedDoc,
-        name: "Shared Document", 
+        name: "Shared Document",
         title: "Kollaboratives Dokument"
       }
     ];
@@ -49,7 +49,7 @@ class MainRessourceTabs extends Component {
 
   render() {
     var selectedTabId = null;
-    var disabled=true;
+    var disabled = true;
     selectedTabId = this.props.localState.sharedDocEditing.isOpen
       ? "doc-tab"
       : "video-tab"
@@ -57,10 +57,11 @@ class MainRessourceTabs extends Component {
     const tabsEntries = this.state.tabs.map(tab => {
       const isSelected = selectedTabId === tab.id;
       // const isDisabled = tab.id == "doc-tab" && this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS";
-       disabled =
-        (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS" ||
+      disabled =
+        (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript && (this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_SEPARATE_SECTIONS" ||
           this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION_PAIR" ||
-          this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION") && tab.id === "doc-tab"
+          this.props.rooms.rooms[this.sessionId].state.sharedRoomData.collabScript.phaseData.phaseId === "PHASE_PREPARE_SECTION") && tab.id === "doc-tab")
+
 
           ? disabled = true : disabled = false;
       if (!disabled)
