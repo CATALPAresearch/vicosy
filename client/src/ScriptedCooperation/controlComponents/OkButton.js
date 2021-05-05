@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import HintArrow from "./../../components/Assistent/HintArrow";
+import { setIncominginstruction } from "../../actions/assistentActions";
+import Instruction from "../../components/Assistent/phases/Instruction";
 import { connect } from "react-redux";
 
 
@@ -10,7 +12,16 @@ export class OkButton extends Component {
         return (
             <div>
                 <button style={this.props.divStyle} id="toggle-switch"
-                    onClick={this.props.onButtonClick}
+                    onClick={
+                        (e) => {
+                            if (this.props.assistent.phase.name == "SEPARATESECTIONSTUTORPRE" && !this.props.rooms.rooms[this.props.script["session_id"]].state.sharedRoomData.annotations) {
+                                this.props.setIncominginstruction(new Instruction("Du hast erst weiter, wenn Kapitel gesetzt hast.", "open-annotations"));
+                            }
+                            else
+                                this.props.onButtonClick(e);
+                        }
+
+                    }
                     className="btn primaryCol btn-sm"
                 >
                     Phase beenden
@@ -35,11 +46,14 @@ export class OkButton extends Component {
 
 const mapStateToProps = state => ({
 
-    assistent: state.assistent
+    assistent: state.assistent,
+    localState: state.localState,
+    script: state.script,
+    rooms: state.rooms
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps, { setIncominginstruction }
 )(OkButton);
 
 

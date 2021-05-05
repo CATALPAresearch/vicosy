@@ -91,6 +91,27 @@ class Login extends Component {
     this.props.loginGuest();
   }
 
+  openAuth (e) {
+    var OAuth = require('oauth');
+ 
+     var OAuth2 = OAuth.OAuth2;    
+     var twitterConsumerKey = '335_1856al34udggoc48ksk0kgw8c4gcs880kg0kg0k4ks8k0soc88';
+     var twitterConsumerSecret = '1yjg87r0fdj4w0g8skokswkc88gokocc0kscgkw0kk4c8k8oos';
+     var oauth2 = new OAuth2(twitterConsumerKey,
+       twitterConsumerSecret, 
+       'https://www.gybond.de/iserv/', 
+       null,
+       'oauth/v2/token', 
+       null);
+     oauth2.getOAuthAccessToken(
+       '',
+       {'grant_type':'client_credentials'},
+       function (e, access_token, refresh_token, results){
+       console.log('bearer: ',access_token);
+    });
+   
+  }
+
   render() {
     const { errors } = this.state;
 
@@ -128,6 +149,8 @@ class Login extends Component {
                   marginRight: "auto"}}
                 className="btn primaryCol mt-4 w-25" />
               </form>
+              {
+                /*<button onClick={this.openAuth.bind(this)}>OpenAuth</button>*/}
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import {UPDATE_ACT_INSTRUCTION, SET_INCOMING_INSTRUCTION, UPDATE_CONTINUEBUTTON,
 import Instruction from "../components/Assistent/phases/Instruction"
 const initialState = {
   warningMessage: "",
-  active: false,
+  active: true,
   phase: null,
   actInstruction: null,
   meIsRequired: false,
