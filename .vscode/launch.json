@@ -20,7 +20,7 @@
       "name": "Chrome",
       "type": "chrome",
       "request": "launch",
-      "url": "https://eager-shaw.46-163-74-68.plesk.page:8080/",
+      "url": "http://localhost:3000",
       "webRoot": "${workspaceRoot}/src",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
