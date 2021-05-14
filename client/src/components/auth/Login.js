@@ -90,8 +90,9 @@ class Login extends Component {
   loginGuest(e) {
     this.props.loginGuest();
   }
-
+/*
   openAuth (e) {
+  
     var OAuth = require('oauth');
  
      var OAuth2 = OAuth.OAuth2;    
@@ -111,6 +112,7 @@ class Login extends Component {
     });
    
   }
+  */
 
   render() {
     const { errors } = this.state;
