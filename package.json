@@ -31,7 +31,8 @@
   "bugs": {
     "url": "https://github.com/MaHermes/close-up-collab/issues"
   },
-  "homepage": "https://github.com/MaHermes/close-up-collab#readme",
+  "homepage": "https://relaxed-mahavira.46-163-74-68.plesk.page",
+  "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
