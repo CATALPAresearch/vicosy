@@ -14,7 +14,7 @@
   "nodemonConfig": {
     "restartable": "rs",
     "ignore": [
-      "node_modules/**/node_modules"
+    "node_modules/**/node_modules"
     ],
     "delay": "2500",
     "env": {
@@ -31,8 +31,7 @@
   "bugs": {
     "url": "https://github.com/MaHermes/close-up-collab/issues"
   },
-  "homepage": "",
-  "private": true,
+  "homepage": "https://relaxed-mahavira.46-163-74-68.plesk.page",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",

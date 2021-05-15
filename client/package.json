@@ -1,7 +1,8 @@
 {
   "name": "client",
   "version": "0.1.0",
-   "private": true,
+  "homepage": "view-source:https://relaxed-mahavira.46-163-74-68.plesk.page",
+  "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
