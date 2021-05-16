@@ -263,7 +263,7 @@ class Navbar extends Component {
             {/* {isSession ? sessionInfo : null} */}
             {!this.props.assistent.active ?
               <Link className="navbar-brand" style={{ pointerEvents: "none" }} to="/">
-                CloseUpTogether
+                VideoCollab
         </Link> : null}
             {isAuthenticated ? authLinks : guestLinks}
 

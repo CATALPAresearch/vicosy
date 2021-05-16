@@ -124,7 +124,7 @@ class Login extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">
-                Logg' dich in deinen CloseUpTogether-Account ein
+                Logg' dich in deinen VideoCollab-Account ein
               </p>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup

@@ -71,7 +71,7 @@ class Register extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">
-                Erstelle deinen CloseUpTogether-account
+                Erstelle deinen VideoCollab-account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <ValidatedInput

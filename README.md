@@ -1,4 +1,4 @@
-# Video Collaboration "CloseUpTogether"
+# Video Collaboration "VideoCollab"
 
 Website that allows synchronous video conversations and scripted video learning.
 
