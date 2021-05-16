@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "synchronous video learning collaboration",
   "main": "server.js",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "client-install": "npm install --prefix client",
     "build": "cd client && npm run build",
