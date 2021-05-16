@@ -3,17 +3,13 @@
   "version": "1.0.0",
   "description": "synchronous video learning collaboration",
   "main": "server.js",
-  "proxy": "http://localhost:5000",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "build": "cd client && npm run build",
-    "install": "cd client && npm install",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build -- prefix client"
-  
   },
   "nodemonConfig": {
     "restartable": "rs",
