@@ -9,10 +9,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-<<<<<<< HEAD
     "add": "^2.0.6",
-=======
->>>>>>> 4465dcfe84cb2f7b2ae3fea44d1e3cce2c028b7c
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "getusermedia": "^2.0.1",
