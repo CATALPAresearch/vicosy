@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/0994b157-8bae-4b43-9e93-77b24a8a4edb/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/VideoCollab01",
+    "appService.deploySubpath": "."
+}
