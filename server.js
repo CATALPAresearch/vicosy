@@ -224,7 +224,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 var server;
-const port = process.env.PORT || 5010;
+const port = process.env.PORT || 5000;
 
 //// logger api
 //Initialize server instance
