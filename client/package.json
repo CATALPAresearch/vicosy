@@ -41,7 +41,7 @@
     "sharedb": "^1.7.0",
     "simple-peer": "^9.1.2",
     "skmeans": "^0.11.3",
-    "socket.io-client": "2.1.1",
+    "socket.io-client": "^2.1.1",
     "video.js": "^7.0.3",
     "videojs-youtube": "^2.5.0",
     "ws": "^7.4.3",
@@ -53,7 +53,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-    "secure": true,
+  "proxy": "http://localhost:5000/",
+  "secure": false,
   "browserslist": {
     "production": [
       ">0.2%",
