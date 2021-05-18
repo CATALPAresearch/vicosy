@@ -46,7 +46,8 @@ const connectSocket = (cbConnected, cbDisconnected, token = null) => {
 
   if (token) token = token.slice("Bearer_".length);
   lastToken = token;
-  const targetURL = `https://${window.location.hostname}:${
+
+  const targetURL = `https://${window.location.hostname}:${process.env.PORT ||
      5000}${token ? `?token=${token}` : ""}`;
 
   // const targetURL = getHost("", token);
