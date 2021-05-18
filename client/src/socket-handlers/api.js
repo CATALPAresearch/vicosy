@@ -19,10 +19,10 @@ const isSecure = window.location.protocol === "https:";
 
 // TODO: ssl set openSocket secure: true
 const getHost = (path, token, params = "") => {
-  var port = 5050;
+  var port = 5000;
   if (window.location.hostname !== "localhost" && window.location.port)
     port = window.location.port;
-
+alert (port);
   return `${window.location.protocol}//${window.location.hostname
     }:${port}${path}${token ? `?token=${token}` : ""}${params}`;
 };
