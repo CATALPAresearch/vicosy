@@ -23,7 +23,7 @@ const getHost = (path, token, params = "") => {
   if (window.location.hostname !== "localhost" && window.location.port)
     port = window.location.port;
 
-  return `${window.location.protocol}//${window.location.hostname
+  return `wss//${window.location.hostname
     }:${port}${path}${token ? `?token=${token}` : ""}${params}`;
 };
 
@@ -46,11 +46,11 @@ const connectSocket = (cbConnected, cbDisconnected, token = null) => {
 
   if (token) token = token.slice("Bearer_".length);
   lastToken = token;
-
+/*
   const targetURL = `https://${window.location.hostname}:${
      5000}${token ? `?token=${token}` : ""}`;
-
-  // const targetURL = getHost("", token);
+*/
+   const targetURL = getHost("", token);
   // console.log("Connecting socket to ", targetURL);
 
   if (socket) {
