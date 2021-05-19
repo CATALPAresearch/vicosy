@@ -24,7 +24,7 @@ const getHost = (path, token, params = "") => {
     port = window.location.port;
 
   return `${window.location.protocol}//${window.location.hostname
-    }:${80}${path}${token ? `?token=${token}` : ""}${params}`;
+    }:${8080}${path}${token ? `?token=${token}` : ""}${params}`;
 };
 
 
