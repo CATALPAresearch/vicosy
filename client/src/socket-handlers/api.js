@@ -24,8 +24,9 @@ const getHost = (path, token, params = "") => {
   var port = 5000;
   if (window.location.hostname !== "localhost" && window.location.port)
     port = window.location.port;
-
-  return `${window.location.protocol}//${window.location.host
+console.log(window.location.protocol+$window.location.hostname
+);
+  return `${window.location.protocol}//${window.location.hostname
     }:${port}${path}${token ? `?token=${token}` : ""}${params}`;
 };
 
