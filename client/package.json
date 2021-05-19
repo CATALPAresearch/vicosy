@@ -54,7 +54,7 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000/",
-  "secure": true,
+  "secure": false,
   "browserslist": {
     "production": [
       ">0.2%",
