@@ -263,7 +263,7 @@ if (isSecure) {
 
 
 // Socket connections
-const io = socket(server, { origins: "*:*", rejectUnauthorized: false, secure: true });
+const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
 io.origins("*:*");
 
 const handleSocketEvents = require("./socket-handlers/socket-events");
