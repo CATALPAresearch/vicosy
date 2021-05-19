@@ -18,7 +18,7 @@
     ],
     "delay": "2500",
     "env": {
-      "NODE_ENV": "production",
+      "NODE_ENV": "development",
       "NODE_CONFIG_DIR": "./config"
     }
   },
@@ -29,9 +29,9 @@
   "author": "Markus Hermes, Jost Fromhage",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MaHermes/close-up-collab/issues"
+    "url": "https://charming-payne.46-163-74-68.plesk.page/"
   },
-  "homepage": "https://relaxed-mahavira.46-163-74-68.plesk.page",
+  "homepage": "https://charming-payne.46-163-74-68.plesk.page/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
