@@ -22,8 +22,8 @@ require("./client/src/utils/extensionMethods");
 const ColorHash = require("color-hash");
 const Script = require("./models/Script");
 const doc = require("./models/Doc");
-const WebSocket = require('ws');
-const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
+// const WebSocket = require('ws');
+// const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 const ShareDB = require('sharedb');
 
 // DB config
@@ -40,8 +40,8 @@ ShareDB.types.register(require('rich-text').type);
 
 
 
-const shareDBServer = new ShareDB(/*SharedMongoDb*/);
-const sharedConnection = shareDBServer.connect();
+// const shareDBServer = new ShareDB(/*SharedMongoDb*/);
+// const sharedConnection = shareDBServer.connect();
 
 
 
