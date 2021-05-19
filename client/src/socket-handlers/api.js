@@ -17,18 +17,15 @@ var lastToken = "";
 
 const isSecure = window.location.protocol === "https:";
 
-
-
 // TODO: ssl set openSocket secure: true
 const getHost = (path, token, params = "") => {
   var port = 5000;
   if (window.location.hostname !== "localhost" && window.location.port)
     port = window.location.port;
-  console.log(window.location.protocol + window.location.hostname
-  );
-  return window.location.protocol + "//" + window.location.hostname + `:${port}${path}${token ? `?token=${token}` : ""}${params}`;
-};
 
+  return `${window.location.protocol}//${window.location.hostname
+    }/:${port}${path}${token ? `?token=${token}` : ""}${params}`;
+};
 
 const connectToP2PSignaler = connectCb => {
   const SIGNALING_SERVER = getHost("/p2p", lastToken);
@@ -50,8 +47,8 @@ const connectSocket = (cbConnected, cbDisconnected, token = null) => {
   if (token) token = token.slice("Bearer_".length);
   lastToken = token;
 
-  //  const targetURL = `https://${window.location.hostname}:${process.env.PORT ||
-  //   5000}${token ? `?token=${token}` : ""}`;
+  // const targetURL = `https://${window.location.hostname}:${process.env.PORT ||
+  //   5050}${token ? `?token=${token}` : ""}`;
 
   const targetURL = getHost("", token);
   console.log("Connecting socket to ", targetURL);
