@@ -24,7 +24,7 @@ const getHost = (path, token, params = "") => {
     port = window.location.port;
 
   return `${window.location.protocol}//${window.location.hostname
-    }${path}${token ? `?token=${token}` : ""}${params}`;
+    }/${path}${token ? `?token=${token}` : ""}${params}`;
 };
 
 const connectToP2PSignaler = connectCb => {
