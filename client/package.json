@@ -53,7 +53,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://charming-payne.46-163-74-68.plesk.page:5000",
+  "proxy": "http://localhost:5000",
   "secure": true,
   "browserslist": {
     "production": [
