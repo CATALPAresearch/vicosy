@@ -24,10 +24,9 @@ const getHost = (path, token, params = "") => {
   var port = 5000;
   if (window.location.hostname !== "localhost" && window.location.port)
     port = window.location.port;
-console.log(window.location.protocol+window.location.hostname
-);
-  return `${window.location.protocol}//${window.location.hostname
-    }:${port}${path}${token ? `?token=${token}` : ""}${params}`;
+  console.log(window.location.protocol + window.location.hostname
+  );
+  return window.location.protocol + "//" + window.location.hostname + `:${port}${path}${token ? `?token=${token}` : ""}${params}`;
 };
 
 
@@ -51,7 +50,7 @@ const connectSocket = (cbConnected, cbDisconnected, token = null) => {
   if (token) token = token.slice("Bearer_".length);
   lastToken = token;
 
- //  const targetURL = `https://${window.location.hostname}:${process.env.PORT ||
+  //  const targetURL = `https://${window.location.hostname}:${process.env.PORT ||
   //   5000}${token ? `?token=${token}` : ""}`;
 
   const targetURL = getHost("", token);
