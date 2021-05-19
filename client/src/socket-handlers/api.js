@@ -25,7 +25,8 @@ const getHost = (path, token, params = "") => {
   if (window.location.hostname !== "localhost" && window.location.port)
     port = window.location.port;
 
-  return `https://charming-payne.46-163-74-68.plesk.page/:${port}${path}${token ? `?token=${token}` : ""}${params}`;
+  return `${window.location.protocol}//${window.location.hostname
+    }:${port}${path}${token ? `?token=${token}` : ""}${params}`;
 };
 
 
