@@ -244,7 +244,7 @@ app.post('/api/evallogger', function (req, res, next) {
 
 //End of logger
 
-
+console.log(keys.key);
 if (isSecure) {
   const pfxContent = {
     key: fs.readFileSync(keys.key),
