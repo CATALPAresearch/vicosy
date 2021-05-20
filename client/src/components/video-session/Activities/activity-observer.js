@@ -53,7 +53,7 @@ export class ActivityOberserver extends Component {
             console.log("not active");
         }, this.sendActiveMessageInterval);
 
-        if (this.props.assistent.active)
+        if (this.props.script.scriptType!="SESSION_DEFAULT")
             this.selfTimeOut = setTimeout(() => {
                 this.showHint();
 
