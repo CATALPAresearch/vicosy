@@ -370,7 +370,7 @@ export default class VideoPlyrHTML5 extends Component {
         <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
 
         <video
-          poster="http://aimvideoproduction.com/wp-content/uploads/2011/03/Video-Reel-and-Film-Canister2.png"
+          poster="Video-Reel-and-Film-Canister2.png"
           id="player"
           playsInline
           ref={this.myVideo}
