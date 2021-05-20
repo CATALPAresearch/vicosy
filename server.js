@@ -248,7 +248,8 @@ app.post('/api/evallogger', function (req, res, next) {
 if (isSecure) {
   const pfxContent = {
     key: fs.readFileSync(keys.key),
-    cert: fs.readFileSync(keys.cert)}
+    cert: fs.readFileSync(keys.cert)
+  }
   console.log(pfxContent);
   const options = {
     pfx: pfxContent
