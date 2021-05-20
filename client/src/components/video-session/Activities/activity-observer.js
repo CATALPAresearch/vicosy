@@ -53,11 +53,11 @@ export class ActivityOberserver extends Component {
             console.log("not active");
         }, this.sendActiveMessageInterval);
 
-        if (this.props.script.scriptType!="SESSION_DEFAULT")
-            this.selfTimeOut = setTimeout(() => {
-                this.showHint();
 
-            }, this.selfInactiveInterval);
+        this.selfTimeOut = setTimeout(() => {
+            this.showHint();
+
+        }, this.selfInactiveInterval);
 
 
 
@@ -108,7 +108,8 @@ export class ActivityOberserver extends Component {
     showHint() {
         let position = Math.floor(Math.random() * this.hints.instructions.length);
         if (this.hints.instructions.length > 0) {
-            this.props.setIncominginstruction(this.hints.instructions[position]);
+            if (this.props.script.scriptType != "SESSION_DEFAULT")
+                this.props.setIncominginstruction(this.hints.instructions[position]);
             this.hints.instructions.splice(position, 1);
             this.resetSelfTimer();
         }
