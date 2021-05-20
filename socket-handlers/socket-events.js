@@ -1,4 +1,7 @@
 const chatMessageTypes = require("../client/src/shared_constants/chatmessage-types");
+const https = require("https");
+const fs = require("fs");
+const keys = require("../config/keys");
 const onChange = require("on-change");
 const VideoDBApi = require("../models/Video");
 const ScriptDBApi = require("../models/Script");
@@ -75,7 +78,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
   //logToRoom for evaluation
   clientSocket.on("evalLogToRoom", (scriptId, roomId, message) => {
     logToEvalRoom(roomId, message);
-    logToEvalRoom("scriptId"+scriptId, message);
+    logToEvalRoom("scriptId" + scriptId, message);
   }
   );
 
@@ -159,7 +162,22 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
 
         sharedDoc.create([{ insert: 'Hier könnt ihr gemeinsam schreiben!' }], 'rich-text', () => {
-          const wss = new WebSocket.Server({ port: 8080 });
+          var wss;
+          if (keys.modus === "production") {
+
+            const options = {
+              key: fs.readFileSync(keys.key, "utf8"),
+              cert: fs.readFileSync(keys.cert, "utf8")
+            }
+            var server = HttpsServer(options);
+
+            wss = new WebSocket({
+              server: server
+            })
+          }
+          else {
+            wss = new WebSocket.Server({ port: 8080 });
+          }
           console.log("New Doc created");
           wss.on('connection', function connection(ws) {
             // For transport we are using a ws JSON stream for communication

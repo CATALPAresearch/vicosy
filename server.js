@@ -248,7 +248,7 @@ app.post('/api/evallogger', function (req, res, next) {
 
 //End of logger
 
-if (isSecure) {
+if (keys.modus === "production") {
   const pfxContent = {
     key: fs.readFileSync(keys.key, "utf8"),
     cert: fs.readFileSync(keys.cert,"utf8")
