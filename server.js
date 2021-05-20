@@ -27,7 +27,7 @@ const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 const ShareDB = require('sharedb');
 
 // DB config
-const db = require("./config/keys").mongoURI;
+const db = keys.mongouri;
 
 //const SharedMongoDb = require ('sharedb-mongo')(db);
 /**
@@ -245,7 +245,7 @@ app.post('/api/evallogger', function (req, res, next) {
 
 
 if (isSecure) {
-  const pfxContent = fs.readFileSync(keys.ssl_cert);
+  const pfxContent = keys.ssl_cert;
   console.log(pfxContent);
   const options = {
     pfx: pfxContent
