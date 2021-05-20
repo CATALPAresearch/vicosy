@@ -255,7 +255,7 @@ if (isSecure) {
     pfx: pfxContent
   };
 
-  server = https.createServer(options, app).listen(port, function () {
+  server = https.createServer(pfxContent, app).listen(port, function () {
     winston.info(`SSL secured server listening on port ${port}`);
   });
 } else {
