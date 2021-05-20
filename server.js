@@ -247,8 +247,8 @@ app.post('/api/evallogger', function (req, res, next) {
 console.log(keys.key);
 if (isSecure) {
   const pfxContent = {
-    key: fs.readFileSync(keys.key),
-    cert: fs.readFileSync(keys.cert)
+    key: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/privkey.pem"),
+    cert: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/cert.pem")
   }
   console.log(pfxContent);
   const options = {
