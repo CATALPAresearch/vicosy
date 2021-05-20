@@ -47,7 +47,8 @@ const sharedConnection = shareDBServer.connect();
 
 var colorHash = new ColorHash({ saturation: 0.5, lightness: 0.2 });
 
-const isSecure = !!keys.key;
+const isSecure = true;
+//!!keys.key;
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
