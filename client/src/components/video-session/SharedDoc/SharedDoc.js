@@ -24,7 +24,10 @@ class SharedDoc extends Component {
     super(props);
     Sharedb.types.register(richText.type);
     // Connecting to our socket server
-    const socket = new WebSocket('ws://127.0.0.1:8080');
+    if (window.location.hostname === "localhost")
+      const socket = new WebSocket('ws://127.0.0.1:8080');
+    else
+      const socket = new WebSocket('ws://charming-payne.46-163-74-68.plesk.page/:8080');
     const connection = new Sharedb.Connection(socket);
 
     // Querying for our document
@@ -35,7 +38,7 @@ class SharedDoc extends Component {
     const doc = connection.get('docs', this.sessionId);
     this.doc = doc;
 
-    doc.subscribe( (err) => {
+    doc.subscribe((err) => {
       if (err) throw err;
 
       const options = {
@@ -71,18 +74,18 @@ class SharedDoc extends Component {
        * On Text change publishing to our server
        * so that it can be broadcasted to all other clients
        */
-      quill.on('text-change',  (delta, oldDelta, source) => {
+      quill.on('text-change', (delta, oldDelta, source) => {
         if (source !== 'user') return;
         doc.submitOp(delta, { source: quill });
         quill.focus()
         this.props.setSharedDoc(doc.data.ops[0].insert);
-        
+
       });
 
       /** listening to changes in the document
        * that is coming from our server
        */
-      doc.on('op',  (op, source) => {
+      doc.on('op', (op, source) => {
         if (source === quill) return;
 
         quill.updateContents(op);
@@ -146,7 +149,7 @@ class SharedDoc extends Component {
   render() {
     // Connecting to our socket server
 
-   
+
     return (
       <div
         id="SharedDoc"

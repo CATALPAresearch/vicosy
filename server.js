@@ -28,6 +28,7 @@ const ShareDB = require('sharedb');
 
 
 const isSecure = !!keys.key;
+
 // DB config
 const db = keys.mongoURI;
 console.log (db);
