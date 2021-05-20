@@ -1,5 +1,5 @@
 const chatMessageTypes = require("../client/src/shared_constants/chatmessage-types");
-const https = require("https");
+const HttpsServer = require("https").createServer;
 const fs = require("fs");
 const keys = require("../config/keys");
 const onChange = require("on-change");
