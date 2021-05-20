@@ -9,6 +9,7 @@ export default class Hints {
         this.instructions.push(new Instruction("Wusstest du schon? Du kannst mit deinem Partner chatten.", "chat-write"));        
         this.instructions.push(new Instruction("Wusstest du schon? Du kannst mit deinem Partner eine Videokonferenz abhalten.", "video-button"));      
         this.instructions.push(new Instruction("Wusstest du schon? Du kannst mit deinem Partner über Audio sprechen.", "audio-button"));      
+        this.instructions.push(new Instruction("Sollte das Programm mal haken, aktualisiere die Webseite.", ""));      
          
     }
 }

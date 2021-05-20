@@ -1,4 +1,4 @@
-import React,{ Component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { sendActiveMessage, setIncominginstruction, sendTabLostMessage } from "../../../actions/assistentActions";
 import { ownSocketId, evalLogToRoom } from "../../../socket-handlers/api";
@@ -53,11 +53,11 @@ export class ActivityOberserver extends Component {
             console.log("not active");
         }, this.sendActiveMessageInterval);
 
+        if (this.props.assistent.active)
+            this.selfTimeOut = setTimeout(() => {
+                this.showHint();
 
-        this.selfTimeOut = setTimeout(() => {
-            this.showHint();
-
-        }, this.selfInactiveInterval);
+            }, this.selfInactiveInterval);
 
 
 

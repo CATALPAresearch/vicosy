@@ -26,9 +26,13 @@ const WebSocket = require('ws');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 const ShareDB = require('sharedb');
 
+
+const isSecure = !!keys.key;
 // DB config
 const db = keys.mongoURI;
 console.log (db);
+
+
 //const SharedMongoDb = require ('sharedb-mongo')(db);
 /**
  * By Default Sharedb uses JSON0 OT type.
@@ -47,8 +51,7 @@ const sharedConnection = shareDBServer.connect();
 
 var colorHash = new ColorHash({ saturation: 0.5, lightness: 0.2 });
 
-const isSecure = true;
-//!!keys.key;
+
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -244,11 +247,10 @@ app.post('/api/evallogger', function (req, res, next) {
 
 //End of logger
 
-console.log(keys.key);
 if (isSecure) {
   const pfxContent = {
-    key: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/privkey.pem", "utf8"),
-    cert: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/fullchain.pem","utf8")
+    key: fs.readFileSync(keys.key, "utf8"),
+    cert: fs.readFileSync(keys.cert,"utf8")
   }
   console.log(pfxContent);
   const options = {
