@@ -24,10 +24,11 @@ class SharedDoc extends Component {
     super(props);
     Sharedb.types.register(richText.type);
     // Connecting to our socket server
+    var socket;
     if (window.location.hostname === "localhost")
-      const socket = new WebSocket('ws://127.0.0.1:8080');
+      socket = new WebSocket('ws://127.0.0.1:8080');
     else
-      const socket = new WebSocket('ws://charming-payne.46-163-74-68.plesk.page/:8080');
+      socket = new WebSocket('ws://charming-payne.46-163-74-68.plesk.page/:8080');
     const connection = new Sharedb.Connection(socket);
 
     // Querying for our document
