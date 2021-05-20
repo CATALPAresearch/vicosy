@@ -47,8 +47,7 @@ const sharedConnection = shareDBServer.connect();
 
 var colorHash = new ColorHash({ saturation: 0.5, lightness: 0.2 });
 
-const isSecure = true;
-//!!keys.key;
+const isSecure = !!keys.key;
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -246,7 +245,9 @@ app.post('/api/evallogger', function (req, res, next) {
 
 
 if (isSecure) {
-  const pfxContent = keys.ssl_cert;
+  const pfxContent = {
+    key: fs.readFileSync(keys.key),
+    cert: fs.readFileSync(keys.cert)}
   console.log(pfxContent);
   const options = {
     pfx: pfxContent
