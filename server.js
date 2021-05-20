@@ -27,8 +27,8 @@ const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 const ShareDB = require('sharedb');
 
 // DB config
-const db = fs.readFileSync(keys.mongouri);
-
+const db = keys.mongouri;
+console.log (db);
 //const SharedMongoDb = require ('sharedb-mongo')(db);
 /**
  * By Default Sharedb uses JSON0 OT type.
