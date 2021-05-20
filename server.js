@@ -248,7 +248,7 @@ console.log(keys.key);
 if (isSecure) {
   const pfxContent = {
     key: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/privkey.pem", "utf8"),
-    cert: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/fullchain.pem","utf8")
+    cert: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/chain.pem","utf8")
   }
   console.log(pfxContent);
   const options = {
