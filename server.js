@@ -27,7 +27,7 @@ const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 const ShareDB = require('sharedb');
 
 // DB config
-const db = keys.mongouri;
+const db = fs.readFileSync(keys.mongouri);
 
 //const SharedMongoDb = require ('sharedb-mongo')(db);
 /**
