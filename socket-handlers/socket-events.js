@@ -1,5 +1,5 @@
 const chatMessageTypes = require("../client/src/shared_constants/chatmessage-types");
-const HttpsServer = require("https").createServer;
+const https = require("https");
 const fs = require("fs");
 const keys = require("../config/keys");
 const onChange = require("on-change");
@@ -167,13 +167,18 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
             const options = {
               key: fs.readFileSync(keys.key, "utf8"),
-              cert: fs.readFileSync(keys.cert, "utf8")
+              cert: fs.readFileSync(keys.cert, "utf8"),
+              port: 8080
             }
-            var server = HttpsServer(options);
-
-            wss = new WebSocket({
-              server: server
-            })
+            var server = https.createServer(options, (req, res) => {
+              res.writeHead(200);
+              res.end(index);
+            });
+            server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
+            server.on('error', (err) => console.error(err));
+            server.listen(8080, () => console.log('Https running on port 8000'));
+            wss = new WebSocket.Server({
+              server, path: '/echo'})
           }
           else {
             wss = new WebSocket.Server({ port: 8080 });
