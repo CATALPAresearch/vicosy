@@ -248,7 +248,7 @@ console.log(keys.key);
 if (isSecure) {
   const pfxContent = {
     key: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/privkey.pem"),
-    cert: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/cert.pem")
+    cert: fs.readFileSync("/usr/local/psa/var/modules/letsencrypt/etc/live/charming-payne.46-163-74-68.plesk.page/fullchain.pem")
   }
   console.log(pfxContent);
   const options = {
@@ -260,7 +260,7 @@ if (isSecure) {
   });
 } else {
   server = app.listen(port, (req, res) =>
-    winston.info("SSL secured server listening on port " + port)
+    winston.info("Server listening on port " + port)
   );
 }
 
