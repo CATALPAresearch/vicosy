@@ -28,7 +28,7 @@ class SharedDoc extends Component {
     if (window.location.hostname === "localhost")
       socket = new WebSocket('ws://127.0.0.1:8080');
     else
-      socket = new WebSocket('ws://charming-payne.46-163-74-68.plesk.page/:8080');
+      socket = new WebSocket('wss://charming-payne.46-163-74-68.plesk.page/:8080');
     const connection = new Sharedb.Connection(socket);
 
     // Querying for our document
