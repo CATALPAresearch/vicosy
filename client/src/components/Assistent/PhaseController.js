@@ -22,7 +22,7 @@ export class PhaseController extends Component {
     else return null;
   }
   render() {
-    console.log(this.props);
+    
     return null;
   }
 
@@ -185,7 +185,6 @@ export class PhaseController extends Component {
     }
 
 
-    console.log(this.props.assistent);
     //this.props.setActInstruction(actPhase.getActInstruction());
 
   }  // public

@@ -17,11 +17,12 @@ import {
 } from "../logic-controls/socketEvents";
 import { withRouter } from "react-router";
 import { setError } from "../../actions/errorActions";
+import { logDocs } from "../../actions/docActions";
 import { joinConference } from "../test/WebRtcConference";
 import { ownSocketId } from "../../socket-handlers/api";
 import { resetLocalState } from "../../actions/localStateActions";
 import EvalLogger from "./Evaluation/EvalLogger";
-import {KEY_CLICK}from "./Evaluation/EvalLogEvents";
+import { KEY_CLICK } from "./Evaluation/EvalLogEvents";
 // import "../../p2p-handlers/P2PConnectionManager";
 
 import "./VideoSession.css";
@@ -48,6 +49,7 @@ import { withLastLocation } from "react-router-last-location";
 import LoadingIndicatorContainer from "./LoadingIndicator/LoadingIndicatorContainer";
 import Guide from "./Guide/Guide";
 import { getScriptByGroupId, setSessionId } from "../../actions/scriptActions";
+import { setActive } from "../../actions/assistentActions";
 
 
 class VideoSession extends Component {
@@ -82,6 +84,10 @@ class VideoSession extends Component {
 
   componentDidMount() {
     // this.props.loginRoom(this.props.match.params.sessionId);
+    if (this.props.script.scriptType == "SESSION_DEFAULT") {
+      this.props.setActive(false);
+
+    }
     if (this.state.userReady) {
       this.initialize();
     }
@@ -110,12 +116,13 @@ class VideoSession extends Component {
 
 
   _handleKeyDown = (event) => {
-    
-    this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, event.keyCode);
-            
 
-   
-}
+    this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, event.keyCode);
+    this.props.logDocs(this.props.auth.user.id, this.props.script._id, this.props.docs);
+
+
+
+  }
   componentWillUnmount() {
     const { sessionId } = this.props.match.params;
     // this.props.logoutRoom(this.props.match.params.sessionId);
@@ -356,10 +363,11 @@ const mapStateToProps = state => ({
   errors: state.errors,
   localState: state.localState,
   assistent: state.assistent,
-  script: state.script
+  script: state.script,
+  docs: state.docs
 });
 
 export default connect(
   mapStateToProps,
-  { setError, resetLocalState, getScriptByGroupId, setSessionId }
+  { setError, resetLocalState, getScriptByGroupId, setSessionId, logDocs, setActive }
 )(withRouter(withLastLocation(VideoSession)));

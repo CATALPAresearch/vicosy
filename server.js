@@ -31,7 +31,7 @@ const isSecure = !!keys.key;
 
 // DB config
 const db = keys.mongoURI;
-console.log (db);
+
 
 
 //const SharedMongoDb = require ('sharedb-mongo')(db);
@@ -219,7 +219,7 @@ if (process.env.NODE_ENV === "production") {
   //     )
   //   );
   // });
-  
+
 
   app.get("*", (req, res) => {
     console.log("get request received", req.url);
@@ -247,16 +247,13 @@ app.post('/api/evallogger', function (req, res, next) {
 
 
 //End of logger
-
+var pfxContent;
 if (process.env.NODE_ENV === "production") {
-  const pfxContent = {
+  pfxContent = {
     key: fs.readFileSync(keys.key, "utf8"),
-    cert: fs.readFileSync(keys.cert,"utf8")
+    cert: fs.readFileSync(keys.cert, "utf8")
   }
-  console.log(pfxContent);
-  const options = {
-    pfx: pfxContent
-  };
+ 
 
   server = https.createServer(pfxContent, app).listen(port, function () {
     winston.info(`SSL secured server listening on port ${port}`);
@@ -278,6 +275,8 @@ const DbSocket = require("./socket-handlers/db-socket-events");
 
 //const setSocket = require("./routes/api/script");
 //set socket to script.js
+
+
 
 
 // auth
@@ -311,6 +310,31 @@ io.use((socket, next) => {
   });
 });
 
+//websocket connection
+var wss;
+if (process.env.NODE_ENV === "production") {
+
+  const options = {
+    key: fs.readFileSync(keys.key, "utf8"),
+    cert: fs.readFileSync(keys.cert, "utf8"),
+    port: 8080
+  }
+  var server = https.createServer(options, (req, res) => {
+    res.writeHead(200);
+    res.end(index);
+  });
+  server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
+  server.on('error', (err) => console.error(err));
+  server.listen(8080, () => console.log('Https running on port 8080'));
+  wss = new WebSocket.Server({
+    server, path: '/hereistwws'})
+}
+else {
+  wss = new WebSocket.Server({ port: 8080 });
+}
+
+
+
 var sessionsInitialized = false;
 io.on("connection", clientSocket => {
   console.log("made socket connection");
@@ -324,7 +348,7 @@ io.on("connection", clientSocket => {
 
   //handleSocketEvents(clientSocket, io);
 
-  const obj = new handleSocketEvents(clientSocket, io);
+  const obj = new handleSocketEvents(clientSocket, io, wss);
   if (!sessionsInitialized) {
 
     obj.initSessions(() => { sessionsInitialized = true; });

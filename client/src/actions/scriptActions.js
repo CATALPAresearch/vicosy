@@ -26,7 +26,7 @@ export const checkRemovedScript = (user_id, scripts, actualize) => dispatch => {
 
         }
       }
-    console.log(scripts);
+  
     dispatch({ type: GET_SCRIPTS, payload: scripts }
     );
   }
@@ -151,8 +151,7 @@ export const startScript = (script) => dispatch => {
 
 // delete Member in Script 
 export const deleteMemberFromScript = (member_id, script) => dispatch => {
-  console.log(script);
-
+ 
   for (let i = 0; i < script.participants.length; i++) {
     if (script.participants[i].id === member_id)
       script.participants.splice(i, 1);
@@ -178,8 +177,7 @@ export const deleteMemberFromScript = (member_id, script) => dispatch => {
 //create Script and store it in db
 export const createScript = (scriptData, setScript, changeToGroups) => dispatch => {
   console.log("create Script");
-  console.log(scriptData);
-  axios
+   axios
     .post("/api/script/newscript", scriptData)
     .then(res => {
       setScript(res.data);
@@ -218,8 +216,7 @@ export const deleteScript = _id => dispatch => {
   axios
     .post("/api/script/deletescript", { _id: _id })
     .then(res => {
-      console.log(res.data);
-      //removeScript(res.data._id);
+    
       dispatch({
         type: CLEAR_SCRIPT,
         payload: res.data._id

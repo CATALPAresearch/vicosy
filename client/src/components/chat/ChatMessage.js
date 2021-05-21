@@ -13,7 +13,7 @@ import TimeButton from "../controls/TimeButton";
 
 export default class ChatMessage extends Component {
   render() {
-    console.log(this.props);
+
     const { message } = this.props;
 
     var messageContent;

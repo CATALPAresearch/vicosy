@@ -127,8 +127,7 @@ class Assistent extends Component {
 
 
     render() {
-        console.log(this.props);
-
+       
         return (
             <div id="assistent" title="Ich bin dein Assistent und werde dich durch die Session führen. Du kannst mich ausschalten, indem du auf mich klickst.">
                 <div className="panel " id="laempel">

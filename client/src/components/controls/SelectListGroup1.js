@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export default class SelectListGroup1 extends Component {
   render() {
-    console.log(this.props);
+   
     const id = this.props.id;
     const errors = this.props.errors;
     const info = this.props.info;

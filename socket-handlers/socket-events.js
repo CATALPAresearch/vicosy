@@ -38,7 +38,7 @@ const sharedConnection = shareDBServer.connect();
 var sharedDoc = {};
 
 
-module.exports = function handleSocketEvents(clientSocket, socketIO) {
+module.exports = function handleSocketEvents(clientSocket, socketIO, wss) {
 
 
   this.initSessions = function (callback) {
@@ -50,21 +50,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
           createTrainerSession(script, String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
           //clientSocket.emit("notifyMembers", script);
         }
-        /*
-                var myGroup = {};
-                if (script.participants)
-                  for (var member of script.participants) {
-        
-                    for (var group of script.groups)
-                      for (var gmember of group.groupMembers)
-                        if (gmember._id == member._id) {
-                          myGroup = group;
-                        }
-                    console.log(member._id, "wird informiert!");
-                    clientSocket.to("studentlobby").emit("newScript" + member._id, script);
-        
-                  }
-        */
+      
 
       }
 
@@ -162,6 +148,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
 
         sharedDoc.create([{ insert: 'Hier könnt ihr gemeinsam schreiben!' }], 'rich-text', () => {
+       /*
           var wss;
           if (process.env.NODE_ENV === "production") {
 
@@ -183,6 +170,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
           else {
             wss = new WebSocket.Server({ port: 8080 });
           }
+          */
           console.log("New Doc created");
           wss.on('connection', function connection(ws) {
             // For transport we are using a ws JSON stream for communication
