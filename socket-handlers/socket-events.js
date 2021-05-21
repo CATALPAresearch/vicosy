@@ -178,7 +178,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
             server.on('error', (err) => console.error(err));
             server.listen(8080, () => console.log('Https running on port 8080'));
             wss = new WebSocket.Server({
-              server, path: '/echo'})
+              server, path: '/hereistwws'})
           }
           else {
             wss = new WebSocket.Server({ port: 8080 });
