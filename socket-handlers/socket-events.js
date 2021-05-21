@@ -163,7 +163,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
 
         sharedDoc.create([{ insert: 'Hier könnt ihr gemeinsam schreiben!' }], 'rich-text', () => {
           var wss;
-          if (keys.modus === "production") {
+          if (process.env.NODE_ENV === "production") {
 
             const options = {
               key: fs.readFileSync(keys.key, "utf8"),

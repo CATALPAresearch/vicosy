@@ -77,7 +77,7 @@ class AppContent extends Component {
           </Switch>
         </SocketController>
         <Route exact path="/not-found" component={NotFound} />
-        <Footer isSession={true} />
+        <Footer isSession={isSessionPath} />
       </div>
     );
   }
