@@ -176,7 +176,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO) {
             });
             server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
             server.on('error', (err) => console.error(err));
-            server.listen(8080, () => console.log('Https running on port 8000'));
+            server.listen(8080, () => console.log('Https running on port 8080'));
             wss = new WebSocket.Server({
               server, path: '/echo'})
           }
