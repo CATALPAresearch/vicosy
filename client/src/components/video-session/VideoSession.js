@@ -84,7 +84,7 @@ class VideoSession extends Component {
 
   componentDidMount() {
     // this.props.loginRoom(this.props.match.params.sessionId);
-    if (this.props.script.scriptType == "SESSION_DEFAULT") {
+    if (this.props.script.scriptType === "SESSION_DEFAULT") {
       this.props.setActive(false);
 
     }
