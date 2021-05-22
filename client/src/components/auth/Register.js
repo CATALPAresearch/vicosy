@@ -56,12 +56,12 @@ class Register extends Component {
     const options = [];
     options.push({
       label: "Student",
-      disabled: "disabled",
       value: "STUDENT"
     });
     options.push({
       label: "Trainer",
-      value: "TRAINER"
+      value: "TRAINER",
+      disabled: true,
     });
 
 
