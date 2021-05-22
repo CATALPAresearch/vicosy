@@ -14,7 +14,7 @@ export default props => {
   );
   const outSessionContent = (
     <footer id="main-footer" className="d-flex bd-highlight mb-3 bg-dark text-white">
-      <span className="ml-auto p-2 bd-highlight"></span>      Copyright &copy; {new Date().getFullYear()} CloseUpTogether
+      <span className="ml-auto p-2 bd-highlight"></span>      Copyright &copy; {new Date().getFullYear()} VideoCollab
 
       {/* faqItem*/}
     </footer>
