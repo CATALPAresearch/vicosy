@@ -46,7 +46,7 @@ class SubscribeToScript extends Component {
       <div id="subscribetoscript" className="container mt-4" >
         {/*  <form onSubmit={this.onSubmit.bind(this)} className="mb-2">*/}
         <h2>Anmeldung für das Script: {this.props.script.scriptName} </h2>
-        Bevor du dich für das Script anmelden kannst, noch eine Frage. Auf einer Skala von 1-10, wie gut schätzt du deine Kenntnisse zu folgendem Thema ein, wobei 1 für sehr gering und 10 für überragend steht.: <br>
+        Bevor du dich für das Script anmelden kannst, beantworte die Frage mit Hilfe der Skala.<br>
         </br> <br></br>
         <h5>{this.props.script.themes}</h5>
         <br></br>

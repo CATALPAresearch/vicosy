@@ -382,14 +382,14 @@ class ScriptSettings extends Component {
                             <div className="w-100"></div>
                             <div className="col-6 col-sm-3">
                                 <h4 htmlFor="themes" title="Lerner werden gefragt, wieviel sie auf einer Skala von 1-10 zum Thema wissen">
-                                    Themen
+                                    Frage für Gruppenmix
                 </h4>
                             </div>
                             <div className="col-6 col-sm-8">
                                 <input
                                     name="themes"
                                     id="themes"
-                                    placeholder="Hier Themen des Videos zur Ermittlung des Vorwissens eingeben."
+                                    placeholder="Frage für Gruppeneinteilung. Schülerantwort als Skala von 0-10"
                                     errors={errors}
                                     className="form-control form-control-lg mr-sm-2"
                                     onChange={this.handleChange.bind(this)}
