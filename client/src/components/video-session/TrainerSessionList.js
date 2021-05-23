@@ -74,7 +74,7 @@ export class TrainerSessionList extends Component {
             console.log("Group not found");
           }
         return (
-          <tr key={group._id}>
+          <tr key={myGroup._id}>
             <th scope="row">{script.scriptName}</th>
             <td className="force-break">
               {myGroup.groupMembers.map(member => { return <p key={member._id}>{member.name}</p> })}
@@ -85,7 +85,7 @@ export class TrainerSessionList extends Component {
 
               {firstElement ?
                 <button
-                  onClick={(e) => this.setScript(script._id, group._id)}
+                  onClick={(e) => this.setScript(script._id, myGroup._id)}
                   scriptid={script._id}
                   className="btn primaryCol"
                   id="join-session"
@@ -97,7 +97,7 @@ export class TrainerSessionList extends Component {
                   </span>
                 </button>
                 : <button
-                  onClick={(e) => this.setScript(script._id, group._id)}
+                  onClick={(e) => this.setScript(script._id, myGroup._id)}
                   scriptid={script._id}
                   className="btn btn-success"
 
