@@ -71,7 +71,7 @@ export class TrainerSessionList extends Component {
           if (group.groupMembers.some(member => member._id === this.props.auth.user.id)) {
             myGroup = group;
           } else {
-            alert("Group not found");
+            console.log("Group not found");
           }
         return (
           <tr key={group._id}>
