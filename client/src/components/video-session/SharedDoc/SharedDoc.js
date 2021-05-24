@@ -83,7 +83,7 @@ class SharedDoc extends Component {
           'color', 'background'
         ]
       };
-      let quill = new Quill('#editor', options);
+      var quill = new Quill('#editor', options);
       /**
        * On Initialising if data is present in server
        * Updaing its content to editor
