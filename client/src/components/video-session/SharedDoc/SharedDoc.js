@@ -83,7 +83,7 @@ class SharedDoc extends Component {
           'color', 'background'
         ]
       };
-      let quill = new Quill('#editor', options);
+      var quill = new Quill('#editor', options);
       /**
        * On Initialising if data is present in server
        * Updaing its content to editor
@@ -96,10 +96,11 @@ class SharedDoc extends Component {
        */
       quill.on('text-change', (delta, oldDelta, source) => {
         if (source !== 'user') return;
+        else {
         doc.submitOp(delta, { source: quill });
-      //  quill.focus()
+        quill.focus()
         this.props.setSharedDoc(doc.data.ops[0].insert);
-
+      }
       });
 
       /** listening to changes in the document
@@ -107,10 +108,12 @@ class SharedDoc extends Component {
        */
       doc.on('op', (op, source) => {
         if (source === quill) return;
+        else {
 
         quill.updateContents(op);
-       //  quill.focus()
+       quill.focus()
         this.props.setSharedDoc(doc.data.ops[0].insert);
+      }
       });
     });
 /*

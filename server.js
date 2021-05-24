@@ -43,12 +43,12 @@ const db = keys.mongoURI;
  */
 
 
-// ShareDB.types.register(require('rich-text').type);
+ShareDB.types.register(require('rich-text').type);
 
 
 
-// const shareDBServer = new ShareDB(/*SharedMongoDb*/);
-// const sharedConnection = shareDBServer.connect();
+const shareDBServer = new ShareDB(/*SharedMongoDb*/);
+const sharedConnection = shareDBServer.connect();
 
 
 
