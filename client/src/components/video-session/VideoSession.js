@@ -119,7 +119,7 @@ class VideoSession extends Component {
   _handleKeyDown = (event) => {
 
     this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, event.keyCode);
-    this.props.logDocs(this.props.auth.user.id, this.props.match.params.sessionId, this.props.docs);
+  //  this.props.logDocs(this.props.auth.user.id, this.props.match.params.sessionId, this.props.docs);
 
 
 
