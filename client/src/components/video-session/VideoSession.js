@@ -76,6 +76,7 @@ class VideoSession extends Component {
     this.initialize = this.initialize.bind(this);
     this.evalLoggerRef = null;
     this.props.setSessionId(this.props.match.params.sessionId);
+    
   }
 
   componentWillMount() {
@@ -118,13 +119,14 @@ class VideoSession extends Component {
   _handleKeyDown = (event) => {
 
     this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, event.keyCode);
-    this.props.logDocs(this.props.auth.user.id, this.props.script._id, this.props.docs);
+    this.props.logDocs(this.props.auth.user.id, this.props.match.params.sessionId, this.props.docs);
 
 
 
   }
   componentWillUnmount() {
     const { sessionId } = this.props.match.params;
+    
     // this.props.logoutRoom(this.props.match.params.sessionId);
     window.socketEvents.remove(ROOM_JOINED, this.onRoomJoined);
 
