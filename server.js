@@ -41,12 +41,14 @@ const db = keys.mongoURI;
  * We are using this npm package called rich-text
  * which is based on quill delta
  */
-ShareDB.types.register(require('rich-text').type);
+
+
+// ShareDB.types.register(require('rich-text').type);
 
 
 
-const shareDBServer = new ShareDB(/*SharedMongoDb*/);
-const sharedConnection = shareDBServer.connect();
+// const shareDBServer = new ShareDB(/*SharedMongoDb*/);
+// const sharedConnection = shareDBServer.connect();
 
 
 
@@ -323,7 +325,7 @@ if (process.env.NODE_ENV === "production") {
     res.writeHead(200);
     res.end(index);
   });
-  // server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
+  server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
   server.on('error', (err) => console.error(err));
   server.listen(8080, () => console.log('Https running on port 8080'));
   wss = new WebSocket.Server({
