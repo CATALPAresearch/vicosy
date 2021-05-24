@@ -23,7 +23,7 @@ export class TrainerSessionList extends Component {
   callback() {
     this.props.getMyScriptsBySocket(this.props.auth.user.id, this.props.script.scripts, this.actualize);
     this.props.checkRemovedScript(this.props.auth.user.id, this.props.script.scripts, this.actualize);
-  
+
   }
 
   /* startScriptRemoveListener() {
@@ -70,48 +70,48 @@ export class TrainerSessionList extends Component {
         for (var group of script.groups)
           if (group.groupMembers.some(member => member._id === this.props.auth.user.id)) {
             myGroup = group;
-          } else {
-            console.log("Group not found");
           }
-        return (
-          <tr key={myGroup._id}>
-            <th scope="row">{script.scriptName}</th>
-            <td className="force-break">
-              {myGroup.groupMembers.map(member => { return <p key={member._id}>{member.name}</p> })}
+        if (!myGroup) return null;
+        else
+          return (
+            <tr key={myGroup._id}>
+              <th scope="row">{script.scriptName}</th>
+              <td className="force-break">
+                {myGroup.groupMembers.map(member => { return <p key={member._id}>{member.name}</p> })}
 
-            </td>
-            {/* <td>{script.scriptType}</td> */}
-            <td>
+              </td>
+              {/* <td>{script.scriptType}</td> */}
+              <td>
 
-              {firstElement ?
-                <button
-                  onClick={(e) => this.setScript(script._id, myGroup._id)}
-                  scriptid={script._id}
-                  className="btn primaryCol"
-                  id="join-session"
+                {firstElement ?
+                  <button
+                    onClick={(e) => this.setScript(script._id, myGroup._id)}
+                    scriptid={script._id}
+                    className="btn primaryCol"
+                    id="join-session"
 
-                >
-                  join
+                  >
+                    join
                 <span className="badge ml-2 badge-light">
-                    {script.clientCount}
-                  </span>
-                </button>
-                : <button
-                  onClick={(e) => this.setScript(script._id, myGroup._id)}
-                  scriptid={script._id}
-                  className="btn btn-success"
+                      {script.clientCount}
+                    </span>
+                  </button>
+                  : <button
+                    onClick={(e) => this.setScript(script._id, myGroup._id)}
+                    scriptid={script._id}
+                    className="btn btn-success"
 
-                >
-                  join
+                  >
+                    join
               <span className="badge ml-2 badge-light">
-                    {script.clientCount}
-                  </span>
-                </button>
-              }
-            </td>
-            {firstElement = false}
-          </tr>
-        );
+                      {script.clientCount}
+                    </span>
+                  </button>
+                }
+              </td>
+              {firstElement = false}
+            </tr>
+          );
 
       });
 
