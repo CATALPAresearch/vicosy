@@ -17,6 +17,11 @@ const {
 const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
 const WebSocketJSONStream = require('websocket-json-stream');
 const ShareDB = require('sharedb');
+
+const keys = require("../config/keys");
+
+// DB config
+const dbkeys = keys.mongoURI;
 /**
  * By Default Sharedb uses JSON0 OT type.
  * To Make it compatible with our quill editor.
@@ -24,6 +29,12 @@ const ShareDB = require('sharedb');
  * which is based on quill delta
  */
 ShareDB.types.register(require('rich-text').type);
+const mongodb = require('mongodb');
+const mongodbadapter = require('sharedb-mongo')({mongo: function(callback) {
+  mongodb.connect('dbkeys', callback);
+}});
+const shareDBServer = new ShareDB({mongodbadapter});
+
 
 
 
@@ -33,7 +44,7 @@ ShareDB.types.register(require('rich-text').type);
 
 const roomsData = { lobby: {} };
 const roomProcessors = {}; // room id => processor
-const shareDBServer = new ShareDB();
+// const shareDBServer = new ShareDB();
 const sharedConnection = shareDBServer.connect();
 var sharedDoc = {};
 
