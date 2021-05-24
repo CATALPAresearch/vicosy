@@ -323,7 +323,7 @@ if (process.env.NODE_ENV === "production") {
     res.writeHead(200);
     res.end(index);
   });
-  server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
+  // server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
   server.on('error', (err) => console.error(err));
   server.listen(8080, () => console.log('Https running on port 8080'));
   wss = new WebSocket.Server({
