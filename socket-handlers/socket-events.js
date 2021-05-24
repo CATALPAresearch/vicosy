@@ -37,7 +37,7 @@ const mongodbadapter = require('sharedb-mongo')({mongo: function(callback) {
   console.log("Shared Mongodb connected");
 }});
 
-const shareDBServer = new ShareDB({mongodbadapter});
+const shareDBServer = new ShareDB({mongodbadapter);
 
 
 
