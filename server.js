@@ -321,15 +321,15 @@ if (process.env.NODE_ENV === "production") {
     cert: fs.readFileSync(keys.cert, "utf8"),
     port: 8080
   }
-  var server = https.createServer(options, (req, res) => {
+  var wsserver = https.createServer(options, (req, res) => {
     res.writeHead(200);
     res.end(index);
   });
-  server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
-  server.on('error', (err) => console.error(err));
-  server.listen(8080, () => console.log('Https running on port 8080'));
+  wsserver.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
+  wsserver.on('error', (err) => console.error(err));
+  wsserver.listen(8080, () => console.log('Https running on port 8080'));
   wss = new WebSocket.Server({
-    server, path: '/hereistwws'})
+    wsserver, path: '/hereistwws'})
 }
 else {
   wss = new WebSocket.Server({ port: 8080 });
