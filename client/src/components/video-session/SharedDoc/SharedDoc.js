@@ -24,6 +24,27 @@ class SharedDoc extends Component {
     super(props);
     Sharedb.types.register(richText.type);
     // Connecting to our socket server
+    
+    this.isOpen = false;
+    this.sessionId = this.props.roomId;
+   
+  }
+
+  takeSnapshot() {
+
+    alert(this.doc.data.ops[0].insert);
+  }
+
+  componentDidMount() {
+    /*
+    this.props.connectSharedDoc("dummy");
+    this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => {
+
+      this.props.upDateSharedDoc(this.props.docs.collabText, op, source);
+
+    });
+*/
+    this.props.subscribeSharedDoc(this.sessionId);
     var socket;
     if (window.location.hostname === "localhost")
       socket = new WebSocket('ws://127.0.0.1:8080');
@@ -34,10 +55,8 @@ class SharedDoc extends Component {
     // Querying for our document
 
 
-    this.isOpen = false;
-    this.sessionId = this.props.roomId;
     const doc = connection.get('docs', this.sessionId);
-    this.doc = doc;
+  
 
     doc.subscribe((err) => {
       if (err) throw err;
@@ -94,26 +113,13 @@ class SharedDoc extends Component {
         this.props.setSharedDoc(doc.data.ops[0].insert);
       });
     });
+/*
+    return () => {
+      connection.close();
+    };
+    */
 
 
-
-  }
-
-  takeSnapshot() {
-
-    alert(this.doc.data.ops[0].insert);
-  }
-
-  componentDidMount() {
-    /*
-    this.props.connectSharedDoc("dummy");
-    this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => {
-
-      this.props.upDateSharedDoc(this.props.docs.collabText, op, source);
-
-    });
-*/
-    this.props.subscribeSharedDoc(this.sessionId);
   }
 
 
