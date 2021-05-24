@@ -45,7 +45,7 @@ ShareDB.types.register(require('rich-text').type);
 
 const roomsData = { lobby: {} };
 const roomProcessors = {}; // room id => processor
-// const shareDBServer = new ShareDB();
+const shareDBServer = new ShareDB();
 const sharedConnection = shareDBServer.connect();
 var sharedDoc = {};
 
