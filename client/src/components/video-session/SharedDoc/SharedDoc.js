@@ -24,10 +24,10 @@ class SharedDoc extends Component {
     super(props);
     Sharedb.types.register(richText.type);
     // Connecting to our socket server
-    
+
     this.isOpen = false;
     this.sessionId = this.props.roomId;
-   
+
   }
 
   takeSnapshot() {
@@ -56,7 +56,7 @@ class SharedDoc extends Component {
 
 
     const doc = connection.get('docs', this.sessionId);
-  
+
 
     doc.subscribe((err) => {
       if (err) throw err;
@@ -97,10 +97,10 @@ class SharedDoc extends Component {
       quill.on('text-change', (delta, oldDelta, source) => {
         if (source !== 'user') return;
         else {
-        doc.submitOp(delta, { source: quill });
-        quill.focus()
-        this.props.setSharedDoc(doc.data.ops[0].insert);
-      }
+          doc.submitOp(delta, { source: quill });
+          quill.focus()
+          this.props.setSharedDoc(doc.data.ops[0].insert);
+        }
       });
 
       /** listening to changes in the document
@@ -110,17 +110,17 @@ class SharedDoc extends Component {
         if (source === quill) return;
         else {
 
-        quill.updateContents(op);
-       quill.focus()
-        this.props.setSharedDoc(doc.data.ops[0].insert);
-      }
+          quill.updateContents(op);
+          quill.focus()
+          this.props.setSharedDoc(doc.data.ops[0].insert);
+        }
       });
     });
-/*
-    return () => {
-      connection.close();
-    };
-    */
+    /*
+        return () => {
+          connection.close();
+        };
+        */
 
 
   }
