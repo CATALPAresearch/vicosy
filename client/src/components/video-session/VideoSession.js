@@ -76,7 +76,7 @@ class VideoSession extends Component {
     this.initialize = this.initialize.bind(this);
     this.evalLoggerRef = null;
     this.props.setSessionId(this.props.match.params.sessionId);
-    
+
   }
 
   componentWillMount() {
@@ -105,6 +105,8 @@ class VideoSession extends Component {
     this.props.getScriptByGroupId(this.props.match.params.sessionId, () => {
       window.socketEvents.add(ROOM_JOINED, this.onRoomJoined);
       window.socketEvents.dispatch(JOIN_ROOM, this.props.match.params.sessionId);
+      if (this.props.script.scriptType === "SESSION_DEFAULT")
+        this.props.setActive(false);
       this.updateRoomState(this.props);
       this.initLogger();
     });
@@ -126,7 +128,7 @@ class VideoSession extends Component {
   }
   componentWillUnmount() {
     const { sessionId } = this.props.match.params;
-    
+
     // this.props.logoutRoom(this.props.match.params.sessionId);
     window.socketEvents.remove(ROOM_JOINED, this.onRoomJoined);
 
