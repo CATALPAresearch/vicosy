@@ -32,9 +32,11 @@ ShareDB.types.register(require('rich-text').type);
 
 
 const mongodb = require('mongodb');
+const mongodbadapter = require('sharedb-mongo')({mongo: function(callback) {
+  mongodb.connect(dbkeys, callback);
+  console.log("Shared Mongodb connected");
+}});
 
-
-const mongodbadapter = require('sharedb-mongo')(dbkeys);
 const shareDBServer = new ShareDB({mongodbadapter});
 
 
