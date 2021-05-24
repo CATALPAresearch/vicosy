@@ -17,17 +17,14 @@ const {
 const { ConsoleTransportOptions } = require("winston/lib/winston/transports");
 const WebSocketJSONStream = require('websocket-json-stream');
 const ShareDB = require('sharedb');
+/*
 
+shared mongodb - ist leider sehr langsam
 const mongokeys = require("../config/keys");
 
-// DB config
+
 const dbkeys = mongokeys.mongoURI;
-/**
- * By Default Sharedb uses JSON0 OT type.
- * To Make it compatible with our quill editor.
- * We are using this npm package called rich-text
- * which is based on quill delta
- */
+
 ShareDB.types.register(require('rich-text').type);
 
 
@@ -39,9 +36,9 @@ const mongodbadapter = require('sharedb-mongo')({mongo: function(callback) {
 
 const shareDBServer = new ShareDB({'db': mongodbadapter});
 
+*/
 
-
-
+ShareDB.types.register(require('rich-text').type);
 
 
 
