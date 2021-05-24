@@ -29,10 +29,12 @@ const dbkeys = mongokeys.mongoURI;
  * which is based on quill delta
  */
 ShareDB.types.register(require('rich-text').type);
+
+
 const mongodb = require('mongodb');
-const mongodbadapter = require('sharedb-mongo')({mongo: function(callback) {
-  mongodb.connect(dbkeys, callback);
-}});
+
+
+const mongodbadapter = require('sharedb-mongo')(dbkeys);
 const shareDBServer = new ShareDB({mongodbadapter});
 
 
