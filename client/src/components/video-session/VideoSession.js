@@ -211,6 +211,8 @@ class VideoSession extends Component {
      else
        this.normalLayout();*/
     //console.log(this.props);
+    this.props.script.scriptType === "SESSION_DEFAULT" ?
+      this.props.setActive(false) : null;
     const { sessionId } = this.props.match.params;
 
     const contentDocInteractionRequired = (
