@@ -98,7 +98,7 @@ class SharedDoc extends Component {
         if (source !== 'user') return;
         else {
           doc.submitOp(delta, { source: quill });
-          quill.focus()
+          quill.focus();
           this.props.setSharedDoc(doc.data.ops[0].insert);
         }
       });
@@ -111,7 +111,7 @@ class SharedDoc extends Component {
         else {
 
           quill.updateContents(op);
-          quill.focus()
+          quill.focus();
           this.props.setSharedDoc(doc.data.ops[0].insert);
         }
       });
