@@ -211,8 +211,7 @@ class VideoSession extends Component {
      else
        this.normalLayout();*/
     //console.log(this.props);
-    this.props.script.scriptType === "SESSION_DEFAULT" ?
-      this.props.setActive(false) : null;
+   
     const { sessionId } = this.props.match.params;
 
     const contentDocInteractionRequired = (
@@ -236,7 +235,8 @@ class VideoSession extends Component {
       this.state.sessionMeta.sessionType !== sessionTypes.SESSION_DEFAULT;
 
     const contentDataAvailable = (
-      <div id={this.props.assistent.active ? "ContainerAssistent" : "Container"
+      
+      <div id={this.props.assistent.active&&requiresCollaborationBar ? "ContainerAssistent" : "Container"
       }>
         <RoomContextDataProvider roomId={sessionId}>
           {/* <RoomComponent roomId={sessionId} component={P2PController} /> */}
