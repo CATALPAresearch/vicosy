@@ -255,7 +255,7 @@ if (process.env.NODE_ENV === "production") {
     key: fs.readFileSync(keys.key, "utf8"),
     cert: fs.readFileSync(keys.cert, "utf8")
   }
-
+ 
 
   server = https.createServer(pfxContent, app).listen(port, function () {
     winston.info(`SSL secured server listening on port ${port}`);
@@ -269,24 +269,8 @@ if (process.env.NODE_ENV === "production") {
 
 
 // Socket connections
-const io = socket(server, {
-  origins: "*:*", rejectUnauthorized: false,
-
-  // optional, useful for custom headers
-  handlePreflightRequest: (req, res) => {
-    res.writeHead(200, {
-      "Access-Control-Allow-Origin": "*:*",
-      "Access-Control-Allow-Credentials": true,
-      "Access-Control-Allow-Methods": "ACL, CANCELUPLOAD, CHECKIN, CHECKOUT, COPY, DELETE, GET, HEAD, LOCK, MKCALENDAR, MKCOL, MOVE, OPTIONS, POST, PROPFIND, PROPPATCH, PUT, REPORT, SEARCH, UNCHECKOUT, UNLOCK, UPDATE, VERSION-CONTROL",
-      "Access-Control-Allow-Headers": "Overwrite, Destination, Content-Type, Depth, User-Agent, Translate, Range, Content-Range, Timeout, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control, Location, Lock-Token, If",
-      "Access-Control-Expose-Headers": "DAV, content-length, Allow"
-    });
-    res.end();
-  }
-});
+const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
 io.origins("*:*");
-
-
 
 const handleSocketEvents = require("./socket-handlers/socket-events");
 const DbSocket = require("./socket-handlers/db-socket-events");
@@ -345,8 +329,7 @@ if (process.env.NODE_ENV === "production") {
   server.on('error', (err) => console.error(err));
   server.listen(8080, () => console.log('Https running on port 8080'));
   wss = new WebSocket.Server({
-    server, path: '/hereistwws'
-  })
+    server, path: '/hereistwws'})
 }
 else {
   wss = new WebSocket.Server({ port: 8080 });
