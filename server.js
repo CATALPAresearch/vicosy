@@ -269,8 +269,8 @@ if (process.env.NODE_ENV === "production") {
 
 
 // Socket connections
-const io = socket(server, { origins: "*:*", rejectUnauthorized: false });
-io.origins("*:*");
+const io = socket(server, { origins: "*", rejectUnauthorized: false });
+io.origins("*");
 
 const handleSocketEvents = require("./socket-handlers/socket-events");
 const DbSocket = require("./socket-handlers/db-socket-events");
