@@ -36,6 +36,30 @@ class SharedDoc extends Component {
   }
 
   componentDidMount() {
+    const options = {
+      theme: 'snow',
+      modules: {
+        toolbar: [
+          [{ 'font': [] }],
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+          ['bold', 'italic', 'underline'],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+          [{ 'align': [] }],
+          [{ 'color': [] }, { 'background': [] }],
+          ['clean']
+        ]
+      },
+      formats: [
+        'font',
+        'size',
+        'bold', 'italic', 'underline',
+        'list', 'bullet',
+        'align',
+        'color', 'background'
+      ]
+    };
+    var quill = new Quill('#editor', options);
+    
     /*
     this.props.connectSharedDoc("dummy");
     this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => {
@@ -61,29 +85,6 @@ class SharedDoc extends Component {
     doc.subscribe((err) => {
       if (err) throw err;
 
-      const options = {
-        theme: 'snow',
-        modules: {
-          toolbar: [
-            [{ 'font': [] }],
-            [{ 'size': ['small', false, 'large', 'huge'] }],
-            ['bold', 'italic', 'underline'],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            [{ 'align': [] }],
-            [{ 'color': [] }, { 'background': [] }],
-            ['clean']
-          ]
-        },
-        formats: [
-          'font',
-          'size',
-          'bold', 'italic', 'underline',
-          'list', 'bullet',
-          'align',
-          'color', 'background'
-        ]
-      };
-      var quill = new Quill('#editor', options);
       /**
        * On Initialising if data is present in server
        * Updaing its content to editor
