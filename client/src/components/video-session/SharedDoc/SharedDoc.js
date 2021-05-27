@@ -95,29 +95,35 @@ class SharedDoc extends Component {
        * so that it can be broadcasted to all other clients
        */
       quill.on('text-change', (delta, oldDelta, source) => {
-        if (source !== 'user') return;
+        if (source !== 'user') {
+          quill.focus();
+          return;
+        }
         else {
           doc.submitOp(delta, { source: quill });
-        
+
           this.props.setSharedDoc(doc.data.ops[0].insert);
           quill.focus();
         }
-       
+
       });
 
       /** listening to changes in the document
        * that is coming from our server
        */
       doc.on('op', (op, source) => {
-        if (source === quill) return;
+        if (source === quill) {
+          quill.focus();
+          return;
+        }
         else {
 
           quill.updateContents(op);
-          
+
           this.props.setSharedDoc(doc.data.ops[0].insert);
           quill.focus();
         }
-    
+
       });
     });
     /*
