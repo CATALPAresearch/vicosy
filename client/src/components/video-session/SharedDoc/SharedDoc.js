@@ -100,8 +100,9 @@ class SharedDoc extends Component {
           doc.submitOp(delta, { source: quill });
         
           this.props.setSharedDoc(doc.data.ops[0].insert);
+          quill.focus();
         }
-        quill.focus();
+       
       });
 
       /** listening to changes in the document
@@ -114,8 +115,9 @@ class SharedDoc extends Component {
           quill.updateContents(op);
           
           this.props.setSharedDoc(doc.data.ops[0].insert);
+          quill.focus();
         }
-        quill.focus();
+    
       });
     });
     /*

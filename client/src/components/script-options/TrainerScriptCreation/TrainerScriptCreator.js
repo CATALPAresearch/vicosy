@@ -146,7 +146,7 @@ class TrainerScriptCreator extends Component {
     if (/*videourl && scriptName && themes && scriptType*/true) {
       if (!this.props.script._id) {
         console.log("new Script");
-        this.setState({ showSaveMessage: true });
+        this.showSaveMessageDelay();
 
         this.props.createScript(newScript, script => this.props.history.push({
           search: '?' + script._id
@@ -160,6 +160,7 @@ class TrainerScriptCreator extends Component {
           newScript.groups = this.props.script.groups
         console.log("update Script");
         this.props.updateScript(newScript);
+        this.showSaveMessageDelay();
 
       }
     } else {
