@@ -59,7 +59,7 @@ class SharedDoc extends Component {
       ]
     };
     var quill = new Quill('#editor', options);
-
+    quill.focus();
     /*
     this.props.connectSharedDoc("dummy");
     this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => {
@@ -68,6 +68,7 @@ class SharedDoc extends Component {
 
     });
 */
+console.log(this.sessionId);
     this.props.subscribeSharedDoc(this.sessionId);
     var socket;
     if (window.location.hostname === "localhost")
