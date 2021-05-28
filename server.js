@@ -24,7 +24,7 @@ const Script = require("./models/Script");
 const doc = require("./models/Doc");
 const WebSocket = require('ws');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
-const ShareDB = require('sharedb');
+// const ShareDB = require('sharedb');
 
 
 const isSecure = !!keys.key;
@@ -42,14 +42,14 @@ const db = keys.mongoURI;
  * which is based on quill delta
  */
 
-
+/*
 ShareDB.types.register(require('rich-text').type);
 
 
 
-const shareDBServer = new ShareDB(/*SharedMongoDb*/);
+const shareDBServer = new ShareDB(SharedMongoDb);
 const sharedConnection = shareDBServer.connect();
-
+/*
 
 
 var colorHash = new ColorHash({ saturation: 0.5, lightness: 0.2 });
