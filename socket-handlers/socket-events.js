@@ -45,12 +45,9 @@ ShareDB.types.register(require('rich-text').type);
 
 const roomsData = { lobby: {} };
 const roomProcessors = {}; // room id => processor
-const shareDBServer = new ShareDB();
-const sharedConnection = shareDBServer.connect();
-var sharedDoc = {};
 
 
-module.exports = function handleSocketEvents(clientSocket, socketIO, wss) {
+module.exports = function handleSocketEvents(clientSocket, socketIO, sharedConnection) {
 
 
   this.initSessions = function (callback) {
@@ -62,7 +59,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO, wss) {
           createTrainerSession(script, String(script._id), String(script.scriptName), String(script.videourl), String(script.scriptType), group);
           //clientSocket.emit("notifyMembers", script);
         }
-      
+
 
       }
 
@@ -147,7 +144,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO, wss) {
   //collab doc is started
   clientSocket.on("startSharedDoc", docId => {
     console.log("startSharedDoc")
-    sharedDoc = sharedConnection.get('docs', docId);
+    var   sharedDoc = sharedConnection.get('docs', docId);
 
     sharedDoc.fetch(function (err) {
       if (err) throw err;
@@ -160,37 +157,9 @@ module.exports = function handleSocketEvents(clientSocket, socketIO, wss) {
 
 
         sharedDoc.create([{ insert: 'Hier könnt ihr gemeinsam schreiben!' }], 'rich-text', () => {
-       /*
-          var wss;
-          if (process.env.NODE_ENV === "production") {
-
-            const options = {
-              key: fs.readFileSync(keys.key, "utf8"),
-              cert: fs.readFileSync(keys.cert, "utf8"),
-              port: 8080
-            }
-            var server = https.createServer(options, (req, res) => {
-              res.writeHead(200);
-              res.end(index);
-            });
-            server.addListener('upgrade', (req, res, head) => console.log('UPGRADE:', req.url));
-            server.on('error', (err) => console.error(err));
-            server.listen(8080, () => console.log('Https running on port 8080'));
-            wss = new WebSocket.Server({
-              server, path: '/hereistwws'})
-          }
-          else {
-            wss = new WebSocket.Server({ port: 8080 });
-          }
-          */
+                       
           console.log("New Doc created");
-          wss.on('connection', function connection(ws) {
-            // For transport we are using a ws JSON stream for communication
-            // that can read and write js objects.
-            console.log("New collab Doc Connection established");
-            const jsonStream = new WebSocketJSONStream(ws);
-            shareDBServer.listen(jsonStream);
-          });
+
         });
         return;
       }

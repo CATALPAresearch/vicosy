@@ -95,7 +95,9 @@ class SharedDoc extends Component {
        * so that it can be broadcasted to all other clients
        */
       quill.on('text-change', (delta, oldDelta, source) => {
-        if (source !== 'user') return;
+        if (source !== 'user') {
+          quill.focus();
+          return;}
         else {
           doc.submitOp(delta, { source: quill });
           quill.focus()
@@ -107,7 +109,9 @@ class SharedDoc extends Component {
        * that is coming from our server
        */
       doc.on('op', (op, source) => {
-        if (source === quill) return;
+        if (source === quill) {
+          quill.focus();
+          return;}
         else {
 
           quill.updateContents(op);

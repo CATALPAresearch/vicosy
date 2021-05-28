@@ -24,7 +24,7 @@ const Script = require("./models/Script");
 const doc = require("./models/Doc");
 const WebSocket = require('ws');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
-// const ShareDB = require('sharedb');
+const ShareDB = require('sharedb');
 
 
 const isSecure = !!keys.key;
@@ -42,14 +42,14 @@ const db = keys.mongoURI;
  * which is based on quill delta
  */
 
-/*
+
 ShareDB.types.register(require('rich-text').type);
 
 
 
-const shareDBServer = new ShareDB(SharedMongoDb);
+const shareDBServer = new ShareDB();
 const sharedConnection = shareDBServer.connect();
-*/
+
 
 
 var colorHash = new ColorHash({ saturation: 0.5, lightness: 0.2 });
@@ -255,7 +255,7 @@ if (process.env.NODE_ENV === "production") {
     key: fs.readFileSync(keys.key, "utf8"),
     cert: fs.readFileSync(keys.cert, "utf8")
   }
- 
+
 
   server = https.createServer(pfxContent, app).listen(port, function () {
     winston.info(`SSL secured server listening on port ${port}`);
@@ -329,13 +329,22 @@ if (process.env.NODE_ENV === "production") {
   server.on('error', (err) => console.error(err));
   server.listen(8080, () => console.log('Https running on port 8080'));
   wss = new WebSocket.Server({
-    server, path: '/hereistwws'})
+    server, path: '/hereistwws'
+  });
+
+
 }
 else {
   wss = new WebSocket.Server({ port: 8080 });
 }
 
-
+wss.on('connection', function connection(ws) {
+  // For transport we are using a ws JSON stream for communication
+  // that can read and write js objects.
+  console.log("New collab Doc Connection established");
+  const jsonStream = new WebSocketJSONStream(ws);
+  shareDBServer.listen(jsonStream);
+});
 
 var sessionsInitialized = false;
 io.on("connection", clientSocket => {
@@ -350,7 +359,7 @@ io.on("connection", clientSocket => {
 
   //handleSocketEvents(clientSocket, io);
 
-  const obj = new handleSocketEvents(clientSocket, io, wss);
+  const obj = new handleSocketEvents(clientSocket, io,  sharedConnection);
   if (!sessionsInitialized) {
 
     obj.initSessions(() => { sessionsInitialized = true; });
