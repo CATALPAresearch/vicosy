@@ -102,8 +102,12 @@ class SharedDoc extends Component {
         }
         else {
           doc.submitOp(delta, { source: quill });
-
-          this.props.setSharedDoc(doc.data.ops[0].insert);
+          if (doc)
+            if (doc.data)
+              if (doc.data.ops)
+                if (doc.data.ops[0])
+                  if (doc.data.ops[0].insert)
+                    this.props.setSharedDoc(doc.data.ops[0].insert);
           quill.focus();
         }
 
