@@ -59,7 +59,7 @@ class SharedDoc extends Component {
       ]
     };
     var quill = new Quill('#editor', options);
-    
+
     /*
     this.props.connectSharedDoc("dummy");
     this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => {
@@ -120,8 +120,11 @@ class SharedDoc extends Component {
         else {
 
           quill.updateContents(op);
-
-          this.props.setSharedDoc(doc.data.ops[0].insert);
+          if (doc)
+            if (doc.data)
+              if (doc.data.ops)
+                if (doc.data.ops[0])
+                  this.props.setSharedDoc(doc.data.ops[0].insert);
           quill.focus();
         }
 
