@@ -124,7 +124,8 @@ class SharedDoc extends Component {
             if (doc.data)
               if (doc.data.ops)
                 if (doc.data.ops[0])
-                  this.props.setSharedDoc(doc.data.ops[0].insert);
+                  if (doc.data.ops[0].insert)
+                    this.props.setSharedDoc(doc.data.ops[0].insert);
           quill.focus();
         }
 
