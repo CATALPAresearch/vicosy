@@ -36,30 +36,6 @@ class SharedDoc extends Component {
   }
 
   componentDidMount() {
-    const options = {
-      theme: 'snow',
-      modules: {
-        toolbar: [
-          [{ 'font': [] }],
-          [{ 'size': ['small', false, 'large', 'huge'] }],
-          ['bold', 'italic', 'underline'],
-          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-          [{ 'align': [] }],
-          [{ 'color': [] }, { 'background': [] }],
-          ['clean']
-        ]
-      },
-      formats: [
-        'font',
-        'size',
-        'bold', 'italic', 'underline',
-        'list', 'bullet',
-        'align',
-        'color', 'background'
-      ]
-    };
-    var quill = new Quill('#editor', options);
-    quill.focus();
     /*
     this.props.connectSharedDoc("dummy");
     this.props.subscribeSharedDoc(this.props.auth.user.id, (op, source) => {
@@ -68,7 +44,6 @@ class SharedDoc extends Component {
 
     });
 */
-console.log(this.sessionId);
     this.props.subscribeSharedDoc(this.sessionId);
     var socket;
     if (window.location.hostname === "localhost")
@@ -86,6 +61,29 @@ console.log(this.sessionId);
     doc.subscribe((err) => {
       if (err) throw err;
 
+      const options = {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            [{ 'font': [] }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            ['bold', 'italic', 'underline'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'align': [] }],
+            [{ 'color': [] }, { 'background': [] }],
+            ['clean']
+          ]
+        },
+        formats: [
+          'font',
+          'size',
+          'bold', 'italic', 'underline',
+          'list', 'bullet',
+          'align',
+          'color', 'background'
+        ]
+      };
+      var quill = new Quill('#editor', options);
       /**
        * On Initialising if data is present in server
        * Updaing its content to editor
@@ -97,43 +95,25 @@ console.log(this.sessionId);
        * so that it can be broadcasted to all other clients
        */
       quill.on('text-change', (delta, oldDelta, source) => {
-        if (source !== 'user') {
-          quill.focus();
-          return;
-        }
+        if (source !== 'user') return;
         else {
           doc.submitOp(delta, { source: quill });
-          if (doc)
-            if (doc.data)
-              if (doc.data.ops)
-                if (doc.data.ops[0])
-                  if (doc.data.ops[0].insert)
-                    this.props.setSharedDoc(doc.data.ops[0].insert);
-          quill.focus();
+          quill.focus()
+          this.props.setSharedDoc(doc.data.ops[0].insert);
         }
-
       });
 
       /** listening to changes in the document
        * that is coming from our server
        */
       doc.on('op', (op, source) => {
-        if (source === quill) {
-          quill.focus();
-          return;
-        }
+        if (source === quill) return;
         else {
 
           quill.updateContents(op);
-          if (doc)
-            if (doc.data)
-              if (doc.data.ops)
-                if (doc.data.ops[0])
-                  if (doc.data.ops[0].insert)
-                    this.props.setSharedDoc(doc.data.ops[0].insert);
-          quill.focus();
+          quill.focus()
+          this.props.setSharedDoc(doc.data.ops[0].insert);
         }
-
       });
     });
     /*

@@ -3,8 +3,8 @@ import { subscribeSharedDocAPI, storeIndivDocApi, storeSharedDocApi} from "../so
 import { SET_COLLAB_TEXT, SET_INDIV_TEXT, GET_ERRORS} from "./types";
 
 
-export const subscribeSharedDoc = (docId) => dispatch => {
-    subscribeSharedDocAPI(docId);
+export const subscribeSharedDoc = (docId, userId, callback) => dispatch => {
+    subscribeSharedDocAPI(docId, userId, (sharedDocid)=>(callback(sharedDocid)));
 }
 /*
 export const upDateSharedDoc = (oldText, op, source) => dispatch => {
