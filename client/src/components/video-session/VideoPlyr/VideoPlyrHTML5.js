@@ -374,10 +374,6 @@ export default class VideoPlyrHTML5 extends Component {
           id="player"
           playsInline
           ref={this.myVideo}
-          autoplay
-          controls
-          loop 
-          muted 
         >
           <source src={this.props.videoUrl} type="video/mp4" />
         </video>
