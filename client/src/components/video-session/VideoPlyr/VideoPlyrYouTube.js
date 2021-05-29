@@ -386,9 +386,6 @@ export default class VideoPlyrYouTube extends Component {
           id="player"
           data-plyr-provider="youtube"
           data-plyr-embed-id={this.props.videoUrl}
-          allowfullscreen
-          allowtransparency
-          allow="autoplay"
         />
       </div>
     );

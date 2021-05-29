@@ -19,7 +19,7 @@ module.exports = function validatePostInput(data) {
   }
 
   if (Validator.isEmpty(data.expLevel)) {
-    errors.warning = "Deine Vorkenntnisse müssen angegeben werden.";
+    errors.warning = "Du musst die Frage beantworten.";
   }
   if (data.role=="TRAINER") {
     errors.warning = "In der Trainerrolle kannst du dich nicht ins Script einschreiben.";

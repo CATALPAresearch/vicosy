@@ -75,7 +75,7 @@ export class ActivityOberserver extends Component {
     }
 
     testFunction() {
-        this.resetSelfTimer();
+      //  this.resetSelfTimer();
         clearTimeout(this.timeOut);
         this.timeOut = setTimeout(() => {
             clearInterval(this.interval);
