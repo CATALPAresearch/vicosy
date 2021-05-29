@@ -47,7 +47,8 @@ class HardSyncController extends Component {
 
     this.player.on(STALLED, this.onPlayerStalled);
     this.player.on(READY, this.onPlayerReadyToPlay);
-
+    this.player.playCurrent();
+    this.player.pauseCurrent();
     window.genericAppEvents.add(
       VISIBILITY_CHANGED,
       this.onAppVisibilityChanged
@@ -62,8 +63,9 @@ class HardSyncController extends Component {
       Object.keys(this.getSharedRoomData().clients).length > 1
     ) {
       this.player.playCurrent();
-      this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
-
+      setTimeout(() => {
+        this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
+      }, 100);
     } else {
       this.readyToSync();
     }
