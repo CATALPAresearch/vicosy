@@ -39,7 +39,7 @@ class VideoSessionController extends Component {
   }
 
   componentDidMount() {
-   
+    this.props.setSyncState(true);
     this.player = this.props.playerRef.current;
     this.playback = this.props.playBackRef.current;
 
@@ -164,7 +164,12 @@ class VideoSessionController extends Component {
         />
 
         <DialogController />
-     
+        
+        <RoomComponent
+            roomId={this.props.roomId}
+            component={ActivityOberserver}
+                      
+          />
 
         
       </span>
