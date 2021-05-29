@@ -39,7 +39,7 @@ class VideoSessionController extends Component {
   }
 
   componentDidMount() {
-    this.props.setSyncState(true);
+   
     this.player = this.props.playerRef.current;
     this.playback = this.props.playBackRef.current;
 
@@ -52,7 +52,7 @@ class VideoSessionController extends Component {
     });
     this.props.playerRef.current.on(
       PLAYER_API_INITIALIZED,
-      this.onPlayerApiInitialized
+      this.onPlayerApiInitialized,
     );
   }
 
