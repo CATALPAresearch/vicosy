@@ -179,7 +179,7 @@ export default class VideoPlyrHTML5 extends Component {
         // HERE YOU SHOUL ADD SOME CALL TO WRITE THE PLAYBACK EVENT INCL. currentinterval TO THE LOG FILE ECT:
         // {context:'player', action:'playback', values:[ currentinterval ]});
         // if (_this.evalLoggerRef)
-          _this.evalLoggerRef.logToEvaluation(_this.constructor.name, PLAYBACK, currentinterval);
+        _this.evalLoggerRef.logToEvaluation(_this.constructor.name, PLAYBACK, currentinterval);
 
         lastposition = currentinterval;
       }
@@ -370,6 +370,7 @@ export default class VideoPlyrHTML5 extends Component {
         <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
 
         <video
+          controls
           poster="Video-Reel-and-Film-Canister2.png"
           id="player"
           playsInline
