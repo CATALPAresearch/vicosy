@@ -90,8 +90,6 @@ class SyncSwitch extends Component {
       : "Asynchroner Modus";
 
     const extraContent = synched ? syncBadge : null;
-    onToggle();
-    onToggle();
     return (
       <div id="synchswitch" className="hFlexLayout ml-1 mr-1">
         {this.props.assistent.actInstruction?this.props.assistent.active && this.props.assistent.actInstruction.markers === "synchswitch" ?
