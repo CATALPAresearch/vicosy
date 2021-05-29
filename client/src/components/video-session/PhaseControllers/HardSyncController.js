@@ -61,10 +61,10 @@ class HardSyncController extends Component {
       currentSyncAction != null &&
       Object.keys(this.getSharedRoomData().clients).length > 1
     ) {
-      this.player.playCurrent();
+     // this.player.playCurrent();
       setTimeout(() => {
         this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
-      }, 200);
+      }, 100);
     } else {
       this.readyToSync();
     }
