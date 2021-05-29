@@ -8,7 +8,6 @@ import UserList from "../../components/userlist/UserList";
 import UserListItemSession from "../../components/userlist/UserListItemSession";
 import Chat from "../../components/chat/Chat";
 import VideoSessionController from "./VideoSessionController";
-import { setSyncState } from "../../actions/localStateActions";
 import AbstractVideo from "./AbstractVideo";
 import PlayBackInterface from "./PlayBackControls/PlayBackInterface";
 import {
@@ -111,7 +110,7 @@ class VideoSession extends Component {
       this.updateRoomState(this.props);
       this.initLogger();
     });
-    this.props.setSyncState(this.props.localState.syncState.sync);
+
   }
 
   initLogger() {
@@ -376,5 +375,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setError, resetLocalState, getScriptByGroupId, setSessionId, logDocs, setActive, setSyncState }
+  { setError, resetLocalState, getScriptByGroupId, setSessionId, logDocs, setActive }
 )(withRouter(withLastLocation(VideoSession)));
