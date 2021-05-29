@@ -169,8 +169,9 @@ export class ActivityOberserver extends Component {
         this.resetTimer(this.partner);
     }
     componentDidMount() {
-        window.sessionEvents.add(TIME_UPDATE, this.onVideoTimeUpdate,
-            this.resetSelfTimer());
+        if (this.props.script.scriptType != "SESSION_DEFAULT")
+            window.sessionEvents.add(TIME_UPDATE, this.onVideoTimeUpdate,
+                this.resetSelfTimer());
     }
     render() {
         return (
