@@ -164,12 +164,7 @@ class VideoSessionController extends Component {
         />
 
         <DialogController />
-        
-        <RoomComponent
-            roomId={this.props.roomId}
-            component={ActivityOberserver}
-                      
-          />
+     
 
         
       </span>

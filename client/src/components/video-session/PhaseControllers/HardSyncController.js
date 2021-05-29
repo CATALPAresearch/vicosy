@@ -47,8 +47,7 @@ class HardSyncController extends Component {
 
     this.player.on(STALLED, this.onPlayerStalled);
     this.player.on(READY, this.onPlayerReadyToPlay);
-    this.player.playCurrent();
-    this.player.pauseCurrent();
+
     window.genericAppEvents.add(
       VISIBILITY_CHANGED,
       this.onAppVisibilityChanged
@@ -275,7 +274,7 @@ class HardSyncController extends Component {
 
     this.activateHeartBeatBroadcasting(
       mediaAction === "play" &&
-      this.getFirstClientInSyncSpace() === ownSocketIdVal
+        this.getFirstClientInSyncSpace() === ownSocketIdVal
     );
     if (mediaAction !== "play") return;
 
@@ -386,7 +385,7 @@ class HardSyncController extends Component {
       sharedRoomData.clients &&
       sharedRoomData.updateRequest.requester !== ownSocketId() &&
       sharedRoomData.updateRequest.hash !==
-      this.state.lastProcessedUpdateRequest
+        this.state.lastProcessedUpdateRequest
     ) {
       const needToAnswer =
         this.getFirstClientInSyncSpace(
