@@ -181,6 +181,8 @@ class ScriptSettings extends Component {
         const { errors } = this.state;
         const groupSize = [];
         const groupMix = [];
+        
+        
         groupSize.push({
             label: "2",
             value: "2"
@@ -207,7 +209,7 @@ class ScriptSettings extends Component {
             label: "Zufällig",
             value: "SHUFFLE"
         });
-
+console.log(this.props);
         return (
 
             <div>
@@ -278,6 +280,7 @@ class ScriptSettings extends Component {
                                 <select id="scriptType" type="select" ref={this.scriptTypeRef} className="form-control mr-sm-2"
                                     onChange={this.handleChange.bind(this)}
                                     readOnly={this.props.script.started}
+                                    defaultValue={this.props.script.scriptType}
                                 >
                                     <option
                                         value={SESSION_PEER_TEACHING}
@@ -292,6 +295,7 @@ class ScriptSettings extends Component {
             </option>
                                     <option
                                         value={SESSION_DEFAULT}
+                                       
                                         title="Uncontrolled video conversation without member limit."
                                         disabled={!scriptsEnabled}
                                     >
