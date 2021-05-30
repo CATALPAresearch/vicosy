@@ -71,12 +71,6 @@ class HardSyncController extends Component {
       this.readyToSync();
     }
 
-  
-
-    const { roomAvailable } = this.props.roomState;
-
-    // console.log("ROOM AVAILABLE", roomData);
-    if (roomAvailable) this.processPropsUpdate();
   }
 
   checkReadyToSyncAfterInitialPlay(time) {
