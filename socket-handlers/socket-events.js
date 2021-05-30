@@ -370,7 +370,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO, sharedConne
   clientSocket.on(
     "setSharedProperty",
     (roomId, property, value, clientBased) => {
-      //console.log("setSharedProperty", roomsData[roomId], property, value);
+      console.log("setSharedProperty", roomsData[roomId], property, value);
       if (!roomsData[roomId]) roomsData[roomId] = {};
 
       if (clientBased) {
