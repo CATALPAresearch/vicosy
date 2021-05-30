@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+  import { connect } from "react-redux";
 import React, { Component } from "react";
 import { setAsyncTime } from "../../../actions/localStateActions";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
