@@ -1,4 +1,4 @@
-  import { connect } from "react-redux";
+import { connect } from "react-redux";
 import React, { Component } from "react";
 import { setAsyncTime } from "../../../actions/localStateActions";
 import { TIME_UPDATE } from "../AbstractVideoEvents";
@@ -13,7 +13,7 @@ class AsyncController extends Component {
     console.log(this.props.localState);
     console.log(this.props.auth);
     this.onVideoTimeUpdate = this.onVideoTimeUpdate.bind(this);
-   
+
   }
 
   render() {
@@ -22,6 +22,7 @@ class AsyncController extends Component {
 
   // TODO: check if to submit position on play
   componentWillReceiveProps(nextProps) {
+ 
     if (!this.props.active && nextProps.active) {
       // we are now async
     } else if (this.props.active && !nextProps.active) {
@@ -55,6 +56,7 @@ class AsyncController extends Component {
   }
 
   componentDidMount() {
+
     this.props.onRef(this);
     window.sessionEvents.add(TIME_UPDATE, this.onVideoTimeUpdate);
   }
