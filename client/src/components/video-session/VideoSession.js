@@ -216,7 +216,7 @@ class VideoSession extends Component {
 
     const contentDocInteractionRequired = (
       <h1>
-        Continue to session{" "}
+        Zurück zur Sitzung{" "}
         <button
           onClick={() => {
             this.setState({ userReady: true });
