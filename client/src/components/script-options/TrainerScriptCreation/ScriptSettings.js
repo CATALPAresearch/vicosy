@@ -181,8 +181,8 @@ class ScriptSettings extends Component {
         const { errors } = this.state;
         const groupSize = [];
         const groupMix = [];
-        
-        
+
+
         groupSize.push({
             label: "2",
             value: "2"
@@ -209,7 +209,7 @@ class ScriptSettings extends Component {
             label: "Zufällig",
             value: "SHUFFLE"
         });
-console.log(this.props);
+        console.log(this.props);
         return (
 
             <div>
@@ -295,7 +295,7 @@ console.log(this.props);
             </option>
                                     <option
                                         value={SESSION_DEFAULT}
-                                       
+
                                         title="Uncontrolled video conversation without member limit."
                                         disabled={!scriptsEnabled}
                                     >
