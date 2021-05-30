@@ -57,6 +57,7 @@ class HardSyncController extends Component {
 
     // check if we joined a running session and need to request for an update
     const currentSyncAction = this.getCurrentSynchAction();
+    
 
     if (
       currentSyncAction != null &&
@@ -70,7 +71,6 @@ class HardSyncController extends Component {
     } else {
       this.readyToSync();
     }
-    this.readyToSync();
 
   }
 
