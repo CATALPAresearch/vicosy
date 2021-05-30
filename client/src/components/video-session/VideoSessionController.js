@@ -35,11 +35,11 @@ class VideoSessionController extends Component {
     this.onSeekRequest = this.onSeekRequest.bind(this);
     this.onPlayerApiInitialized = this.onPlayerApiInitialized.bind(this);
     this.updateRefs = this.updateRefs.bind(this);
- 
+
   }
 
   componentDidMount() {
-   
+
     this.player = this.props.playerRef.current;
     this.playback = this.props.playBackRef.current;
 
@@ -54,6 +54,10 @@ class VideoSessionController extends Component {
       PLAYER_API_INITIALIZED,
       this.onPlayerApiInitialized
     );
+    this.props.setSyncState(false);
+
+      this.onPlayRequest();
+    this.props.setSyncState(true);
   }
 
   componentWillUnmount() {
@@ -98,7 +102,7 @@ class VideoSessionController extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    
+
     const { roomAvailable, roomData } = nextProps.roomState;
 
     if (roomAvailable && roomData.state.sharedRoomData.meta) {
@@ -164,14 +168,14 @@ class VideoSessionController extends Component {
         />
 
         <DialogController />
-        
-        <RoomComponent
-            roomId={this.props.roomId}
-            component={ActivityOberserver}
-                      
-          />
 
-        
+        <RoomComponent
+          roomId={this.props.roomId}
+          component={ActivityOberserver}
+
+        />
+
+
       </span>
     );
 
