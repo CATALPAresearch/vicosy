@@ -57,7 +57,7 @@ class HardSyncController extends Component {
 
     // check if we joined a running session and need to request for an update
     const currentSyncAction = this.getCurrentSynchAction();
-    
+      
 
     if (
       currentSyncAction != null &&
@@ -143,6 +143,7 @@ class HardSyncController extends Component {
   }
 
   onPlayRequest() {
+    alert ("hier");
     // this.player.play(this.player.getCurrentTime());
     this.shareSyncAction("play", this.player.getCurrentTime());
   }
