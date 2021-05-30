@@ -57,20 +57,20 @@ class HardSyncController extends Component {
 
     // check if we joined a running session and need to request for an update
     const currentSyncAction = this.getCurrentSynchAction();
-    setTimeout(() => {
-      if (
-        currentSyncAction != null &&
-        Object.keys(this.getSharedRoomData().clients).length > 1
-      ) {
 
-        this.player.playCurrent();
-        setTimeout(() => {
-          this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
-        }, 100);
-      } else {
-        this.readyToSync();
-      }
-    }, 200);
+    if (
+      currentSyncAction != null &&
+      Object.keys(this.getSharedRoomData().clients).length > 1
+    ) {
+
+      this.player.playCurrent();
+      setTimeout(() => {
+        this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
+      }, 100);
+    } else {
+      this.readyToSync();
+    }
+
   }
 
   checkReadyToSyncAfterInitialPlay(time) {
@@ -143,6 +143,7 @@ class HardSyncController extends Component {
 
   onPlayRequest() {
     // this.player.play(this.player.getCurrentTime());
+    this.player.playCurrent();
     this.shareSyncAction("play", this.player.getCurrentTime());
   }
 
