@@ -58,9 +58,12 @@ class VideoSessionController extends Component {
     this.props.setSyncState(!this.props.localState.syncState.sync);
     
     
-    setTimeout(()=>this.props.setSyncState(()=> {
+    setTimeout(()=>{
       this.props.playerRef.current.playCurrent();
-      !this.props.localState.syncState.sync}), 400);
+      setTimeout (
+      this.props.setSyncState(!this.props.localState.syncState.sync), 200)
+
+      }, 400);
 
   }
 
