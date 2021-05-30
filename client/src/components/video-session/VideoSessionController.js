@@ -54,10 +54,7 @@ class VideoSessionController extends Component {
       PLAYER_API_INITIALIZED,
       this.onPlayerApiInitialized
     );
-    this.props.setSyncState(false);
 
-      this.onPlayRequest();
-    this.props.setSyncState(true);
   }
 
   componentWillUnmount() {

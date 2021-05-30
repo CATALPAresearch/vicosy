@@ -68,6 +68,7 @@ class HardSyncController extends Component {
     } else {
       this.readyToSync();
     }
+
   }
 
   checkReadyToSyncAfterInitialPlay(time) {

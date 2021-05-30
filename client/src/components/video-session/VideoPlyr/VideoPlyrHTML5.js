@@ -367,8 +367,7 @@ export default class VideoPlyrHTML5 extends Component {
   render() {
     return (
       <div>
-        <EvalLogger createRef={el => (this.evalLoggerRef = el)} />
-
+        
         <video
           poster="Video-Reel-and-Film-Canister2.png"
           id="player"
