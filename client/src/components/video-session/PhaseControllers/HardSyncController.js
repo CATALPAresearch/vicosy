@@ -44,11 +44,10 @@ class HardSyncController extends Component {
     this.props.onRef(this);
     this.player = this.props.playerRef.current;
     this.playBack = this.props.playBackRef.current;
-/*
+
     this.player.on(STALLED, this.onPlayerStalled);
     this.player.on(READY, this.onPlayerReadyToPlay);
-*/
-this.onPlayerReadyToPlay();
+
     window.genericAppEvents.add(
       VISIBILITY_CHANGED,
       this.onAppVisibilityChanged
