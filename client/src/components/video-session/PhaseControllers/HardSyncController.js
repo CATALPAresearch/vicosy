@@ -64,9 +64,11 @@ class HardSyncController extends Component {
       this.player.playCurrent();
       setTimeout(() => {
         this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
-      }, 500);
-    } else {
+      }, 100);
+    }
+    else {
       this.readyToSync();
+      alert ("hier");
     }
   }
 
@@ -274,7 +276,7 @@ class HardSyncController extends Component {
 
     this.activateHeartBeatBroadcasting(
       mediaAction === "play" &&
-        this.getFirstClientInSyncSpace() === ownSocketIdVal
+      this.getFirstClientInSyncSpace() === ownSocketIdVal
     );
     if (mediaAction !== "play") return;
 
@@ -385,7 +387,7 @@ class HardSyncController extends Component {
       sharedRoomData.clients &&
       sharedRoomData.updateRequest.requester !== ownSocketId() &&
       sharedRoomData.updateRequest.hash !==
-        this.state.lastProcessedUpdateRequest
+      this.state.lastProcessedUpdateRequest
     ) {
       const needToAnswer =
         this.getFirstClientInSyncSpace(
