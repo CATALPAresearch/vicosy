@@ -40,7 +40,7 @@ export default function(state = initialState, action) {
           delete roomsToUpdate[roomIdToUpdate];
           setTimeout(() => {
             window.socketEvents.dispatch(ROOM_LEFT, roomIdToUpdate);
-          }, 100);
+          }, 200);
         }
       } else if (subscribed) {
         if (!(roomIdToUpdate in state.rooms))
@@ -56,7 +56,7 @@ export default function(state = initialState, action) {
               roomsToUpdate[roomIdToUpdate].state
             );
             console.log("dispatch room joined", roomIdToUpdate);
-          }, 100);
+          }, 200);
         } else if (updateType === "sharedRoomData") {
           var roomState = roomsToUpdate[roomIdToUpdate].state;
           roomsToUpdate[roomIdToUpdate].state = {
