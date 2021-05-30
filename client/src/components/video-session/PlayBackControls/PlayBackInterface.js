@@ -196,7 +196,7 @@ class PlayBackInterface extends Component {
   onPlayClick() {
     // console.log("PLAY");
     this.observable.dispatch(PLAY_REQUEST);
-  //  this.evalLoggerRef.logToEvaluation(this.constructor.name, PLAY_VIDEO, "");
+    this.evalLoggerRef.logToEvaluation(this.constructor.name, PLAY_VIDEO, "");
 
   }
 
@@ -204,7 +204,7 @@ class PlayBackInterface extends Component {
     // console.log("STOP");
     
     this.observable.dispatch(PAUSE_REQUEST);
-  //  this.evalLoggerRef.logToEvaluation(this.constructor.name, STOP_VIDEO, "");
+    this.evalLoggerRef.logToEvaluation(this.constructor.name, STOP_VIDEO, "");
   }
 
   onVideoVolumeChange() {
