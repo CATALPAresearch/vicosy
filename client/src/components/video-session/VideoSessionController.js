@@ -54,7 +54,7 @@ class VideoSessionController extends Component {
       PLAYER_API_INITIALIZED,
       this.onPlayerApiInitialized
     );
-
+console.log(this.props.roomState);
   }
 
   componentWillUnmount() {

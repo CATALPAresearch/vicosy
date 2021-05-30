@@ -70,6 +70,7 @@ class HardSyncController extends Component {
     } else {
       this.readyToSync();
     }
+    this.readyToSync();
 
   }
 
