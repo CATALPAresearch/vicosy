@@ -179,7 +179,7 @@ module.exports = function handleSocketEvents(clientSocket, socketIO, sharedConne
         errorCode: roomId,
         errorPayload: {
           roomReject: true,
-          reason: `Session ${roomId} does not exist anymore.`,
+          reason: `Session ${roomId} existiert nicht mehr. Aktualisiere die Seite, um sie wiederherzustellen. `,
           roomId: roomId
         }
       });

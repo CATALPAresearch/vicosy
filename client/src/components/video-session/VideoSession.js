@@ -119,8 +119,8 @@ class VideoSession extends Component {
 
 
   _handleKeyDown = (event) => {
-
-    this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, event.keyCode);
+    if (this.evalLoggerRef)
+      this.evalLoggerRef.logToEvaluation(this.constructor.name, KEY_CLICK, event.keyCode);
     this.props.logDocs(this.props.auth.user.id, this.props.match.params.sessionId, this.props.docs);
 
 
@@ -211,7 +211,7 @@ class VideoSession extends Component {
      else
        this.normalLayout();*/
     //console.log(this.props);
-   
+
     const { sessionId } = this.props.match.params;
 
     const contentDocInteractionRequired = (
@@ -235,8 +235,8 @@ class VideoSession extends Component {
       this.state.sessionMeta.sessionType !== sessionTypes.SESSION_DEFAULT;
 
     const contentDataAvailable = (
-      
-      <div id={this.props.assistent.active&&requiresCollaborationBar ? "ContainerAssistent" : "Container"
+
+      <div id={this.props.assistent.active && requiresCollaborationBar ? "ContainerAssistent" : "Container"
       }>
         <RoomContextDataProvider roomId={sessionId}>
           {/* <RoomComponent roomId={sessionId} component={P2PController} /> */}
