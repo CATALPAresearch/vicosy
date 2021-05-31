@@ -17,8 +17,6 @@ export const loginRoom = roomId => dispatch => {
   subscribeToRoom(
     roomId,
     update => {
-     
-
       // {roomId: roomId, subscribedToRoom: true/false}
       dispatch({
         type: UPDATE_ROOM,
