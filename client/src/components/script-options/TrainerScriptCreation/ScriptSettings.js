@@ -12,6 +12,7 @@ import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { updateScriptProp, getScriptById } from "../../../actions/scriptActions";
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
+import classnames from "classnames";
 
 
 
@@ -48,6 +49,10 @@ class ScriptSettings extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.scriptNameUpdate(nextProps);
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
+
+        }
     }
 
     scriptHasId() {
@@ -241,11 +246,15 @@ class ScriptSettings extends Component {
                             <div className="col-6 col-sm-8">
                                 <input
                                     id="scriptName"
-                                    value={this.props.script.scriptName}
+
                                     type="text"
-                                    className="form-control form-control-lg mr-sm-2"
+                                    className={classnames("form-control form-control-lg", {
+                                        "is-invalid": errors["scriptName"]
+                                    })}
                                     readOnly={this.props.script.started}
-                                    placeholder="Script Name"
+                                    placeholder={errors["scriptName"] ? errors["scriptName"] : "Scriptname"}
+
+                                    value={errors["scriptName"] ? null : this.props.script.scriptName}
                                     onChange={this.handleChange.bind(this)}
                                 />
                             </div>
@@ -256,14 +265,17 @@ class ScriptSettings extends Component {
                 </h4>
                             </div>
                             <div className="col-6 col-sm-8">
+
                                 <input
-                                    ref={this.props.script.urlInput}
                                     id="videourl"
-                                    value={this.props.script.videourl}
                                     type="text"
-                                    className="form-control form-control-lg mr-sm-2"
-                                    placeholder="Video URL"
+                                    className={classnames("form-control form-control-lg", {
+                                        "is-invalid": errors["videourl"]
+                                    })}
                                     readOnly={this.props.script.started}
+                                    placeholder={errors["videourl"] ? errors["videourl"] : "Video-Url"}
+
+                                    value={errors["videourl"] ? null : this.props.script.videourl}
                                     onChange={this.handleChange.bind(this)}
                                 />
 
@@ -280,7 +292,7 @@ class ScriptSettings extends Component {
                                 <select id="scriptType" type="select" ref={this.scriptTypeRef} className="form-control mr-sm-2"
                                     onChange={this.handleChange.bind(this)}
                                     readOnly={this.props.script.started}
-                                    >
+                                >
                                     <option
                                         value={SESSION_PEER_TEACHING}
                                         title={
@@ -289,7 +301,7 @@ class ScriptSettings extends Component {
                                                 : "Not available for guest accounts"
                                         }
                                         disabled={!scriptsEnabled}
-                                        selected={this.props.script.scriptType==SESSION_PEER_TEACHING}
+                                        selected={this.props.script.scriptType == SESSION_PEER_TEACHING}
                                     >
                                         Scripted Peer Teaching
             </option>
@@ -298,7 +310,7 @@ class ScriptSettings extends Component {
 
                                         title="Uncontrolled video conversation without member limit."
                                         disabled={!scriptsEnabled}
-                                        selected={this.props.script.scriptType==SESSION_DEFAULT}
+                                        selected={this.props.script.scriptType == SESSION_DEFAULT}
                                     >
                                         Free Video Conversation
             </option>
@@ -391,15 +403,19 @@ class ScriptSettings extends Component {
                 </h4>
                             </div>
                             <div className="col-6 col-sm-8">
+                         
                                 <input
                                     name="themes"
                                     id="themes"
-                                    placeholder="Frage für Gruppeneinteilung. Schülerantwort als Skala von 0-10"
-                                    errors={errors}
-                                    className="form-control form-control-lg mr-sm-2"
-                                    onChange={this.handleChange.bind(this)}
-                                    value={this.props.script.themes}
+                                    type="text"
+                                    className={classnames("form-control form-control-lg", {
+                                        "is-invalid": errors["themes"]
+                                    })}
                                     readOnly={this.props.script.started}
+                                    placeholder={errors["themes"] ? errors["themes"] : "Frage für Gruppeneinteilung. Schülerantwort als Skala von 0-10"}
+
+                                    value={errors["themes"] ? null : this.props.script.themes}
+                                    onChange={this.handleChange.bind(this)}
                                 />
                             </div>
                         </div>

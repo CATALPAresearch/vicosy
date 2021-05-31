@@ -17,12 +17,12 @@ module.exports = function validateScriptInput(data) {
 
 
   if (Validator.isEmpty(data.scriptName)) {
-    errors.scriptName = "Name field is required";
+    errors.scriptName = "Das Script muss einen Namen haben";
   }
 
 
-  if (!Validator.isLength(data.scriptName, { min: 2, max: 30 })) {
-    errors.scriptName = "Name must be between 2 and 30 characters";
+  if (!Validator.isLength(data.scriptName, { min: 2, max: 40 })) {
+    errors.scriptName = "Name muss von 2 bis 40 Zeichen haben";
   }
   if (Validator.isEmpty(data.scriptType)) {
     errors.scriptType = "Scripttype field is required";
@@ -33,7 +33,7 @@ module.exports = function validateScriptInput(data) {
   }
 
   if (Validator.isEmpty(data.videourl)) {
-    errors.videourl = "videourl field is required";
+    errors.videourl = "Url eines Videos muss angegeben werden";
   }
   if (Validator.isEmpty(data.groupMix)) {
     errors.groupMix = "groupMix field is required";
@@ -62,7 +62,7 @@ module.exports = function validateScriptInput(data) {
 
 
   if (Validator.isEmpty(data.themes)) {
-    errors.warning = "Themes field is required";
+    errors.themes = "Es muss eine Frage angegeben werden.";
   }
 
 

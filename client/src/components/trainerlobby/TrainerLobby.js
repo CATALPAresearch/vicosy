@@ -4,6 +4,8 @@ import RoomComponent from "../controls/RoomComponent";
 import TrainerSessionList from "../video-session/TrainerSessionList";
 import ScriptListElement from "./ScriptListElement";
 import { getScriptsByUserId, deleteAllScripts, deleteScript, clearScript } from "../../actions/scriptActions"
+import { clearError} from "../../actions/errorActions"
+
 import { Link } from "react-router-dom";
 import "./TrainerLobby.css";
 import Logger from "../logic-controls/Logger";
@@ -32,9 +34,23 @@ class TrainerLobby extends Component {
     this.setState({ scripts: newscripts });
   }
 
+
+  componentDidMount () {
+    this.clearErrors();
+  }
+  componentDidUpdate() {
+    this.clearErrors();
+
+  }
   handleCLick(e) {
     const { value } = e.target;
     this.props.history.push("/newtrainerscript/?" + value);
+  }
+  clearErrors () {
+    this.props.clearError("scriptName");
+    this.props.clearError("videourl");
+    this.props.clearError("themes");
+    
   }
 
   deleteScript(e) {
@@ -128,6 +144,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getScriptsByUserId, deleteAllScripts, deleteScript, clearScript },
+  { getScriptsByUserId, deleteAllScripts, deleteScript, clearScript, clearError },
   null
 )(TrainerLobby);

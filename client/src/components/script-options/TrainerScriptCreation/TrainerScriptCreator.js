@@ -42,7 +42,7 @@ class TrainerScriptCreator extends Component {
     this.props.updateScriptProp({ userId: this.props.auth.user.id })
     //gets Script if ID in URL-Params
     this.setScript();
-    
+
   }
 
   componentDidMount() {
@@ -51,6 +51,9 @@ class TrainerScriptCreator extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.scriptNameUpdate(nextProps);
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+      }
   }
 
   scriptHasId() {
@@ -227,7 +230,7 @@ class TrainerScriptCreator extends Component {
         </ul>
         {this.state.settings ?
           <ScriptSettings
-          
+
           ></ScriptSettings> : <Members
             _id={this.props.script._id}
           />
