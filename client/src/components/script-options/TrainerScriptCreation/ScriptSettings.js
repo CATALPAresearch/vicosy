@@ -280,8 +280,7 @@ class ScriptSettings extends Component {
                                 <select id="scriptType" type="select" ref={this.scriptTypeRef} className="form-control mr-sm-2"
                                     onChange={this.handleChange.bind(this)}
                                     readOnly={this.props.script.started}
-                                    defaultValue={this.props.script.scriptType}
-                                >
+                                    >
                                     <option
                                         value={SESSION_PEER_TEACHING}
                                         title={
@@ -290,6 +289,7 @@ class ScriptSettings extends Component {
                                                 : "Not available for guest accounts"
                                         }
                                         disabled={!scriptsEnabled}
+                                        selected={this.props.script.scriptType==SESSION_PEER_TEACHING}
                                     >
                                         Scripted Peer Teaching
             </option>
@@ -298,6 +298,7 @@ class ScriptSettings extends Component {
 
                                         title="Uncontrolled video conversation without member limit."
                                         disabled={!scriptsEnabled}
+                                        selected={this.props.script.scriptType==SESSION_DEFAULT}
                                     >
                                         Free Video Conversation
             </option>

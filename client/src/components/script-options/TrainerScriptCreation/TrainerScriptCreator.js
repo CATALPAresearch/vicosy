@@ -226,7 +226,9 @@ class TrainerScriptCreator extends Component {
 
         </ul>
         {this.state.settings ?
-          <ScriptSettings></ScriptSettings> : <Members
+          <ScriptSettings
+          
+          ></ScriptSettings> : <Members
             _id={this.props.script._id}
           />
         }
