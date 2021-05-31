@@ -74,7 +74,7 @@ class HardSyncController extends Component {
 
     setTimeout(() => {
       this.player.playCurrent();
- 
+      this.player.pauseCurrent();
 
     }, 200);
 
