@@ -9,6 +9,7 @@ import {
   SESSION_PEER_TEACHING
 } from "../../../shared_constants/sessionTypes";
 import { updateScriptProp, createScript, updateScript, getScriptById, mixGroups, deleteAllScripts, startScript } from "../../../actions/scriptActions";
+import { clearError } from "../../../actions/errorActions"
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
 import Members from "./Members";
@@ -49,11 +50,18 @@ class TrainerScriptCreator extends Component {
     this.scriptNameUpdate(this.props);
   }
 
+  clearErrors() {
+    this.props.clearError("scriptName");
+    this.props.clearError("videourl");
+    this.props.clearError("themes");
+
+  }
+
   componentWillReceiveProps(nextProps) {
     this.scriptNameUpdate(nextProps);
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
-      }
+    }
   }
 
   scriptHasId() {
@@ -62,12 +70,7 @@ class TrainerScriptCreator extends Component {
     else
       return true;
   }
-  showSaveMessageDelay() {
-    this.setState({ showSaveMessage: true })
-    setTimeout(() => this.setState({ showSaveMessage: false }), 2000);
 
-
-  }
 
 
   scriptNameUpdate(props) {
@@ -149,11 +152,15 @@ class TrainerScriptCreator extends Component {
     if (/*videourl && scriptName && themes && scriptType*/true) {
       if (!this.props.script._id) {
         console.log("new Script");
-        this.showSaveMessageDelay();
+        // this.showSaveMessageDelay();
 
         this.props.createScript(newScript, script => this.props.history.push({
           search: '?' + script._id
-        }), this.changeToGroups);
+        }), this.changeToGroups, () => {
+          this.setState({ showSaveMessage: true });
+          this.clearErrors();
+          setTimeout(() => this.setState({ showSaveMessage: false }), 2000);
+        });
 
       }
       else {
@@ -162,8 +169,11 @@ class TrainerScriptCreator extends Component {
         if (!isEmpty(this.props.script.groups))
           newScript.groups = this.props.script.groups
         console.log("update Script");
-        this.props.updateScript(newScript);
-        this.showSaveMessageDelay();
+        this.props.updateScript(newScript, () => {
+          this.setState({ showSaveMessage: true });
+          this.clearErrors();
+          setTimeout(() => this.setState({ showSaveMessage: false }), 2000);
+        });
 
       }
     } else {
@@ -292,7 +302,7 @@ TrainerScriptCreator.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { startScript, createScript, updateScript, updateScriptProp, getScriptById, mixGroups, deleteAllScripts },
+  { startScript, createScript, updateScript, updateScriptProp, getScriptById, mixGroups, deleteAllScripts, clearError },
   null
 )(TrainerScriptCreator);
 

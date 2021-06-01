@@ -8,10 +8,12 @@ import {
     SESSION_PEER_TEACHING
 } from "../../../shared_constants/sessionTypes";
 import SelectListGroup1 from "../../controls/SelectListGroup1";
+import ValidatedInputDisable from "../../controls/ValidatedInputDisable";
 import InputGroupWithButton from "../../controls/InputGroupWithButton";
 import { updateScriptProp, getScriptById } from "../../../actions/scriptActions";
 import isEmpty from "../../controls/is-empty";
 import store from "../../../store";
+
 import classnames from "classnames";
 
 
@@ -41,10 +43,12 @@ class ScriptSettings extends Component {
         //gets Script if ID in URL-Params
         this.setScript();
 
+
     }
 
     componentDidMount() {
         this.scriptNameUpdate(this.props);
+        this.setState({ errors: this.props.errors });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -244,19 +248,17 @@ class ScriptSettings extends Component {
                                 Script name
           </h4></div>
                             <div className="col-6 col-sm-8">
-                                <input
+                                <ValidatedInputDisable
                                     id="scriptName"
-
-                                    type="text"
-                                    className={classnames("form-control form-control-lg", {
-                                        "is-invalid": errors["scriptName"]
-                                    })}
-                                    readOnly={this.props.script.started}
-                                    placeholder={errors["scriptName"] ? errors["scriptName"] : "Scriptname"}
-
-                                    value={errors["scriptName"] ? null : this.props.script.scriptName}
+                                    errors={errors}
                                     onChange={this.handleChange.bind(this)}
+                                    valueProvider={this.state}
+                                    placeHolder="Name des Scripts"
+                                    value={this.props.script.scriptName}
+                                    readOnly={this.props.script.started}
                                 />
+
+
                             </div>
                             <div className="w-100"></div>
                             <div className="col-6 col-sm-3">
@@ -266,18 +268,17 @@ class ScriptSettings extends Component {
                             </div>
                             <div className="col-6 col-sm-8">
 
-                                <input
-                                    id="videourl"
-                                    type="text"
-                                    className={classnames("form-control form-control-lg", {
-                                        "is-invalid": errors["videourl"]
-                                    })}
-                                    readOnly={this.props.script.started}
-                                    placeholder={errors["videourl"] ? errors["videourl"] : "Video-Url"}
 
-                                    value={errors["videourl"] ? null : this.props.script.videourl}
+                                <ValidatedInputDisable
+                                    id="videourl"
+                                    errors={errors}
                                     onChange={this.handleChange.bind(this)}
+                                    valueProvider={this.state}
+                                    placeHolder="Video-Url"
+                                    value={this.props.script.videourl}
+                                    readOnly={this.props.script.started}
                                 />
+
 
                             </div>
 
@@ -292,6 +293,7 @@ class ScriptSettings extends Component {
                                 <select id="scriptType" type="select" ref={this.scriptTypeRef} className="form-control mr-sm-2"
                                     onChange={this.handleChange.bind(this)}
                                     readOnly={this.props.script.started}
+                                    disabled={this.props.script.started}
                                 >
                                     <option
                                         value={SESSION_PEER_TEACHING}
@@ -332,7 +334,7 @@ class ScriptSettings extends Component {
                                     value={this.props.script.phase0Assignment}
                                     onChange={this.handleChange.bind(this)}
                                     onCheckboxChange={this.handleCheckboxChange.bind(this)}
-                                    placeholder="Gib hier den Arbeitsauftag ein!"
+                                    placeholder="Gib hier den Arbeitsauftrag ein!"
                                     disabled={!this.props.script.isPhase0}
                                     readOnly={this.props.script.started}
 
@@ -352,7 +354,7 @@ class ScriptSettings extends Component {
                                     idCheckbox="isPhase5"
                                     idTextfield="phase5Assignment"
                                     value={this.props.script.phase5Assignment}
-                                    placeholder="Gib hier den Arbeitsauftag ein!"
+                                    placeholder="Gib hier den Arbeitsauftrag ein!"
                                     errors={errors}
                                     onChange={this.handleChange.bind(this)}
                                     onCheckboxChange={this.handleCheckboxChange.bind(this)}
@@ -365,7 +367,7 @@ class ScriptSettings extends Component {
                             <div className="col-6 col-sm-3">
                                 <h4 htmlFor="gruppengroesse">
                                     Gruppengröße
-                </h4>
+                                </h4>
                             </div>
                             <div className="col-6 col-sm-8">
                                 <SelectListGroup1
@@ -403,20 +405,16 @@ class ScriptSettings extends Component {
                 </h4>
                             </div>
                             <div className="col-6 col-sm-8">
-                         
-                                <input
-                                    name="themes"
+                                <ValidatedInputDisable
                                     id="themes"
-                                    type="text"
-                                    className={classnames("form-control form-control-lg", {
-                                        "is-invalid": errors["themes"]
-                                    })}
-                                    readOnly={this.props.script.started}
-                                    placeholder={errors["themes"] ? errors["themes"] : "Frage für Gruppeneinteilung. Schülerantwort als Skala von 0-10"}
-
-                                    value={errors["themes"] ? null : this.props.script.themes}
+                                    errors={errors}
                                     onChange={this.handleChange.bind(this)}
+                                    valueProvider={this.state}
+                                    placeHolder="Frage für Gruppeneinteilung"
+                                    value={this.props.script.themes}
+                                    readOnly={this.props.script.started}
                                 />
+
                             </div>
                         </div>
                     </div>

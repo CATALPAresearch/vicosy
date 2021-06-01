@@ -1,4 +1,5 @@
 import axios from "axios";
+import { encodeBase64 } from "bcryptjs";
 import { removedScript, getSessions, scriptMembers, notifyMembers, subscribeToScriptSocket } from "../socket-handlers/api";
 import { SET_SESSION_ID, DELETE_MEMBER_FROM_SCRIPT, GET_ERRORS, UPDATE_SCRIPT_PROP, GET_SCRIPTS, SET_ACT_SCRIPT, CLEAR_SCRIPT, HOMOGEN, HETEROGEN, SHUFFLE, SET_GROUPS } from "./types";
 const skmeans = require("../../node_modules/skmeans");
@@ -175,12 +176,13 @@ export const deleteMemberFromScript = (member_id, script) => dispatch => {
 }
 
 //create Script and store it in db
-export const createScript = (scriptData, setScript, changeToGroups) => dispatch => {
+export const createScript = (scriptData, setScript, changeToGroups, cb) => dispatch => {
   console.log("create Script");
    axios
     .post("/api/script/newscript", scriptData)
     .then(res => {
       setScript(res.data);
+      cb();
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data
@@ -239,11 +241,12 @@ export const clearScript = () => dispatch => {
 }
 
 //update Script and store it in db
-export const updateScript = scriptData => dispatch => {
+export const updateScript = (scriptData, cb) => dispatch => {
 
   axios
     .post("/api/script/updatescript", scriptData)
     .then(res => {
+      cb();
       dispatch({
         type: SET_ACT_SCRIPT,
         payload: res.data

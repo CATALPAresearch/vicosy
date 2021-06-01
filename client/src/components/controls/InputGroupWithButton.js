@@ -56,6 +56,7 @@ export default class InputGroupWithButton extends Component {
           value={this.props.value}
           onChange={(e) => { this.updateMessage(e.target.value); onChangeCallBack(e); }}
           disabled={this.props.disabled || readOnly}
+          readOnly={readOnly}
         />
         {error && <div className="invalid-feedback">{error}</div>}
       </div>
