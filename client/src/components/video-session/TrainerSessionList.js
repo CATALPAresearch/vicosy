@@ -120,8 +120,8 @@ export class TrainerSessionList extends Component {
         {anyScripts ? <table className="table table-striped">
           <thead>
             <tr>
-              <th id="session-list" scope="col">Session</th>
-              <th scope="col">Members</th>
+              <th id="session-list" scope="col">Sitzung</th>
+              <th scope="col">Teilnehmer</th>
               <th scope="col">
                 {this.props.assistent.actInstruction ? this.props.assistent.active && this.props.assistent.actInstruction.markers === "join-session" ?
                   <HintArrow

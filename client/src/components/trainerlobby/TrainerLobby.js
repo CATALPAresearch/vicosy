@@ -91,7 +91,7 @@ class TrainerLobby extends Component {
       <div id="trainerlobby" className="container mt-4">
      
           <Logger roomId="trainerlobby" />
-          <h1>Trainerlobby</h1>
+          <h1>Scriptübersicht</h1>
           {<RoomComponent roomId="trainerlobby" component={TrainerSessionList} />}
           <Link to="/newtrainerscript" className="btn btn-lg primaryCol mr-2">
             Neues Script

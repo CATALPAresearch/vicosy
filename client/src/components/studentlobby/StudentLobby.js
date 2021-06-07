@@ -35,7 +35,7 @@ export class StudentLobby extends Component {
       <div id="studentlobby" className="container mt-4">
         <PhaseController createRef={el => (this.assistentControlRef = el)} />
         <Logger roomId="studentlobby" />
-        <h1>Studentlobby</h1>
+        <h1>Lobby</h1>
         <RoomComponent roomId="studentlobby"
           component={SessionList}
           actualize={this.actualize.bind(this)}
