@@ -311,6 +311,38 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
           }
             break;
           case HOMOGEN: {
+            
+            if ((members.length / groupSize) > Math.round(members.length / groupSize))
+              groupNumber = Math.round(members.length / groupSize) + 1;
+            else
+              groupNumber = Math.round(members.length / groupSize);
+
+
+
+            for (let i = 0; i < groupNumber; i++)
+              groups[i] = { _id: "", groupMembers: [] };
+
+            members.sort((a, b) => {
+              if (a.expLevel < b.expLevel)
+                return -1;
+              if (a.expLevel > b.expLevel)
+                return 1;
+              return 0;
+
+            })
+
+
+            var groupNr = 0;
+
+            for (let i = 0; i < members.length; i++) {
+                         
+              groups[groupNr].groupMembers.push(members[i]);
+              if (i%2 == 1) 
+              groupNr++;
+            
+            }
+
+            /*
             var expLevels = [];
 
 
@@ -353,7 +385,7 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
             }
 
-
+*/
             dispatch({
               type: SET_GROUPS,
               payload: groups
