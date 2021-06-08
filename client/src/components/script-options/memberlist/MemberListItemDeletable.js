@@ -3,18 +3,17 @@ import classnames from "classnames";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { deleteMemberFromScript } from "../../../actions/scriptActions"
-import { connect} from "react-redux";
+import { connect } from "react-redux";
 
 
 export class MemberListItemDeletable extends Component {
 
   deleteUser(e) {
+    this.props.deleteMemberFromScript(this.props.clientId, this.props.script);
 
-    this.props.deleteMemberFromScript(e.value, this.props.script);
   }
   render() {
     const clientId = this.props.clientId;
-
     return (
       <li value={clientId}
         key={clientId + "key"}
@@ -23,7 +22,7 @@ export class MemberListItemDeletable extends Component {
       >
         {this.props.name ? this.props.name : this.props._id} ({this.props.expLevel})
         {!this.props.script.started ?
-          <FontAwesomeIcon className="float-right" value={clientId} icon={faMinusCircle} onClick={e => { this.deleteUser(clientId) }} />
+          <div className="float-right" onClick={this.deleteUser.bind(this)} ><FontAwesomeIcon className="float-right" value={clientId} icon={faMinusCircle} /></div>
           : null
         }
       </li>

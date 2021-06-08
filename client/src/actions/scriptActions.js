@@ -152,16 +152,16 @@ export const startScript = (script) => dispatch => {
 
 // delete Member in Script 
 export const deleteMemberFromScript = (member_id, script) => dispatch => {
- 
-  for (let i = 0; i < script.participants.length; i++) {
-    if (script.participants[i].id === member_id)
+
+   for (let i = 0; i < script.participants.length; i++) {
+    if (script.participants[i]._id === member_id)
       script.participants.splice(i, 1);
 
   }
   if (script.groups)
     for (let group of script.groups) {
       for (let i = 0; i < group.groupMembers.length; i++) {
-        if (group.groupMembers[i].id === member_id)
+        if (group.groupMembers[i]._id === member_id)
           group.groupMembers.splice(i, 1);
 
       }
