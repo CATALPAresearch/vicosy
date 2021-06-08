@@ -264,7 +264,7 @@ export const updateScript = (scriptData, cb) => dispatch => {
 
 //build  
 export const mixGroups = (method, members, groupSize) => dispatch => {
-
+  var memberscopy=JSON.parse(JSON.stringify(members));
   if (!Array.isArray(members)) {
     let errors = { warning: "Typeerror, array as parameter expected" };
     dispatch({
@@ -318,11 +318,12 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
               groupNumber = Math.round(members.length / groupSize);
 
 
-
+       
             for (let i = 0; i < groupNumber; i++)
               groups[i] = { _id: "", groupMembers: [] };
 
-            members.sort((a, b) => {
+
+              memberscopy.sort((a, b) => {
               if (a.expLevel < b.expLevel)
                 return -1;
               if (a.expLevel > b.expLevel)
@@ -334,9 +335,9 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
             var groupNr = 0;
 
-            for (let i = 0; i < members.length; i++) {
+            for (let i = 0; i < memberscopy.length; i++) {
                          
-              groups[groupNr].groupMembers.push(members[i]);
+              groups[groupNr].groupMembers.push(memberscopy[i]);
               if (i%2 == 1) 
               groupNr++;
             
@@ -408,7 +409,7 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
             for (let i = 0; i < groupNumber; i++)
               groups[i] = { _id: "", groupMembers: [] };
 
-            members.sort((a, b) => {
+              memberscopy.sort((a, b) => {
               if (a.expLevel < b.expLevel)
                 return -1;
               if (a.expLevel > b.expLevel)
@@ -420,10 +421,10 @@ export const mixGroups = (method, members, groupSize) => dispatch => {
 
             var groupNr = 0;
 
-            for (let i = 0; i < members.length; i++) {
+            for (let i = 0; i < memberscopy.length; i++) {
               if (groupNr >= groupNumber)
                 groupNr = 0
-              groups[groupNr].groupMembers.push(members[i]);
+              groups[groupNr].groupMembers.push(memberscopy[i]);
               groupNr++;
 
             }
