@@ -25,13 +25,13 @@ export  class ToggleSwitchButton extends Component {
         </button>
         {this.props.assistent.actInstruction?this.props.assistent.active && (this.props.assistent.actInstruction.markers === "ok-understand" || this.props.assistent.actInstruction.markers === "ready-to-finish") ?
                 <HintArrow
-                  style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 1000 }}
+                  style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 6000 }}
                   direction="up"
                 /> : null:null}
               {this.props.assistent.incomingInstruction ?
                 this.props.assistent.incomingInstruction.markers === "toggle-switch" ?
                   <HintArrow
-                    style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 1000 }}
+                    style={{ position: "absolute", marginTop: 10, marginLeft: 60, zIndex: 6000 }}
                     direction="up"
               /> : null : null}
       </div>

@@ -18,6 +18,10 @@ module.exports = function validateRegisterInput(data) {
     errors.name = "Name field is required";
   }
 
+  if (Validator.contains(data.name, ".")) {
+    errors.name = "Dots are not allowed in the name field";
+  }
+
   if (Validator.isEmpty(data.email)) {
     errors.email = "Email field is required";
   }
