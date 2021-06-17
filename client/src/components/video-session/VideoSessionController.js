@@ -165,12 +165,12 @@ class VideoSessionController extends Component {
         />
 
         <DialogController />
+        {this.props.auth.user.role === STUDENT ?
+          <RoomComponent
+            roomId={this.props.roomId}
+            component={ActivityOberserver}
 
-        <RoomComponent
-          roomId={this.props.roomId}
-          component={ActivityOberserver}
-
-        />
+          /> : null}
 
 
       </span>
