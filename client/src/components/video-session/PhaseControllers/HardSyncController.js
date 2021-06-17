@@ -207,19 +207,19 @@ class HardSyncController extends Component {
     const { time, hash } = syncAction;
 
     // todo: works?
-    // this.player.once(TIME_UPDATE, () => {
-    //   setTimeout(() => {
-    //     this.checkAndUpdateReadyState(hash);
-    //   }, 200);
-    // });
-
+     this.player.once(TIME_UPDATE, () => {
+       setTimeout(() => {
+         this.checkAndUpdateReadyState(hash);
+       }, 200);
+     });
+/*
     this.player.pause(time, () => {
       console.log("paused hash", hash);
       // player has paused and frame is loaded and shown
-      setTimeout(() => {
       this.checkAndUpdateReadyState(hash);
-    }, 200);
     });
+
+    */
   }
 
   // updates my own readystate
