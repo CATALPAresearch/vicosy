@@ -216,7 +216,9 @@ class HardSyncController extends Component {
     this.player.pause(time, () => {
       console.log("paused hash", hash);
       // player has paused and frame is loaded and shown
+      setTimeout(() => {
       this.checkAndUpdateReadyState(hash);
+    }, 200);
     });
   }
 
