@@ -19,7 +19,7 @@ class HardSyncController extends Component {
 
     this.state = {
       lastProcessedSyncAction: { mediaAction: "", time: -1, hash: -1 },
-      readyState: { playerStalled: false, actionHash: "" },
+      readyState: { playerStalled: true, actionHash: "" },
       lastProcessedUpdateRequest: "",
       pendingUpdateRequest: false,
       readyToSync: false,
