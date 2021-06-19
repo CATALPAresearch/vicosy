@@ -64,7 +64,7 @@ class HardSyncController extends Component {
       Object.keys(this.getSharedRoomData().clients).length > 1
     ) {
 
-      this.props.playerRef.current.playCurrent();
+      this.player.playCurrent();
       setTimeout(() => {
         this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
       }, 100);
@@ -270,7 +270,7 @@ class HardSyncController extends Component {
   // handles play if all players are ready
   // precondition: player stopped on the corresponding time
   processSyncActionsByClientsState(syncAction) {
-    const { mediaAction, hash, sender } = syncAction;
+      const { mediaAction, hash, sender } = syncAction;
     const ownSocketIdVal = ownSocketId();
 
     // TODO: if heartbeatsender leaves => define other sender
@@ -304,8 +304,8 @@ class HardSyncController extends Component {
       } else allClientsReadyToPlay = false;
     }
 
-    if (this.player.isPaused() && allClientsReadyToPlay) {
-      this.props.playerRef.current.playCurrent();
+    if (allClientsReadyToPlay) {
+      this.player.playCurrent();
     } else if (!allClientsReadyToPlay && !this.player.isPaused())
       this.player.pauseCurrent();
   }
