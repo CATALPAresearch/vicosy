@@ -47,6 +47,8 @@ export default class VideoPlyrYouTube extends Component {
       console.log("Req to pause");
       this.player.pause();
     }
+    else
+      this.player.play();
   }
 
   isReadyToPlay() {
@@ -197,7 +199,7 @@ export default class VideoPlyrYouTube extends Component {
 
     this.player.on("statechange", e => {
       switch (e.detail.code) {
-      
+
         case -1:
           stop();
           break;
