@@ -64,7 +64,7 @@ class HardSyncController extends Component {
       Object.keys(this.getSharedRoomData().clients).length > 1
     ) {
 
-      this.player.play(this.player.getCurrentTime());
+      this.player.playCurrent();
       setTimeout(() => {
         this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
       }, 100);
@@ -143,7 +143,7 @@ class HardSyncController extends Component {
   }
 
   onPlayRequest() {
-    // this.player.play(this.player.getCurrentTime());
+    this.player.play(this.player.getCurrentTime());
     console.log("playrequest");
     this.shareSyncAction("play", this.player.getCurrentTime());
   }
@@ -305,7 +305,7 @@ class HardSyncController extends Component {
     }
 
     if (this.player.isPaused() && allClientsReadyToPlay) {
-      this.player.play(this.player.getCurrentTime());
+      this.player.playCurrent();
     } else if (!allClientsReadyToPlay && !this.player.isPaused())
       this.player.pauseCurrent();
   }
