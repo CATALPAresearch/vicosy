@@ -57,7 +57,7 @@ class HardSyncController extends Component {
 
     // check if we joined a running session and need to request for an update
     const currentSyncAction = this.getCurrentSynchAction();
-      
+
 
     if (
       currentSyncAction != null &&
@@ -270,7 +270,7 @@ class HardSyncController extends Component {
   // handles play if all players are ready
   // precondition: player stopped on the corresponding time
   processSyncActionsByClientsState(syncAction) {
-      const { mediaAction, hash, sender } = syncAction;
+    const { mediaAction, hash, sender } = syncAction;
     const ownSocketIdVal = ownSocketId();
 
     // TODO: if heartbeatsender leaves => define other sender
@@ -305,7 +305,6 @@ class HardSyncController extends Component {
     }
 
     if (this.player.isPaused() && allClientsReadyToPlay) {
-      alert ("hier");
       this.player.playCurrent();
     } else if (!allClientsReadyToPlay && !this.player.isPaused())
       this.player.pauseCurrent();
