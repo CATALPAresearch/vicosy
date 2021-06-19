@@ -145,6 +145,7 @@ class HardSyncController extends Component {
   onPlayRequest() {
     // this.player.play(this.player.getCurrentTime());
     console.log("playrequest");
+    this.props.playerRef.current.playCurrent();
     this.shareSyncAction("play", this.player.getCurrentTime());
   }
 
