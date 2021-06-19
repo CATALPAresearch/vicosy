@@ -303,7 +303,8 @@ class HardSyncController extends Component {
         if (actionHash !== hash || playerStalled) allClientsReadyToPlay = false;
       } else allClientsReadyToPlay = false;
     }
-
+    if (allClientsReadyToPlay)
+      alert("läuft");
     if (this.player.isPaused() && allClientsReadyToPlay) {
       this.player.playCurrent();
     } else if (!allClientsReadyToPlay && !this.player.isPaused())
