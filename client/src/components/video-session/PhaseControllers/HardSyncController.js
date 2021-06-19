@@ -57,8 +57,8 @@ class HardSyncController extends Component {
 
     // check if we joined a running session and need to request for an update
     const currentSyncAction = this.getCurrentSynchAction();
-      
-
+    this.player.playCurrent();      
+    this.player.pauseCurrent();
     if (
       currentSyncAction != null &&
       Object.keys(this.getSharedRoomData().clients).length > 1
