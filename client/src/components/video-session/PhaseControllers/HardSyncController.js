@@ -80,10 +80,10 @@ class HardSyncController extends Component {
       console.log("TIME BEFORE READY TO SYNC", time);
       this.readyToSync();
     }
-/* this bugfix for iPad?
+ // this bugfix for iPad?
     else
     this.readyToSync();
-*/
+
   }
 
   readyToSync() {
