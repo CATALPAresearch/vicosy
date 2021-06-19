@@ -304,7 +304,8 @@ class HardSyncController extends Component {
       } else allClientsReadyToPlay = false;
     }
 
-    if (allClientsReadyToPlay) {
+    if (this.player.isPaused() && allClientsReadyToPlay) {
+      alert ("hier");
       this.player.playCurrent();
     } else if (!allClientsReadyToPlay && !this.player.isPaused())
       this.player.pauseCurrent();
