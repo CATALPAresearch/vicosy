@@ -65,9 +65,10 @@ class HardSyncController extends Component {
     ) {
 
       this.player.playCurrent();
+      /*
       setTimeout(() => {
         this.player.on(TIME_UPDATE, this.checkReadyToSyncAfterInitialPlay);
-      }, 100);
+      }, 100);*/
     } else {
       this.readyToSync();
     }
