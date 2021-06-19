@@ -50,6 +50,7 @@ class TrainerScriptCreator extends Component {
     this.scriptNameUpdate(this.props);
   }
 
+  //clears errors
   clearErrors() {
     this.props.clearError("scriptName");
     this.props.clearError("videourl");
@@ -63,7 +64,7 @@ class TrainerScriptCreator extends Component {
       this.setState({ errors: nextProps.errors });
     }
   }
-
+//if script is already with id in db
   scriptHasId() {
     if (isEmpty(this.props.script._id))
       return false;
@@ -72,7 +73,7 @@ class TrainerScriptCreator extends Component {
   }
 
 
-
+//updates the name of the script
   scriptNameUpdate(props) {
     if (this.inputEdited) return;
 
@@ -85,6 +86,7 @@ class TrainerScriptCreator extends Component {
 
   }
 
+
   setScript() {
 
     if (this.props.location.search) {
@@ -96,16 +98,20 @@ class TrainerScriptCreator extends Component {
       this.props.deleteAllScripts();
     }
   }
+
+  //changes view
   changeToGroups() {
 
     this.setState({ settings: false });
     this.unsetSettings();
   };
 
+  //starts script, not editable afterwards
   startScript() {
     this.props.startScript(this.props.script);
   }
 
+  //checks if script is startable
   scriptStartable() {
     if (!this.props.script.participants)
       return false;
@@ -130,6 +136,8 @@ class TrainerScriptCreator extends Component {
       }
 
   }
+
+  //creates or updates script
   onSubmit(e) {
 
     e.preventDefault();

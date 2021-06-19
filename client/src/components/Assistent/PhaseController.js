@@ -16,6 +16,7 @@ export class PhaseController extends Component {
     this.state = { phase: {} };
   }
 
+  //gets actInstruction
   getActInstruction() {
     if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer])
       return this.props.assistent.phase.instructions[this.props.assistent.phase.pointer];
@@ -32,6 +33,7 @@ export class PhaseController extends Component {
   }
 
 
+  //sets phase
 
   setPhase(phase) {
     var actPhase = {};

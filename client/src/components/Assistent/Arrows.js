@@ -13,7 +13,7 @@ class Arrows extends Component {
     componentDidUpdate() {
         this.showArrow();
     }
-
+//shows Arrow so explain UI of VideoCollab, arrow are adressed by id
     showArrow() {
         var $icon = document.querySelector('.icon');
         var $arrow = document.querySelector('.newarrow');

@@ -32,7 +32,7 @@ class Assistent extends Component {
         this.evalLoggerRef = null;
 
     }
-
+    //Instruction ist actualized
 
     actualize() {
         //Das müsste noch gefixed werden, aber forceUpdate geht nicht!!
@@ -41,36 +41,40 @@ class Assistent extends Component {
 
     }
 
+    //Go to next instruction
+
     nextInstruction() {
         if (this.props.assistent.actInstruction)
             if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer + 1]) {
                 this.arrows = null;
                 this.props.nextInstruction();
 
-                this.evalLoggerRef.logToEvaluation(this.constructor.name, NEXT_INSTRUCTION, this.props.assistent.phase.instructions.length-this.props.assistent.phase.pointer-1);
+                this.evalLoggerRef.logToEvaluation(this.constructor.name, NEXT_INSTRUCTION, this.props.assistent.phase.instructions.length - this.props.assistent.phase.pointer - 1);
             }
 
 
     }
 
+    //Go to previous instruction
     previousInstruction() {
         this.arrows = null;
         if (this.props.assistent.actInstruction)
             if (this.props.assistent.phase.pointer > 0) {
                 this.props.previousInstruction();
                 this.evalLoggerRef.logToEvaluation(this.constructor.name, PREVIOUS_INSTRUCTION, "");
-            
+
 
             }
 
 
     }
-
+    // resets instruction in state
     resetInstructions() {
         this.props.setActInstruction(null);
         this.arrows = null;
     }
 
+    //returns the actual instruction
     getActInstruction() {
         this.arrows = null;
         if (this.props.assistent.phase.instructions[this.props.assistent.phase.pointer])
@@ -78,7 +82,7 @@ class Assistent extends Component {
         else return null;
     }
 
-
+    //set actual instruction as visible
     setActInstruction() {
         this.arrows = null;
         //this.props.setActInstruction(null);
@@ -89,6 +93,8 @@ class Assistent extends Component {
 
     }
 
+    //activate or inactivate assistent
+
     setAssistent(e) {
         // if (this.props.assistent.active)
         this.props.setActive(!this.props.assistent.active);
@@ -96,12 +102,14 @@ class Assistent extends Component {
     }
 
 
+    // deletes the incoming instruction from partner
+
     deleteIncomingInstruction() {
         this.actualize();
         this.props.setIncominginstruction(null);
     }
 
-
+    //key handle to navigate
     _handleKeyDown = (event) => {
 
         switch (event.keyCode) {
@@ -127,7 +135,7 @@ class Assistent extends Component {
 
 
     render() {
-       
+
         return (
             <div id="assistent" title="Ich bin dein Assistent und werde dich durch die Session führen. Du kannst mich ausschalten, indem du auf mich klickst.">
                 <div className="panel " id="laempel">
