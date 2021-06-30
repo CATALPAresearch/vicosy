@@ -11,12 +11,14 @@ export class Groups extends Component {
             { url: "" }
 
     }
+    // shows URL/QR-Code
     showLink = () => {
         this.setState({
             showUrl: true
         })
     }
 
+    // hides URL/QR-Code
     hideLink = () => {
         this.setState({
             showUrl: false

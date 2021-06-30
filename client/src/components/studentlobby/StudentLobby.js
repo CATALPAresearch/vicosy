@@ -22,8 +22,10 @@ export class StudentLobby extends Component {
       this.assistentControlRef.setPhase("EMPTYSTUDENTLOBBY")
 
   }
+
+  
   actualize() {
- this.props.script.scripts ? this.props.script.scripts.length > 0 ? this.assistentControlRef.setPhase(STUDENTLOBBY) :
+    this.props.script.scripts ? this.props.script.scripts.length > 0 ? this.assistentControlRef.setPhase(STUDENTLOBBY) :
       this.assistentControlRef.setPhase("EMPTYSTUDENTLOBBY") :
       this.assistentControlRef.setPhase("EMPTYSTUDENTLOBBY");
   }
