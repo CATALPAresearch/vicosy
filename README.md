@@ -51,6 +51,7 @@ Open "http://localhost:3000/" in a browser (Chrome or Firefox)
 
 ### provide environment
 
+#### For Local Database Use
 provide .env file with following content in root directory:
 
 ```
@@ -61,6 +62,9 @@ SSL_CERT="path/to/certificate"
 PORT=5000 // backend server port
 
 ```
+
+### For remote Database Use (Default)
+Database settings are stored in config/keys_dev.js
 
 ### seed
 On start Seed User will be created
