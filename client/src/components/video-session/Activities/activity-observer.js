@@ -75,7 +75,7 @@ export class ActivityOberserver extends Component {
     }
 
     testFunction() {
-      //  this.resetSelfTimer();
+        //  this.resetSelfTimer();
         clearTimeout(this.timeOut);
         this.timeOut = setTimeout(() => {
             clearInterval(this.interval);
@@ -104,7 +104,7 @@ export class ActivityOberserver extends Component {
 
 
     }
-
+    //shows hint after inactivity of User
     showHint() {
         let position = Math.floor(Math.random() * this.hints.instructions.length);
         if (this.hints.instructions.length > 0) {
@@ -138,6 +138,8 @@ export class ActivityOberserver extends Component {
 
 
     }
+
+    //shows Message when partner is inactive
     showMessage() {
         if (this.partner) {
             this.props.setIncominginstruction(new Instruction("Dein Partner " + this.partner + " ist seit über " + this.checkActiveMessageInterval / 1000 + " Sekunden inaktiv. Tritt mit ihm in Kontakt.", ""))
@@ -149,7 +151,7 @@ export class ActivityOberserver extends Component {
             this.props.setIncominginstruction(new Instruction("Dein Partner ist aktuell nicht in der Sitzung.", ""))
 
     }
-
+    //shows Message when partner changes tab
     sendTabLostMessage() {
         if (this.sessionId)
             if (this.props.rooms.rooms[this.sessionId]) {
@@ -159,12 +161,15 @@ export class ActivityOberserver extends Component {
             }
     }
 
+    //sends message that still active
+
     sendActiveMessage() {
         if (this.sessionId)
             if (this.props.rooms.rooms[this.sessionId])
                 this.props.sendActiveMessage(this.sessionId, this.props.auth.user.name, ownSocketId(), this.props.rooms.rooms[this.sessionId].state.sharedRoomData.clients);
     }
 
+    //resets timer while video playing
     onVideoTimeUpdate() {
         this.resetTimer(this.partner);
     }

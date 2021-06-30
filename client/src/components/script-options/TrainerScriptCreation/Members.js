@@ -26,6 +26,7 @@ export class Members extends Component {
     componentDidMount() {
         this.showUrl();
     }
+    //generates the adequate URL to share 
     showUrl() {
         let urlprocessed = "";
         let url = window.location.href.replace(window.location.pathname, "")

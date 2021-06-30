@@ -158,6 +158,7 @@ export const submitOpAPI = (delta, source) => {
 }
 */
 
+//subscribes to shared doc
 export const subscribeSharedDocAPI = (docId) => {
   socket.emit("startSharedDoc", docId);
 
@@ -233,7 +234,7 @@ export const unregisterFrom = (event, callback) => {
  */
 // connects doc to database
 
-
+//stores individual doc
 export const storeIndivDocApi = (text, docId) => {
   let content = {};
   content.text = text;
@@ -241,6 +242,7 @@ export const storeIndivDocApi = (text, docId) => {
   socket.emit("storeIndivDoc", content);
 };
 
+//stores shared doc
 export const storeSharedDocApi = (text, docId) => {
   let content = {};
   content.text = text;
@@ -280,7 +282,7 @@ export const notifyMembers = (script) => {
   socket.emit("notifyMembers", script);
 }
 
-
+//subscribes to script 
 export const subscribeToScriptSocket = (scriptId) => {
 
   socket.emit("subscribeToScriptSocket", scriptId);
@@ -289,6 +291,7 @@ export const subscribeToScriptSocket = (scriptId) => {
 
 };
 
+//listens to newly created scripts
 export const getNewScripts = (userId, callback) => {
   socket.on("newScript" + userId, script => callback);
 }

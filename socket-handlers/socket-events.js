@@ -49,7 +49,7 @@ const roomProcessors = {}; // room id => processor
 
 module.exports = function handleSocketEvents(clientSocket, socketIO, sharedConnection) {
 
-
+// initializes sessions when starting
   this.initSessions = function (callback) {
 
     ScriptDBApi.find({ started: true }).then(scripts => {

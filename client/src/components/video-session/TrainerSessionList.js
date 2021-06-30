@@ -12,6 +12,8 @@ export class TrainerSessionList extends Component {
     this.actualize = this.props.actualize;
 
   }
+
+  //sets scriptseesion
   setScript(scriptId, groupId) {
     this.props.getScriptByIdCallback(scriptId, () => {
       this.props.history.push(`/session/${groupId}`);

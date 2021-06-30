@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { connect} from "react-redux";
+import { connect } from "react-redux";
 import { getScriptById, subScribeToScript } from "../../../actions/scriptActions";
 import SelectListGroup1 from "../../controls/SelectListGroup1";
 import "./SubscribeToScript.css";
@@ -17,14 +17,17 @@ class SubscribeToScript extends Component {
       this.props.history.push("/login?" + this.props.match.params.scriptId);
 
   }
-
+  //handles any change in
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value, inputEdited: true });
   }
 
+  //returns to the lobby
   toStudentLobby() {
     this.props.history.push("/studentlobby");
   }
+
+  //subscribes to script
   onSubmit(e) {
 
     this.props.subScribeToScript(this.props.auth.user.id, this.props.auth.user.name, this.state.expLevel, this.props.script._id, this.props.auth.user.role, this.toStudentLobby.bind(this));

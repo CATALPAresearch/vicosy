@@ -86,7 +86,7 @@ class TrainerScriptCreator extends Component {
 
   }
 
-
+//sets script
   setScript() {
 
     if (this.props.location.search) {

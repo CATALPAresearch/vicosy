@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 
 export class MemberListItemDeletable extends Component {
-
+//deletes User
   deleteUser(e) {
     this.props.deleteMemberFromScript(this.props.clientId, this.props.script);
 
