@@ -5,11 +5,10 @@
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server-dev\" \"npm run client\"",
     "server-dev": "nodemon server.js",
     "server-prod": "node server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server-dev\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build -- prefix client",
     "server-forever": "forever start server.js"
   },

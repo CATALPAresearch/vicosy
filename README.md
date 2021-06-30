@@ -89,12 +89,19 @@ cd client
 npm run-script build
 ```
 
-### start backend & web server
+### start backend & web server in development mode
 
 From root directory:
 
 ```
 npm start
+```
+### start server for production
+
+From root directory:
+
+```
+npm run server-forever
 ```
 
 ## Authors
