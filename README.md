@@ -37,7 +37,7 @@ Starts backend server on port 5000 and development server (serves client assets)
 From root directory:
 
 ```
-npm run dev
+npm run server-dev
 ```
 
 Open "http://localhost:3000/" in a browser (Chrome or Firefox)
