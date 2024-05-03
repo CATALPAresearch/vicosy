@@ -1,4 +1,4 @@
-# Video Collaboration "VideoCollab"
+# vicosy: Synchronous Video Collaboration
 
 Website that allows synchronous video conversations and scripted video learning.
 
@@ -6,28 +6,19 @@ Website that allows synchronous video conversations and scripted video learning.
 
 The project contains a backend server and a client (folder "client")
 
-**Tester**
-(Notizen von Niels Seidel)
+**Test user**
 lehrer@lehrer.de   lehrer
 schueler@schueler.de schueler
 schueler@schueler2.de schueler
 
 ### Installing required npm packages of client and server
 
-From root directory:
 
 ```
 npm run client-install
 npm install
 npm audit fic
 
-```
-
-or via script:
-
-```
-npm run client-install
-npm install
 ```
 
 ### Development environment
@@ -106,8 +97,9 @@ npm run server-forever
 
 ## Authors
 
-- **Markus Hermes**
-- **Jost Fromhage**
+- Markus Hermes
+- Jost Fromhage
+- Niels Seidel
 
 ## License
 
